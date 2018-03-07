@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  user_id: 1
+  answer: MyText
+  palette: MyText
+  timer: 1
+  avg_time_for_game: 1
+  won_bool: false
+
+two:
+  user_id: 1
+  answer: MyText
+  palette: MyText
+  timer: 1
+  avg_time_for_game: 1
+  won_bool: false
