@@ -1,2 +1,126 @@
+<!DOCTYPE html>
+<html>
+<title></title>
+<head>
+</head>
+<body>
 <h1>Welcome#index</h1>
-<p>Find me in app/views/welcome/index.html.erb</p>
+<button onclick="getGame()">Start a new game</button>
+<div id="root" style="text-align: center; margin: auto">
+	<div id="answer" style="width:300px;height:300px;border:1px solid gray;text-align:center; margin: auto">
+		<div id="guess" style="width:100px;height:100px;border:1px solid gray;text-align:center; margin: auto; margin-top:100px;background-color: white"></div>
+	</div>
+
+	<div><p>This is your palette: (Click on one of the ends below, then click on one of the colors in this palette to add it to that end)</p></div>
+	<div id="palette"></div>
+	<div id="ends">
+		<div id="end1" style="width:100px;height:100px;border:1px solid gray;display:inline-block" onclick="makeSelectedDiv(this)"><p>I am end 1</p></div>
+		<div id="end2" style="width:100px;height:100px;border:1px solid gray;display:inline-block" onclick="makeSelectedDiv(this)"><p>I am end 2</p></div>
+	</div>
+</div>
+</body>
+<script>
+		answerRes = null;
+		selectedDiv = null;
+		
+		function getGame() {
+			var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+			var xhttp = new XMLHttpRequest();
+			xhttp.open("POST", "/games");
+			xhttp.setRequestHeader('X-CSRF-Token', csrfTok)
+			xhttp.onreadystatechange = function() {
+				if (this.readyState == 4 && this.status == 200) {
+					answerRes = JSON.parse(this.responseText);
+					colorAnswerDiv(answerRes);
+					createPalette(answerRes);
+				} // end if
+			} // end onreadystatechange
+			xhttp.send();
+		} // end function getGame()
+
+		function addColorsToPage() {
+			var root = document.getElementById("root");
+			var frag = document.createDocumentFragment();
+			for (var i = 0; i < colorsArr.length; i++) {
+				var divTemp = document.createElement('div');
+				divTemp.style.width = "100px";
+				divTemp.style.height = "100px";
+				divTemp.style.border = "1px solid gray";
+				divTemp.style.display = "inline-block";
+				divTemp.style.backgroundColor = colorsArr[i];
+				frag.appendChild(divTemp);
+			}
+			root.style.display = "none";
+			while(root.firstChild) root.removeChild(root.firstChild);
+			root.appendChild(frag);
+			root.style.display = "block";
+		}
+
+		function createPalette(ans) {
+			var palette = document.getElementById("palette");
+			colorsArr = [];
+			colorsArr.push(ans.answer.ends[0]);
+			colorsArr.push(ans.answer.ends[1]);
+			otherEnds = ans.otherEnds;
+			for (var i = 0; i < otherEnds.length; i++) {colorsArr.push(otherEnds[i][0]); colorsArr.push(otherEnds[i][1]);}
+			var frag = document.createDocumentFragment();
+			for (var i = 0; i < colorsArr.length; i++) {
+				var divTemp = document.createElement('div');
+				divTemp.style.width = "100px";
+				divTemp.style.height = "100px";
+				divTemp.style.border = "1px solid gray";
+				divTemp.style.display = "inline-block";
+				divTemp.style.backgroundColor = colorsArr[i];
+				divTemp.onclick = function() {selectColorForEnd(this);}
+				frag.appendChild(divTemp);
+			}
+			palette.style.display = "none";
+			while(palette.firstChild) palette.removeChild(palette.firstChild);
+			palette.appendChild(frag);
+			palette.style.display = "block";
+		}
+
+		function colorAnswerDiv(ans) {
+			answerDiv = document.getElementById("answer");
+			answerDiv.style.display = "none";
+			answerDiv.style.backgroundColor = ans.answer.selectedColor;
+			answerDiv.style.display = "block";
+		}
+
+		function makeSelectedDiv(divS) {
+			if (!selectedDiv) {
+				selectedDiv = divS;
+				divS.style.border = "5px solid black";
+			}
+			else if (selectedDiv === divS) {
+				selectedDiv = null;
+				divS.style.border = "1px solid gray";
+			}
+			else {
+				selectedDiv.style.border = "1px solid gray";
+				selectedDiv = divS;
+				selectedDiv.style.border = "5px solid black";
+			}
+		} // end function makeSelectedDiv(divS)
+
+		function selectColorForEnd(choice) {
+			var bkColor = choice.style.backgroundColor;
+			end1 = document.getElementById("end1");
+			end2 = document.getElementById("end2");
+			if (!!selectedDiv) {
+				selectedDiv.style.backgroundColor = bkColor;
+				selectedDiv.style.border = "1px solid gray";
+				selectedDiv = null;
+				if (!!end1.style.backgroundColor && !!end2.style.backgroundColor) createGradient();
+			}
+		} // end function selectColorForEnd(choice)
+
+		function createGradient() {
+			end1 = document.getElementById("end1");
+			end2 = document.getElementById("end2");
+			color1 = end1.style.backgroundColor;
+			color2 = end2.style.backgroundColor;
+		}
+
+	</script>	
+</html>

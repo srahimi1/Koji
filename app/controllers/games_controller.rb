@@ -1,14 +1,8 @@
 class GamesController < ApplicationController
   def create
-  	@user = User.where(username: params[:username])
-  	if @user
-	  	@game = Game.new(user_id: @user.id)
-  		@game.create_answer
-  		@game.create_palette
-  		@game.set_timer_intial
-  		@game.create_avg_time_for_game
-  		@game.save
-  	end
+	  	@game = Game.new
+  		response = @game.create_colors
+  		render json: response
   end
 
   def old
