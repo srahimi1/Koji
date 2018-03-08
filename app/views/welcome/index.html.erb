@@ -7,8 +7,9 @@
 <h1>Welcome#index</h1>
 <button onclick="getGame()">Start a new game</button>
 <div id="root" style="text-align: center; margin: auto">
+	<div style="width:500px;height:50px;margin:auto"><h1 id="you_won"></h1></div>
 	<div id="answer" style="width:300px;height:300px;border:1px solid gray;text-align:center; margin: auto">
-		<div id="guess" style="width:100px;height:100px;border:1px solid gray;text-align:center; margin: auto; margin-top:100px;background-color: white"></div>
+		<div id="guess" style="width:100px;height:100px;border:5px solid black;text-align:center; margin: auto; margin-top:100px;background-color: white;transition: border 0.5s;-webkit-transition: border 0.5s"></div>
 	</div>
 
 	<div><p>This is your palette: (Click on one of the ends below, then click on one of the colors in this palette to add it to that end)</p></div>
@@ -162,12 +163,14 @@
 
 		function checkGuess(col) {
 			color = col.id;
+			wonDiv = document.getElementById("you_won");
 			guessDiv = document.getElementById("guess");
 			guessDiv.style.backgroundColor = color
 			
 			answer = answerRes.answer.selectedColor;
 			console.log("this is answer: " + answer + " and this is your guess: "+ color)
-			if (answer.toUpperCase() === color.toUpperCase()) alert("You Won!");
-		}
+			if (answer.toUpperCase() === color.toUpperCase()) {wonDiv.style.display = "none"; wonDiv.innerHTML = "YOU WON!!!"; wonDiv.style.display = "block"; guessDiv.style.border = "0px solid gray";}
+			return true;
+		} // end function checkGuess(col)
 	</script>	
 </html>
