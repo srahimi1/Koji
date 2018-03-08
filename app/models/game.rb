@@ -2,7 +2,8 @@ class Game < ApplicationRecord
 
 	def create_colors
 		response = {}
-		response_answer = create_answer_color
+		steps = 15;
+		response_answer = create_answer_color(steps)
 		gradient_answer = response_answer[0]
 		color1_answer_hex = response_answer[1]
 		color2_answer_hex = response_answer[2]
@@ -11,17 +12,18 @@ class Game < ApplicationRecord
 		response["answer"]["ends"] = [color1_answer_hex,color2_answer_hex]
 		response["answer"]["selectedColor"] = gradient_answer[Random.new.rand(gradient_answer.length)]
 		response["otherEnds"] = other_ends
+		response["gradientSteps"] = steps;
 		return response
 	end
 
-	def create_answer_color
+	def create_answer_color(steps)
 		color_ends = []
 		2.times do 
 			color_ends.push(get_random_rgb_color)
 		end
 		color1_hex = "#%02X%02X%02X" % [color_ends[0][0],color_ends[0][1],color_ends[0][2]]
 		color2_hex = "#%02X%02X%02X" % [color_ends[1][0],color_ends[1][1],color_ends[1][2]]
-		gradient = create_gradient_from_two_colors(color_ends,15)
+		gradient = create_gradient_from_two_colors(color_ends,steps)
 		gradient.push(color1_hex)
 		gradient.unshift(color2_hex)
 		return [gradient, color1_hex, color2_hex, color_ends[0], color_ends[1]]

@@ -22,6 +22,7 @@
 <script>
 		answerRes = null;
 		selectedDiv = null;
+		gradientSteps = null;
 		
 		function getGame() {
 			var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
@@ -31,6 +32,9 @@
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
 					answerRes = JSON.parse(this.responseText);
+					gradientSteps = answerRes.gradientSteps;
+					console.log("the answer palette choices are:");
+					console.log(answerRes.answer.ends);
 					colorAnswerDiv(answerRes);
 					createPalette(answerRes);
 				} // end if
@@ -38,8 +42,8 @@
 			xhttp.send();
 		} // end function getGame()
 
-		function addColorsToPage() {
-			var root = document.getElementById("root");
+		function addColorsToPage(colorsArr) {
+			var ends = document.getElementById("ends");
 			var frag = document.createDocumentFragment();
 			for (var i = 0; i < colorsArr.length; i++) {
 				var divTemp = document.createElement('div');
@@ -48,12 +52,17 @@
 				divTemp.style.border = "1px solid gray";
 				divTemp.style.display = "inline-block";
 				divTemp.style.backgroundColor = colorsArr[i];
+				divTemp.id = colorsArr[i];
+				divTemp.onclick = function() {checkGuess(this);}
 				frag.appendChild(divTemp);
 			}
-			root.style.display = "none";
-			while(root.firstChild) root.removeChild(root.firstChild);
-			root.appendChild(frag);
-			root.style.display = "block";
+			ends.style.display = "none";
+			end2 = document.getElementById("end2");
+			while(!!end2.previousSibling && end2.previousSibling.id != "end1") ends.removeChild(end2.previousSibling);
+			
+			ends.insertBefore(frag, end2);
+			ends.style.display = "block";
+			return true;
 		}
 
 		function createPalette(ans) {
@@ -71,6 +80,7 @@
 				divTemp.style.border = "1px solid gray";
 				divTemp.style.display = "inline-block";
 				divTemp.style.backgroundColor = colorsArr[i];
+				divTemp.id = colorsArr[i];
 				divTemp.onclick = function() {selectColorForEnd(this);}
 				frag.appendChild(divTemp);
 			}
@@ -111,16 +121,53 @@
 				selectedDiv.style.backgroundColor = bkColor;
 				selectedDiv.style.border = "1px solid gray";
 				selectedDiv = null;
-				if (!!end1.style.backgroundColor && !!end2.style.backgroundColor) createGradient();
+				if (!!end1.style.backgroundColor && !!end2.style.backgroundColor) createGradient(gradientSteps);
 			}
+			return true;
 		} // end function selectColorForEnd(choice)
 
-		function createGradient() {
+		function createGradient(steps) {
 			end1 = document.getElementById("end1");
 			end2 = document.getElementById("end2");
-			color1 = end1.style.backgroundColor;
-			color2 = end2.style.backgroundColor;
-		}
+			color1 = getRGBComponents(end1.style.backgroundColor);
+			color2 = getRGBComponents(end2.style.backgroundColor);
+			gradient = [];
+			alpha = 0.0;
+			for (var i = 0; i < steps; i++) {
+				slice = [];
+				alpha = alpha + (1.0/steps);
+				slice[0] = Math.floor(color1[0] * alpha + (1-alpha) * color2[0]);
+				slice[1] = Math.floor(color1[1] * alpha + (1-alpha) * color2[1]);
+				slice[2] = Math.floor(color1[2] * alpha + (1-alpha) * color2[2]);
+				
+				slice[0] = slice[0].toString(16);
+				if (slice[0].length == 1) slice[0] = "0" + slice[0];
+				slice[1] = slice[1].toString(16);
+				if (slice[1].length == 1) slice[1] = "0" + slice[1];
+				slice[2] = slice[2].toString(16);
+				if (slice[2].length == 1) slice[2] = "0" + slice[2];
+				
+				hex = "#" +  slice[0] + slice[1] + slice[2];
+				gradient.push(hex);
+			}
+			return addColorsToPage(gradient.reverse());
+		} // end function createGradient(steps)
 
+		function getRGBComponents(color) {
+			color = color.replace("rgb(","");
+			color = color.replace(")","");
+			var colorArr = color.split(",");
+			return colorArr;
+		} // end function getRGBComponents(color)
+
+		function checkGuess(col) {
+			color = col.id;
+			guessDiv = document.getElementById("guess");
+			guessDiv.style.backgroundColor = color
+			
+			answer = answerRes.answer.selectedColor;
+			console.log("this is answer: " + answer + " and this is your guess: "+ color)
+			if (answer.toUpperCase() === color.toUpperCase()) alert("You Won!");
+		}
 	</script>	
 </html>
