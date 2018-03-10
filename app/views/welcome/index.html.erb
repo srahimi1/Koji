@@ -128,26 +128,27 @@
 			end2 = document.getElementById("end2");
 			color1 = getRGBComponents(end1.style.backgroundColor);
 			color2 = getRGBComponents(end2.style.backgroundColor);
-			gradient = [];
-			alpha = 0.0;
-			for (var i = 0; i < steps; i++) {
-				slice = [];
-				alpha = alpha + (1.0/steps);
-				slice[0] = Math.floor(color1[0] * alpha + (1-alpha) * color2[0]);
-				slice[1] = Math.floor(color1[1] * alpha + (1-alpha) * color2[1]);
-				slice[2] = Math.floor(color1[2] * alpha + (1-alpha) * color2[2]);
-				
-				slice[0] = slice[0].toString(16);
-				if (slice[0].length == 1) slice[0] = "0" + slice[0];
-				slice[1] = slice[1].toString(16);
-				if (slice[1].length == 1) slice[1] = "0" + slice[1];
-				slice[2] = slice[2].toString(16);
-				if (slice[2].length == 1) slice[2] = "0" + slice[2];
-				
-				hex = "#" +  slice[0] + slice[1] + slice[2];
-				gradient.push(hex);
-			}
-			return addColorsToPage(gradient.reverse());
+			if ( (answerRes.answer.ends[0] == getHexFromRGB(color1)) && (answerRes.answer.ends[1] == getHexFromRGB(color2)) ) {
+				return addColorsToPage(answerRes.answer.gradient.reverse());
+			} // end if
+			else if ( (answerRes.answer.ends[1] == getHexFromRGB(color1)) && (answerRes.answer.ends[0] == getHexFromRGB(color2)) ) {
+				return addColorsToPage(answerRes.answer.gradient);
+			} // end else if
+			else {
+				gradient = [];
+				alpha = 0.0;
+				for (var i = 0; i < steps; i++) {
+					var slice = [];
+					alpha += (1.0/steps);
+					slice[0] = Math.floor(color1[0] * alpha + (1-alpha) * color2[0]);
+					slice[1] = Math.floor(color1[1] * alpha + (1-alpha) * color2[1]);
+					slice[2] = Math.floor(color1[2] * alpha + (1-alpha) * color2[2]);
+					
+					var hex = getHexFromRGB([slice[0],slice[1],slice[2]])
+					gradient.push(hex);
+				} // end for loop
+				return addColorsToPage(gradient.reverse());
+			} // end else
 		} // end function createGradient(steps)
 
 		function getRGBComponents(color) {
@@ -156,6 +157,19 @@
 			var colorArr = color.split(",");
 			return colorArr;
 		} // end function getRGBComponents(color)
+
+		function getHexFromRGB(rgb) {
+				var slice = rgb;
+				slice[0] = slice[0].toString(16);
+				if (slice[0].length == 1) slice[0] = "0" + slice[0];
+				slice[1] = slice[1].toString(16);
+				if (slice[1].length == 1) slice[1] = "0" + slice[1];
+				slice[2] = slice[2].toString(16);
+				if (slice[2].length == 1) slice[2] = "0" + slice[2];
+				var hex = "#" +  slice[0] + slice[1] + slice[2];
+				return hex
+		} // end function getHexFromRGB(rgb)
+
 
 		function checkGuess(col) {
 			color = col.id;
