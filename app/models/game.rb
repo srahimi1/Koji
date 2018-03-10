@@ -12,7 +12,8 @@ class Game < ApplicationRecord
 		response["answer"]["ends"] = [color1_answer_hex,color2_answer_hex]
 		response["answer"]["selectedColor"] = gradient_answer[Random.new.rand(gradient_answer.length)]
 		response["otherEnds"] = other_ends
-		response["gradientSteps"] = steps;
+		response["gradientSteps"] = steps
+		response["mixedUpEnds"] = mix_up(color1_answer_hex, color2_answer_hex, other_ends)
 		return response
 	end
 
@@ -52,11 +53,17 @@ class Game < ApplicationRecord
 		return gradient
 	end
 
-	def shift_color(color, alpha)
+	def shift_color(color, alpha_arg)
 		slice = []
-		slice[0] = (1-alpha) * color[0]
-		slice[1] = (1-alpha) * color[1]
-		slice[2] = (1-alpha) * color[2]
+		rand_num = Random.new.rand(2)
+		alpha = (rand_num == 1) ? (0 - alpha_arg) : alpha_arg
+		factor = 1 + alpha
+		if (  ((factor * color[0]) > 255) || ((factor * color[1]) > 255) || ((factor * color[2]) > 255) )
+			factor = 1 - alpha
+		end
+		slice[0] = factor * color[0]
+		slice[1] = factor * color[1]
+		slice[2] = factor * color[2]
 		color_hex = "#%02X%02X%02X" % [slice[0],slice[1],slice[2]]
 		return color_hex
 	end
@@ -74,4 +81,28 @@ class Game < ApplicationRecord
 		return others
 	end
 
+	def mix_up(end1, end2, ends_arr)
+		temp_arr = []
+		ends_arr.length.times do |i|
+			temp_arr.push(ends_arr[i][0])
+			temp_arr.push(ends_arr[i][1])
+		end
+		temp_arr.push(end1)
+		temp_arr.push(end2)
+		ind_hash = {}
+		mixed_arr = []
+		temp_arr.length.times do |i|
+			ind_hash[i] = 1
+		end
+		random_number_maker = Random.new
+		len = ind_hash.length
+		while (len > 0) do
+			keys_arr = ind_hash.keys
+			random_number = random_number_maker.rand(keys_arr.length)
+			mixed_arr.push(temp_arr[keys_arr[random_number].to_i])
+			ind_hash.delete(keys_arr[random_number])
+			len = ind_hash.length
+		end
+		return mixed_arr.sort
+	end
 end
