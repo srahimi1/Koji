@@ -3,9 +3,8 @@
 <title></title>
 <head>
 </head>
-<body style="height:100%">
-<h1>Welcome#index</h1>
-<button onclick="getGame()">Start a new game</button>
+<body style="height:100%; padding: 0px;margin: 0">
+<h1 style="width:100%;height:1em; padding:0.1em;text-align: center;background-color: gray;font-size:4em; margin-top: 0px; color:white; box-shadow: 3px 3px 6px #aaaaaa">KO<span style="color:blue">J</span><span style="color:green">I</span></h1>
 <div id="root" style="margin: auto; height:100%">
 	<div style="width:500px;height:50px;margin:auto"><h1 id="you_won"></h1></div>
 	<div style="width:100%; height:30%;overflow: hidden; font-family: verdana, geneva, sans-serif; ">
@@ -14,6 +13,7 @@
 		<div id="answer" style="width:50%;height:60%; min-height: 150px; display: inline-block; background-color: #eef0f6;font-size: 0"></div><div id="guess" style="width:50%;height:60%; min-height: 150px; display: inline-block; background-color: #eef0f6;background-image: url('transparent_background.jpg');box-shadow: inset 2px 2px 10px #aaaaaa;font-size:0;transition: border 0.5s;-webkit-transition: border 0.5s">
 		</div>
 	</div>
+	<div style="text-align:center"><button style="font-size:2em;padding:.5em;margin-top: 1em" onclick="getGame()">Start a new game</button></div>
 	<div style="clear: both"><p>This is your palette: (Click on one of the ends below, then click on one of the colors in this palette to add it to that end)</p></div>
 	<div id="palette"></div>
 	<div id="ends">
@@ -30,6 +30,7 @@
 		webWorker = null;
 		startTime = null;
 		lastTime = 0;
+		intervalID = null;
 		xhttp = new XMLHttpRequest();
 		
 		function getGame() {
@@ -61,7 +62,7 @@
 				divTemp.style.display = "inline-block";
 				divTemp.style.backgroundColor = colorsArr[i];
 				divTemp.id = colorsArr[i];
-				divTemp.onclick = function() {checkGuess(this);}
+				divTemp.onclick = function() {checkGuess(this);};
 				frag.appendChild(divTemp);
 			}
 			ends.style.display = "none";
@@ -191,7 +192,8 @@
 			wonDiv = document.getElementById("you_won");
 			guessDiv = document.getElementById("guess");
 			guessDiv.style.backgroundColor = color
-			
+			guessDiv.style.backgroundImage = "none";
+			guessDiv.style.boxShadow = "none";
 			answer = answerRes.answer.selectedColor;
 			console.log("this is answer: " + answer + " and this is your guess: "+ color)
 			if (answer.toUpperCase() === color.toUpperCase()) {wonDiv.style.display = "none"; wonDiv.innerHTML = "YOU WON!!!"; wonDiv.style.display = "block"; guessDiv.style.border = "1px solid gray";}
@@ -203,7 +205,8 @@
 				if (!webWorker) {webWorker = new window.Worker("timer.js"); webWorker.onmessage = function(evt) {updateTimer(evt.data);} }
 			} // end if (!!window.Worker)
 			else {
-				setInterval(function() {updateTimer(null)},1000);
+				clearInterval(intervalID);
+				intervalID = setInterval(function() {updateTimer(null)},333);
 			} // end else
 		} // end function setupTimer()
 
@@ -225,7 +228,7 @@
 				timerEl.style.display = "none";
 				timerEl.innerHTML = displayTime;
 				timerEl.style.display = "block";
-			}
+			} // end else
 		} // end function updateTimer(time)
 
 	</script>	
