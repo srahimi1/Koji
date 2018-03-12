@@ -104,7 +104,7 @@ class Game < ApplicationRecord
 			ind_hash.delete(keys_arr[random_number])
 			len = ind_hash.length
 		end
-		mixed_arr.sort!
+		mixed_arr.sort_by! {|color| color.downcase }
 		return mixed_arr
 	end
 end
