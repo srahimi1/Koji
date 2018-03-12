@@ -1,18 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html style="height:100%">
 <title></title>
 <head>
 </head>
-<body>
+<body style="height:100%">
 <h1>Welcome#index</h1>
 <button onclick="getGame()">Start a new game</button>
-<div id="root" style="text-align: center; margin: auto">
+<div id="root" style="margin: auto; height:100%">
 	<div style="width:500px;height:50px;margin:auto"><h1 id="you_won"></h1></div>
-	<div id="answer" style="width:300px;height:300px;border:1px solid gray;text-align:center; margin: auto">
-		<div id="guess" style="width:100px;height:100px;border:5px solid black;text-align:center; margin: auto; margin-top:100px;background-color: white;transition: border 0.5s;-webkit-transition: border 0.5s"></div>
+	<div style="width:100%; height:30%;overflow: hidden; font-family: verdana, geneva, sans-serif; ">
+		<div style="display:inline-block;width:50%;text-align:center; font-size: 1.5em;border-bottom: 1px solid gray">This is the color you have to match</div><div style="display:inline-block;width:50%;text-align:center; font-size: 1.5em;border-bottom: 1px solid gray;">This is your guess</div>
+		<div id="timer" style="position:absolute; width:5em; padding:5px; background-color:gray; opacity:0.75; text-align:center; font-size:2em; margin-top:0px; left: 50%; margin-left: -2.5em"></div>
+		<div id="answer" style="width:50%;height:60%; min-height: 150px; display: inline-block; background-color: #eef0f6;font-size: 0"></div><div id="guess" style="width:50%;height:60%; min-height: 150px; display: inline-block; background-color: #eef0f6;background-image: url('transparent_background.jpg');box-shadow: inset 2px 2px 10px #aaaaaa;font-size:0;transition: border 0.5s;-webkit-transition: border 0.5s">
+		</div>
 	</div>
-
-	<div><p>This is your palette: (Click on one of the ends below, then click on one of the colors in this palette to add it to that end)</p></div>
+	<div style="clear: both"><p>This is your palette: (Click on one of the ends below, then click on one of the colors in this palette to add it to that end)</p></div>
 	<div id="palette"></div>
 	<div id="ends">
 		<div id="end1" style="width:100px;height:100px;border:1px solid gray;display:inline-block" onclick="makeSelectedDiv(this)"><p>I am end 1</p></div>
@@ -24,10 +26,14 @@
 		answerRes = null;
 		selectedDiv = null;
 		gradientSteps = null;
+		endsColored = {};
+		webWorker = null;
+		startTime = null;
+		lastTime = 0;
+		xhttp = new XMLHttpRequest();
 		
 		function getGame() {
 			var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-			var xhttp = new XMLHttpRequest();
 			xhttp.open("POST", "/games");
 			xhttp.setRequestHeader('X-CSRF-Token', csrfTok)
 			xhttp.onreadystatechange = function() {
@@ -38,6 +44,7 @@
 					console.log(answerRes.answer.ends);
 					colorAnswerDiv(answerRes);
 					createPalette(answerRes);
+					setupTimer();
 				} // end if
 			} // end onreadystatechange
 			xhttp.send();
@@ -91,7 +98,7 @@
 			answerDiv = document.getElementById("answer");
 			answerDiv.style.display = "none";
 			answerDiv.style.backgroundColor = ans.answer.selectedColor;
-			answerDiv.style.display = "block";
+			answerDiv.style.display = "inline-block";
 		}
 
 		function makeSelectedDiv(divS) {
@@ -106,48 +113,54 @@
 			else {
 				selectedDiv.style.border = "1px solid gray";
 				selectedDiv = divS;
-				selectedDiv.style.border = "5px solid black";
+				divS.style.border = "5px solid black";
 			}
 		} // end function makeSelectedDiv(divS)
 
 		function selectColorForEnd(choice) {
-			var bkColor = choice.style.backgroundColor;
-			end1 = document.getElementById("end1");
-			end2 = document.getElementById("end2");
+			var bkColor = choice.id;
 			if (!!selectedDiv) {
 				selectedDiv.style.backgroundColor = bkColor;
 				selectedDiv.style.border = "1px solid gray";
+				endsColored[selectedDiv.id] = true;
 				selectedDiv = null;
-				if (!!end1.style.backgroundColor && !!end2.style.backgroundColor) createGradient(gradientSteps);
+				if (endsColored["end1"] && endsColored["end2"]) createGradient(gradientSteps);
+				return true;
 			}
-			return true;
+			return false;
 		} // end function selectColorForEnd(choice)
 
 		function createGradient(steps) {
+			console.log("started test");
 			end1 = document.getElementById("end1");
 			end2 = document.getElementById("end2");
 			color1 = getRGBComponents(end1.style.backgroundColor);
 			color2 = getRGBComponents(end2.style.backgroundColor);
-			gradient = [];
-			alpha = 0.0;
-			for (var i = 0; i < steps; i++) {
-				slice = [];
-				alpha = alpha + (1.0/steps);
-				slice[0] = Math.floor(color1[0] * alpha + (1-alpha) * color2[0]);
-				slice[1] = Math.floor(color1[1] * alpha + (1-alpha) * color2[1]);
-				slice[2] = Math.floor(color1[2] * alpha + (1-alpha) * color2[2]);
-				
-				slice[0] = slice[0].toString(16);
-				if (slice[0].length == 1) slice[0] = "0" + slice[0];
-				slice[1] = slice[1].toString(16);
-				if (slice[1].length == 1) slice[1] = "0" + slice[1];
-				slice[2] = slice[2].toString(16);
-				if (slice[2].length == 1) slice[2] = "0" + slice[2];
-				
-				hex = "#" +  slice[0] + slice[1] + slice[2];
-				gradient.push(hex);
-			}
-			return addColorsToPage(gradient.reverse());
+			color1hex = getHexFromRGB(color1);
+			color2hex = getHexFromRGB(color2);
+			console.log(color1);
+			console.log(getHexFromRGB(color1));
+			if (  ((answerRes.answer.ends[0].toUpperCase() == color1hex.toUpperCase()) && (answerRes.answer.ends[1].toUpperCase() == color2hex.toUpperCase())) || ((answerRes.answer.ends[1].toUpperCase() == color1hex.toUpperCase() ) && (answerRes.answer.ends[0].toUpperCase() == color2hex.toUpperCase())) ) {
+				if (color1hex.toUpperCase() == answerRes.answer.gradient[0].toUpperCase())
+					return addColorsToPage(answerRes.answer.gradient);
+				else
+					return addColorsToPage(answerRes.answer.gradient.reverse());
+			} // end if
+			else {
+				gradient = [];
+				alpha = 0.0;
+				for (var i = 0; i < steps; i++) {
+					var slice = [];
+					alpha += (1.0/steps);
+					slice[0] = Math.floor(color1[0] * alpha + (1-alpha) * color2[0]);
+					slice[1] = Math.floor(color1[1] * alpha + (1-alpha) * color2[1]);
+					slice[2] = Math.floor(color1[2] * alpha + (1-alpha) * color2[2]);
+					
+					var hex = getHexFromRGB([slice[0],slice[1],slice[2]])
+					gradient.push(hex);
+				} // end for loop
+				return addColorsToPage(gradient.reverse());
+			} // end else
 		} // end function createGradient(steps)
 
 		function getRGBComponents(color) {
@@ -156,6 +169,22 @@
 			var colorArr = color.split(",");
 			return colorArr;
 		} // end function getRGBComponents(color)
+
+		function getHexFromRGB(rgb) {
+				var slice = [];
+				slice.push(parseInt(rgb[0]));
+				slice.push(parseInt(rgb[1]));
+				slice.push(parseInt(rgb[2]));
+				slice[0] = parseInt(slice[0]).toString(16);
+				if (slice[0].length == 1) slice[0] = "0" + slice[0];
+				slice[1] = parseInt(slice[1]).toString(16);
+				if (slice[1].length == 1) slice[1] = "0" + slice[1];
+				slice[2] = parseInt(slice[2]).toString(16);
+				if (slice[2].length == 1) slice[2] = "0" + slice[2];
+				var hex = "#" +  slice[0] + slice[1] + slice[2];
+				return hex
+		} // end function getHexFromRGB(rgb)
+
 
 		function checkGuess(col) {
 			color = col.id;
@@ -168,5 +197,36 @@
 			if (answer.toUpperCase() === color.toUpperCase()) {wonDiv.style.display = "none"; wonDiv.innerHTML = "YOU WON!!!"; wonDiv.style.display = "block"; guessDiv.style.border = "1px solid gray";}
 			return true;
 		} // end function checkGuess(col)
+	
+		function setupTimer() {
+			if (!!window.Worker) {
+				if (!webWorker) {webWorker = new window.Worker("timer.js"); webWorker.onmessage = function(evt) {updateTimer(evt.data);} }
+			} // end if (!!window.Worker)
+			else {
+				setInterval(function() {updateTimer(null)},1000);
+			} // end else
+		} // end function setupTimer()
+
+		function updateTimer(time) {
+			timerEl = document.getElementById("timer");
+			var time = time;
+			if (!time) {
+				var d = new Date();
+				time = d.getTime();
+			} // end if (!time)
+			if (!startTime) startTime = time;
+			if (time < lastTime) alert("Don't cheat!");
+			else {
+				var timeDiff = time - startTime;
+				var timeDiffInSec = Math.floor(timeDiff / 1000);
+				var minutes = Math.floor(timeDiffInSec / 60);
+				var seconds = timeDiffInSec % 60;
+				var displayTime = minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
+				timerEl.style.display = "none";
+				timerEl.innerHTML = displayTime;
+				timerEl.style.display = "block";
+			}
+		} // end function updateTimer(time)
+
 	</script>	
 </html>

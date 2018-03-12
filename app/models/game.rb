@@ -11,6 +11,7 @@ class Game < ApplicationRecord
 		response["answer"] = {}
 		response["answer"]["ends"] = [color1_answer_hex,color2_answer_hex]
 		response["answer"]["selectedColor"] = gradient_answer[Random.new.rand(gradient_answer.length)]
+		response["answer"]["gradient"] = gradient_answer
 		response["otherEnds"] = other_ends
 		response["gradientSteps"] = steps
 		response["mixedUpEnds"] = mix_up(color1_answer_hex, color2_answer_hex, other_ends)
@@ -103,6 +104,7 @@ class Game < ApplicationRecord
 			ind_hash.delete(keys_arr[random_number])
 			len = ind_hash.length
 		end
-		return mixed_arr.sort
+		mixed_arr.sort_by! {|color| color.downcase }
+		return mixed_arr
 	end
 end
