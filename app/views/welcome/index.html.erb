@@ -7,20 +7,19 @@
 <h1 style="width:100%;height:1em; padding:0.1em;text-align: center;background-color: gray;font-size:4em; margin-top: 0px; color:white; box-shadow: 6px 6px 6px #aaaaaa; z-index:4">KO<span style="color:blue">J</span><span style="color:green">I</span></h1>
 <div id="root" style="position:relative;margin: auto;">
 	<div id="endsPaletteContainer" style="position:absolute;width:100%;height:100%;background-color:ghostwhite;z-index:2;display:none"><div style="width:100%; text-align:center;"><p>These are the choices for the ends: (Once you choose a color for both ends, a gradient of colors will be created, and you can choose a color from that gradient)</p></div><div id="palette" style="width:100%;text-align: center"></div></div>
-	<div style="width:100%;height:1em;padding:0.5em;font-size:2em;margin:auto; text-align:center; overflow:hidden;"><h1 id="you_won"></h1></div>
 	<div style="position:relative;width:100%; height:100%;overflow: hidden; font-family: verdana, geneva, sans-serif; ">
-		<div style="position:absolute;width:100%;height:100%;background-color:white;opacity:0.75;display:none;"></div>
+		<div id="overlayMessageContainer" style="position:absolute;width:100%;height:100%;background-color:white;opacity:0.75;display:none;text-align:center"><p id="overlayMessageSpan" style="margin-top:3em;font-size:4em;font-family: verdana, geneva, sans-serif"></p></div>
 		<div style="display:inline-block;width:50%;text-align:center; font-size: 1.5em;border-bottom: 1px solid gray">This is the color you have to match</div><div style="display:inline-block;width:50%;text-align:center; font-size: 1.5em;border-bottom: 1px solid gray;">This is your guess</div>
 		<div id="timer" style="position:absolute; width:5em; padding:5px; background-color:gray; opacity:0.75; text-align:center; font-size:2em; margin-top:0px; left: 50%; margin-left: -2.5em"></div>
 		<div id="answer" style="width:50%;height:80%; min-height: 350px; display: inline-block; background-color: #eef0f6;font-size: 0"></div><div id="guess" style="width:50%;height:80%; min-height: 350px; display: inline-block; background-color: #eef0f6;background-image: url('transparent_background.jpg');box-shadow: inset 2px 2px 10px #aaaaaa;font-size:0;transition: border 0.5s;-webkit-transition: border 0.5s">
 		</div>
 	</div>
-	<div style="width:100%;text-align: center; font-size:5em"><span id="stars_count">0</span><img src="star.png"></div>
-	<div style="text-align:center"><button style="font-size:2em;padding:.5em;margin-top: 0.2em" onclick="getGame()">Start a new game</button></div>
+	<div style="width:100%;text-align: center; font-size:3em"><p style="display:inline-block; float:left"><span>Earned: </span><span id="stars_count" style="font-size:4em">0</span><img src="star.png"></p><p style="display:inline-block;">Stars</p><p style="display:inline-block; float:right"><span>Remaining: </span><span id="stars_remaining_count" style="font-size:4em">12</span><img src="star.png"></p></div>
+	<div style="clear: both;text-align:center"><button style="font-size:2em;padding:.5em;margin-top: 0.2em" onclick="getGame()">Start a new game</button></div>
 	<div id="choices" style="width:100%;height:175px;overflow-x:scroll;white-space: nowrap;clear: both; padding:0.5em; "></div>
 	<div id="ends" style="position:relative;width:100%;text-align:center;z-index:3; margin-top:1em">
-		<div id="end1" style="width:150px;height:150px;border:1px solid gray;display:inline-block" onclick="makeSelectedDiv(this)"><p>I am end 1</p></div>
-		<div id="end2" style="width:150px;height:150px;border:1px solid gray;display:inline-block;margin-left:10em" onclick="makeSelectedDiv(this)"><p>I am end 2</p></div>
+		<div id="end1" style="width:150px;height:150px;border:1px solid gray;display:inline-block; font-size:2em" onclick="makeSelectedDiv(this)"><p>End 1</p></div>
+		<div id="end2" style="width:150px;height:150px;border:1px solid gray;display:inline-block;font-size:2em;margin-left:10em" onclick="makeSelectedDiv(this)"><p>End 2</p></div>
 	</div>
 </div>
 </body>
@@ -33,8 +32,9 @@
 		startTime = null;
 		lastTime = 0;
 		intervalID = null;
-		starAddCount = 4;
 		totalStarCount = 0;
+		starsRemaining = 12;
+		previousMinute = 0;
 		xhttp = new XMLHttpRequest();
 		
 		function getGame() {
@@ -130,13 +130,14 @@
 		function selectColorForEnd(choice) {
 			var container = document.getElementById("endsPaletteContainer");
 			var bkColor = choice.id;
-			if (!!selectedDiv) {
+			if (!!selectedDiv && starsRemaining >= 2) {
 				selectedDiv.style.backgroundColor = bkColor;
 				selectedDiv.style.border = "1px solid gray";
 				endsColored[selectedDiv.id] = true;
 				selectedDiv = null;
 				if (endsColored["end1"] && endsColored["end2"]) createGradient(gradientSteps);
 				container.style.display = "none";
+				loseStars(2);
 				return true;
 			}
 			container.style.display = "none";
@@ -201,14 +202,15 @@
 
 		function checkGuess(col) {
 			color = col.id;
-			wonDiv = document.getElementById("you_won");
+			var messageContainer = document.getElementById("overlayMessageContainer");
+			var messageSpan = document.getElementById("overlayMessageSpan");
 			guessDiv = document.getElementById("guess");
 			guessDiv.style.backgroundColor = color
 			guessDiv.style.backgroundImage = "none";
 			guessDiv.style.boxShadow = "none";
 			answer = answerRes.answer.selectedColor;
 			console.log("this is answer: " + answer + " and this is your guess: "+ color)
-			if (answer.toUpperCase() === color.toUpperCase()) {wonDiv.style.display = "none"; wonDiv.innerHTML = "YOU WON!!!"; wonDiv.style.display = "block";}
+			if (answer.toUpperCase() === color.toUpperCase()) {if (!!webWorker) webWorker.terminate(); else clearInterval(intervalID); messageContainer.style.display = "none"; messageSpan.innerHTML = "YOU WON!!!"; messageContainer.style.display = "block";}
 			return true;
 		} // end function checkGuess(col)
 	
@@ -237,11 +239,25 @@
 				var minutes = Math.floor(timeDiffInSec / 60);
 				var seconds = timeDiffInSec % 60;
 				var displayTime = minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
+				if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
 				timerEl.style.display = "none";
 				timerEl.innerHTML = displayTime;
 				timerEl.style.display = "block";
 			} // end else
 		} // end function updateTimer(time)
+
+		function loseStars(decreaseBy) {
+			var stars_remaining = document.getElementById("stars_remaining_count"); 
+			starsRemaining -= decreaseBy; 
+			stars_remaining.innerHTML = starsRemaining;
+			if (decreaseBy == 1) {
+				var messageContainer = document.getElementById("overlayMessageContainer"); 
+				var messageSpan = document.getElementById("overlayMessageSpan"); 
+				messageSpan.innerHTML = "Just lost a star"; 
+				messageContainer.style.display="block"; 
+				setTimeout(function(){messageSpan.innerHTML = ""; messageContainer.style.display = "none";},2000);
+			} // end if (decreaseBy == 1)
+		} // end function loseStars()
 
 	</script>	
 </html>
