@@ -4,9 +4,9 @@
 <head>
 </head>
 <body style="height:100%; padding: 0px;margin: 0">
-<h1 style="width:100%;height:1em; padding:0.1em;text-align: center;background-color: gray;font-size:4em; margin-top: 0px; color:white; box-shadow: 3px 3px 6px #aaaaaa">KO<span style="color:blue">J</span><span style="color:green">I</span></h1>
+<h1 style="width:100%;height:1em; padding:0.1em;text-align: center;background-color: gray;font-size:4em; margin-top: 0px; color:white; box-shadow: 6px 6px 6px #aaaaaa">KO<span style="color:blue">J</span><span style="color:green">I</span></h1>
 <div id="root" style="margin: auto; height:100%">
-	<div style="width:500px;height:50px;margin:auto"><h1 id="you_won"></h1></div>
+	<div style="width:100%;height:50px;margin:auto; text-align:center; overflow:hidden;"><h1 id="you_won"></h1></div>
 	<div style="width:100%; height:30%;overflow: hidden; font-family: verdana, geneva, sans-serif; ">
 		<div style="display:inline-block;width:50%;text-align:center; font-size: 1.5em;border-bottom: 1px solid gray">This is the color you have to match</div><div style="display:inline-block;width:50%;text-align:center; font-size: 1.5em;border-bottom: 1px solid gray;">This is your guess</div>
 		<div id="timer" style="position:absolute; width:5em; padding:5px; background-color:gray; opacity:0.75; text-align:center; font-size:2em; margin-top:0px; left: 50%; margin-left: -2.5em"></div>
@@ -196,7 +196,7 @@
 			guessDiv.style.boxShadow = "none";
 			answer = answerRes.answer.selectedColor;
 			console.log("this is answer: " + answer + " and this is your guess: "+ color)
-			if (answer.toUpperCase() === color.toUpperCase()) {wonDiv.style.display = "none"; wonDiv.innerHTML = "YOU WON!!!"; wonDiv.style.display = "block"; guessDiv.style.border = "1px solid gray";}
+			if (answer.toUpperCase() === color.toUpperCase()) {wonDiv.style.display = "none"; wonDiv.innerHTML = "YOU WON!!!"; wonDiv.style.display = "block";}
 			return true;
 		} // end function checkGuess(col)
 	
