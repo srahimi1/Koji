@@ -23,7 +23,7 @@
 			<p style="display:inline-block; width:30%"><span>Remaining: </span><span id="stars_remaining_count">14</span><img style="vertical-align:middle" src="star.png"></p>
 		</div>
 		<div style="clear: both;text-align:center"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3.5em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">Start a new game</button></div>
-		<div id="choices" style="width:100%;height:175px;overflow-x:scroll;white-space: nowrap;clear: both; padding:0.5em; "></div>
+		<div id="choices" style="width:100%;height:175px;overflow-x:scroll;white-space: nowrap;clear: both; padding:0.5em; text-align: center"></div>
 		<div id="ends" style="position:relative;width:100%;text-align:center;z-index:3; margin-top:0.2em">
 			<div id="end1" style="width:150px;height:150px;border:1px solid gray;display:inline-block; font-size:2em; box-shadow: -1px 4px 3px #aaaaaa" onclick="makeSelectedDiv(this)"><p>End 1</p></div>
 			<div id="end2" style="width:150px;height:150px;border:1px solid gray;display:inline-block;font-size:2em;margin-left:10em; box-shadow: -1px 4px 3px #aaaaaa" onclick="makeSelectedDiv(this)"><p>End 2</p></div>
@@ -120,7 +120,7 @@
 				divTemp.style.display = "inline-block";
 				divTemp.style.marginRight = "0.2em";
 				divTemp.style.backgroundColor = colorsArr[i];
-				divTemp.id = colorsArr[i];
+				divTemp.id = colorsArr[i] + ":0";
 				divTemp.onclick = function() {checkGuess(this);};
 				frag.appendChild(divTemp);
 			}
@@ -256,7 +256,7 @@
 
 
 		function checkGuess(col) {
-			color = col.id;
+			color = col.id.split(":0")[0];
 			var messageContainer = document.getElementById("overlayMessageContainer");
 			var messageSpan = document.getElementById("overlayMessageSpan");
 			guessDiv = document.getElementById("guess");
@@ -265,7 +265,7 @@
 			guessDiv.style.boxShadow = "none";
 			answer = answerRes.answer.selectedColor;
 			console.log("this is answer: " + answer + " and this is your guess: "+ color)
-			if (answer.toUpperCase() === color.toUpperCase()) {if (!!webWorker) webWorker.terminate(); else clearInterval(intervalID); messageContainer.style.display = "none"; messageSpan.innerHTML = "YOU WON!!!"; messageContainer.style.display = "block";}
+			if ((answer.toUpperCase() === color.toUpperCase()) || getVarianceBetweenHexColors(answer,color,0.95))  {if (!!webWorker) webWorker.terminate(); else clearInterval(intervalID); messageContainer.style.display = "none"; messageSpan.innerHTML = "YOU WON!!!"; messageContainer.style.display = "block";}
 			return true;
 		} // end function checkGuess(col)
 	
@@ -317,6 +317,32 @@
 			} // end if (decreaseBy == 1)
 			return true;
 		} // end function loseStars()
+
+	
+		function getVarianceBetweenHexColors(color1,color2,varianceAllowed) {
+			var col1, col2, r, g, b, r1, r2, g1, g2, b1, b2, rless, rmore, gless, gmore, bless, bmore, variance = varianceAllowed;
+			if (color1[0] == "#") col1 = color1.split("#")[1];
+			else col1 = color1;
+			if (color2[0] == "#") col2 = color2.split("#")[1];
+			else col2 = color2;
+			r1 = parseInt(col1.substr(0,2), 16); 
+			r2 = parseInt(col2.substr(0,2), 16);
+			g1 = parseInt(col1.substr(2,2), 16);
+			g2 = parseInt(col2.substr(2,2), 16);
+			b1 = parseInt(col1.substr(4,2), 16);
+			b2 = parseInt(col2.substr(4,2), 16);
+			if (r1 < r2) {rless = r1; rmore = r2}
+			else {rless = r2; rmore = r1;}
+			if (g1 < g2) {gless = g1; gmore = g2}
+			else {gless = g2; gmore = g1;}
+			if (b1 < b2) {bless = b1; bmore = b2}
+			else {bless = b2; bmore = b1;}
+			if ((rless/rmore) >= variance) r = true;
+			if ((gless/gmore) >= variance) g = true;
+			if ((bless/bmore) >= variance) b = true;
+			if (r && g && b) return true;
+			else return false;
+		} // end function getVarianceBetweenHexColors(color1,color2,varianceAllowed)
 
 	</script>	
 </html>
