@@ -2,12 +2,12 @@ class Game < ApplicationRecord
 
 	def create_colors
 		response = {}
-		steps = 15;
+		steps = 9;
 		response_answer = create_answer_color(steps)
 		gradient_answer = response_answer[0]
 		color1_answer_hex = response_answer[1]
 		color2_answer_hex = response_answer[2]
-		other_ends = get_other_ends(response_answer[3],response_answer[4])
+		other_ends = get_other_ends(response_answer[3],response_answer[4],4)
 		response["answer"] = {}
 		response["answer"]["ends"] = [color1_answer_hex,color2_answer_hex]
 		response["answer"]["selectedColor"] = gradient_answer[Random.new.rand(gradient_answer.length)]
@@ -15,7 +15,7 @@ class Game < ApplicationRecord
 		response["otherEnds"] = other_ends
 		response["gradientSteps"] = steps
 		response["mixedUpEnds"] = mix_up(color1_answer_hex, color2_answer_hex, other_ends)
-		response["organizedEnds"] = organize_ends(other_ends)
+		response["organizedEnds"] = organize_ends([color1_answer_hex, color2_answer_hex], other_ends)
 		return response
 	end
 
@@ -43,7 +43,7 @@ class Game < ApplicationRecord
 		color1 = color_ends[0]
 		color2 = color_ends[1]
 		alpha = 0.0
-		(0...steps).each do |i|
+		steps.times do |i|
 			slice = []
 			alpha = alpha + (1.0/steps)
 			slice[0] = color1[0] * alpha + (1-alpha) * color2[0]
@@ -70,11 +70,12 @@ class Game < ApplicationRecord
 		return color_hex
 	end
 
-	def get_other_ends(color1, color2)
+	def get_other_ends(color1, color2, steps)
 		others = []
 		step = 0.0
-		8.times do
-			step = step + 0.1 
+		alpha = 1.0/steps
+		steps.times do
+			step = step + alpha  
 			temp = []
 			temp.push(shift_color(color1,step))
 			temp.push(shift_color(color2,step))
@@ -109,13 +110,14 @@ class Game < ApplicationRecord
 		return mixed_arr
 	end
 
-	def organize_ends(other)
+	def organize_ends(color_ans, other)
 		arr = []
 		other[0].length.times do |i|
 			temp_arr = []
 			other.length.times do |j|
 				temp_arr.push(other[j][i])
 			end
+			temp_arr.push(color_ans[i])
 			temp_arr.sort_by! {|color| color.downcase}
 			temp_arr.length.times do |j|
 				arr.push(temp_arr[j])
