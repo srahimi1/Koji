@@ -134,7 +134,8 @@
 
 		function createPalette(ans) {
 			var palette = document.getElementById("palette");
-			colorsArr = ans.mixedUpEnds;
+			//colorsArr = ans.mixedUpEnds;
+			colorsArr = ans.organizedEnds;
 			var frag = document.createDocumentFragment();
 			for (var i = 0; i < colorsArr.length; i++) {
 				var divTemp = document.createElement('div');

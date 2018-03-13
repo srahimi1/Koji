@@ -15,6 +15,7 @@ class Game < ApplicationRecord
 		response["otherEnds"] = other_ends
 		response["gradientSteps"] = steps
 		response["mixedUpEnds"] = mix_up(color1_answer_hex, color2_answer_hex, other_ends)
+		response["organizedEnds"] = organize_ends(other_ends)
 		return response
 	end
 
@@ -107,4 +108,20 @@ class Game < ApplicationRecord
 		mixed_arr.sort_by! {|color| color.downcase }
 		return mixed_arr
 	end
+
+	def organize_ends(other)
+		arr = []
+		other[0].length.times do |i|
+			temp_arr = []
+			other.length.times do |j|
+				temp_arr.push(other[j][i])
+			end
+			temp_arr.sort_by! {|color| color.downcase}
+			temp_arr.length.times do |j|
+				arr.push(temp_arr[j])
+			end
+		end
+		return arr
+	end
+
 end
