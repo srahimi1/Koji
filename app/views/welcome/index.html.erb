@@ -20,13 +20,13 @@
 		<div style="width:100%;text-align: center; font-size:2em;overflow:hidden; white-space:nowrap">
 			<p style="display:inline-block; width:30%"><span>Earned: </span><span id="stars_count">0</span><img style="vertical-align:middle" src="star.png"></p>
 			<p style="display:inline-block;width:30%">Stars</p>
-			<p style="display:inline-block; width:30%"><span>Remaining: </span><span id="stars_remaining_count">12</span><img style="vertical-align:middle" src="star.png"></p>
+			<p style="display:inline-block; width:30%"><span>Remaining: </span><span id="stars_remaining_count">14</span><img style="vertical-align:middle" src="star.png"></p>
 		</div>
 		<div style="clear: both;text-align:center"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3.5em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">Start a new game</button></div>
 		<div id="choices" style="width:100%;height:175px;overflow-x:scroll;white-space: nowrap;clear: both; padding:0.5em; "></div>
 		<div id="ends" style="position:relative;width:100%;text-align:center;z-index:3; margin-top:0.2em">
-			<div id="end1" style="width:150px;height:150px;border:1px solid gray;display:inline-block; font-size:2em" onclick="makeSelectedDiv(this)"><p>End 1</p></div>
-			<div id="end2" style="width:150px;height:150px;border:1px solid gray;display:inline-block;font-size:2em;margin-left:10em" onclick="makeSelectedDiv(this)"><p>End 2</p></div>
+			<div id="end1" style="width:150px;height:150px;border:1px solid gray;display:inline-block; font-size:2em; box-shadow: -1px 4px 3px #aaaaaa" onclick="makeSelectedDiv(this)"><p>End 1</p></div>
+			<div id="end2" style="width:150px;height:150px;border:1px solid gray;display:inline-block;font-size:2em;margin-left:10em; box-shadow: -1px 4px 3px #aaaaaa" onclick="makeSelectedDiv(this)"><p>End 2</p></div>
 		</div>
 	</div>
 
@@ -43,7 +43,7 @@
 		intervalID = null;
 		timeoutID = null;
 		totalStarCount = 0;
-		starsRemaining = 12;
+		starsRemaining = 14;
 		previousMinute = 0;
 		xhttp = new XMLHttpRequest();
 		
@@ -61,7 +61,7 @@
 			clearTimeout(timeoutID);
 			timeoutID = null;
 			totalStarCount = 0;
-			starsRemaining = 12;
+			starsRemaining = 14;
 			previousMinute = 0;
 			var end1 = document.getElementById("end1");
 			end1.style.backgroundColor = "white";
@@ -77,7 +77,7 @@
 			guess.style.backgroundImage = "url('transparent_background.jpg')";
 			var timer = document.getElementById("timer");
 			var stars_remaining = document.getElementById("stars_remaining_count");  
-			stars_remaining.innerHTML = "12";
+			stars_remaining.innerHTML = "14";
 			var stars_earned = document.getElementById("stars_count");  
 			stars_earned.innerHTML = "0";
 			var messageContainer = document.getElementById("overlayMessageContainer"); 
