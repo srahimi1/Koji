@@ -1,7 +1,7 @@
 class GamesController < ApplicationController
   def create
 	  	@game = Game.new
-  		response = @game.create_colors
+  		response = @game.start_new_game
   		render json: response
   end
 
