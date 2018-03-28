@@ -400,7 +400,7 @@
 
 		function drawLines(lineList, ind, imageData) {
 			canvas.style.display = "none";
-			ctx.globalCompositeOperation = "source-atop";
+			ctx.globalCompositeOperation = "exclusion";
 			ctx.fillStyle = "white";
 			ctx.setTransform(1,0,0,1,0,0);
 			var lineL = lineList[ind];
@@ -419,7 +419,7 @@
 			return true;
 		}
 
-		function showLetter() {
+		function showLetters() {
 			var arr = [];
 			var arr2 = [];
 			for (var i = 0; i < canvas.height; i++) {
@@ -442,7 +442,7 @@
 				for (var i = 0; i < canvas.height; i++) {if (arr2[i] == "*") {arr2[i] = pos; break;}}
 			}
 			setTimeout(function() {showL(arr2, 0)}, 100);
-		} // end function showLetter()
+		} // end function showLetters()
 
 		function showL(arr, counter) {
 			ctx.fillRect(0,arr[counter],canvas.width,3);
