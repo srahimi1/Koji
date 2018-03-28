@@ -64,7 +64,7 @@ class Game < ApplicationRecord
 		colors_rgb = []
 		colors_hex = []
 		if (!!colors_to_avoid_param && (colors_to_avoid_param.length > 0))
-			colors_to_avoid = colors_to_avoid_param.length.times.map {|i| colors_to_avoid_param[i].clone.length.times.map{|item| item.clone  }  }
+			colors_to_avoid = colors_to_avoid_param.length.times.map {|i| colors_to_avoid_param[i].clone }
 		else
 			colors_to_avoid = [[0,0,0]]
 		end
