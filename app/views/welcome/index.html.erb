@@ -17,7 +17,8 @@
 	<div id="sliderContainer" style="width:100%; margin:auto;">
 		<input type="range" min="0" max="100" value="50" style="width:50%;margin:auto;" id="customScroll">
 	</div>
-
+	<div id="letterChoicesCont"></div>
+	<div id="gameLettersDiv" style="width:100%, height:0px; display:none; margin: auto; text-align:center"></div>
 	<div style="position:relative;width:100%; height:40%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">
 		<div id="end1" style="z-index:3;width:150px;height:150px;border:1px solid gray;display:inline-block; font-size:2em; box-shadow: -1px 4px 3px #aaaaaa" onclick="makeSelectedDiv(this)"><p>Color 1</p></div>
 		
@@ -42,6 +43,7 @@
 <script>
 		answer = null;
 		selectedDiv = null;
+		selectedUnderscore = null;
 		gradientSteps = null;
 		endsColoredBool = {};
 		endsColors = {};
@@ -57,10 +59,15 @@
 		counterU = 0;
 		canvas = null, ctx = null;
 		imageData = null;
-		
+		correctLetters = [];
+		similarLettersLowerCase = {"a": "egqd", "b": "hdgopq", "c": "eouvhy", "d": "bpqgh", "e": "agqd", "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z":"snum"};
+		similarLettersUpperCase = {"A": "VYUH", "B": "KEPRFX", "C": "GOQD", "D": "CGOQ", "E": "KBPRFX", "F" : "KBEPRX", "G":"COQD", "H":"ITLJA", "I":"HTLJ", "J":"HITL", "K":"BEPRFX", "L":"HITJ", "M":"NWUHE", "N": "MWUHE", "O": "CGQD", "P": "KBERFX", "Q":"GCDO", "R": "KBEPFX", "S" : "ZCBE", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNE", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
+
+
 		function setupNewGame() {
 			answer = null;
 			selectedDiv = null;
+			selectedUnderscore = null;
 			gradientSteps = null;
 			endsColoredBool = {};
 			endsColors = {};
@@ -76,6 +83,7 @@
 			starsRemaining = 144;
 			previousMinute = 0;
 			counterU = 0;
+			correctLetters = [];
 			var end1 = document.getElementById("end1");
 			end1.style.backgroundColor = "white";
 			var end2 = document.getElementById("end2");
@@ -335,6 +343,18 @@
 			else return false;
 		} // end function getVarianceBetweenHexColors(color1,color2,varianceAllowed)
 
+		
+		function letterObj(letter, cs, font, size, rotation, correct) {
+			this.letter = letter;
+			this.cs = cs;
+			this.font = font;
+			this.size = size;
+			this.rotation = rotation;
+			this.correct = (!!correct) ? correct : false;
+		}
+
+
+
 		function createCanvasWithLetters() {
 			console.log("in colorCanvas");
 			var messageContainer = document.getElementById("overlayMessageContainer");
@@ -367,6 +387,11 @@
 				else if (!!breakpoint && (((i+1) < breakpoint) || ((i+1) > breakpoint))) ctx.translate(-(breakpoint-1-i)*fontSz*.75, yShift*fontSz);
 				else if (!!breakpoint && ((i+1) == breakpoint)) ctx.translate(0, yShift*fontSz);
 				//ctx.translate(-((letters.length-i)*fontSz*.75) ,yShift*fontSz);
+				var charCode = letters[i].charCodeAt(0);
+				var cs = "";
+				if ( (charCode >= 65) && (charCode <= 90) ) cs = "upper";
+				else if ( (charCode >= 97) && (charCode <= 122) ) cs = "lower";
+				correctLetters.push(new letterObj(letters[i], cs, "Arial", fontSz, angle, true));
 				ctx.rotate(angle);
 				ctx.fillText(letters[i],0,0);
 				ctx.setTransform(1,0,0,1,0,0);
@@ -395,6 +420,29 @@
 			}
 			console.log(lineList);
 			imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+			var gameLD = document.getElementById("gameLettersDiv");
+			var frag = document.createDocumentFragment();
+			for (var i = 0; i < letters.length; i++) {
+				var tempLetterChoicesDiv = document.createElement("div");
+				tempLetterChoicesDiv.id = "letterChoices" + i;
+				tempLetterChoicesDiv.style.width = "100%";
+				tempLetterChoicesDiv.style.height = "50%";
+				tempLetterChoicesDiv.style.background = "gray";
+				tempLetterChoicesDiv.style.display = "none";
+				var container = document.getElementById("letterChoicesCont");
+				container.appendChild(tempLetterChoicesDiv);
+				var tempDiv = document.createElement("div");
+				tempDiv.style.borderBottom = "2px solid gray";
+				tempDiv.style.display = "inline-block";
+				tempDiv.style.width = (fontSz+2)+"px";
+				tempDiv.style.height = (fontSz+2)+"px";
+				tempDiv.style.margin = "2px";
+				tempDiv.id = "letterBox:"+i;
+				tempDiv.onclick = function() {if (!!selectedUnderscore) {selectedUnderscore.style.borderBottom = "2px solid gray";}; this.style.borderBottom="5px solid gray"; selectedUnderscore = this; showLetterChoices(this.id.split(":")[1]);}
+				frag.appendChild(tempDiv);
+			}
+			gameLD.appendChild(frag);
+			gameLD.style.display = "block";
 			scroller.oninput = function() {ctx.putImageData(imageData,0,0); counterU = this.value; drawLines(lineList, counterU, imageData);}
 		} // end function createCanvasWithLetters()
 
@@ -417,6 +465,75 @@
 			}
 			canvas.style.display = "block";
 			return true;
+		}
+
+		function showLetterChoices(ind) {
+			var frag = document.createDocumentFragment();
+			var useTheseLetters = [];
+			var cl = correctLetters[ind];
+			var letterBlock = "";
+			if (cl.cs == "upper") letterBlock = similarLettersUpperCase[cl.letter];
+			else if (cl.cs == "lower") letterBlock = similarLettersLowerCase[cl.letter];
+			useTheseLetters.push(cl);
+			var rotation;
+			for (var i = 0; i < 4; i++) {
+				rotation = Math.random() * (Math.PI/4);
+				if ( cl.rotation < 0 ) rotation = -rotation;
+				useTheseLetters.push(new letterObj(letterBlock[Math.floor(Math.random()*letterBlock.length)], cl.cs, cl.font, cl.size, rotation ,false));
+			}
+			for (var i = 0; i  < useTheseLetters.length; i++) {
+				angle = useTheseLetters[i].rotation * (180/Math.PI);
+				var elP = document.createElement("p");
+				elP.style.textAlign = "center";
+				elP.style.display = "inline-block";
+				elP.style.margin = "auto";
+				elP.style.fontFamily = useTheseLetters[i].font;
+				elP.style.fontSize = cl.size + "px";
+				elP.style.webkitTransform = "rotate("+angle+"deg)";
+				elP.style.WebkitTransform = "rotate("+angle+"deg)";
+				elP.style.mozTransform = "rotate("+angle+"deg)";
+				elP.style.MozTransform = "rotate("+angle+"deg)";
+				elP.style.msTransform = "rotate("+angle+"deg)";
+				elP.style.oTransform = "rotate("+angle+"deg)";
+				elP.style.OTransform = "rotate("+angle+"deg)";
+				elP.style.transform = "rotate("+angle+"deg)";
+				var t = document.createTextNode(useTheseLetters[i].letter);
+				elP.appendChild(t);
+				var div = document.createElement("div");
+				div.style.border = "3px solid ghostwhite";
+				div.style.textAlign = "center";
+				div.style.width = (cl.size+Math.floor(cl.size/4))+"px";
+				div.style.height = (cl.size+Math.floor(cl.size/4))+"px";
+				div.style.display = "inline-block";
+				div.style.margin = "auto";
+				div.style.lineHeight = (cl.size+Math.floor(cl.size/4))+"px";
+				div.style.verticalAlign = "middle";
+				div.style.boxShadow = "-2px 1px 2px lightgray";
+				div.style.background = "lightblue";
+				div.style.borderRadius = "0.4em";
+				div.onclick = function(){selectLetter(this);}
+				div.appendChild(elP);
+				frag.appendChild(div);
+			}
+			for (var i = 0 ; i < answer.letters.length; i++) {
+				document.getElementById("letterChoices"+i).style.display = "none";
+			}
+			var el = document.getElementById("letterChoices"+ind);
+			while (!!el.lastChild) el.removeChild(el.lastChild);
+			el.appendChild(frag);
+			el.style.display = "block";
+			// var palette = document.getElementById("palette");
+			// palette.appendChild(frag);
+			// var palCont = document.getElementById("endsPaletteContainer");
+			// palCont.style.display = "block";
+
+
+		} // end function showLetterChoices(i) 
+
+		function selectLetter(letter){
+			letter.onclick = function() {if (!!selectedUnderscore) {selectedUnderscore.style.borderBottom = "2px solid gray";}; selectedUnderscore = this; showLetterChoices(this.id.split(":")[1]);}
+			var par = selectedUnderscore.parentNode;
+			par.replaceChild(letter, selectedUnderscore);
 		}
 
 		function showLetters() {
@@ -449,6 +566,7 @@
 			counter++;
 			if (counter < (canvas.height-1)) setTimeout(function() {showL(arr, counter)}, 100);
 		}
+
 
 /*								ctx.clearRect(0,0, canvas.width, canvas.height);
 						ctx.fillStyle = "black";
