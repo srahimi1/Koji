@@ -10,9 +10,10 @@
 	<div style="position:relative;width:100%; height:50%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">
 		<canvas id="canvas1" style="position:absolute;width:100%;height:100%;top: 0px; left: 0px;display:none;text-align:center; z-index: 4"></canvas>
 		<div id="overlayMessageContainer" style="position:relative;width:100%;height:100%;display:none;text-align:center; background-color:lightgray; opacity:0.75;"><p id="overlayMessageSpan" style="margin-top:3em;font-size:4em;font-family: verdana, geneva, sans-serif"></p></div>
-		<div id="timer" style="position:absolute; width:4em; padding:0.5em; background-color:lightgray; opacity:0.75; text-align:center; font-size:3em; margin-top:0px; left: 50%; margin-left: -2.5em; box-shadow: 0px 4px 6px #aaaaaa"></div>
-		<div id="goal" style="width:100%;height:50%; margin: auto; margin-top: 0px; margin-bottom: 0px; min-height: 100px;box-shadow: inset 2px 4px 10px #aaaaaa;background-image: url('transparent_background.jpg'); z-index: 1"></div>
-		<div id="guess" style="width:100%;height:50%; margin: auto; margin-top: 0px; min-height: 100px; background-color: #eef0f6;background-image: url('transparent_background.jpg');box-shadow: inset 2px -2px 10px #aaaaaa;text-align:left; white-space: nowrap; z-index: 1"></div>
+		<div id="timer" style="position:absolute; width:20em; padding:0.5em; background-color:lightgray; opacity:0.75; text-align:center; font-size:2em; margin-top:0px; left: 50%; margin-left: -10em; box-shadow: 0px 4px 6px #aaaaaa"></div>
+		<div id="goal" style="width:100%;height:45%; margin: auto; margin-top: 0px; margin-bottom: 0px; min-height: 100px;box-shadow: inset 2px 4px 10px #aaaaaa;background-image: url('transparent_background.jpg'); z-index: 1"></div>
+		<div id="instruction" style="width:100%;height:10%; margin: auto; margin-top: 0px; margin-bottom: 0px; min-height: 20px;box-shadow: inset 2px 4px 10px #aaaaaa; padding: .3em; font-size: 2em; line-height: 2em; vertical-align: middle; z-index: 1;">&darr; &darr; In each set, do the colors mix to give you your goal? &darr; &darr;</div>
+		<div id="guess" style="width:100%;height:45%; margin: auto; margin-top: 0px; min-height: 100px; background-color: #eef0f6;background-image: url('transparent_background.jpg');box-shadow: inset 2px -2px 10px #aaaaaa;text-align:left; white-space: nowrap; z-index: 1"></div>
 	</div>
 
 	<div id="sliderContainer" style="width:100%; margin:auto;">
@@ -22,9 +23,9 @@
 	<div id="gameLettersDiv" style="width:100%, height:0px; display:none; margin: auto; text-align:center"></div>
 
 	
-	<div style="position:relative;width:100%;overflow: hidden; font-family: verdana, geneva, sans-serif; margin: auto; text-align: center; white-space: nowrap">
-		<div style="display: inline-block;width: 50%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3.5em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">Start a new game</button></div>
-		<div style="display: inline-block;width: 50%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3.5em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">Start a new game</button></div>
+	<div style="position:relative;width:100%;overflow: hidden; font-family: verdana, geneva, sans-serif; margin: auto; text-align: center; white-space: nowrap; margin-top: 1em;">
+		<div style="display: inline-block;width: 50%; text-align:center; overflow: hidden;"><strong style="font-size:2em">Stars</strong><br/><span id="starsSpan"></span></div>
+		<div style="display: inline-block;width: 50%; text-align:center; overflow: hidden;"><strong style="font-size:2em">Points</strong><br/><span id="pointsSpan"></span></div>
 	</div>
 
 	<div style="position:relative;width:100%;overflow: hidden; font-family: verdana, geneva, sans-serif; margin: auto; margin-top: 1em; text-align: center;">
@@ -35,6 +36,7 @@
 
 </body>
 <script>
+		points = 0;
 		currentAnswerColor = 0;
 		numberNeededToWin = 2;
 		numberCorrect = 0;
@@ -54,6 +56,7 @@
 		canvas = null, ctx = null;
 		imageData = null;
 		correctLetters = [];
+		pointsIntervalID = null;
 		document.getElementById("goal").style.boxShadow = "inset 2px 4px 10px #aaaaaa";
 		document.getElementById("guess").style.boxShadow = "inset 2px -2px 10px #aaaaaa";
 		document.getElementById("customScroll").style.display = "none";
@@ -62,6 +65,7 @@
 
 
 		function setupNewGame() {
+			points = 0;
 			currentAnswerColor = 0;
 			numberNeededToWin = 2;
 			numberCorrect = 0;
@@ -78,12 +82,15 @@
 			intervalID = null;
 			clearTimeout(timeoutID);
 			timeoutID = null;
+			clearInterval(pointsIntervalID);
+			pointsIntervalID = null;
 			previousMinute = 0;
 			counterU = 0;
 			correctLetters = [];
 			document.getElementById("goal").style.boxShadow = "inset 2px 4px 10px #aaaaaa";
 			document.getElementById("guess").style.boxShadow = "inset 2px -2px 10px #aaaaaa";
 			document.getElementById("customScroll").style.display = "none";
+			document.getElementById("pointsSpan").innerHTML = points;
 			var goal = document.getElementById("goal");
 			goal.style.backgroundImage = "url('transparent_background.jpg')";
 			var timer = document.getElementById("timer");
@@ -108,7 +115,7 @@
 					console.log(gameData);
 					colorGoalDiv(gameData);
 					createColorDivs(gameData);
-					setupTimer();
+					//setupTimer();
 				} // end if
 			} // end onreadystatechange
 			xhttp.send();
@@ -128,8 +135,6 @@
 					colors[i][1] = data.answerColors[currentAnswerColor][1];
 					currentAnswerColor = (currentAnswerColor + 1) % 2;
 					console.log("got it!");
-					console.log(colors);
-					console.log(currentAnswerColor);
 				}
 				else {
 					var ind1 = Math.floor(Math.random() * otherColors.length);
@@ -147,13 +152,14 @@
 			for (var i = 0; i < 2; i++) {
 				var divTempOuter = document.createElement('div');
 				divTempOuter.style.display = "inline-block";
+				divTempOuter.style.position = "relative";
 				divTempOuter.style.height = "100%";
-				divTempOuter.style.width = "50%"
+				divTempOuter.style.width = "50%";
 				divTempOuter.style.margin = "0px";
 				divTempOuter.style.padding = "0px";
 				var divTempA = document.createElement("div");
 				if (i==0) {divTempOuter.style.borderRight = "5px solid "+data.goalColor; divTempA.style.boxShadow = "inset -2px 2px 10px #666666";}
-				else if (i==1) {divTempOuter.style.borderLeft = "5px solid "+data.goalColor;	divTempA.style.boxShadow = "inset 2px 2px 10px #666666";}
+				else if (i==1) {divTempOuter.style.borderLeft = "5px solid "+data.goalColor; divTempA.style.boxShadow = "inset 2px 2px 10px #666666";}
 				divTempA.style.position = "absolute";
 				divTempA.style.width = "100%";
 				divTempA.style.height = "100%";
@@ -163,74 +169,17 @@
 				divTempOuter.appendChild(divTempA);
 				var colorsForBackDiv = [];
 				for (var j = 0; j < 2; j++) {
-					var divTemp = document.createElement('div');
-					divTemp.style.position = "relative";
-					divTemp.style.width = "100%";
-					divTemp.style.height = "50%";
-					divTemp.style.display = "block";
-					divTemp.style.margin = "0px";
-					divTemp.style.padding = "0px";
+					var divTemp = createMixColorDivs();
 					if (i == chosenDiv) var color = colors[i][j];
 					else var color = getHexFromRGB(colors[i][j]);
 					colorsForBackDiv.push(colors[i][j]);
 					divTemp.style.backgroundColor = color;
-					divTemp.style.opacity = "1";
-					divTemp.style.transition = "margin-top 1s, margin-bottom 1s, opacity 1s";
 					divTempOuter.appendChild(divTemp);
 				} // end for (var j = 0; j < colorsArr[i].length; j++) {
-				if (i == chosenDiv) {
-					var key = "div" + i;
-					bkDivColors[key] = data.goalColor;
-					divTempA.style.backgroundColor = data.goalColor;
-					divTempA.style.verticalAlign = "middle";
-					divTempA.style.textAlign = "center";
-				}
-				else {
-					var key = "div" + i;
-					var cl = createInBetweenColor(colorsForBackDiv[0],colorsForBackDiv[1]);
-					bkDivColors[key] = cl;
-					divTempA.style.backgroundColor = cl;
-					divTempA.style.verticalAlign = "middle";
-					divTempA.style.textAlign = "center";
-				}
-				divTempOuter.style.position = "relative";
-				var buttonDiv = document.createElement("div");
-				buttonDiv.style.width = "100%";
-				buttonDiv.style.height = "50%";
-				buttonDiv.style.position = "absolute";
-				buttonDiv.style.top = "25%";
-				buttonDiv.style.textAlign = "center";
-				var button1 = document.createElement("button");
-				button1.style.width = "40%";
-				button1.style.height = "80%";
-				button1.style.display = "inline-block";
-				button1.style.backgroundColor = "#0066ff";
-				button1.style.background = "linear-gradient(#3e99ff,#0066ff)";
-				button1.style.border = "none";
-				button1.style.borderRadius = "5px";
-				button1.style.textAlign = "center";
-				button1.style.color = "ghostwhite";
-				button1.style.fontSize = "1.5em";
-				button1.style.marginRight = "1em";
-				button1.innerHTML = "Select <span id='secondsLeft'></span>";
-				button1.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode,data, 0);}
-				var button2 = document.createElement("button");
-				button2.style.width = "40%";
-				button2.style.height = "80%";
-				button2.style.display = "inline-block";
-				button2.style.backgroundColor = "#993399";
-				button2.style.background = "linear-gradient(#cc66cc,#993399)";
-				button2.style.border = "none";
-				button2.style.borderRadius = "5px";
-				button2.style.textAlign = "center";
-				button2.style.color = "ghostwhite";
-				button2.style.fontSize = "1.5em";
-				button2.style.marginLeft = "1em";
-				button2.innerHTML = "Next";
-				button2.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode,data, 1);}				
-				buttonDiv.appendChild(button1);
-				buttonDiv.appendChild(button2);
-				divTempOuter.appendChild(buttonDiv);
+				var key = "div" + i;
+				divTempOuter.style.display = "none";
+				divTempOuter = createColorMixDivs(divTempOuter, i, chosenDiv, key, colorsForBackDiv[0], colorsForBackDiv[1], divTempA);
+				divTempOuter.style.display = "inline-block";
 				frag.appendChild(divTempOuter);
 			} // end for (var i = 0; i < colorsArr.length; i++) {
 			guess.style.display = "none";
@@ -260,42 +209,78 @@
 				colors.push(otherColors[ind2]);
 			}
 			var divTempA = document.createElement("div");
-				divTempA.style.position = "absolute";
-				divTempA.style.width = "100%";
-				divTempA.style.height = "100%";
-				divTempA.style.top = "0px";
-				divTempA.style.left = "0px"; 
-				if (id.split(":")[1] == "div0") divTempA.style.boxShadow = "inset -2px 2px 10px #666666";
-				else if (id.split(":")[1] == "div1") divTempA.style.boxShadow = "inset 2px 2px 10px #666666";
-				divTempA.id = id;
-				par.appendChild(divTempA);
-				var colorsForBackDiv = [];
-				for (var j = 0; j < 2; j++) {
-					var divTemp = document.createElement('div');
-					divTemp.style.position = "relative";
-					divTemp.style.width = "100%";
-					divTemp.style.height = "50%";
-					divTemp.style.display = "block";
-					divTemp.style.margin = "0px";
-					divTemp.style.padding = "0px";
-					if (randN == 4) var color = colors[j];
-					else var color = getHexFromRGB(colors[j]);
-					colorsForBackDiv.push(colors[j]);
-					divTemp.style.backgroundColor = color;
-					divTemp.style.opacity = "1";
-					divTemp.style.transition = "margin-top 1s, margin-bottom 1s, opacity 1s";
-					par.appendChild(divTemp);
-				} // end for (var j = 0; j < colorsArr[i].length; j++) {
-				var key = id + "";
-				key = key.split(":")[1];
-				if (randN == 4) {
-					bkDivColors[key] = data.goalColor;
-					divTempA.style.backgroundColor = data.goalColor;
+			divTempA.style.position = "absolute";
+			divTempA.style.width = "100%";
+			divTempA.style.height = "100%";
+			divTempA.style.top = "0px";
+			divTempA.style.left = "0px"; 
+			if (id.split(":")[1] == "div0") divTempA.style.boxShadow = "inset -2px 2px 10px #666666";
+			else if (id.split(":")[1] == "div1") divTempA.style.boxShadow = "inset 2px 2px 10px #666666";
+			divTempA.id = id;
+			par.appendChild(divTempA);
+			var colorsForBackDiv = [];
+			for (var j = 0; j < 2; j++) {
+				var divTemp = createMixColorDivs();
+				if (randN == 4) var color = colors[j];
+				else var color = getHexFromRGB(colors[j]);
+				colorsForBackDiv.push(colors[j]);
+				divTemp.style.backgroundColor = color;				
+				par.appendChild(divTemp);
+			} // end for (var j = 0; j < colorsArr[i].length; j++) {
+			var key = id + "";
+			key = key.split(":")[1];
+			par.style.display = "none";
+			par = createColorMixDivs(par, randN, 4, key, colorsForBackDiv[0], colorsForBackDiv[1], divTempA);
+			par.style.display = "inline-block";
+		}
+
+		function animatePoints(add) {
+			points += add;
+			var el = document.getElementById("pointsSpan");
+			el.innerHTML = "+10";
+			el.style.color = "green";
+			el.style.fontWeight = "bold";
+			el.style.fontSize = "1em";
+			var values = [0,0];
+			pointsIntervalID = setInterval(
+				function() {
+					if (values[1] == -1) {clearInterval(pointsIntervalID); el.innerHTML = points; el.style.color = "orange"; el.style.fontWeight = "normal";}
+					else {
+						values[1]++;
+						values = animateSmallLargeMedium(1, values[1], 2, pointsIntervalID);  
+						el.style.fontSize = values[0]+"em";
+					}
+				},22);
+		}
+
+		function animateSmallLargeMedium(origVal, step, max, intvlID) {
+			var sinVal = (-Math.PI/2) + ((3*Math.PI/2) * (step/10));
+			if (sinVal < Math.PI) return [origVal *   (max * Math.sin(sinVal) + (max+1)), step];
+			else return [origVal *   (max * Math.sin(sinVal) + (max+1)), -1];
+		}
+
+		function createMixColorDivs() {
+			var divTemp = document.createElement('div');
+			divTemp.style.position = "relative";
+			divTemp.style.width = "100%";
+			divTemp.style.height = "50%";
+			divTemp.style.display = "block";
+			divTemp.style.margin = "0px";
+			divTemp.style.padding = "0px";
+			divTemp.style.opacity = "1";
+			divTemp.style.transition = "margin-top 1s, margin-bottom 1s, opacity 1s";
+			return divTemp;
+		}
+
+		function createColorMixDivs(par, comparator, condition, key, colorA, colorB, divTempA) {
+				if (comparator == condition) {
+					bkDivColors[key] = gameData.goalColor;
+					divTempA.style.backgroundColor = gameData.goalColor;
 					divTempA.style.verticalAlign = "middle";
 					divTempA.style.textAlign = "center";
 				}
 				else {
-					var cl = createInBetweenColor(colorsForBackDiv[0],colorsForBackDiv[1]);
+					var cl = createInBetweenColor(colorA,colorB);
 					bkDivColors[key] = cl;
 					divTempA.style.backgroundColor = cl;
 					divTempA.style.verticalAlign = "middle";
@@ -307,39 +292,34 @@
 				buttonDiv.style.position = "absolute";
 				buttonDiv.style.top = "25%";
 				buttonDiv.style.textAlign = "center";
-				var button1 = document.createElement("button");
-				button1.style.width = "40%";
-				button1.style.height = "80%";
-				button1.style.display = "inline-block";
+				var button1 = createSelectNextButtons();
 				button1.style.backgroundColor = "#0066ff";
 				button1.style.background = "linear-gradient(#3e99ff,#0066ff)";
-				button1.style.border = "none";
-				button1.style.borderRadius = "5px";
-				button1.style.textAlign = "center";
-				button1.style.color = "ghostwhite";
-				button1.style.fontSize = "1.5em";
-				button1.style.marginRight = "1em";
-				button1.innerHTML = "Select <span id='secondsLeft'></span>";
-				button1.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, data, 0);}
-				var button2 = document.createElement("button");
-				button2.style.width = "40%";
-				button2.style.height = "80%";
-				button2.style.display = "inline-block";
+				button1.innerHTML = "Yes";
+				button1.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, gameData, 0);}
+				var button2 = createSelectNextButtons();
 				button2.style.backgroundColor = "#993399";
 				button2.style.background = "linear-gradient(#cc66cc,#993399)";
-				button2.style.border = "none";
-				button2.style.borderRadius = "5px";
-				button2.style.textAlign = "center";
-				button2.style.color = "ghostwhite";
-				button2.style.fontSize = "1.5em";
-				button2.style.marginLeft = "1em";
-				button2.innerHTML = "Next";
-				button2.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, data, 1);}				
+				button2.innerHTML = "No";
+				button2.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, gameData, 1);}				
 				buttonDiv.appendChild(button1);
 				buttonDiv.appendChild(button2);
-				par.style.display = "none";
 				par.appendChild(buttonDiv);
-				par.style.display = "inline-block";		
+				return par;
+		}
+
+		function createSelectNextButtons() {
+			var button1 = document.createElement("button");
+			button1.style.width = "40%";
+			button1.style.height = "80%";
+			button1.style.display = "inline-block";
+			button1.style.border = "none";
+			button1.style.borderRadius = "5px";
+			button1.style.textAlign = "center";
+			button1.style.color = "ghostwhite";
+			button1.style.fontSize = "1.5em";
+			button1.style.marginRight = "1em";
+			return button1;
 		}
 
 		function showUnderneathBox(but, par, data, opt) {
@@ -360,7 +340,9 @@
 					gotitPara.style.opacity = "0.5";
 					gotitPara.style.color = "#3ecf8e";
 					gotitPara.style.margin = "auto";
-					if (opt == 0) {gotitPara.style.fontSize = "2em"; gotitPara.innerHTML = "You got it!"; gotitPara.style.marginTop = "3em"; if (++numberCorrect == numberNeededToWin) goToNextPart();}
+					if (opt == 0) {gotitPara.style.fontSize = "2em"; gotitPara.innerHTML = "You got it!"; gotitPara.style.marginTop = "3em"; 
+					/*if (++numberCorrect == numberNeededToWin) goToNextPart();*/ 
+					animatePoints(10);}
 					else if (opt == 1) {gotitPara.style.fontSize = "1.5em"; gotitPara.innerHTML = "This was it. You missed it :("; gotitPara.style.marginTop = "4em";}
 					document.getElementById(sendID).appendChild(gotitPara);
 			}
@@ -407,6 +389,7 @@
 			goalDiv.style.backgroundImage = "none";
 			goalDiv.style.backgroundColor = data.goalColor;
 			goalDiv.style.display = "block";
+			document.getElementById("timer").innerHTML = "This color is your goal";
 		}
 
 
