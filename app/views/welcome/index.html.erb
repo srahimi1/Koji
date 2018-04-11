@@ -247,16 +247,18 @@
 					if (values[1] == -1) {clearInterval(pointsIntervalID); el.innerHTML = points; el.style.color = "orange"; el.style.fontWeight = "normal";}
 					else {
 						values[1]++;
-						values = animateSmallLargeMedium(1, values[1], 2, pointsIntervalID);  
+						values = animateSmallLargeMedium(1, 3, values[1], 5, pointsIntervalID);  
 						el.style.fontSize = values[0]+"em";
 					}
 				},22);
 		}
 
-		function animateSmallLargeMedium(origVal, step, max, intvlID) {
+		function animateSmallLargeMedium(origVal, endVal, step, max, intvlID) {
 			var sinVal = (-Math.PI/2) + ((3*Math.PI/2) * (step/10));
-			if (sinVal < Math.PI) return [origVal *   (max * Math.sin(sinVal) + (max+1)), step];
-			else return [origVal *   (max * Math.sin(sinVal) + (max+1)), -1];
+			var currVal = origVal *   (max * Math.sin(sinVal) + (max+1));
+			if (sinVal < Math.PI) return [currVal, step];
+			else if (currVal > endVal) return [currVal, step];
+			else return [endVal, -1];
 		}
 
 		function createMixColorDivs() {
