@@ -5,72 +5,68 @@
 </head>
 <body style="width:100%;height:100%; padding: 0px;margin: 0">
 <h1 style="width:100%;height:1em; padding:0.1em;text-align: center;background-color: gray;font-size:4em; margin-top: 0px; color:white; box-shadow: 6px 6px 6px #aaaaaa; z-index:4">KO<span style="color:blue">J</span><span style="color:green">I</span></h1>
+
 <div id="root" style="position:relative;margin: auto; width:100%;height:100%; text-align: center">
-	<div style="position:relative;width:50%; height:40%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">
-		<canvas id="canvas1" style="position:absolute;width:100%;height:100%;display:none;text-align:center"></canvas>
-		<div id="overlayMessageContainer" style="position:absolute;width:100%;height:100%;display:none;text-align:center; background-color:lightgray; opacity:0.75;"><p id="overlayMessageSpan" style="margin-top:3em;font-size:4em;font-family: verdana, geneva, sans-serif"></p></div>
+	<div style="position:relative;width:100%; height:50%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">
+		<canvas id="canvas1" style="position:absolute;width:100%;height:100%;top: 0px; left: 0px;display:none;text-align:center; z-index: 4"></canvas>
+		<div id="overlayMessageContainer" style="position:relative;width:100%;height:100%;display:none;text-align:center; background-color:lightgray; opacity:0.75;"><p id="overlayMessageSpan" style="margin-top:3em;font-size:4em;font-family: verdana, geneva, sans-serif"></p></div>
 		<div id="timer" style="position:absolute; width:4em; padding:0.5em; background-color:lightgray; opacity:0.75; text-align:center; font-size:3em; margin-top:0px; left: 50%; margin-left: -2.5em; box-shadow: 0px 4px 6px #aaaaaa"></div>
-		<div id="answer" style="width:100%;height:50%; margin: auto; margin-top: 0px; margin-bottom: 0px; min-height: 100px; background-color: #eef0f6;font-size: 0"></div>
-		<div id="guess" style="width:100%;height:50%; margin: auto; margin-top: 0px; min-height: 100px; background-color: #eef0f6;background-image: url('transparent_background.jpg');box-shadow: inset 2px 2px 10px #aaaaaa;font-size:0;transition: border 0.5s;-webkit-transition: border 0.5s"></div>
+		<div id="goal" style="width:100%;height:50%; margin: auto; margin-top: 0px; margin-bottom: 0px; min-height: 100px;box-shadow: inset 2px 4px 10px #aaaaaa;background-image: url('transparent_background.jpg'); z-index: 1"></div>
+		<div id="guess" style="width:100%;height:50%; margin: auto; margin-top: 0px; min-height: 100px; background-color: #eef0f6;background-image: url('transparent_background.jpg');box-shadow: inset 2px -2px 10px #aaaaaa;text-align:left; white-space: nowrap; z-index: 1"></div>
 	</div>
 
 	<div id="sliderContainer" style="width:100%; margin:auto;">
-		<input type="range" min="0" max="100" value="50" style="width:50%;margin:auto;" id="customScroll">
+		<input id="customScroll" type="range" min="0" max="100" value="50" style="width:50%;margin:auto;">
 	</div>
 	<div id="letterChoicesCont"></div>
 	<div id="gameLettersDiv" style="width:100%, height:0px; display:none; margin: auto; text-align:center"></div>
-	<div style="position:relative;width:100%; height:40%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">
-		<div id="end1" style="z-index:3;width:150px;height:150px;border:1px solid gray;display:inline-block; font-size:2em; box-shadow: -1px 4px 3px #aaaaaa" onclick="makeSelectedDiv(this)"><p>Color 1</p></div>
-		
-		<div id="end2" style="z-index:3;width:150px;height:150px;border:1px solid gray;display:inline-block;font-size:2em;box-shadow: -1px 4px 3px #aaaaaa" onclick="makeSelectedDiv(this)"><p>Color 2</p></div>
-	</div>
 
-	<div id="endsPaletteContainer" style="position:absolute;width:100%;height:100%;background-color:ghostwhite;z-index:2;display:none; text-align:center; font-size: 1.2em">
-		<p>These are your color choices: (pick two colors where the resulting in-between color will match your goal)</p>
-		<div id="palette" style="width:100%;text-align: center"></div>
-	</div>
+	
 	<div style="position:relative;width:100%;overflow: hidden; font-family: verdana, geneva, sans-serif; ">
-		<div style="width:100%;text-align: center; font-size:2em;overflow:hidden; white-space:nowrap">
-			<p style="display:inline-block; width:30%"><span>Earned: </span><span id="stars_count">0</span><img style="vertical-align:middle" src="star.png"></p>
-			<p style="display:inline-block;width:30%">Stars</p>
-			<p style="display:inline-block; width:30%"><span>Remaining: </span><span id="stars_remaining_count">14</span><img style="vertical-align:middle" src="star.png"></p>
-		</div>
-		<div style="clear: both;text-align:center"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3.5em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">Start a new game</button></div>
+		<div style="display: inline-block;width: 33%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3.5em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">Start a new game</button></div>
+		<div style="display: inline-block;width: 33%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3.5em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">Start a new game</button></div>
+		<div style="display: inline-block;width: 33%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3.5em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">Start a new game</button></div>
 	</div>
 
 </div>
+
 </body>
 <script>
-		answer = null;
+		currentAnswerColor = 0;
+		numberNeededToWin = 2;
+		numberCorrect = 0;
+		bkDivColors = {"div0" : "", "div1" :""};
+		gameData = null;
 		selectedDiv = null;
 		selectedUnderscore = null;
-		gradientSteps = null;
-		endsColoredBool = {};
-		endsColors = {};
+		selectedLetters = [];
 		webWorker = null;
 		startTime = null;
 		lastTime = 0;
 		intervalID = null;
 		timeoutID = null;
-		totalStarCount = 0;
-		starsRemaining = 144;
 		previousMinute = 0;
 		xhttp = new XMLHttpRequest();
 		counterU = 0;
 		canvas = null, ctx = null;
 		imageData = null;
 		correctLetters = [];
+		document.getElementById("goal").style.boxShadow = "inset 2px 4px 10px #aaaaaa";
+		document.getElementById("guess").style.boxShadow = "inset 2px -2px 10px #aaaaaa";
+		document.getElementById("customScroll").style.display = "none";
 		similarLettersLowerCase = {"a": "egqd", "b": "hdgopq", "c": "eouvhy", "d": "bpqgh", "e": "agqd", "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z":"snum"};
 		similarLettersUpperCase = {"A": "VYUH", "B": "KEPRFX", "C": "GOQD", "D": "CGOQ", "E": "KBPRFX", "F" : "KBEPRX", "G":"COQD", "H":"ITLJA", "I":"HTLJ", "J":"HITL", "K":"BEPRFX", "L":"HITJ", "M":"NWUHE", "N": "MWUHE", "O": "CGQD", "P": "KBERFX", "Q":"GCDO", "R": "KBEPFX", "S" : "ZCBE", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNE", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
 
 
 		function setupNewGame() {
-			answer = null;
+			currentAnswerColor = 0;
+			numberNeededToWin = 2;
+			numberCorrect = 0;
+			bkDivColors = {"div0" : "", "div1" :""};
+			gameData = null;
 			selectedDiv = null;
 			selectedUnderscore = null;
-			gradientSteps = null;
-			endsColoredBool = {};
-			endsColors = {};
+			selectedLetters = [];
 			if (!!webWorker) webWorker.terminate();
 			webWorker = null;
 			startTime = null;
@@ -79,26 +75,15 @@
 			intervalID = null;
 			clearTimeout(timeoutID);
 			timeoutID = null;
-			totalStarCount = 0;
-			starsRemaining = 144;
 			previousMinute = 0;
 			counterU = 0;
 			correctLetters = [];
-			var end1 = document.getElementById("end1");
-			end1.style.backgroundColor = "white";
-			var end2 = document.getElementById("end2");
-			end2.style.backgroundColor = "white";
-			var palette = document.getElementById("palette");
-			while(!!palette.firstChild) palette.removeChild(palette.firstChild);
-			var answer = document.getElementById("answer");
-			answer.style.backgroundColor = "#eef0f6";
-			var guess = document.getElementById("guess");
-			guess.style.backgroundImage = "url('transparent_background.jpg')";
+			document.getElementById("goal").style.boxShadow = "inset 2px 4px 10px #aaaaaa";
+			document.getElementById("guess").style.boxShadow = "inset 2px -2px 10px #aaaaaa";
+			document.getElementById("customScroll").style.display = "none";
+			var goal = document.getElementById("goal");
+			goal.style.backgroundImage = "url('transparent_background.jpg')";
 			var timer = document.getElementById("timer");
-			var stars_remaining = document.getElementById("stars_remaining_count");  
-			stars_remaining.innerHTML = "14";
-			var stars_earned = document.getElementById("stars_count");  
-			stars_earned.innerHTML = "0";
 			var messageContainer = document.getElementById("overlayMessageContainer"); 
 			var messageSpan = document.getElementById("overlayMessageSpan");
 			messageSpan.innerHTML = "";
@@ -116,118 +101,327 @@
 			xhttp.setRequestHeader('X-CSRF-Token', csrfTok)
 			xhttp.onreadystatechange = function() {
 				if (this.readyState == 4 && this.status == 200) {
-					answer = JSON.parse(this.responseText);
-					console.log(answer);
-					//gradientSteps = answerRes.gradientSteps;
-					console.log("the answer palette choices are:");
-					console.log(answer.correctPair);
-					for (var i = 0; i < answer.correctPair.length; i++) {
-						endsColors[eval("'end'+(i+1)")] = null;
-					}
-					colorAnswerDiv(answer);
-					createPalette(answer);
+					gameData = JSON.parse(this.responseText);
+					console.log(gameData);
+					colorGoalDiv(gameData);
+					createColorDivs(gameData);
 					setupTimer();
 				} // end if
 			} // end onreadystatechange
 			xhttp.send();
 		} // end function getGame()
 
-		function createPalette(ans) {
-			var palette = document.getElementById("palette");
-			//colorsArr = ans.mixedUpEnds;
-			colorsArr = ans.allColors;
+		function createColorDivs(data) {
+			var otherColors = data.otherColors;
+			var colors = [];
+			var chosenDiv = -1;
+			var randN;
+			for (var i = 0; i < 2; i++) {
+				randN = Math.floor(Math.random() * 5);
+				colors[i] = [];
+				if ((randN == 4) && (chosenDiv == -1)) { 
+					chosenDiv = i;
+					colors[i][0] = data.answerColors[currentAnswerColor][0];
+					colors[i][1] = data.answerColors[currentAnswerColor][1];
+					currentAnswerColor = (currentAnswerColor + 1) % 2;
+					console.log("got it!");
+					console.log(colors);
+					console.log(currentAnswerColor);
+				}
+				else {
+					var ind1 = Math.floor(Math.random() * otherColors.length);
+					colors[i].push(otherColors[ind1]);
+					ind2 = Math.floor(Math.random() * otherColors.length);
+					while (ind2==ind1) ind2 = Math.floor(Math.random() * otherColors.length);
+					colors[i].push(otherColors[ind2]);
+				}
+			}
+			// choose the two colors code here
+			var guess = document.getElementById("guess");
+			guess.style.overflow = "hidden";
 			var frag = document.createDocumentFragment();
-			for (var i = 0; i < colorsArr.length; i++) {
+			
+			for (var i = 0; i < 2; i++) {
 				var divTempOuter = document.createElement('div');
 				divTempOuter.style.display = "inline-block";
-				for (var j = 0; j < colorsArr[i].length; j++) {
+				divTempOuter.style.height = "100%";
+				divTempOuter.style.width = "50%"
+				divTempOuter.style.margin = "0px";
+				divTempOuter.style.padding = "0px";
+				var divTempA = document.createElement("div");
+				if (i==0) {divTempOuter.style.borderRight = "5px solid "+data.goalColor; divTempA.style.boxShadow = "inset -2px 2px 10px #666666";}
+				else if (i==1) {divTempOuter.style.borderLeft = "5px solid "+data.goalColor;	divTempA.style.boxShadow = "inset 2px 2px 10px #666666";}
+				divTempA.style.position = "absolute";
+				divTempA.style.width = "100%";
+				divTempA.style.height = "100%";
+				divTempA.style.top = "0px";
+				divTempA.style.left = "0px"; 
+				divTempA.id = "bkcolor:div"+i;
+				divTempOuter.appendChild(divTempA);
+				var colorsForBackDiv = [];
+				for (var j = 0; j < 2; j++) {
 					var divTemp = document.createElement('div');
-					divTemp.style.width = "100px";
-					divTemp.style.height = "100px";
-					divTemp.style.border = "1px solid gray";
+					divTemp.style.position = "relative";
+					divTemp.style.width = "100%";
+					divTemp.style.height = "50%";
 					divTemp.style.display = "block";
-					divTemp.style.marginRight = "0.2em";
-					divTemp.style.backgroundColor = colorsArr[i][j];
-					divTemp.id = "colors"+i+j+":"+colorsArr[i][j];
-					divTemp.onclick = function() {selectColorForEnd(this);}
+					divTemp.style.margin = "0px";
+					divTemp.style.padding = "0px";
+					if (i == chosenDiv) var color = colors[i][j];
+					else var color = getHexFromRGB(colors[i][j]);
+					colorsForBackDiv.push(colors[i][j]);
+					divTemp.style.backgroundColor = color;
+					divTemp.style.opacity = "1";
+					divTemp.style.transition = "margin-top 2s, margin-bottom 2s, opacity 2s";
 					divTempOuter.appendChild(divTemp);
 				} // end for (var j = 0; j < colorsArr[i].length; j++) {
+				if (i == chosenDiv) {
+					var key = "div" + i;
+					bkDivColors[key] = data.goalColor;
+					divTempA.style.backgroundColor = data.goalColor;
+					divTempA.style.verticalAlign = "middle";
+					divTempA.style.textAlign = "center";
+				}
+				else {
+					var key = "div" + i;
+					var cl = createInBetweenColor(colorsForBackDiv[0],colorsForBackDiv[1]);
+					bkDivColors[key] = cl;
+					divTempA.style.backgroundColor = cl;
+					divTempA.style.verticalAlign = "middle";
+					divTempA.style.textAlign = "center";
+				}
+				divTempOuter.style.position = "relative";
+				var buttonDiv = document.createElement("div");
+				buttonDiv.style.width = "50%";
+				buttonDiv.style.height = "50%";
+				buttonDiv.style.position = "absolute";
+				buttonDiv.style.top = "25%";
+				buttonDiv.style.left = "25%";
+				buttonDiv.style.textAlign = "center";
+				var button1 = document.createElement("button");
+				button1.style.width = "40%";
+				button1.style.height = "75%";
+				button1.style.display = "inline-block";
+				button1.style.backgroundColor = "#0066ff";
+				button1.style.background = "linear-gradient(#3e99ff,#0066ff)";
+				button1.style.border = "none";
+				button1.style.borderRadius = "5px";
+				button1.style.textAlign = "center";
+				button1.style.color = "ghostwhite";
+				button1.style.fontSize = "1.5em";
+				button1.style.marginRight = "5px";
+				button1.innerHTML = "Select <span id='secondsLeft'></span>";
+				button1.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode,data, 0);}
+				var button2 = document.createElement("button");
+				button2.style.width = "40%";
+				button2.style.height = "75%";
+				button2.style.display = "inline-block";
+				button2.style.backgroundColor = "#993399";
+				button2.style.background = "linear-gradient(#cc66cc,#993399)";
+				button2.style.border = "none";
+				button2.style.borderRadius = "5px";
+				button2.style.textAlign = "center";
+				button2.style.color = "ghostwhite";
+				button2.style.fontSize = "1.5em";
+				button2.innerHTML = "Next";
+				button2.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode,data, 1);}				
+				buttonDiv.appendChild(button1);
+				buttonDiv.appendChild(button2);
+				divTempOuter.appendChild(buttonDiv);
 				frag.appendChild(divTempOuter);
 			} // end for (var i = 0; i < colorsArr.length; i++) {
-			palette.style.display = "none";
-			while(!!palette.firstChild) palette.removeChild(palette.firstChild);
-			palette.appendChild(frag);
-			palette.style.display = "block";
+			guess.style.display = "none";
+			while(!!guess.firstChild) guess.removeChild(guess.firstChild);
+			guess.appendChild(frag);
+			guess.style.display = "block";
 		}
 
-		function colorAnswerDiv(ans) {
-			answerDiv = document.getElementById("answer");
-			answerDiv.style.display = "none";
-			answerDiv.style.backgroundColor = ans.correctMixedColor;
-			answerDiv.style.display = "block";
-		}
-
-		function makeSelectedDiv(divS) {
-			var container = document.getElementById("endsPaletteContainer");
-			container.style.display = "block";
-			if (!selectedDiv) {
-				selectedDiv = divS;
-				divS.style.border = "5px solid black";
-			}
-			else if (selectedDiv === divS) {
-				selectedDiv = null;
-				divS.style.border = "1px solid gray";
-				container.style.display = "none";
+		function getNextColors(par,data, did) {
+			while (par.firstChild) par.removeChild(par.firstChild);
+			var id = did;
+			var otherColors = data.otherColors;
+			var colors = [];
+			var randN = Math.floor(Math.random() * 5);
+			if (randN == 4) { 
+				colors[0] = data.answerColors[currentAnswerColor][0];
+				colors[1] = data.answerColors[currentAnswerColor][1];
+				currentAnswerColor = (currentAnswerColor + 1) % 2;
+				console.log("got it!");
+				console.log(currentAnswerColor);
 			}
 			else {
-				selectedDiv.style.border = "1px solid gray";
-				selectedDiv = divS;
-				divS.style.border = "5px solid black";
+				var ind1 = Math.floor(Math.random() * otherColors.length);
+				colors.push(otherColors[ind1]);
+				ind2 = Math.floor(Math.random() * otherColors.length);
+				while (ind2==ind1) ind2 = Math.floor(Math.random() * otherColors.length);
+				colors.push(otherColors[ind2]);
 			}
-			
-		} // end function makeSelectedDiv(divS)
+			var divTempA = document.createElement("div");
+				divTempA.style.position = "absolute";
+				divTempA.style.width = "100%";
+				divTempA.style.height = "100%";
+				divTempA.style.top = "0px";
+				divTempA.style.left = "0px"; 
+				if (id.split(":")[1] == "div0") divTempA.style.boxShadow = "inset -2px 2px 10px #666666";
+				else if (id.split(":")[1] == "div1") divTempA.style.boxShadow = "inset 2px 2px 10px #666666";
+				divTempA.id = id;
+				par.appendChild(divTempA);
+				var colorsForBackDiv = [];
+				for (var j = 0; j < 2; j++) {
+					var divTemp = document.createElement('div');
+					divTemp.style.position = "relative";
+					divTemp.style.width = "100%";
+					divTemp.style.height = "50%";
+					divTemp.style.display = "block";
+					divTemp.style.margin = "0px";
+					divTemp.style.padding = "0px";
+					if (randN == 4) var color = colors[j];
+					else var color = getHexFromRGB(colors[j]);
+					colorsForBackDiv.push(colors[j]);
+					divTemp.style.backgroundColor = color;
+					divTemp.style.opacity = "1";
+					divTemp.style.transition = "margin-top 2s, margin-bottom 2s, opacity 2s";
+					par.appendChild(divTemp);
+				} // end for (var j = 0; j < colorsArr[i].length; j++) {
+				var key = id + "";
+				key = key.split(":")[1];
+				if (randN == 4) {
+					bkDivColors[key] = data.goalColor;
+					divTempA.style.backgroundColor = data.goalColor;
+					divTempA.style.verticalAlign = "middle";
+					divTempA.style.textAlign = "center";
+				}
+				else {
+					var cl = createInBetweenColor(colorsForBackDiv[0],colorsForBackDiv[1]);
+					bkDivColors[key] = cl;
+					divTempA.style.backgroundColor = cl;
+					divTempA.style.verticalAlign = "middle";
+					divTempA.style.textAlign = "center";
+				}
+				var buttonDiv = document.createElement("div");
+				buttonDiv.style.width = "50%";
+				buttonDiv.style.height = "50%";
+				buttonDiv.style.position = "absolute";
+				buttonDiv.style.top = "25%";
+				buttonDiv.style.left = "25%";
+				buttonDiv.style.textAlign = "center";
+				var button1 = document.createElement("button");
+				button1.style.width = "40%";
+				button1.style.height = "75%";
+				button1.style.display = "inline-block";
+				button1.style.backgroundColor = "#0066ff";
+				button1.style.background = "linear-gradient(#3e99ff,#0066ff)";
+				button1.style.border = "none";
+				button1.style.borderRadius = "5px";
+				button1.style.textAlign = "center";
+				button1.style.color = "ghostwhite";
+				button1.style.fontSize = "1.5em";
+				button1.style.marginRight = "5px";
+				button1.innerHTML = "Select <span id='secondsLeft'></span>";
+				button1.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, data, 0);}
+				var button2 = document.createElement("button");
+				button2.style.width = "40%";
+				button2.style.height = "75%";
+				button2.style.display = "inline-block";
+				button2.style.backgroundColor = "#993399";
+				button2.style.background = "linear-gradient(#cc66cc,#993399)";
+				button2.style.border = "none";
+				button2.style.borderRadius = "5px";
+				button2.style.textAlign = "center";
+				button2.style.color = "ghostwhite";
+				button2.style.fontSize = "1.5em";
+				button2.innerHTML = "Next";
+				button2.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, data, 1);}				
+				buttonDiv.appendChild(button1);
+				buttonDiv.appendChild(button2);
+				par.style.display = "none";
+				par.appendChild(buttonDiv);
+				par.style.display = "inline-block";		
+		}
 
-		function selectColorForEnd(choice) {
-			var container = document.getElementById("endsPaletteContainer");
-			var bkColor = choice.id.split(":")[1];
-			if (!!selectedDiv && starsRemaining >= 2) {
-				selectedDiv.style.backgroundColor = bkColor;
-				selectedDiv.style.border = "1px solid gray";
-				endsColoredBool[selectedDiv.id] = true;
-				endsColors[selectedDiv.id] = bkColor;
-				selectedDiv = null;
-				if (endsColoredBool["end1"] && endsColoredBool["end2"]) createInBetweenColor();
-				container.style.display = "none";
-				loseStars(2);
-				return true;
+		function showUnderneathBox(but, par, data, opt) {
+			but.style.display = "none";
+			if (opt == 0) but.nextSibling.style.display = "none";
+			else if (opt == 1) but.previousSibling.style.display = "none";
+			cn = par.childNodes;
+			cn[1].style.marginTop = "-50%";
+			cn[1].style.marginBottom = "100%";
+			cn[1].style.opacity = "0";
+			cn[2].style.opacity = "0";
+			var key = cn[0].id + "";
+			var sendID = key;
+			key = key.split(":")[1];
+			if (bkDivColors[key].toUpperCase() == data.goalColor.toUpperCase()) {
+					var gotitPara = document.createElement("p");
+					gotitPara.style.backgroundColor = "white";
+					gotitPara.style.opacity = "0.5";
+					gotitPara.style.color = "#3ecf8e";
+					gotitPara.style.margin = "auto";
+					if (opt == 0) {gotitPara.style.fontSize = "2em"; gotitPara.innerHTML = "You got it!"; gotitPara.style.marginTop = "3em"; if (++numberCorrect == numberNeededToWin) goToNextPart();}
+					else if (opt == 1) {gotitPara.style.fontSize = "1.5em"; gotitPara.innerHTML = "This was it. You missed it :("; gotitPara.style.marginTop = "4em";}
+					document.getElementById(sendID).appendChild(gotitPara);
 			}
-			container.style.display = "none";
-			return false;
-		} // end function selectColorForEnd(choice)
+			else if (opt == 0) {					
+					var gotitPara = document.createElement("p");
+					gotitPara.style.backgroundColor = "white";
+					gotitPara.style.opacity = "0.5";
+					gotitPara.style.color = "#3ecf8e";
+					gotitPara.style.margin = "auto";
+					gotitPara.style.fontSize = "2em"; 
+					gotitPara.innerHTML = "Try again"; 
+					gotitPara.style.marginTop = "3em";
+					document.getElementById(sendID).appendChild(gotitPara);
+					setTimeout(function() {getNextColors(par, data, sendID);},1200);
+			}
+			if (opt == 1) setTimeout(function() {getNextColors(par, data, sendID);},1200);
+		}
 
-		function createInBetweenColor() {
-			console.log("started test");
-			end1 = document.getElementById("end1");
-			end2 = document.getElementById("end2");
-			color1 = getRGBComponents(end1.style.backgroundColor);
-			color2 = getRGBComponents(end2.style.backgroundColor);
-			//color1hex = getHexFromRGB(color1);
-			// color2hex = getHexFromRGB(color2);
-			var color1hex = endsColors["end1"], color2hex = endsColors["end2"];
-			console.log(color1);
-			console.log(color1hex);
+		function goToNextPart() {
+			document.getElementById("goal").style.boxShadow = "none";
+			document.getElementById("guess").style.boxShadow = "none";
+			var a = document.getElementById("bkcolor:div0");
+			a.style.boxShadow = "none";
+			a.innerHTML = "";
+			while (a.innerHTML != "") a.innerHTML = "";
+			a = document.getElementById("bkcolor:div1");
+			a.style.boxShadow = "none";
+			while (a.innerHTML != "") a.innerHTML = "";			
+			document.getElementById("customScroll").style.display = "block";
+			if (!!webWorker) webWorker.terminate(); 
+			else clearInterval(intervalID); 
+			var messageContainer = document.getElementById("overlayMessageContainer");
+			var messageSpan = document.getElementById("overlayMessageSpan");			
+			messageContainer.style.display = "none"; 
+			messageSpan.innerHTML = "YOU GOT PART 1!!!"; 
+			messageContainer.style.display = "block";
+			createCanvasWithLetters();
+		}
+
+
+		function colorGoalDiv(data) {
+			goalDiv = document.getElementById("goal");
+			goalDiv.style.display = "none";
+			goalDiv.style.backgroundImage = "none";
+			goalDiv.style.backgroundColor = data.goalColor;
+			goalDiv.style.display = "block";
+		}
+
+
+		function createInBetweenColor(color1, color2) {
+			var color1hex = "", color2hex = "";
 			var hex;
-			if ( ((color1hex.toUpperCase() == answer.correctPair[0].toUpperCase()) && (color2hex.toUpperCase() == answer.correctPair[1].toUpperCase())) || ((color1hex.toUpperCase() == answer.correctPair[1].toUpperCase()) && (color2hex.toUpperCase() == answer.correctPair[0].toUpperCase())) ) 
-				{console.log("did pre-check");hex = answer.correctMixedColor;}
-			else {
+			// if ( ((color1hex.toUpperCase() == answer.correctPair[0].toUpperCase()) && (color2hex.toUpperCase() == answer.correctPair[1].toUpperCase())) || ((color1hex.toUpperCase() == answer.correctPair[1].toUpperCase()) && (color2hex.toUpperCase() == answer.correctPair[0].toUpperCase())) ) 
+			// 	{console.log("did pre-check");hex = answer.correctMixedColor;}
+			// else {
 				alpha = 0.5;
 				var slice = [];
 				slice[0] = Math.floor(color1[0] * alpha + (1-alpha) * color2[0]);
 				slice[1] = Math.floor(color1[1] * alpha + (1-alpha) * color2[1]);
 				slice[2] = Math.floor(color1[2] * alpha + (1-alpha) * color2[2]);
 				hex = getHexFromRGB([slice[0],slice[1],slice[2]])
-			}
-			return checkGuess(hex);
+			// }
+			return hex;
+			//return checkGuess(hex);
 		} // end function createGradient(steps)
 
 		function getRGBComponents(color) {
@@ -262,7 +456,6 @@
 			guessDiv.style.backgroundImage = "none";
 			guessDiv.style.boxShadow = "none";
 			answer1 = answer.correctMixedColor;
-			console.log("this is answer: " + answer1 + " and this is your guess: "+ color)
 			//if ((answer1.toUpperCase() === color.toUpperCase()) || getVarianceBetweenHexColors(answer1,color,0.95)) 
 			if ( answer1.toUpperCase() === color.toUpperCase() )  {if (!!webWorker) webWorker.terminate(); else clearInterval(intervalID); messageContainer.style.display = "none"; messageSpan.innerHTML = "YOU WON!!!"; messageContainer.style.display = "block"; createCanvasWithLetters();}
 			return true;
@@ -300,49 +493,6 @@
 			} // end else
 		} // end function updateTimer(time)
 
-		function loseStars(decreaseBy) {
-			var stars_remaining = document.getElementById("stars_remaining_count"); 
-			starsRemaining -= decreaseBy; 
-			stars_remaining.innerHTML = starsRemaining;
-			if (decreaseBy == 1) {
-				var messageContainer = document.getElementById("overlayMessageContainer"); 
-				var messageSpan = document.getElementById("overlayMessageSpan"); 
-				if (starsRemaining < 1) {if (!!webWorker) webWorker.terminate(); clearInterval(intervalID);clearTimeout(timeoutID);messageSpan.innerHTML="Game Over";messageContainer.style.display="block";}
-				else {
-					messageSpan.innerHTML = "Just lost a star"; 
-					messageContainer.style.display="block"; 
-					setTimeout(function(){messageSpan.innerHTML = ""; messageContainer.style.display = "none";},2000);
-				} // end else
-			} // end if (decreaseBy == 1)
-			return true;
-		} // end function loseStars()
-
-	
-		function getVarianceBetweenHexColors(color1,color2,varianceAllowed) {
-			var col1, col2, r, g, b, r1, r2, g1, g2, b1, b2, rless, rmore, gless, gmore, bless, bmore, variance = varianceAllowed;
-			if (color1[0] == "#") col1 = color1.split("#")[1];
-			else col1 = color1;
-			if (color2[0] == "#") col2 = color2.split("#")[1];
-			else col2 = color2;
-			r1 = parseInt(col1.substr(0,2), 16); 
-			r2 = parseInt(col2.substr(0,2), 16);
-			g1 = parseInt(col1.substr(2,2), 16);
-			g2 = parseInt(col2.substr(2,2), 16);
-			b1 = parseInt(col1.substr(4,2), 16);
-			b2 = parseInt(col2.substr(4,2), 16);
-			if (r1 < r2) {rless = r1; rmore = r2}
-			else {rless = r2; rmore = r1;}
-			if (g1 < g2) {gless = g1; gmore = g2}
-			else {gless = g2; gmore = g1;}
-			if (b1 < b2) {bless = b1; bmore = b2}
-			else {bless = b2; bmore = b1;}
-			if ((rless/rmore) >= variance) r = true;
-			if ((gless/gmore) >= variance) g = true;
-			if ((bless/bmore) >= variance) b = true;
-			if (r && g && b) return true;
-			else return false;
-		} // end function getVarianceBetweenHexColors(color1,color2,varianceAllowed)
-
 		
 		function letterObj(letter, cs, font, size, rotation, correct) {
 			this.letter = letter;
@@ -354,25 +504,23 @@
 		}
 
 
-
 		function createCanvasWithLetters() {
-			console.log("in colorCanvas");
 			var messageContainer = document.getElementById("overlayMessageContainer");
-			var scrollerWidth = messageContainer.offsetWidth;
 			messageContainer.style.display = "none";
 			canvas = document.getElementById("canvas1");
 			canvas.style.display = "none";
 			ctx = canvas.getContext('2d');
 			var width = Math.floor(canvas.width);
 			var height = Math.floor(canvas.height);
-			var fontSz = Math.floor(width*(1/answer.letters.length));
+			var fontSz = Math.floor(width*(1/gameData.letters.length));
 			if (fontSz < 16) fontSz = 16;
 			ctx.font = fontSz+"px Arial";
 			ctx.textBaseline = "middle";
 			ctx.textAlign = "center";
-			ctx.fillStyle = answer.correctMixedColor;
-			var letters = answer.letters;
+			ctx.fillStyle = gameData.goalColor;
+			var letters = gameData.letters;
 			for (var i = 0; i < letters.length; i++) {
+				selectedLetters.push(null);
 				var breakpoint;
 				if (letters.length % 2 == 0) breakpoint = null;
 				else if (letters.length %2 != 0) breakpoint = Math.ceil(letters.length/2);
@@ -398,8 +546,6 @@
 			} // end for (var i = 0; i < width; i++)
 			canvas.style.display = "block";
 			document.getElementById("timer").style.display = "none";
-			var scroller = document.getElementById("customScroll");
-			scroller.style.width = scrollerWidth + "px";
 			var direction = ["vertical", "horizontal"];
 			var lineList = [];
 			for (var i = 0; i < 100; i++) {
@@ -418,8 +564,8 @@
 				}
 				lineList.push(tempArray);
 			}
-			console.log(lineList);
 			imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+			console.log(imageData);
 			var gameLD = document.getElementById("gameLettersDiv");
 			var frag = document.createDocumentFragment();
 			for (var i = 0; i < letters.length; i++) {
@@ -432,21 +578,27 @@
 				var container = document.getElementById("letterChoicesCont");
 				container.appendChild(tempLetterChoicesDiv);
 				var tempDiv = document.createElement("div");
+				var tempDivOuter = document.createElement("div");
+				tempDivOuter.style.margin = "2px";
+				tempDivOuter.style.display = "inline-block";
 				tempDiv.style.borderBottom = "2px solid gray";
 				tempDiv.style.display = "inline-block";
 				tempDiv.style.width = (fontSz+2)+"px";
 				tempDiv.style.height = (fontSz+2)+"px";
 				tempDiv.style.margin = "2px";
-				tempDiv.id = "letterBox:"+i;
-				tempDiv.onclick = function() {if (!!selectedUnderscore) {selectedUnderscore.style.borderBottom = "2px solid gray";}; this.style.borderBottom="5px solid gray"; selectedUnderscore = this; showLetterChoices(this.id.split(":")[1]);}
-				frag.appendChild(tempDiv);
+				tempDivOuter.id = "letterBox:"+i;
+				tempDivOuter.onclick = function() {var currentUnderscore=this.childNodes[0]; if (!!selectedUnderscore) {selectedUnderscore.style.borderBottom = "2px solid gray";}; currentUnderscore.style.borderBottom="5px solid gray"; selectedUnderscore = currentUnderscore; showLetterChoices(this.id.split(":")[1]);}
+				tempDivOuter.appendChild(tempDiv);
+				frag.appendChild(tempDivOuter);
 			}
 			gameLD.appendChild(frag);
 			gameLD.style.display = "block";
+			var scroller = document.getElementById("customScroll");
 			scroller.oninput = function() {ctx.putImageData(imageData,0,0); counterU = this.value; drawLines(lineList, counterU, imageData);}
 		} // end function createCanvasWithLetters()
 
 		function drawLines(lineList, ind, imageData) {
+			console.log("in drawLines");
 			canvas.style.display = "none";
 			ctx.globalCompositeOperation = "exclusion";
 			ctx.fillStyle = "white";
@@ -460,7 +612,8 @@
 				}
 				else if (lineL[i][0] == "vertical") {
 					end = Math.floor(canvas.height);
-					for (var j = 0; j < end; j++) ctx.fillRect(lineL[i][1],j,1,1);
+					ctx.fillRect(lineL[i][1],0,1,end);
+					//for (var j = 0; j < end; j++) ctx.fillRect(lineL[i][1],j,1,1);
 				}
 			}
 			canvas.style.display = "block";
@@ -515,7 +668,7 @@
 				div.appendChild(elP);
 				frag.appendChild(div);
 			}
-			for (var i = 0 ; i < answer.letters.length; i++) {
+			for (var i = 0 ; i < gameData.letters.length; i++) {
 				document.getElementById("letterChoices"+i).style.display = "none";
 			}
 			var el = document.getElementById("letterChoices"+ind);
@@ -531,10 +684,17 @@
 		} // end function showLetterChoices(i) 
 
 		function selectLetter(letter){
-			letter.onclick = function() {if (!!selectedUnderscore) {selectedUnderscore.style.borderBottom = "2px solid gray";}; selectedUnderscore = this; showLetterChoices(this.id.split(":")[1]);}
-			var par = selectedUnderscore.parentNode;
-			par.replaceChild(letter, selectedUnderscore);
-		}
+			if (letter != selectedUnderscore) {
+				var par = selectedUnderscore.parentNode;
+				var ind = par.id.split(":")[1];
+				if (!!selectedUnderscore && !selectedLetters[ind]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
+				par.replaceChild(letter, selectedUnderscore);
+				var el = document.getElementById("letterChoices"+ind);
+				el.appendChild(selectedUnderscore);
+				selectedUnderscore = letter;
+				selectedLetters[ind] = letter;
+			}
+		} // end function selectLetter(letter)
 
 		function showLetters() {
 			var arr = [];
@@ -567,10 +727,6 @@
 			if (counter < (canvas.height-1)) setTimeout(function() {showL(arr, counter)}, 100);
 		}
 
-
-/*								ctx.clearRect(0,0, canvas.width, canvas.height);
-						ctx.fillStyle = "black";
-						ctx.fillRect(j,i,1,1);*/
 
 	</script>	
 </html>
