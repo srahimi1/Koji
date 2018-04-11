@@ -23,9 +23,12 @@
 
 	
 	<div style="position:relative;width:100%;overflow: hidden; font-family: verdana, geneva, sans-serif; ">
-		<div style="display: inline-block;width: 33%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3.5em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">Start a new game</button></div>
-		<div style="display: inline-block;width: 33%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3.5em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">Start a new game</button></div>
-		<div style="display: inline-block;width: 33%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3.5em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">Start a new game</button></div>
+		<div style="display: inline-block;width: 50%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3.5em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">Start a new game</button></div>
+		<div style="display: inline-block;width: 50%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3.5em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">Start a new game</button></div>
+	</div>
+
+	<div style="position:relative;width:100%;overflow: hidden; font-family: verdana, geneva, sans-serif; text-align: center; margin-top: 1em;">
+		<div style="display: inline-block;width: 75%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3.5em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">Start a new game</button></div>
 	</div>
 
 </div>
@@ -192,7 +195,7 @@
 				}
 				divTempOuter.style.position = "relative";
 				var buttonDiv = document.createElement("div");
-				buttonDiv.style.width = "50%";
+				buttonDiv.style.width = "100%";
 				buttonDiv.style.height = "50%";
 				buttonDiv.style.position = "absolute";
 				buttonDiv.style.top = "25%";
@@ -200,7 +203,7 @@
 				buttonDiv.style.textAlign = "center";
 				var button1 = document.createElement("button");
 				button1.style.width = "40%";
-				button1.style.height = "75%";
+				button1.style.height = "80%";
 				button1.style.display = "inline-block";
 				button1.style.backgroundColor = "#0066ff";
 				button1.style.background = "linear-gradient(#3e99ff,#0066ff)";
@@ -209,12 +212,12 @@
 				button1.style.textAlign = "center";
 				button1.style.color = "ghostwhite";
 				button1.style.fontSize = "1.5em";
-				button1.style.marginRight = "5px";
+				button1.style.marginRight = "1em";
 				button1.innerHTML = "Select <span id='secondsLeft'></span>";
 				button1.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode,data, 0);}
 				var button2 = document.createElement("button");
 				button2.style.width = "40%";
-				button2.style.height = "75%";
+				button2.style.height = "80%";
 				button2.style.display = "inline-block";
 				button2.style.backgroundColor = "#993399";
 				button2.style.background = "linear-gradient(#cc66cc,#993399)";
@@ -223,6 +226,7 @@
 				button2.style.textAlign = "center";
 				button2.style.color = "ghostwhite";
 				button2.style.fontSize = "1.5em";
+				button2.style.marginLeft = "1em";
 				button2.innerHTML = "Next";
 				button2.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode,data, 1);}				
 				buttonDiv.appendChild(button1);
