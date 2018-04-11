@@ -8,6 +8,7 @@
 
 <div id="root" style="position:relative;margin: auto; width:100%;height:100%; text-align: center">
 	<div style="position:relative;width:100%; height:25%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">
+		<div id="letterChoicesCont" style="position:absolute;width:100%;height:100%;top: 0px; left: 0px;background-color: white; opacity: 0.75; display:none;text-align:center; z-index: 5"></div>
 		<canvas id="canvas1" style="position:absolute;width:100%;height:100%;top: 0px; left: 0px;display:none;text-align:center; z-index: 4"></canvas>
 		<div id="overlayMessageContainer" style="position:relative;width:100%;height:100%;display:none;text-align:center; background-color:lightgray; opacity:0.75;"><p id="overlayMessageSpan" style="margin-top:3em;font-size:4em;font-family: verdana, geneva, sans-serif"></p></div>
 		<div id="timer" style="position:absolute; width:20em; padding:0.5em; background-color:lightgray; opacity:0.75; text-align:center; font-size:2em; margin-top:0px; left: 50%; margin-left: -10em; box-shadow: 0px 4px 6px #aaaaaa"></div>
@@ -16,14 +17,10 @@
 
 	<div style="position:relative;width:100%;overflow: hidden; font-family: verdana, geneva, sans-serif; margin: auto; text-align: center; white-space: nowrap; margin-top: 1em;">
 		<div style="display: inline-block;width: 30%; text-align:center; overflow: hidden;"><strong style="font-size:2em">Stars</strong><br/><span id="starsSpan"></span></div>
-		<div style="display: inline-block;width: 30%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">Start a new game</button></div>
+		<div style="display: inline-block;width: 30%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">New Game</button></div>
 		<div style="display: inline-block;width: 30%; text-align:center; overflow: hidden;"><strong style="font-size:2em">Points</strong><br/><span id="pointsSpan"></span></div>
 	</div>
 
-	<div id="sliderContainer" style="width:100%; margin:auto;">
-		<input id="customScroll" type="range" min="0" max="100" value="50" style="width:50%;margin:auto;">
-	</div>
-	<div id="letterChoicesCont"></div>
 	<div id="gameLettersDiv" style="width:100%, height:0px; display:none; margin: auto; text-align:center"></div>
 
 	<div style="position:relative;width:100%; height:40%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">	
@@ -59,7 +56,6 @@
 		pointsIntervalID = null;
 		document.getElementById("goal").style.boxShadow = "inset 2px 4px 10px #aaaaaa";
 		document.getElementById("guess").style.boxShadow = "inset 2px -2px 10px #aaaaaa";
-		document.getElementById("customScroll").style.display = "none";
 		similarLettersLowerCase = {"a": "egqd", "b": "hdgopq", "c": "eouvhy", "d": "bpqgh", "e": "agqd", "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z":"snum"};
 		similarLettersUpperCase = {"A": "VYUH", "B": "KEPRFX", "C": "GOQD", "D": "CGOQ", "E": "KBPRFX", "F" : "KBEPRX", "G":"COQD", "H":"ITLJA", "I":"HTLJ", "J":"HITL", "K":"BEPRFX", "L":"HITJ", "M":"NWUHE", "N": "MWUHE", "O": "CGQD", "P": "KBERFX", "Q":"GCDO", "R": "KBEPFX", "S" : "ZCBE", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNE", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
 
@@ -89,7 +85,6 @@
 			correctLetters = [];
 			document.getElementById("goal").style.boxShadow = "inset 2px 4px 10px #aaaaaa";
 			document.getElementById("guess").style.boxShadow = "inset 2px -2px 10px #aaaaaa";
-			document.getElementById("customScroll").style.display = "none";
 			document.getElementById("pointsSpan").innerHTML = points;
 			var goal = document.getElementById("goal");
 			goal.style.backgroundImage = "url('transparent_background.jpg')";
@@ -115,6 +110,7 @@
 					console.log(gameData);
 					colorGoalDiv(gameData);
 					createColorDivs(gameData);
+					createCanvasWithLetters();
 					//setupTimer();
 				} // end if
 			} // end onreadystatechange
@@ -374,7 +370,6 @@
 			a = document.getElementById("bkcolor:div1");
 			a.style.boxShadow = "none";
 			while (a.innerHTML != "") a.innerHTML = "";			
-			document.getElementById("customScroll").style.display = "block";
 			if (!!webWorker) webWorker.terminate(); 
 			else clearInterval(intervalID); 
 			var messageContainer = document.getElementById("overlayMessageContainer");
@@ -561,7 +556,7 @@
 				var tempLetterChoicesDiv = document.createElement("div");
 				tempLetterChoicesDiv.id = "letterChoices" + i;
 				tempLetterChoicesDiv.style.width = "100%";
-				tempLetterChoicesDiv.style.height = "50%";
+				tempLetterChoicesDiv.style.height = "100%";
 				tempLetterChoicesDiv.style.background = "gray";
 				tempLetterChoicesDiv.style.display = "none";
 				var container = document.getElementById("letterChoicesCont");
@@ -582,8 +577,7 @@
 			}
 			gameLD.appendChild(frag);
 			gameLD.style.display = "block";
-			var scroller = document.getElementById("customScroll");
-			scroller.oninput = function() {ctx.putImageData(imageData,0,0); counterU = this.value; drawLines(lineList, counterU, imageData);}
+			/*scroller.oninput = function() {ctx.putImageData(imageData,0,0); counterU = this.value; drawLines(lineList, counterU, imageData);}*/
 		} // end function createCanvasWithLetters()
 
 		function drawLines(lineList, ind, imageData) {
@@ -647,7 +641,7 @@
 				div.style.width = (cl.size+Math.floor(cl.size/4))+"px";
 				div.style.height = (cl.size+Math.floor(cl.size/4))+"px";
 				div.style.display = "inline-block";
-				div.style.margin = "auto";
+				div.style.margin = ".5em";
 				div.style.lineHeight = (cl.size+Math.floor(cl.size/4))+"px";
 				div.style.verticalAlign = "middle";
 				div.style.boxShadow = "-2px 1px 2px lightgray";
@@ -664,12 +658,7 @@
 			while (!!el.lastChild) el.removeChild(el.lastChild);
 			el.appendChild(frag);
 			el.style.display = "block";
-			// var palette = document.getElementById("palette");
-			// palette.appendChild(frag);
-			// var palCont = document.getElementById("endsPaletteContainer");
-			// palCont.style.display = "block";
-
-
+			document.getElementById("letterChoicesCont").style.display = "block";
 		} // end function showLetterChoices(i) 
 
 		function selectLetter(letter){
