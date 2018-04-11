@@ -34,6 +34,7 @@
 </body>
 <script>
 		points = 0;
+		linesDrawnSoFar = {};
 		currentAnswerColor = 0;
 		numberNeededToWin = 2;
 		numberCorrect = 0;
@@ -61,6 +62,7 @@
 
 
 		function setupNewGame() {
+			linesDrawnSoFar = {};
 			points = 0;
 			currentAnswerColor = 0;
 			numberNeededToWin = 2;
@@ -340,7 +342,9 @@
 					gotitPara.style.margin = "auto";
 					if (opt == 0) {gotitPara.style.fontSize = "2em"; gotitPara.innerHTML = "You got it!"; gotitPara.style.marginTop = "3em"; 
 					/*if (++numberCorrect == numberNeededToWin) goToNextPart();*/ 
-					animatePoints(10, 0);}
+					animatePoints(10, 0);
+					drawLine();
+					setTimeout(function() {getNextColors(par, data, sendID);},1200);}
 					else if (opt == 1) {gotitPara.style.fontSize = "1.5em"; gotitPara.innerHTML = "This was it. You missed it :("; gotitPara.style.marginTop = "4em"; animatePoints(-3, 1);}
 					document.getElementById(sendID).appendChild(gotitPara);
 			}
@@ -394,18 +398,13 @@
 		function createInBetweenColor(color1, color2) {
 			var color1hex = "", color2hex = "";
 			var hex;
-			// if ( ((color1hex.toUpperCase() == answer.correctPair[0].toUpperCase()) && (color2hex.toUpperCase() == answer.correctPair[1].toUpperCase())) || ((color1hex.toUpperCase() == answer.correctPair[1].toUpperCase()) && (color2hex.toUpperCase() == answer.correctPair[0].toUpperCase())) ) 
-			// 	{console.log("did pre-check");hex = answer.correctMixedColor;}
-			// else {
-				alpha = 0.5;
-				var slice = [];
-				slice[0] = Math.floor(color1[0] * alpha + (1-alpha) * color2[0]);
-				slice[1] = Math.floor(color1[1] * alpha + (1-alpha) * color2[1]);
-				slice[2] = Math.floor(color1[2] * alpha + (1-alpha) * color2[2]);
-				hex = getHexFromRGB([slice[0],slice[1],slice[2]])
-			// }
+			alpha = 0.5;
+			var slice = [];
+			slice[0] = Math.floor(color1[0] * alpha + (1-alpha) * color2[0]);
+			slice[1] = Math.floor(color1[1] * alpha + (1-alpha) * color2[1]);
+			slice[2] = Math.floor(color1[2] * alpha + (1-alpha) * color2[2]);
+			hex = getHexFromRGB([slice[0],slice[1],slice[2]])
 			return hex;
-			//return checkGuess(hex);
 		} // end function createGradient(steps)
 
 		function getRGBComponents(color) {
@@ -571,39 +570,40 @@
 				tempDiv.style.height = (fontSz+2)+"px";
 				tempDiv.style.margin = "2px";
 				tempDivOuter.id = "letterBox:"+i;
-				tempDivOuter.onclick = function() {var currentUnderscore=this.childNodes[0]; if (!!selectedUnderscore) {selectedUnderscore.style.borderBottom = "2px solid gray";}; currentUnderscore.style.borderBottom="5px solid gray"; selectedUnderscore = currentUnderscore; showLetterChoices(this.id.split(":")[1]);}
+				tempDivOuter.onclick = function() {var currentUnderscore=this.childNodes[0]; if (!!selectedUnderscore) {selectedUnderscore.style.borderBottom = "2px solid gray";}; currentUnderscore.style.borderBottom="5px solid gray"; selectedUnderscore = currentUnderscore; showLetterChoices(this.id.split(":")[1], letters.length);}
 				tempDivOuter.appendChild(tempDiv);
 				frag.appendChild(tempDivOuter);
+				makeLetterChoices(i);
 			}
 			gameLD.appendChild(frag);
 			gameLD.style.display = "block";
 			/*scroller.oninput = function() {ctx.putImageData(imageData,0,0); counterU = this.value; drawLines(lineList, counterU, imageData);}*/
 		} // end function createCanvasWithLetters()
 
-		function drawLines(lineList, ind, imageData) {
-			console.log("in drawLines");
+		function drawLine() {
+			console.log("in drawLine");
+			var width = canvas.width;
+			var ind = Math.floor(Math.random() * (width+1));
+			while (!!linesDrawnSoFar[ind]) ind = Math.floor(Math.random() * (width+1));
+			linesDrawnSoFar[ind] = 1;
 			canvas.style.display = "none";
 			ctx.globalCompositeOperation = "exclusion";
 			ctx.fillStyle = "white";
 			ctx.setTransform(1,0,0,1,0,0);
-			var lineL = lineList[ind];
-			for (var i = 1; i < lineL[0]+1; i++) {
-				var end;
-				if (lineL[i][0] == "horizontal") { 
-					end = Math.floor(canvas.width);
-					for (var j = 0; j < end; j++) ctx.fillRect(j,lineL[i][1],1,1);
-				}
-				else if (lineL[i][0] == "vertical") {
-					end = Math.floor(canvas.height);
-					ctx.fillRect(lineL[i][1],0,1,end);
-					//for (var j = 0; j < end; j++) ctx.fillRect(lineL[i][1],j,1,1);
-				}
-			}
+			end = Math.floor(canvas.height);
+			ctx.fillRect(ind,0,1,end);
 			canvas.style.display = "block";
 			return true;
 		}
 
-		function showLetterChoices(ind) {
+		function showLetterChoices(ind,len) {
+			for (var i = 0; i < len; i++) document.getElementById("letterChoices"+i).style.display = "none";
+			var el = document.getElementById("letterChoices"+ind);
+			el.style.display = "block";
+			document.getElementById("letterChoicesCont").style.display = "block";
+		}
+
+		function makeLetterChoices(ind) {
 			var frag = document.createDocumentFragment();
 			var useTheseLetters = [];
 			var cl = correctLetters[ind];
@@ -651,14 +651,9 @@
 				div.appendChild(elP);
 				frag.appendChild(div);
 			}
-			for (var i = 0 ; i < gameData.letters.length; i++) {
-				document.getElementById("letterChoices"+i).style.display = "none";
-			}
 			var el = document.getElementById("letterChoices"+ind);
 			while (!!el.lastChild) el.removeChild(el.lastChild);
 			el.appendChild(frag);
-			el.style.display = "block";
-			document.getElementById("letterChoicesCont").style.display = "block";
 		} // end function showLetterChoices(i) 
 
 		function selectLetter(letter){
