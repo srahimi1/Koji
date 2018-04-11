@@ -234,17 +234,17 @@
 			par.style.display = "inline-block";
 		}
 
-		function animatePoints(add) {
+		function animatePoints(add, code) {
 			points += add;
 			var el = document.getElementById("pointsSpan");
-			el.innerHTML = "+10";
-			el.style.color = "green";
+			if (code==0) {el.innerHTML = "+10"; el.style.color = "green";}
+			if (code==1) {el.innerHTML = "-3"; el.style.color = "red";}
 			el.style.fontWeight = "bold";
 			el.style.fontSize = "1em";
 			var values = [0,0];
 			pointsIntervalID = setInterval(
 				function() {
-					if (values[1] == -1) {clearInterval(pointsIntervalID); el.innerHTML = points; el.style.color = "orange"; el.style.fontWeight = "normal";}
+					if (values[1] == -1) {clearInterval(pointsIntervalID); el.innerHTML = points; if (points >= 0) el.style.color = "orange"; else el.style.color = "red"; el.style.fontWeight = "normal";}
 					else {
 						values[1]++;
 						values = animateSmallLargeMedium(1, 3, values[1], 5, pointsIntervalID);  
@@ -344,8 +344,8 @@
 					gotitPara.style.margin = "auto";
 					if (opt == 0) {gotitPara.style.fontSize = "2em"; gotitPara.innerHTML = "You got it!"; gotitPara.style.marginTop = "3em"; 
 					/*if (++numberCorrect == numberNeededToWin) goToNextPart();*/ 
-					animatePoints(10);}
-					else if (opt == 1) {gotitPara.style.fontSize = "1.5em"; gotitPara.innerHTML = "This was it. You missed it :("; gotitPara.style.marginTop = "4em";}
+					animatePoints(10, 0);}
+					else if (opt == 1) {gotitPara.style.fontSize = "1.5em"; gotitPara.innerHTML = "This was it. You missed it :("; gotitPara.style.marginTop = "4em"; animatePoints(-3, 1);}
 					document.getElementById(sendID).appendChild(gotitPara);
 			}
 			else if (opt == 0) {					
@@ -357,6 +357,7 @@
 					gotitPara.style.fontSize = "2em"; 
 					gotitPara.innerHTML = "Try again"; 
 					gotitPara.style.marginTop = "3em";
+					animatePoints(-3, 1);
 					document.getElementById(sendID).appendChild(gotitPara);
 					setTimeout(function() {getNextColors(par, data, sendID);},1200);
 			}
