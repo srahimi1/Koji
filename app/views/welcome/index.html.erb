@@ -48,6 +48,7 @@
 		lastTime = 0;
 		intervalID = null;
 		timeoutID = null;
+		borderIntervalID = null;
 		previousMinute = 0;
 		xhttp = new XMLHttpRequest();
 		counterU = 0;
@@ -82,6 +83,8 @@
 			timeoutID = null;
 			clearInterval(pointsIntervalID);
 			pointsIntervalID = null;
+			clearInterval(borderIntervalID);
+			borderIntervalID = null;
 			previousMinute = 0;
 			counterU = 0;
 			correctLetters = [];
@@ -232,14 +235,37 @@
 			par.style.display = "inline-block";
 		}
 
+		function startLetterBorderAnimation(letter, code) {
+			letter.style.borderWidth = "1em";
+			if (code == 0) letter.style.borderColor = "#3ecf8e";
+			else if (code == 1) letter.style.borderColor = "red";
+			var values = [0,0];
+			clearInterval(borderIntervalID);
+			borderIntervalID = setInterval(
+				function() {
+					if (values[1] == -1) {clearInterval(borderIntervalID); 	var par = letter.parentNode; par.style.width = (letter.offsetWidth + 5) + "px"; par.style.height = (letter.offsetHeight + 5) + "px"; }
+					else {
+						values[1]++;
+						values = animateSmallLargeMedium(1, 2, values[1], 3, borderIntervalID);  
+						letter.style.borderWidth = (values[0]/2)+"em";
+					}
+				},22);
+			if (code == 0) animatePoints(100,2);
+			else if (code == 1) animatePoints(-200,3);
+		}
+
+
 		function animatePoints(add, code) {
 			points += add;
 			var el = document.getElementById("pointsSpan");
 			if (code==0) {el.innerHTML = "+10"; el.style.color = "green";}
-			if (code==1) {el.innerHTML = "-3"; el.style.color = "red";}
+			else if (code==1) {el.innerHTML = "-3"; el.style.color = "red";}
+			else if (code==2) {el.innerHTML = "+100"; el.style.color = "green";}
+			else if (code==3) {el.innerHTML = "-200"; el.style.color = "red";}
 			el.style.fontWeight = "bold";
 			el.style.fontSize = "1em";
 			var values = [0,0];
+			clearInterval(pointsIntervalID);
 			pointsIntervalID = setInterval(
 				function() {
 					if (values[1] == -1) {clearInterval(pointsIntervalID); el.innerHTML = points; if (points >= 0) el.style.color = "orange"; else el.style.color = "red"; el.style.fontWeight = "normal";}
@@ -484,6 +510,7 @@
 			this.size = size;
 			this.rotation = rotation;
 			this.correct = (!!correct) ? correct : false;
+			this.index = null;
 		}
 
 
@@ -560,20 +587,17 @@
 				tempLetterChoicesDiv.style.display = "none";
 				var container = document.getElementById("letterChoicesCont");
 				container.appendChild(tempLetterChoicesDiv);
-				var tempDiv = document.createElement("div");
 				var tempDivOuter = document.createElement("div");
 				tempDivOuter.style.margin = "2px";
 				tempDivOuter.style.display = "inline-block";
-				tempDiv.style.borderBottom = "2px solid gray";
-				tempDiv.style.display = "inline-block";
-				tempDiv.style.width = (fontSz+2)+"px";
-				tempDiv.style.height = (fontSz+2)+"px";
-				tempDiv.style.margin = "2px";
+				tempDivOuter.style.borderBottom = "2px solid gray";
+				tempDivOuter.style.width = (fontSz+2)+"px";
+				tempDivOuter.style.height = (fontSz+2)+"px";
+				tempDivOuter.style.margin = "2px";
 				tempDivOuter.id = "letterBox:"+i;
-				tempDivOuter.onclick = function() {var currentUnderscore=this.childNodes[0]; if (!!selectedUnderscore) {selectedUnderscore.style.borderBottom = "2px solid gray";}; currentUnderscore.style.borderBottom="5px solid gray"; selectedUnderscore = currentUnderscore; showLetterChoices(this.id.split(":")[1], letters.length);}
-				tempDivOuter.appendChild(tempDiv);
+				tempDivOuter.onclick = function() {if (!!selectedUnderscore && !selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; else if (!!selectedUnderscore && !!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "none"; this.style.borderBottom="5px solid gray"; selectedUnderscore = this; showLetterChoices(this.id.split(":")[1], letters.length);}
 				frag.appendChild(tempDivOuter);
-				makeLetterChoices(i);
+				makeLetterDivs(i);
 			}
 			gameLD.appendChild(frag);
 			gameLD.style.display = "block";
@@ -603,19 +627,27 @@
 			document.getElementById("letterChoicesCont").style.display = "block";
 		}
 
-		function makeLetterChoices(ind) {
+		function makeLetterDivs(ind) {
 			var frag = document.createDocumentFragment();
 			var useTheseLetters = [];
+			var orderedLetters = [];
 			var cl = correctLetters[ind];
 			var letterBlock = "";
 			if (cl.cs == "upper") letterBlock = similarLettersUpperCase[cl.letter];
 			else if (cl.cs == "lower") letterBlock = similarLettersLowerCase[cl.letter];
-			useTheseLetters.push(cl);
+			orderedLetters.push(cl);
 			var rotation;
 			for (var i = 0; i < 4; i++) {
 				rotation = Math.random() * (Math.PI/4);
 				if ( cl.rotation < 0 ) rotation = -rotation;
-				useTheseLetters.push(new letterObj(letterBlock[Math.floor(Math.random()*letterBlock.length)], cl.cs, cl.font, cl.size, rotation ,false));
+				orderedLetters.push(new letterObj(letterBlock[Math.floor(Math.random()*letterBlock.length)], cl.cs, cl.font, cl.size, rotation ,false));
+			}
+			for (var i = 0; i < orderedLetters.length; i++) useTheseLetters.push(null);
+			for (var i = 0; i < orderedLetters.length; i++) {
+				var newInd = Math.floor(Math.random() * useTheseLetters.length);
+				while (useTheseLetters[newInd] != null) newInd = Math.floor(Math.random() * useTheseLetters.length);
+				useTheseLetters[newInd] = orderedLetters[i];
+				if (i == 0) correctLetters[ind].index = newInd + "";
 			}
 			for (var i = 0; i  < useTheseLetters.length; i++) {
 				angle = useTheseLetters[i].rotation * (180/Math.PI);
@@ -636,6 +668,7 @@
 				var t = document.createTextNode(useTheseLetters[i].letter);
 				elP.appendChild(t);
 				var div = document.createElement("div");
+				div.id = "hoopla:"+i;
 				div.style.border = "3px solid ghostwhite";
 				div.style.textAlign = "center";
 				div.style.width = (cl.size+Math.floor(cl.size/4))+"px";
@@ -657,16 +690,29 @@
 		} // end function showLetterChoices(i) 
 
 		function selectLetter(letter){
-			if (letter != selectedUnderscore) {
+			var par = selectedUnderscore;
+			if (!!par.childNodes[0]) par.removeChild(par.childNodes[0]);
+			par.appendChild(letter);
+			par.style.padding = "0.5em";
+			par.style.borderBottom = "none";
+			var ind = par.id.split(":")[1];
+			selectedLetters[ind] = letter;
+			letter.onclick = null;
+			var ind2 = letter.id + "";
+			ind2 = ind2.split(":")[1];
+			if (correctLetters[ind].index == ind2) startLetterBorderAnimation(letter, 0);
+			else startLetterBorderAnimation(letter, 1);
+			/*if (letter != selectedUnderscore) {
 				var par = selectedUnderscore.parentNode;
 				var ind = par.id.split(":")[1];
 				if (!!selectedUnderscore && !selectedLetters[ind]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
+				
 				par.replaceChild(letter, selectedUnderscore);
 				var el = document.getElementById("letterChoices"+ind);
 				el.appendChild(selectedUnderscore);
 				selectedUnderscore = letter;
 				selectedLetters[ind] = letter;
-			}
+			}*/
 		} // end function selectLetter(letter)
 
 		function showLetters() {
