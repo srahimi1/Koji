@@ -133,7 +133,7 @@
 					chosenDiv = i;
 					colors[i][0] = data.answerColors[currentAnswerColor][0];
 					colors[i][1] = data.answerColors[currentAnswerColor][1];
-					currentAnswerColor = (currentAnswerColor + 1) % 2;
+					currentAnswerColor = (currentAnswerColor + 1) % 15;
 					console.log("got it!");
 				}
 				else {
@@ -197,7 +197,7 @@
 			if (randN == 4) { 
 				colors[0] = data.answerColors[currentAnswerColor][0];
 				colors[1] = data.answerColors[currentAnswerColor][1];
-				currentAnswerColor = (currentAnswerColor + 1) % 2;
+				currentAnswerColor = (currentAnswerColor + 1) % 15;
 				console.log("got it!");
 				console.log(currentAnswerColor);
 			}
@@ -257,8 +257,8 @@
 		function animatePoints(add, code) {
 			points += add;
 			var el = document.getElementById("pointsSpan");
-			if (code==0) {el.innerHTML = "+10"; el.style.color = "green";}
-			else if (code==1) {el.innerHTML = "-3"; el.style.color = "red";}
+			if (code==0) {el.innerHTML = "+15"; el.style.color = "green";}
+			else if (code==1) {el.innerHTML = "-5"; el.style.color = "red";}
 			else if (code==2) {el.innerHTML = "+100"; el.style.color = "green";}
 			else if (code==3) {el.innerHTML = "-200"; el.style.color = "red";}
 			el.style.fontWeight = "bold";
@@ -367,10 +367,10 @@
 					gotitPara.style.margin = "auto";
 					if (opt == 0) {gotitPara.style.fontSize = "2em"; gotitPara.innerHTML = "You got it!"; gotitPara.style.marginTop = "3em"; 
 					/*if (++numberCorrect == numberNeededToWin) goToNextPart();*/ 
-					animatePoints(10, 0);
+					animatePoints(15, 0);
 					drawLine();
 					setTimeout(function() {getNextColors(par, data, sendID);},1200);}
-					else if (opt == 1) {gotitPara.style.fontSize = "1.5em"; gotitPara.innerHTML = "This was it. You missed it :("; gotitPara.style.marginTop = "4em"; animatePoints(-3, 1);}
+					else if (opt == 1) {gotitPara.style.fontSize = "1.5em"; gotitPara.innerHTML = "This was it. You missed it :("; gotitPara.style.marginTop = "4em"; animatePoints(-5, 1);}
 					document.getElementById(sendID).appendChild(gotitPara);
 			}
 			else if (opt == 0) {					
@@ -382,7 +382,7 @@
 					gotitPara.style.fontSize = "2em"; 
 					gotitPara.innerHTML = "Try again"; 
 					gotitPara.style.marginTop = "3em";
-					animatePoints(-3, 1);
+					animatePoints(-5, 1);
 					document.getElementById(sendID).appendChild(gotitPara);
 					setTimeout(function() {getNextColors(par, data, sendID);},1200);
 			}

@@ -11,7 +11,7 @@ class Game < ApplicationRecord
 		goal_color_hex = goal_color[1]
 		answer_colors_hex = []
 		answer_colors_rgb = []
-		2.times do |i|
+		15.times do |i|
 			temp = get_answer_colors(goal_color_rgb[0])
 			answer_colors_hex.push( [temp[0], temp[1]] )
 			answer_colors_rgb.push( [temp[2], temp[3]] )
