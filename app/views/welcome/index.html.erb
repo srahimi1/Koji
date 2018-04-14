@@ -7,7 +7,7 @@
 <h1 style="width:100%;height:1em; padding:0.1em;text-align: center;background-color: gray;font-size:4em; margin-top: 0px; color:white; box-shadow: 6px 6px 6px #aaaaaa; z-index:4">KO<span style="color:blue">J</span><span style="color:green">I</span></h1>
 
 <div id="root" style="position:relative;margin: auto; width:100%;height:100%; text-align: center">
-	<div id="menuDiv" style="position:absolute; top: 0%; left: 10%; width: 80%; height: 0px; background-color: white; z-index:20; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; transition: margin-top 2s, opacity 2s">
+	<div id="menuDiv" style="position:absolute; top: 0%; left: 10%; width: 80%; height: 0px; background-color: white; z-index:20; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; transition: margin-top 2s, opacity 2s; overflow: hidden;">
 		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">New Game</button>
 		</div>
 	</div>
@@ -252,7 +252,7 @@
 			clearInterval(borderIntervalID);
 			borderIntervalID = setInterval(
 				function() {
-					if (values[1] == -1) {clearInterval(borderIntervalID); 	var par = letter.parentNode; par.style.width = (letter.offsetWidth + 5) + "px"; par.style.height = (letter.offsetHeight + 5) + "px"; var preSib = par.previousSibling; while(!!preSib) {preSib.style.width = (letter.offsetWidth + 5) + "px"; preSib.style.height = (letter.offsetHeight + 5) + "px"; preSib = preSib.previousSibling;}; var postSib = par.nextSibling; while(!!postSib) {postSib.style.width = (letter.offsetWidth + 5) + "px"; postSib.style.height = (letter.offsetHeight + 5) + "px"; postSib = postSib.nextSibling;};   }
+					if (values[1] == -1) {clearInterval(borderIntervalID); 	var par = letter.parentNode; console.log(par.style.marginTop); console.log(par.nextSibling.style.marginTop);par.style.width = (letter.offsetWidth + 5) + "px"; par.style.height = (letter.offsetHeight + 5) + "px"; var preSib = par.previousSibling; while(!!preSib) {preSib.style.width = (letter.offsetWidth + 5) + "px"; preSib.style.height = (letter.offsetHeight + 5) + "px"; preSib = preSib.previousSibling;}; var postSib = par.nextSibling; while(!!postSib) {postSib.style.width = (letter.offsetWidth + 5) + "px"; postSib.style.height = (letter.offsetHeight + 5) + "px"; postSib = postSib.nextSibling;};   }
 					else {
 						values[1]++;
 						values = animateSmallLargeMedium(1, 2, values[1], 3, borderIntervalID);  
@@ -616,16 +616,21 @@
 
 		
 		function selectUnderscore(el, letters) {
-			if (!!selectedUnderscore && !selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
-			else if (!!selectedUnderscore && !!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "none"; 
+			var repeat = false;
 			if (!!selectedUnderscore && (selectedUnderscore == el)) {
 				for (var i = 0; i < letters.length; i++) document.getElementById("letterChoices"+i).style.display = "none";
 				document.getElementById("letterChoicesCont").style.display = "none";
+				if (!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
+				else if (!!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "none";
 				selectedUnderscore = null;
+				repeat = true;
 			}
-			else {
+			else if (!!selectedUnderscore && !selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
+			else if (!!selectedUnderscore && !!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "none"; 
+			
+			if (!repeat) {
+				selectedUnderscore = el;
 				el.style.borderBottom="5px solid gray"; 
-				selectedUnderscore = el; 
 				showLetterChoices(el.id.split(":")[1], letters.length);
 			}
 		}
@@ -717,6 +722,7 @@
 		} // end function showLetterChoices(i) 
 
 		function selectLetter(letter){
+			console.log("slLet");
 			var par = selectedUnderscore;
 			if (!!par.childNodes[0]) par.removeChild(par.childNodes[0]);
 			par.appendChild(letter);
