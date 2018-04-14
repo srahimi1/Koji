@@ -3,10 +3,17 @@
 <title></title>
 <head>
 </head>
-<body style="width:100%;height:100%; padding: 0px;margin: 0">
+<body style="width:100%;height:100%; padding: 0px;margin: 0" onload="setTimeout(showMenu,500);">
 <h1 style="width:100%;height:1em; padding:0.1em;text-align: center;background-color: gray;font-size:4em; margin-top: 0px; color:white; box-shadow: 6px 6px 6px #aaaaaa; z-index:4">KO<span style="color:blue">J</span><span style="color:green">I</span></h1>
 
 <div id="root" style="position:relative;margin: auto; width:100%;height:100%; text-align: center">
+	<div id="menuDiv" style="position:absolute; top: 0%; left: 10%; width: 80%; height: 0px; background-color: white; z-index:20; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; transition: margin-top 2s, opacity 2s">
+		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">New Game</button>
+		</div>
+	</div>
+
+
+
 	<div style="position:relative;width:100%; height:25%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">
 		<div id="letterChoicesCont" style="position:absolute;width:100%;height:100%;top: 0px; left: 0px;background-color: white; opacity: 0.75; display:none;text-align:center; z-index: 5"></div>
 		<canvas id="canvas1" style="position:absolute;width:100%;height:100%;top: 0px; left: 0px;display:none;text-align:center; z-index: 4"></canvas>
@@ -22,11 +29,10 @@
 	<div id="gameLettersDiv" style="width:100%, height:0px; display:none; margin: auto; text-align:center"></div>
 
 	<div style="position:relative;width:100%; height:40%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">	
-		<div id="instruction" style="width:100%;height:20%; margin: auto; margin-top: 0px; margin-bottom: 0px; min-height: 20px;box-shadow: inset 2px 4px 10px #aaaaaa; font-size: 2em; line-height: 2em; vertical-align: middle; z-index: 1;">&darr; &darr; In each set, do the colors mix to give the goal? &darr; &darr;</div>
+		<div id="instruction" style="display: inline-block; width:45%;height:20%; margin: 0px; margin-top: 0px; margin-bottom: 0px; min-height: 20px;font-size: 2em; line-height: 2em; vertical-align: middle; z-index: 1; text-align: center; overflow: hidden;">&darr; &darr; do these mix to match goal? &darr; &darr;</div>
+		<div id="instruction" style="display: inline-block; width:45%;height:20%; margin: auto; margin-top: 0px; margin-bottom: 0px; min-height: 20px;font-size: 2em; line-height: 2em; vertical-align: middle; z-index: 1; text-align: center; overflow: hidden;">&darr; &darr; do these mix to match goal? &darr; &darr;</div>
 		<div id="guess" style="width:100%;height:80%; margin: auto; margin-top: 0px; min-height: 100px; background-color: #eef0f6;background-image: url('transparent_background.jpg');box-shadow: inset 2px -2px 10px #aaaaaa;text-align:left; white-space: nowrap; z-index: 1"></div>
 	</div>
-
-	<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">New Game</button></div>
 
 </div>
 
@@ -98,9 +104,13 @@
 			messageSpan.innerHTML = "";
 			messageContainer.style.display = "none";
 			timer.style.display = "none";
-			timer.innerHTML = "0:00";
+			//timer.innerHTML = "0:00";
 			timer.style.display = "block";
 			xhttp.abort();
+			var el = document.getElementById("menuDiv");
+			el.style.opacity = "0";
+			el.style.marginTop = "-2em";
+			setTimeout(function() {document.getElementById("menuDiv").style.height = "0px";}, 700);
 			getGame();
 		}
 
@@ -270,7 +280,7 @@
 					if (values[1] == -1) {clearInterval(pointsIntervalID); el.innerHTML = points; if (points >= 0) el.style.color = "orange"; else el.style.color = "red"; el.style.fontWeight = "normal";}
 					else {
 						values[1]++;
-						values = animateSmallLargeMedium(1, 3, values[1], 5, pointsIntervalID);  
+						values = animateSmallLargeMedium(1, 3, values[1], 10, pointsIntervalID);  
 						el.style.fontSize = values[0]+"em";
 					}
 				},22);
@@ -283,6 +293,7 @@
 			else if (currVal > endVal) return [currVal, step];
 			else return [endVal, -1];
 		}
+
 
 		function createMixColorDivs() {
 			var divTemp = document.createElement('div');
@@ -416,7 +427,7 @@
 			goalDiv.style.backgroundImage = "none";
 			goalDiv.style.backgroundColor = data.goalColor;
 			goalDiv.style.display = "block";
-			document.getElementById("timer").innerHTML = "This color is your goal";
+			//document.getElementById("timer").innerHTML = "This color is your goal";
 		}
 
 
@@ -594,7 +605,7 @@
 				tempDivOuter.style.height = (fontSz+2)+"px";
 				tempDivOuter.style.margin = "2px";
 				tempDivOuter.id = "letterBox:"+i;
-				tempDivOuter.onclick = function() {if (!!selectedUnderscore && !selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; else if (!!selectedUnderscore && !!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "none"; this.style.borderBottom="5px solid gray"; selectedUnderscore = this; showLetterChoices(this.id.split(":")[1], letters.length);}
+				tempDivOuter.onclick = function() {selectUnderscore(this, letters);}
 				frag.appendChild(tempDivOuter);
 				makeLetterDivs(i);
 			}
@@ -602,6 +613,23 @@
 			gameLD.style.display = "block";
 			/*scroller.oninput = function() {ctx.putImageData(imageData,0,0); counterU = this.value; drawLines(lineList, counterU, imageData);}*/
 		} // end function createCanvasWithLetters()
+
+		
+		function selectUnderscore(el, letters) {
+			if (!!selectedUnderscore && !selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
+			else if (!!selectedUnderscore && !!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "none"; 
+			if (!!selectedUnderscore && (selectedUnderscore == el)) {
+				for (var i = 0; i < letters.length; i++) document.getElementById("letterChoices"+i).style.display = "none";
+				document.getElementById("letterChoicesCont").style.display = "none";
+				selectedUnderscore = null;
+			}
+			else {
+				el.style.borderBottom="5px solid gray"; 
+				selectedUnderscore = el; 
+				showLetterChoices(el.id.split(":")[1], letters.length);
+			}
+		}
+
 
 		function drawLine() {
 			console.log("in drawLine");
@@ -744,8 +772,15 @@
 			counter++;
 			if (counter < (canvas.height-1)) setTimeout(function() {showL(arr, counter)}, 100);
 		}
+		
+		function showMenu() {
+			console.log("show");
+			var el = document.getElementById('menuDiv'); 
+			el.style.height = "80%";
+			el.style.marginTop="0em"; 
+			el.style.opacity="1";
+		}
 
+	</script>
 
-	</script>	
 </html>
-
