@@ -26,6 +26,10 @@ class Game < ApplicationRecord
 		puts colors_to_avoid.inspect
 		other_colors = get_random_colors(2, 10, colors_to_avoid)
 		other_colors_rgb = other_colors[0]
+		answer_colors_rgb.length.times do |i|
+			ind = rand(2)
+			other_colors_rgb.push(answer_colors_rgb[i][ind])
+		end		
 		letters = get_letters 
 		response["goalColor"] = goal_color_hex[0]
 		response["answerColors"] = answer_colors_hex
@@ -71,11 +75,50 @@ class Game < ApplicationRecord
 	end
 
 	def create_random_rgb_color(type)
-		channel = Random.new
+		color = []
 		if (type == 1)
-			color = 3.times.map{channel.rand(80)+80}
+			version = rand(13)
+			if (version == 0)
+				color.push(rand(150)+40)
+				color.push(rand(100)+50)
+				color.push(rand(60)+40)
+			elsif (version == 1)
+				color.push(rand(100)+50)
+				color.push(rand(150)+40)
+				color.push(rand(60)+40)
+			elsif (version == 2)
+				color.push(rand(100)+50)
+				color.push(rand(60)+40)
+				color.push(rand(150)+40)
+			elsif (version == 3)
+				color.push(rand(100)+50)
+				color.push(rand(150)+40)
+				color.push(rand(150)+40)
+			elsif (version == 4)
+				color.push(rand(150)+40)
+				color.push(rand(100)+50)
+				color.push(rand(150)+40)
+			elsif (version == 5)
+				color.push(rand(150)+40)
+				color.push(rand(150)+40)
+				color.push(rand(100)+50)
+			elsif ((version == 6) || (version == 7))
+				color.push(0)
+				color.push(rand(130)+60)
+				color.push(rand(130)+60)
+			elsif ((version == 8) || (version == 9))
+				color.push(rand(130)+60)
+				color.push(0)
+				color.push(rand(130)+60)
+			elsif ((version == 10) || (version == 11))
+				color.push(rand(130)+60)
+				color.push(rand(130)+60)
+				color.push(0)			
+			elsif (version == 12)
+				color = 3.times.map{rand(130)+60}
+			end
 		elsif (type == 2)
-			color = 3.times.map{channel.rand(145)+80}
+			color = 3.times.map{rand(145)+80}
 		end
 		return color
 	end
@@ -84,7 +127,15 @@ class Game < ApplicationRecord
 		color1 = []
 		color2 = []
 		3.times do |i| 
-			factor = 10 + rand(51)
+			if (answer[i] < 40)
+				factor = 0
+			elsif (answer[i] < 120)
+				factor = rand(answer[i])
+			elsif ((answer[i] >= 120) && (answer[i] <= 150))
+				factor = 10 + rand(71)
+			elsif (answer[i] > 150)
+				factor = rand(240-answer[i])
+			end
 			color1[i] = answer[i] - factor
 			color2[i] = answer[i] + factor
 		end

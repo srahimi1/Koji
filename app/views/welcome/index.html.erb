@@ -12,14 +12,12 @@
 		</div>
 	</div>
 
-
-
 	<div style="position:relative;width:100%; height:25%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">
 		<div id="letterChoicesCont" style="position:absolute;width:100%;height:100%;top: 0px; left: 0px;background-color: white; opacity: 0.75; display:none;text-align:center; z-index: 5"></div>
 		<canvas id="canvas1" style="position:absolute;width:100%;height:100%;top: 0px; left: 0px;display:none;text-align:center; z-index: 4"></canvas>
 		<div id="overlayMessageContainer" style="position:relative;width:100%;height:100%;display:none;text-align:center; background-color:lightgray; opacity:0.75;"><p id="overlayMessageSpan" style="margin-top:3em;font-size:4em;font-family: verdana, geneva, sans-serif"></p></div>
 		<div id="timer" style="position:absolute; width:20em; padding:0.5em; background-color:lightgray; opacity:0.75; text-align:center; font-size:2em; margin-top:0px; left: 50%; margin-left: -10em; box-shadow: 0px 4px 6px #aaaaaa"></div>
-		<div id="goal" style="width:100%;height:100%; margin: auto; margin-top: 0px; margin-bottom: 0px; min-height: 100px;box-shadow: inset 2px 4px 10px #aaaaaa;background-image: url('transparent_background.jpg'); z-index: 1"></div>
+		<div id="goal" style="width:100%;height:100%; margin: auto; margin-top: 0px; margin-bottom: 0px; min-height: 100px;background-image: url('transparent_background.jpg'); z-index: 1"></div>
 	</div>
 
 	<div style="position:relative;width:100%;overflow: hidden; font-family: verdana, geneva, sans-serif; margin: auto; text-align: center; white-space: nowrap; margin-top: 1em;">
@@ -41,6 +39,7 @@
 		points = 0;
 		linesDrawnSoFar = {};
 		currentAnswerColor = 0;
+		cycledThroughAnswerColors = false;
 		numberNeededToWin = 2;
 		numberCorrect = 0;
 		bkDivColors = {"div0" : "", "div1" :""};
@@ -62,7 +61,6 @@
 		correctLetters = [];
 		pointsIntervalID = null;
 		testDivs = [];
-		document.getElementById("goal").style.boxShadow = "inset 2px 4px 10px #aaaaaa";
 		document.getElementById("guess").style.boxShadow = "inset 2px -2px 10px #aaaaaa";
 		similarLettersLowerCase = {"a": "egqd", "b": "hdgopq", "c": "eouvhy", "d": "bpqgh", "e": "agqd", "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z":"snum"};
 		similarLettersUpperCase = {"A": "VYUH", "B": "KEPRFX", "C": "GOQD", "D": "CGOQ", "E": "KBPRFX", "F" : "KBEPRX", "G":"COQD", "H":"ITLJA", "I":"HTLJ", "J":"HITL", "K":"BEPRFX", "L":"HITJ", "M":"NWUHE", "N": "MWUHE", "O": "CGQD", "P": "KBERFX", "Q":"GCDO", "R": "KBEPFX", "S" : "ZCBE", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNE", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
@@ -72,6 +70,7 @@
 			linesDrawnSoFar = {};
 			points = 0;
 			currentAnswerColor = 0;
+			cycledThroughAnswerColors = false;
 			numberNeededToWin = 2;
 			numberCorrect = 0;
 			bkDivColors = {"div0" : "", "div1" :""};
@@ -94,7 +93,6 @@
 			previousMinute = 0;
 			counterU = 0;
 			correctLetters = [];
-			document.getElementById("goal").style.boxShadow = "inset 2px 4px 10px #aaaaaa";
 			document.getElementById("guess").style.boxShadow = "inset 2px -2px 10px #aaaaaa";
 			document.getElementById("pointsSpan").innerHTML = points;
 			var goal = document.getElementById("goal");
@@ -123,8 +121,8 @@
 				if (this.readyState == 4 && this.status == 200) {
 					gameData = JSON.parse(this.responseText);
 					console.log(gameData);
-					colorGoalDiv(gameData);
-					createColorDivs(gameData);
+					colorGoalDiv();
+					createColorDivs();
 					createCanvasWithLetters();
 					//setupTimer();
 				} // end if
@@ -132,8 +130,8 @@
 			xhttp.send();
 		} // end function getGame()
 
-		function createColorDivs(data) {
-			var otherColors = data.otherColors;
+		function createColorDivs() {
+			var otherColors = gameData.otherColors;
 			var colors = [];
 			var chosenDiv = -1;
 			var randN;
@@ -142,9 +140,11 @@
 				colors[i] = [];
 				if ((randN == 4) && (chosenDiv == -1)) { 
 					chosenDiv = i;
-					colors[i][0] = data.answerColors[currentAnswerColor][0];
-					colors[i][1] = data.answerColors[currentAnswerColor][1];
-					currentAnswerColor = (currentAnswerColor + 1) % 15;
+					colors[i][0] = gameData.answerColors[currentAnswerColor][0];
+					colors[i][1] = gameData.answerColors[currentAnswerColor][1];
+					if (currentAnswerColor == (gameData.answerColors.length - 1)) cycledThroughAnswerColors = true;
+					if (!cycledThroughAnswerColors) currentAnswerColor++;
+					else currentAnswerColor = Math.floor(Math.random() * gameData.answerColors.length);
 					console.log("got it!");
 				}
 				else {
@@ -169,8 +169,8 @@
 				divTempOuter.style.margin = "0px";
 				divTempOuter.style.padding = "0px";
 				var divTempA = document.createElement("div");
-				if (i==0) {divTempOuter.style.borderRight = "5px solid "+data.goalColor; divTempA.style.boxShadow = "inset -2px 2px 10px #666666";}
-				else if (i==1) {divTempOuter.style.borderLeft = "5px solid "+data.goalColor; divTempA.style.boxShadow = "inset 2px 2px 10px #666666";}
+				if (i==0) {divTempOuter.style.borderRight = "5px solid "+gameData.goalColor; divTempA.style.boxShadow = "inset -2px 2px 10px #666666";}
+				else if (i==1) {divTempOuter.style.borderLeft = "5px solid "+gameData.goalColor; divTempA.style.boxShadow = "inset 2px 2px 10px #666666";}
 				divTempA.style.position = "absolute";
 				divTempA.style.width = "100%";
 				divTempA.style.height = "100%";
@@ -199,16 +199,18 @@
 			guess.style.display = "block";
 		}
 
-		function getNextColors(par,data, did) {
+		function getNextColors(par, did) {
 			while (par.firstChild) par.removeChild(par.firstChild);
 			var id = did;
-			var otherColors = data.otherColors;
+			var otherColors = gameData.otherColors;
 			var colors = [];
 			var randN = Math.floor(Math.random() * 5);
 			if (randN == 4) { 
-				colors[0] = data.answerColors[currentAnswerColor][0];
-				colors[1] = data.answerColors[currentAnswerColor][1];
-				currentAnswerColor = (currentAnswerColor + 1) % 15;
+				colors[0] = gameData.answerColors[currentAnswerColor][0];
+				colors[1] = gameData.answerColors[currentAnswerColor][1];
+				if (currentAnswerColor == (gameData.answerColors.length - 1)) cycledThroughAnswerColors = true;
+				if (!cycledThroughAnswerColors) currentAnswerColor++;
+				else currentAnswerColor = Math.floor(Math.random() * gameData.answerColors.length);
 				console.log("got it!");
 				console.log(currentAnswerColor);
 			}
@@ -334,12 +336,12 @@
 				button1.style.backgroundColor = "#0066ff";
 				button1.style.background = "linear-gradient(#3e99ff,#0066ff)";
 				button1.innerHTML = "Yes";
-				button1.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, gameData, 0);}
+				button1.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, 0);}
 				var button2 = createSelectNextButtons();
 				button2.style.backgroundColor = "#993399";
 				button2.style.background = "linear-gradient(#cc66cc,#993399)";
 				button2.innerHTML = "No";
-				button2.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, gameData, 1);}				
+				button2.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, 1);}				
 				buttonDiv.appendChild(button1);
 				buttonDiv.appendChild(button2);
 				par.appendChild(buttonDiv);
@@ -360,7 +362,7 @@
 			return button1;
 		}
 
-		function showUnderneathBox(but, par, data, opt) {
+		function showUnderneathBox(but, par, opt) {
 			but.style.display = "none";
 			if (opt == 0) but.nextSibling.style.display = "none";
 			else if (opt == 1) but.previousSibling.style.display = "none";
@@ -372,7 +374,7 @@
 			var key = cn[0].id + "";
 			var sendID = key;
 			key = key.split(":")[1];
-			if (bkDivColors[key].toUpperCase() == data.goalColor.toUpperCase()) {
+			if (bkDivColors[key].toUpperCase() == gameData.goalColor.toUpperCase()) {
 					var gotitPara = document.createElement("p");
 					gotitPara.style.backgroundColor = "white";
 					gotitPara.style.opacity = "0.5";
@@ -382,7 +384,7 @@
 					/*if (++numberCorrect == numberNeededToWin) goToNextPart();*/ 
 					animatePoints(15, 0);
 					drawLine();
-					setTimeout(function() {getNextColors(par, data, sendID);},1200);}
+					setTimeout(function() {getNextColors(par, sendID);},1200);}
 					else if (opt == 1) {gotitPara.style.fontSize = "1.5em"; gotitPara.innerHTML = "This was it. You missed it :("; gotitPara.style.marginTop = "4em"; animatePoints(-5, 1);}
 					document.getElementById(sendID).appendChild(gotitPara);
 			}
@@ -397,13 +399,12 @@
 					gotitPara.style.marginTop = "3em";
 					animatePoints(-5, 1);
 					document.getElementById(sendID).appendChild(gotitPara);
-					setTimeout(function() {getNextColors(par, data, sendID);},1200);
+					setTimeout(function() {getNextColors(par, sendID);},1200);
 			}
-			if (opt == 1) setTimeout(function() {getNextColors(par, data, sendID);},1200);
+			if (opt == 1) setTimeout(function() {getNextColors(par, sendID);},1200);
 		}
 
 		function goToNextPart() {
-			document.getElementById("goal").style.boxShadow = "none";
 			document.getElementById("guess").style.boxShadow = "none";
 			var a = document.getElementById("bkcolor:div0");
 			a.style.boxShadow = "none";
@@ -423,11 +424,11 @@
 		}
 
 
-		function colorGoalDiv(data) {
+		function colorGoalDiv() {
 			goalDiv = document.getElementById("goal");
 			goalDiv.style.display = "none";
 			goalDiv.style.backgroundImage = "none";
-			goalDiv.style.backgroundColor = data.goalColor;
+			goalDiv.style.backgroundColor = gameData.goalColor;
 			goalDiv.style.display = "block";
 			//document.getElementById("timer").innerHTML = "This color is your goal";
 		}
