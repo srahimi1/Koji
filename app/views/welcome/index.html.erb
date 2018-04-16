@@ -13,7 +13,7 @@
 		</div>
 	</div>
 
-	<div style="position: absolute; width: 15em; height: 7em; left: 100%; margin-left: -15em; z-index: 4"  onclick="showMenu();" onmouseover="animateMenu(document.getElementById('menuPara'), 0);" onmouseout="animateMenu(document.getElementById('menuPara'), 1);"></div>
+	<div style="position: absolute; width: 15em; height: 8em; left: 100%; margin-left: -15em; z-index: 4"  onclick="showMenu();" onmouseover="animateMenu(document.getElementById('menuPara'), 0);" onmouseout="animateMenu(document.getElementById('menuPara'), 1);"></div>
 	<div style="position:relative;width:100%; height:3em; margin:auto; margin-top: 0px; padding-top: 0px; font-family: verdana, geneva, sans-serif; text-align: right; cursor: default;"><p id="menuPara" style="margin-top: 0px; padding-top: 0px;font-size: 2em; padding-right: 2em; padding-bottom: 3em; transition: background-color 1s, color 1s; background-color: white; color: gray;"><span style="padding-right: 0px; transition: padding-right 1s;">m</span><span style="padding-right: 0px; transition: padding-right 1s;">e</span><span style="padding-right: 0px; transition: padding-right 1s;">n</span><span style="padding-right: 0px; transition: padding-right 1s;">u</span></p></div>
 	<div style="position:relative;width:100%; height:25%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">
 		<div id="letterChoicesCont" style="position:absolute;width:100%;height:100%;top: 0px; left: 0px;background-color: white; display:none;text-align:center; z-index: 4"></div>
@@ -27,7 +27,7 @@
 		<div style="display: inline-block;width: 100%; text-align:center; overflow: hidden;"><strong style="font-size:2em">Points</strong><br/><span id="pointsSpan"></span></div>
 	</div>
 
-	<div id="gameLettersDiv" style="width:100%, height:0px; display:none; margin: auto; text-align:center"></div>
+	<div id="gameLettersDivB" style="width:100%; margin: auto; text-align:center"></div>
 
 	<div style="position:relative;width:100%; height:40%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">	
 		<div id="instruction" style="display: inline-block; width:45%;height:20%; margin: 0px; min-height: 20px;font-size: 1.5em; line-height: 2em; vertical-align: middle; z-index: 1; text-align: center; overflow: hidden;">&darr; if mixed, will match goal? &darr;</div>
@@ -168,7 +168,6 @@
 				divTempOuter.style.width = "50%";
 				divTempOuter.style.margin = "0px";
 				divTempOuter.style.padding = "0px";
-				divTempOuter.style.fontSize = "0px";
 				var divTempA = document.createElement("div");
 				if (i==0) divTempOuter.style.borderRight = "1em solid "+gameData.goalColor;
 				else if (i==1) divTempOuter.style.borderLeft = "1em solid "+gameData.goalColor;
@@ -260,8 +259,8 @@
 					if (values[1] == -1) {clearInterval(borderIntervalID); var par = letter.parentNode; par.style.width = (letter.offsetWidth + 5) + "px"; par.style.height = (letter.offsetHeight + 5) + "px"; var preSib = par.previousSibling; while(!!preSib) {preSib.style.width = (letter.offsetWidth + 5) + "px"; preSib.style.height = (letter.offsetHeight + 5) + "px"; preSib = preSib.previousSibling;}; var postSib = par.nextSibling; while(!!postSib) {postSib.style.width = (letter.offsetWidth + 5) + "px"; postSib.style.height = (letter.offsetHeight + 5) + "px"; postSib = postSib.nextSibling;}; }
 					else {
 						values[1]++;
-						values = animateSmallLargeMedium(1, 2, values[1], 3, borderIntervalID);  
-						letter.style.borderWidth = (values[0]/2)+"em";
+						values = animateSmallLargeMedium(1, 2, values[1], 2, borderIntervalID);  
+						letter.style.borderWidth = (values[0]/4)+"em";
 					}
 				},22);
 			if (code == 0) animatePoints(100,2);
@@ -600,7 +599,7 @@
 			}
 			imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
 			console.log(imageData);
-			var gameLD = document.getElementById("gameLettersDiv");
+			var gameLD = document.getElementById("gameLettersDivB");
 			var frag = document.createDocumentFragment();
 			for (var i = 0; i < letters.length; i++) {
 				var tempLetterChoicesDiv = document.createElement("div");
@@ -614,7 +613,9 @@
 				var tempDivOuter = document.createElement("div");
 				tempDivOuter.style.margin = "2px";
 				tempDivOuter.style.display = "inline-block";
-				tempDivOuter.style.borderBottom = "2px solid gray";
+				//tempDivOuter.style.borderBottom = "2px solid gray";
+				tempDivOuter.style.fontSize = "2em";
+				tempDivOuter.innerHTML = (i+1);
 				tempDivOuter.style.width = (fontSz+2)+"px";
 				tempDivOuter.style.height = (fontSz+2)+"px";
 				tempDivOuter.style.margin = "2px";
@@ -754,13 +755,14 @@
 		} // end function showLetterChoices(i) 
 
 		function selectLetter(letter){
-			console.log("slLet");
 			var par = selectedUnderscore;
+			var ind = par.id.split(":")[1];
 			if (!!par.childNodes[0]) par.removeChild(par.childNodes[0]);
+			par.innerHTML = "";
 			par.appendChild(letter);
 			par.style.padding = "0.5em";
-			par.style.borderBottom = "none";
-			var ind = par.id.split(":")[1];
+			//par.style.borderBottom = "none";
+			
 			selectedLetters[ind] = letter;
 			letter.onclick = null;
 			var ind2 = letter.id + "";
