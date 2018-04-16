@@ -9,11 +9,11 @@
 <div id="root" style="position:relative;margin: auto; width:100%;height:100%; text-align: center">
 	<div id="menuDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0px; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0px"><p style="font-family: verdana, arial, sans-serif; margin-top: 0px; padding-right: 0.5em" onclick="closeMenu()">X</p></div>
-		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><p id="gameMessage" style="font-size: 2em; text-align: center;"></p><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">New Game</button>
+		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><p id="gameMessage" style="font-size: 2em; text-align: center;"></p><button id="newGameButton" style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">New Game</button>
 		</div>
 	</div>
 
-	<div style="position: absolute; width: 15em; height: 8em; left: 100%; margin-left: -15em; z-index: 4"  onclick="showMenu();" onmouseover="animateMenu(document.getElementById('menuPara'), 0);" onmouseout="animateMenu(document.getElementById('menuPara'), 1);"></div>
+	<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 4"  onclick="showMenu();" onmouseover="animateMenu(document.getElementById('menuPara'), 0);" onmouseout="animateMenu(document.getElementById('menuPara'), 1);"></div>
 	<div style="position:relative;width:100%; height:3em; margin:auto; margin-top: 0px; padding-top: 0px; font-family: verdana, geneva, sans-serif; text-align: right; cursor: default;"><p id="menuPara" style="margin-top: 0px; padding-top: 0px;font-size: 2em; padding-right: 2em; padding-bottom: 3em; transition: background-color 1s, color 1s; background-color: white; color: gray;"><span style="padding-right: 0px; transition: padding-right 1s;">m</span><span style="padding-right: 0px; transition: padding-right 1s;">e</span><span style="padding-right: 0px; transition: padding-right 1s;">n</span><span style="padding-right: 0px; transition: padding-right 1s;">u</span></p></div>
 	<div style="position:relative;width:100%; height:25%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">
 		<div id="letterChoicesCont" style="position:absolute;width:100%;height:100%;top: 0px; left: 0px;background-color: white; display:none;text-align:center; z-index: 4"></div>
@@ -271,7 +271,7 @@
 			clearInterval(borderIntervalID);
 			borderIntervalID = setInterval(
 				function() {
-					if (values[1] == -1) {clearInterval(borderIntervalID); var par = letter.parentNode; par.style.width = (letter.offsetWidth + 5) + "px"; par.style.height = (letter.offsetHeight + 5) + "px"; par.style.borderBottom = "2px solid gray"; var preSib = par.previousSibling; while(!!preSib) {preSib.style.width = (letter.offsetWidth + 5) + "px"; preSib.style.height = (letter.offsetHeight + 5) + "px"; preSib = preSib.previousSibling;}; var postSib = par.nextSibling; while(!!postSib) {postSib.style.width = (letter.offsetWidth + 5) + "px"; postSib.style.height = (letter.offsetHeight + 5) + "px"; postSib = postSib.nextSibling;}; }
+					if (values[1] == -1) {clearInterval(borderIntervalID); var par = letter.parentNode; par.style.width = (letter.offsetWidth + 5) + "px"; par.style.height = (letter.offsetHeight + 5) + "px"; par.style.borderBottom = "2px solid gray"; var preSib = par.previousSibling; while(!!preSib) {preSib.style.width = (letter.offsetWidth + 5) + "px"; preSib.style.height = (letter.offsetHeight + 5) + "px"; preSib = preSib.previousSibling;}; var postSib = par.nextSibling; while(!!postSib) {postSib.style.width = (letter.offsetWidth + 5) + "px"; postSib.style.height = (letter.offsetHeight + 5) + "px"; postSib = postSib.nextSibling;}; return true;}
 					else {
 						values[1]++;
 						values = animateSmallLargeMedium(1, 2, values[1], 2, borderIntervalID);  
@@ -295,7 +295,7 @@
 				first.style.boxShadow = "-2px 2px 10px #bbbbbb";
 				first.style.fontWeight = "bold";
 				first.style.fontSize = "1.5em";
-				if (numXs == 4) {var el = document.getElementById("gameMessage"); el.style.color = "red"; el.innerHTML = "Game Over"; showMenu();}
+				if (numXs == 4) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "red"; el.innerHTML = "Game Over"; showMenu(); setTimeout(closeMenu,2000); showLetters(); }
 			}
 
 			if (code==2) {
@@ -349,6 +349,7 @@
 
 					}
 				},time);
+			return false;
 		}
 
 		function animateSmallLargeMedium(origVal, endVal, step, max, intvlID) {
@@ -791,7 +792,7 @@
 				var t = document.createTextNode(useTheseLetters[i].letter);
 				elP.appendChild(t);
 				var div = document.createElement("div");
-				div.id = "hoopla:"+i;
+				div.id = "hoopla"+i+":"+i;
 				div.style.border = "3px solid ghostwhite";
 				div.style.textAlign = "center";
 				div.style.width = (cl.size+Math.floor(cl.size/4))+"px";
@@ -826,31 +827,28 @@
 			ind2 = ind2.split(":")[1];
 			if (correctLetters[ind].index == ind2) startLetterBorderAnimation(letter, 0);
 			else startLetterBorderAnimation(letter, 1);
+			if (isGameWon()) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You Won!"; showMenu(); setTimeout(closeMenu,2000); showLetters(); }
 		} // end function selectLetter(letter)
 
+		function isGameWon() {
+			var par = document.getElementById("gameLettersDiv");
+			var first = par.firstChild;
+			var numLetts = 0;
+			while(!!first) {if (!!first.firstChild && !!first.firstChild.id) {var id = first.firstChild.id + ""; if (id[0]=="h") numLetts++;} first = first.nextSibling;}
+			if (numLetts == correctLetters.length) {
+				first = par.firstChild;
+				var ind = 0;
+				var numCorr = 0;
+				while(!!first) {var id = first.firstChild.id + ""; if ( parseInt(id.split(":")[1]) == correctLetters[ind].index ) numCorr++; first = first.nextSibling; ind++;}
+				if (numCorr == correctLetters.length) return true;
+			}
+			return false;
+		}
+
 		function showLetters() {
-			var arr = [];
-			var arr2 = [];
-			for (var i = 0; i < canvas.height; i++) {
-				arr.push(i);
-				arr2.push("*");
-			}
-			var pos;
-			var end = Math.floor(canvas.height/2);
-			for (var i = 0; i < end ; i++) {
-				pos = arr.pop();
-				var ind = Math.floor(Math.random()*canvas.height);
-				if (arr2[ind] == "*") arr2[ind] = pos;
-				else {
-					while (arr2[ind] != "*") ind = Math.floor(Math.random()*canvas.height);
-					arr2[ind] = pos;
-				}				
-			}			
-			while (arr.length > 0) {
-				pos = arr.pop();
-				for (var i = 0; i < canvas.height; i++) {if (arr2[i] == "*") {arr2[i] = pos; break;}}
-			}
-			setTimeout(function() {showL(arr2, 0)}, 100);
+			var w = canvas.width;
+			drawLine();
+			if (numberOfLinesDrawnOnCanvas < w) setTimeout(function() {showLetters()}, 100);
 		} // end function showLetters()
 
 		function showL(arr, counter) {
