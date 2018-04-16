@@ -46,6 +46,7 @@
 
 </body>
 <script>
+		missedCorrect = 0;
 		numXs = 0;
 		points = 0;
 		linesDrawnSoFar = {};
@@ -77,6 +78,7 @@
 
 
 		function setupNewGame() {
+			missedCorrect = 0;
 			numXs = 0;
 			points = 0;
 			linesDrawnSoFar = {};
@@ -291,17 +293,7 @@
 
 		function animatePoints(add, code) {
 			if (code == 3) {
-				numXs++;
-				var par, ind;
-				if (numXs < 3) {par = document.getElementById("xbox1"); ind = numXs;}
-				else if (numXs >= 3) {par = document.getElementById("xbox2"); ind = numXs - 2;}
-				var first = par.firstChild;
-				for (var i = 0; i < ind-1; i++) first = first.nextSibling;
-				first.style.color = "red";
-				first.style.boxShadow = "-2px 2px 10px #bbbbbb";
-				first.style.fontWeight = "bold";
-				first.style.fontSize = "1.5em";
-				if (numXs == 4) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "red"; el.innerHTML = "Game Over"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); }
+				isGameOver();
 			}
 
 			if (code==2) {
@@ -467,7 +459,7 @@
 					animatePoints(15, 0);
 					drawLine();
 					setTimeout(function() {getNextColors(par, sendID);},1200);}
-					else if (opt == 1) {gotitPara.style.fontSize = "1.5em"; gotitPara.innerHTML = "This was it.<br/>You missed it.<br/>:("; gotitPara.style.width = "6em"; gotitPara.style.height = "6em"; gotitPara.style.padding = "2em"; gotitPara.style.marginTop = "1em"; gotitPara.style.color = "gray";animatePoints(-5, 1);}
+					else if (opt == 1) {gotitPara.style.fontSize = "2em"; gotitPara.innerHTML = "This was it.<br/>You missed it.<br/>:("; gotitPara.style.width = "6em"; gotitPara.style.height = "6em"; gotitPara.style.padding = "2em"; gotitPara.style.marginTop = "1em"; gotitPara.style.color = "gray";animatePoints(-5, 1); missedCorrect++; if (missedCorrect == 2) {missedCorrect = 0; isGameOver();}}
 					document.getElementById(sendID).appendChild(gotitPara);
 			}
 			else if (opt == 0) {					
@@ -849,6 +841,20 @@
 				if (numCorr == correctLetters.length) return true;
 			}
 			return false;
+		}
+
+		function isGameOver() {
+			numXs++;
+			var par, ind;
+			if (numXs < 3) {par = document.getElementById("xbox1"); ind = numXs;}
+			else if (numXs >= 3) {par = document.getElementById("xbox2"); ind = numXs - 2;}
+			var first = par.firstChild;
+			for (var i = 0; i < ind-1; i++) first = first.nextSibling;
+			first.style.color = "red";
+			first.style.boxShadow = "-2px 2px 10px #bbbbbb";
+			first.style.fontWeight = "bold";
+			first.style.fontSize = "1.5em";
+			if (numXs == 4) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "red"; el.innerHTML = "Game Over"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); }
 		}
 
 		function showLetters() {
