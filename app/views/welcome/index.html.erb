@@ -4,12 +4,12 @@
 <head>
 </head>
 <body style="width:100%;height:100%; padding: 0px;margin: 0px; overflow-x: hidden;" onload="setTimeout(showMenu,500);">
-<h1 style="width:100%; padding:0.1em;text-align: center;background-color: #666666;font-size:4em; margin-top: 0px; color:white; box-shadow: 6px 6px 6px #aaaaaa; margin-bottom: 10px; padding-bottom: 0px; z-index:5">KO<span style="color:#3e99ff">J</span><span style="color:#3ecf8e">I</span></h1>
+<h1 style="width:100%; padding:0.1em;text-align: center;background-color: #666666;background: linear-gradient(#666666,#444444);font-size:4em; margin-top: 0px; color:white; box-shadow: 6px 6px 6px #aaaaaa; margin-bottom: 10px; padding-bottom: 0px; z-index:5">KO<span style="color:#3e99ff">J</span><span style="color:#3ecf8e">I</span></h1>
 
 <div id="root" style="position:relative;margin: auto; width:100%;height:100%; text-align: center">
 	<div id="menuDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0px; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0px"><p style="font-family: verdana, arial, sans-serif; margin-top: 0px; padding-right: 0.5em" onclick="closeMenu()">X</p></div>
-		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">New Game</button>
+		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><p id="gameMessage" style="font-size: 2em; text-align: center;"></p><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">New Game</button>
 		</div>
 	</div>
 
@@ -24,14 +24,15 @@
 	</div>
 
 	<div style="position:relative;width:100%;overflow: hidden; font-family: verdana, geneva, sans-serif; margin: auto; text-align: center; white-space: nowrap; margin-top: 1em;">
-		<div style="display: inline-block;width: 100%; text-align:center; overflow: hidden;"><strong style="font-size:2em">Points</strong><br/><span id="pointsSpan"></span></div>
+		<div style="display: inline-block;width: 100%; text-align:center; overflow: hidden;"><p id="xbox1" style="display: inline-block; width: 25%;font-size:2em;text-align: center"><span style="margin-left: 1em; margin-right: 1em;color: #3e99ff">X</span><span style="margin-left: 1em; margin-right: 1em;color: #3e99ff">X</span></p><strong style="display: inline-block;font-size:2em; border-bottom: 1px solid gray; width: 50%">Points</strong><p id="xbox2" style="display: inline-block; width: 25%;font-size:2em;text-align: center"><span style="margin-left: 1em; margin-right: 1em;color: #3e99ff">X</span><span style="margin-left: 1em; margin-right: 1em;color: #3e99ff">X</span></p><br/><span id="pointsSpan"></span></div>
 	</div>
 
-	<div id="gameLettersDivB" style="width:100%; margin: auto; text-align:center"></div>
-
+	<div>
+		<div style="width:50%; margin: auto; text-align:center; font-size: 2em; border-bottom: 1px solid gray; font-family: verdana, arial, sans-serif"><strong>Letters</strong></div>
+		<div id="gameLettersDiv" style="width:100%; margin: auto; text-align:center"></div>
+	</div>
+	
 	<div style="position:relative;width:100%; height:40%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">	
-		<div id="instruction" style="display: inline-block; width:45%;height:20%; margin: 0px; min-height: 20px;font-size: 1.5em; line-height: 2em; vertical-align: middle; z-index: 1; text-align: center; overflow: hidden;">&darr; if mixed, will match goal? &darr;</div>
-		<div id="instruction" style="display: inline-block; width:45%;height:20%; margin: auto; min-height: 20px;font-size: 1.5em; line-height: 2em; vertical-align: middle; z-index: 1; text-align: center; overflow: hidden;">&darr; if mixed, will match goal? &darr;</div>
 		<div id="guess" style="width:100%;height:80%; margin: auto; margin-top: 0px; min-height: 100px; background-color: #eef0f6;background-image: url('transparent_background.jpg');text-align:left; white-space: nowrap; z-index: 1"></div>
 	</div>
 
@@ -39,6 +40,7 @@
 
 </body>
 <script>
+		numXs = 0;
 		points = 0;
 		linesDrawnSoFar = {};
 		numberOfLinesDrawnOnCanvas = 0;
@@ -57,22 +59,22 @@
 		intervalID = null;
 		timeoutID = null;
 		borderIntervalID = null;
+		pointsIntervalID = null;
 		previousMinute = 0;
 		xhttp = new XMLHttpRequest();
 		counterU = 0;
+		correctLetters = [];
 		canvas = null, ctx = null;
 		imageData = null;
-		correctLetters = [];
-		pointsIntervalID = null;
-		testDivs = [];
 		similarLettersLowerCase = {"a": "egqd", "b": "hdgopq", "c": "eouvhy", "d": "bpqgh", "e": "agqd", "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z":"snum"};
 		similarLettersUpperCase = {"A": "VYUH", "B": "KEPRFX", "C": "GOQD", "D": "CGOQ", "E": "KBPRFX", "F" : "KBEPRX", "G":"COQD", "H":"ITLJA", "I":"HTLJ", "J":"HITL", "K":"BEPRFX", "L":"HITJ", "M":"NWUHE", "N": "MWUHE", "O": "CGQD", "P": "KBERFX", "Q":"GCDO", "R": "KBEPFX", "S" : "ZCBE", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNE", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
 
 
 		function setupNewGame() {
-			linesDrawnSoFar = {};
-			numberOfLinesDrawnOnCanvas = 0;
+			numXs = 0;
 			points = 0;
+			linesDrawnSoFar = {};
+			numberOfLinesDrawnOnCanvas = 0;	
 			currentAnswerColor = 0;
 			cycledThroughAnswerColors = false;
 			numberNeededToWin = 2;
@@ -90,25 +92,38 @@
 			intervalID = null;
 			clearTimeout(timeoutID);
 			timeoutID = null;
-			clearInterval(pointsIntervalID);
-			pointsIntervalID = null;
 			clearInterval(borderIntervalID);
 			borderIntervalID = null;
+			clearInterval(pointsIntervalID);
+			pointsIntervalID = null;
 			previousMinute = 0;
+			xhttp.abort();
+			xhttp = new XMLHttpRequest();
 			counterU = 0;
 			correctLetters = [];
+			if (!!ctx) ctx.clearRect(0,0,canvas.width,canvas.height);
+			canvas = null;
+			ctx = null;
+			imageData = null;
+			document.getElementById("letterChoicesCont").style.display = "none";
 			document.getElementById("pointsSpan").innerHTML = points;
+			document.getElementById("gameMessage").innerHTML = "";
+			var gameLD = document.getElementById("gameLettersDiv");
+			while (gameLD.firstChild) gameLD.removeChild(gameLD.firstChild);
+			gameLD.innerHTML = "";
+			var box = document.getElementById("xbox1");
+			var first = box.firstChild;
+			while (first) {first.style.color = "#3e99ff"; first.style.fontSize = "inherit"; first.style.fontWeight = "normal"; first.style.boxShadow = "none"; first = first.nextSibling;}
+			box = document.getElementById("xbox2");
+			first = box.firstChild;
+			while (first) {first.style.color = "#3e99ff"; first.style.fontSize = "inherit"; first.style.fontWeight = "normal"; first.style.boxShadow = "none"; first = first.nextSibling;}
 			var goal = document.getElementById("goal");
+			goal.innerHTML = "";
 			goal.style.backgroundImage = "url('transparent_background.jpg')";
-			var timer = document.getElementById("timer");
 			var messageContainer = document.getElementById("overlayMessageContainer"); 
 			var messageSpan = document.getElementById("overlayMessageSpan");
 			messageSpan.innerHTML = "";
 			messageContainer.style.display = "none";
-			timer.style.display = "none";
-			//timer.innerHTML = "0:00";
-			timer.style.display = "block";
-			xhttp.abort();
 			closeMenu();
 			getGame();
 		}
@@ -256,7 +271,7 @@
 			clearInterval(borderIntervalID);
 			borderIntervalID = setInterval(
 				function() {
-					if (values[1] == -1) {clearInterval(borderIntervalID); var par = letter.parentNode; par.style.width = (letter.offsetWidth + 5) + "px"; par.style.height = (letter.offsetHeight + 5) + "px"; var preSib = par.previousSibling; while(!!preSib) {preSib.style.width = (letter.offsetWidth + 5) + "px"; preSib.style.height = (letter.offsetHeight + 5) + "px"; preSib = preSib.previousSibling;}; var postSib = par.nextSibling; while(!!postSib) {postSib.style.width = (letter.offsetWidth + 5) + "px"; postSib.style.height = (letter.offsetHeight + 5) + "px"; postSib = postSib.nextSibling;}; }
+					if (values[1] == -1) {clearInterval(borderIntervalID); var par = letter.parentNode; par.style.width = (letter.offsetWidth + 5) + "px"; par.style.height = (letter.offsetHeight + 5) + "px"; par.style.borderBottom = "2px solid gray"; var preSib = par.previousSibling; while(!!preSib) {preSib.style.width = (letter.offsetWidth + 5) + "px"; preSib.style.height = (letter.offsetHeight + 5) + "px"; preSib = preSib.previousSibling;}; var postSib = par.nextSibling; while(!!postSib) {postSib.style.width = (letter.offsetWidth + 5) + "px"; postSib.style.height = (letter.offsetHeight + 5) + "px"; postSib = postSib.nextSibling;}; }
 					else {
 						values[1]++;
 						values = animateSmallLargeMedium(1, 2, values[1], 2, borderIntervalID);  
@@ -264,18 +279,53 @@
 					}
 				},22);
 			if (code == 0) animatePoints(100,2);
-			else if (code == 1) animatePoints(-200,3);
+			else if (code == 1) animatePoints(-150,3);
 		}
 
 
 		function animatePoints(add, code) {
+			if (code == 3) {
+				numXs++;
+				var par, ind;
+				if (numXs < 3) {par = document.getElementById("xbox1"); ind = numXs;}
+				else if (numXs >= 3) {par = document.getElementById("xbox2"); ind = numXs - 2;}
+				var first = par.firstChild;
+				for (var i = 0; i < ind-1; i++) first = first.nextSibling;
+				first.style.color = "red";
+				first.style.boxShadow = "-2px 2px 10px #bbbbbb";
+				first.style.fontWeight = "bold";
+				first.style.fontSize = "1.5em";
+				if (numXs == 4) {var el = document.getElementById("gameMessage"); el.style.color = "red"; el.innerHTML = "Game Over"; showMenu();}
+			}
+
+			if (code==2) {
+				if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .05))
+					add = add;
+				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .10))
+					add = Math.floor(add * .90);
+				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .15))
+					add = Math.floor(add * .85);
+				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .20))
+					add = Math.floor(add * .70);
+				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .25))
+					add = Math.floor(add * .65);
+				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .30))
+					add = Math.floor(add * .50);
+				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .40))
+					add = Math.floor(add * .40);
+				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .50))
+					add = Math.floor(add * .30);
+				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .60))
+					add = Math.floor(add * .20);
+				else add = Math.floor(add * .10);
+			}
 			points += add;
 			var time;
 			var el = document.getElementById("pointsSpan");
 			if (code==0) {el.innerHTML = "+15"; el.style.color = "green";el.style.fontSize = "1em"; time=22;}
 			else if (code==1) {el.innerHTML = "-5"; el.style.color = "red";el.style.fontSize = "3em"; time=500;}
-			else if (code==2) {el.innerHTML = "+100"; el.style.color = "green";el.style.fontSize = "1em"; time=22;}
-			else if (code==3) {el.innerHTML = "-200"; el.style.color = "red";el.style.fontSize = "3em";  time=500;}
+			else if (code==2) {el.innerHTML = "+"+add; el.style.color = "green";el.style.fontSize = "1em"; time=22;}
+			else if (code==3) {el.innerHTML = "-150"; el.style.color = "red";el.style.fontSize = "3em";  time=500;}
 			el.style.fontWeight = "bold";
 			//el.style.fontSize = "1em";
 			var values = [0,0];
@@ -339,9 +389,7 @@
 				}
 				var buttonDiv = document.createElement("div");
 				buttonDiv.style.width = "100%";
-				buttonDiv.style.height = "50%";
-				buttonDiv.style.position = "absolute";
-				buttonDiv.style.top = "25%";
+				buttonDiv.style.height = "3em";
 				buttonDiv.style.textAlign = "center";
 				var button1 = createYesNoButtons();
 				button1.style.backgroundColor = "#0066ff";
@@ -356,6 +404,21 @@
 				buttonDiv.appendChild(button1);
 				buttonDiv.appendChild(button2);
 				par.appendChild(buttonDiv);
+				buttonDiv.style.position = "absolute";
+				buttonDiv.style.top = "50%";
+				buttonDiv.style.marginTop = "-3em";
+				var instruct = document.createElement("div");
+				instruct.style.position = "absolute";
+				instruct.style.fontSize = "1.5em";
+				instruct.innerHTML = "Mixes to match goal color?";
+				instruct.style.width = "15em";
+				instruct.style.top = "0em";
+				instruct.style.left = "50%";
+				instruct.style.marginLeft = "-7.5em";
+				instruct.style.backgroundColor = "ghostwhite";
+				instruct.style.color = "#3f3f3f";
+				instruct.style.textAlign = "center";
+				par.appendChild(instruct);
 				return par;
 		}
 
@@ -599,7 +662,7 @@
 			}
 			imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
 			console.log(imageData);
-			var gameLD = document.getElementById("gameLettersDivB");
+			var gameLD = document.getElementById("gameLettersDiv");
 			var frag = document.createDocumentFragment();
 			for (var i = 0; i < letters.length; i++) {
 				var tempLetterChoicesDiv = document.createElement("div");
@@ -728,15 +791,11 @@
 				var t = document.createTextNode(useTheseLetters[i].letter);
 				elP.appendChild(t);
 				var div = document.createElement("div");
-				var testDiv = document.createElement("div");
 				div.id = "hoopla:"+i;
 				div.style.border = "3px solid ghostwhite";
 				div.style.textAlign = "center";
 				div.style.width = (cl.size+Math.floor(cl.size/4))+"px";
 				div.style.height = (cl.size+Math.floor(cl.size/4))+"px";
-				testDiv.style.width = (cl.size+Math.floor(cl.size/4))+"px";
-				testDiv.style.height = (cl.size+Math.floor(cl.size/4))+"px";
-				testDiv.style.border = "3px solid white";
 				div.style.display = "inline-block";
 				div.style.margin = ".5em";
 				div.style.lineHeight = (cl.size+Math.floor(cl.size/4))+"px";
@@ -747,7 +806,6 @@
 				div.onclick = function(){selectLetter(this);}
 				div.appendChild(elP);
 				frag.appendChild(div);
-				testDivs.push(testDiv);
 			}
 			var el = document.getElementById("letterChoices"+ind);
 			while (!!el.lastChild) el.removeChild(el.lastChild);
@@ -761,25 +819,13 @@
 			par.innerHTML = "";
 			par.appendChild(letter);
 			par.style.padding = "0.5em";
-			//par.style.borderBottom = "none";
-			
+			par.style.borderBottom = "none";
 			selectedLetters[ind] = letter;
 			letter.onclick = null;
 			var ind2 = letter.id + "";
 			ind2 = ind2.split(":")[1];
 			if (correctLetters[ind].index == ind2) startLetterBorderAnimation(letter, 0);
 			else startLetterBorderAnimation(letter, 1);
-			/*if (letter != selectedUnderscore) {
-				var par = selectedUnderscore.parentNode;
-				var ind = par.id.split(":")[1];
-				if (!!selectedUnderscore && !selectedLetters[ind]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
-				
-				par.replaceChild(letter, selectedUnderscore);
-				var el = document.getElementById("letterChoices"+ind);
-				el.appendChild(selectedUnderscore);
-				selectedUnderscore = letter;
-				selectedLetters[ind] = letter;
-			}*/
 		} // end function selectLetter(letter)
 
 		function showLetters() {
