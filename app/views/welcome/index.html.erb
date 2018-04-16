@@ -3,12 +3,12 @@
 <title></title>
 <head>
 </head>
-<body style="width:100%;height:100%; padding: 0px;margin: 0; overflow-x: hidden;" onload="setTimeout(showMenu,500);">
-<h1 style="width:100%;height:1em; padding:0.1em;text-align: center;background-color: gray;font-size:4em; margin-top: 0px; color:white; box-shadow: 6px 6px 6px #aaaaaa; margin-bottom: 10px; padding-bottom: 0px; z-index:5">KO<span style="color:#3e99ff">J</span><span style="color:#3ecf8e">I</span></h1>
+<body style="width:100%;height:100%; padding: 0px;margin: 0px; overflow-x: hidden;" onload="setTimeout(showMenu,500);">
+<h1 style="width:100%; padding:0.1em;text-align: center;background-color: #666666;font-size:4em; margin-top: 0px; color:white; box-shadow: 6px 6px 6px #aaaaaa; margin-bottom: 10px; padding-bottom: 0px; z-index:5">KO<span style="color:#3e99ff">J</span><span style="color:#3ecf8e">I</span></h1>
 
 <div id="root" style="position:relative;margin: auto; width:100%;height:100%; text-align: center">
 	<div id="menuDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0px; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; transition: margin-top 1s, opacity 1s; overflow: hidden;">
-		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0px"><p style="font-family: verdana, arial, sans-serif; margin-top: 0px; padding-right: 1.5em" onclick="closeMenu()">X</p></div>
+		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0px"><p style="font-family: verdana, arial, sans-serif; margin-top: 0px; padding-right: 0.5em" onclick="closeMenu()">X</p></div>
 		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">New Game</button>
 		</div>
 	</div>
@@ -16,7 +16,7 @@
 	<div style="position:relative;width:100%; height:3em; margin:auto; margin-top: 0px; padding-top: 0px; font-family: verdana, geneva, sans-serif; text-align: right; cursor: default;"><p style="margin-top: 0px; padding-top: 0px;font-size: 2em; padding-right: 2em; padding-bottom: 3em; transition: background-color 1s, color 1s; background-color: white; color: gray;" onclick="showMenu();" onmouseover="animateMenu(this, 0);" onmouseout="animateMenu(this, 1);"><span style="padding-right: 0px; transition: padding-right 1s;">m</span><span style="padding-right: 0px; transition: padding-right 1s;">e</span><span style="padding-right: 0px; transition: padding-right 1s;">n</span><span style="padding-right: 0px; transition: padding-right 1s;">u</span></p></div>
 	<div style="position:relative;width:100%; height:25%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">
 		<div id="letterChoicesCont" style="position:absolute;width:100%;height:100%;top: 0px; left: 0px;background-color: white; display:none;text-align:center; z-index: 4"></div>
-		<div id="timer" style="position:absolute; width:20em; padding:0.5em; background-color:ghostwhite; text-align:center; font-size:2em; margin-top:0px; left: 50%; margin-left: -10em; color: gray; border-top: 1px solid gray; z-index: 3;">Goal Color</div>
+		<div id="timer" style="position:absolute; width:10em; padding:0.5em; background-color:ghostwhite; text-align:center; font-size:2em; margin-top:0px; left: 50%; margin-left: -5em; color: gray; border-top: 1px solid gray; z-index: 3;">Goal Color</div>
 		<canvas id="canvas1" style="position:absolute;width:100%;height:100%;top: 0px; left: 0px;display:none;text-align:center; z-index: 2"></canvas>
 		<div id="overlayMessageContainer" style="position:relative;width:100%;height:100%;display:none;text-align:center; background-color:lightgray; opacity:0.75;"><p id="overlayMessageSpan" style="margin-top:3em;font-size:4em;font-family: verdana, geneva, sans-serif"></p></div>
 		<div id="goal" style="width:100%;height:100%; margin: auto; margin-top: 0px; margin-bottom: 0px; min-height: 100px;background-image: url('transparent_background.jpg'); z-index: 1"></div>
@@ -358,17 +358,18 @@
 		}
 
 		function createYesNoButtons() {
-			var button1 = document.createElement("button");
-			button1.style.width = "25%";
-			button1.style.height = "80%";
-			button1.style.display = "inline-block";
-			button1.style.border = "none";
-			button1.style.borderRadius = "5px";
-			button1.style.textAlign = "center";
-			button1.style.color = "ghostwhite";
-			button1.style.fontSize = "3em";
-			button1.style.marginRight = "2em";
-			return button1;
+			var button = document.createElement("button");
+			button.style.width = "3em";
+			button.style.height = "2em";
+			button.style.fontSize = "3em";
+			button.style.display = "inline-block";
+			button.style.border = "none";
+			button.style.borderRadius = "5px";
+			button.style.textAlign = "center";
+			button.style.color = "ghostwhite";
+			button.style.marginRight = "2em";
+			button.style.marginLeft = "2em";
+			return button;
 		}
 
 		function showUnderneathBox(but, par, opt) {
