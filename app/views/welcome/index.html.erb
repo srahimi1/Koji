@@ -8,12 +8,12 @@
 
 <div id="root" style="position:relative;margin: auto; width:100%;height:100%; text-align: center">
 	<div id="menuDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0px; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; transition: margin-top 1s, opacity 1s; overflow: hidden;">
-		<div style="width: 100%; height: 3em; text-align: right; color: red; font-size: 3em; margin-top: 0px"><p style="font-family: verdana, arial, sans-serif; margin-top: 0px; padding-right: 0.5em" onclick="closeMenu()">X</p></div>
+		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0px"><p style="font-family: verdana, arial, sans-serif; margin-top: 0px; padding-right: 1.5em" onclick="closeMenu()">X</p></div>
 		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><button style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">New Game</button>
 		</div>
 	</div>
 
-	<div style="position:relative;width:100%; height:3em; margin:auto; margin-top: 0px; padding-top: 0px; font-family: verdana, geneva, sans-serif; text-align: right;"><p style="margin-top: 0px; padding-top: 0px;font-size: 2em; padding-right: 2em; padding-bottom: 3em; transition: background-color 1s, color 1s; background-color: white; color: gray;" onclick="showMenu();" onmouseover="animateMenu(this, 0);" onmouseout="animateMenu(this, 1);"><span style="padding-right: 0px; transition: padding-right 1s;">m</span><span style="padding-right: 0px; transition: padding-right 1s;">e</span><span style="padding-right: 0px; transition: padding-right 1s;">n</span><span style="padding-right: 0px; transition: padding-right 1s;">u</span></p></div>
+	<div style="position:relative;width:100%; height:3em; margin:auto; margin-top: 0px; padding-top: 0px; font-family: verdana, geneva, sans-serif; text-align: right; cursor: default;"><p style="margin-top: 0px; padding-top: 0px;font-size: 2em; padding-right: 2em; padding-bottom: 3em; transition: background-color 1s, color 1s; background-color: white; color: gray;" onclick="showMenu();" onmouseover="animateMenu(this, 0);" onmouseout="animateMenu(this, 1);"><span style="padding-right: 0px; transition: padding-right 1s;">m</span><span style="padding-right: 0px; transition: padding-right 1s;">e</span><span style="padding-right: 0px; transition: padding-right 1s;">n</span><span style="padding-right: 0px; transition: padding-right 1s;">u</span></p></div>
 	<div style="position:relative;width:100%; height:25%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">
 		<div id="letterChoicesCont" style="position:absolute;width:100%;height:100%;top: 0px; left: 0px;background-color: white; display:none;text-align:center; z-index: 4"></div>
 		<div id="timer" style="position:absolute; width:20em; padding:0.5em; background-color:ghostwhite; text-align:center; font-size:2em; margin-top:0px; left: 50%; margin-left: -10em; color: gray; border-top: 1px solid gray; z-index: 3;">Goal Color</div>
@@ -811,7 +811,7 @@
 			console.log("show");
 			var el = document.getElementById('menuDiv'); 
 			el.style.height = "80%";
-			el.style.marginTop="0em"; 
+			el.style.marginTop="3em"; 
 			el.style.opacity="1";
 		}
 
