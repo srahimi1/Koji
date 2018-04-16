@@ -13,7 +13,7 @@
 		</div>
 	</div>
 
-	<div style="position:relative;width:100%; height:3em; margin:auto; margin-top: 0px; padding-top: 0px; font-family: verdana, geneva, sans-serif; text-align: right; cursor: default;"><p style="margin-top: 0px; padding-top: 0px;font-size: 2em; padding-right: 2em; padding-bottom: 3em; transition: background-color 1s, color 1s; background-color: white; color: gray;" onclick="showMenu();" onmouseover="animateMenu(this, 0);" onmouseout="animateMenu(this, 1);"><span style="padding-right: 0px; transition: padding-right 1s;">m</span><span style="padding-right: 0px; transition: padding-right 1s;">e</span><span style="padding-right: 0px; transition: padding-right 1s;">n</span><span style="padding-right: 0px; transition: padding-right 1s;">u</span></p></div>
+	<div style="position:relative;width:100%; height:3em; margin:auto; margin-top: 0px; padding-top: 0px; font-family: verdana, geneva, sans-serif; text-align: right; cursor: default;"><p id="menuPara" style="margin-top: 0px; padding-top: 0px;font-size: 2em; padding-right: 2em; padding-bottom: 3em; transition: background-color 1s, color 1s; background-color: white; color: gray;" onclick="showMenu();" onmouseover="animateMenu(this, 0);" onmouseout="animateMenu(this, 1);"><span style="padding-right: 0px; transition: padding-right 1s;">m</span><span style="padding-right: 0px; transition: padding-right 1s;">e</span><span style="padding-right: 0px; transition: padding-right 1s;">n</span><span style="padding-right: 0px; transition: padding-right 1s;">u</span></p></div>
 	<div style="position:relative;width:100%; height:25%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">
 		<div id="letterChoicesCont" style="position:absolute;width:100%;height:100%;top: 0px; left: 0px;background-color: white; display:none;text-align:center; z-index: 4"></div>
 		<div id="timer" style="position:absolute; width:10em; padding:0.5em; background-color:ghostwhite; text-align:center; font-size:2em; margin-top:0px; left: 50%; margin-left: -5em; color: gray; border-top: 1px solid gray; z-index: 3;">Goal Color</div>
@@ -318,6 +318,7 @@
 			divTemp.style.margin = "0px";
 			divTemp.style.padding = "0px";
 			divTemp.style.opacity = "1";
+			divTemp.style.transition = "margin-top 1s, margin-bottom 1s, opacity 1s";
 			return divTemp;
 		}
 
@@ -820,6 +821,7 @@
 			var el = document.getElementById("menuDiv");
 			el.style.opacity = "0";
 			el.style.marginTop = "-2em";
+			animateMenu(document.getElementById("menuPara"),1);
 			setTimeout(function() {document.getElementById("menuDiv").style.height = "0px";}, 600);
 		}
 
