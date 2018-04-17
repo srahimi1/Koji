@@ -139,7 +139,7 @@
 		messageContainer.style.display = "none";
 		closeMenu(document.getElementById("menuDiv"));
 		getGame();
-		return false;
+		return true;
 	}// end function setupNewGame()
 
 	function getGame() {
@@ -153,11 +153,11 @@
 				colorGoalDiv();
 				createColorDivs();
 				createCanvasWithLetters();
-				return false;
+				return true;
 			} // end if
 		} // end onreadystatechange
 		xhttp.send();
-		return false;
+		return true;
 	} // end function getGame()
 
 
@@ -228,7 +228,7 @@
 		while(!!guess.firstChild) guess.removeChild(guess.firstChild);
 		guess.appendChild(frag);
 		guess.style.display = "block";
-		return false;
+		return true;
 	} // end function createColorDivs()
 
 	function getNextColors(par, did) {
@@ -273,7 +273,7 @@
 		par.style.display = "none";
 		par = createColorMixDivs(par, randN, 4, key, colorsForBackDiv[0], colorsForBackDiv[1], divTempA);
 		par.style.display = "inline-block";
-		return false;
+		return true;
 	} // end function getNextColors(par, did)
 	
 	// this creates the mini-half divs that combine
@@ -395,7 +395,7 @@
 			}
 		}
 		if (opt == 1) setTimeout(function() {getNextColors(par, sendID);},1200);
-		return false;
+		return true;
 	} // end function showUnderneathBox(but, par, opt)
 
 	function colorGoalDiv() {
@@ -404,7 +404,7 @@
 		goalDiv.style.backgroundImage = "none";
 		goalDiv.style.backgroundColor = gameData.goalColor;
 		goalDiv.style.display = "block";
-		return false;
+		return true;
 	} // end function colorGoalDiv()
 
 	function createInBetweenColor(color1, color2) {
@@ -532,7 +532,7 @@
 		} // for (var i = 0; i < letters.length; i++)
 		gameLD.appendChild(frag);
 		gameLD.style.display = "block";
-		return false;
+		return true;
 	} // end function createCanvasWithLetters()
 
 	function selectUnderscore(el, letters) {
@@ -553,7 +553,7 @@
 			el.style.borderBottom="5px solid gray"; 
 			showLetterChoices(el.id.split(":")[1], letters.length);
 		} // if (!repeat) 
-		return false;
+		return true;
 	} // end function selectUnderscore(el, letters)
 
 	function drawLine() {
@@ -586,7 +586,7 @@
 		var el = document.getElementById("letterChoices"+ind);
 		el.style.display = "block";
 		document.getElementById("letterChoicesCont").style.display = "block";
-		return false;
+		return true;
 	} // end function showLetterChoices(ind,len)
 
 	function makeLetterDivs(ind) {
@@ -652,7 +652,7 @@
 		var el = document.getElementById("letterChoices"+ind);
 		while (!!el.lastChild) el.removeChild(el.lastChild);
 		el.appendChild(frag);
-		return false;
+		return true;
 	} // end function makeLetterDivs(ind) 
 
 	function selectLetter(letter){
@@ -671,7 +671,7 @@
 		else startLetterBorderAnimation(letter, 1);
 		if (isGameWon()) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You Won!"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); 
 		} // if
-		return false;
+		return true;
 	} // end function selectLetter(letter)
 
 
@@ -696,7 +696,7 @@
 			},22);
 		if (code == 0) animatePoints(100,2);
 		else if (code == 1) animatePoints(-150,3);
-		return false;
+		return true;
 	} // end function startLetterBorderAnimation(letter, code)
 
 	function animatePoints(add, code) {
@@ -751,7 +751,7 @@
 
 				}
 			},time);
-		return false;
+		return true;
 	} // end function animatePoints(add, code)
 
 	function animateSmallLargeMedium(origVal, endVal, step, max, intvlID) {
@@ -793,13 +793,13 @@
 		first.style.fontWeight = "bold";
 		first.style.fontSize = "1.5em";
 		if (numXs == 4) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "red"; el.innerHTML = "Game Over"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); }
-		return false;
+		return true;
 	} // end function isGameLost()
 
 	function showLetters() {
 		drawLine();
 		if (numberOfLinesDrawnOnCanvas < canvas.width) setTimeout(function() {showLetters()}, 100);
-		return false;
+		return true;
 	} // end function showLetters()
 
 
@@ -810,7 +810,7 @@
 		el.style.height = "80%";
 		el.style.marginTop="3em"; 
 		el.style.opacity="1";
-		return false;
+		return true;
 	} // end function showMenu(el)
 
 	function closeMenu(el) {
@@ -818,7 +818,7 @@
 		el.style.marginTop = "-2em";
 		if (el.id == "menuDiv") animateMenu(document.getElementById("menuPara"),1);
 		setTimeout(function() {el.style.height = "0px";}, 600);
-		return false;
+		return true;
 	} // end function closeMenu(el)
 
 	function animateMenu(para, code) {
@@ -834,7 +834,7 @@
 			first = para.firstChild;
 			while (!!first) {first.style.paddingRight = "0em"; first = first.nextSibling;}
 		} // if (code == 1)	
-		return false;
+		return true;
 	} // end function animateMenu(para, code)
 
 
@@ -849,7 +849,7 @@
 			clearInterval(intervalID);
 			intervalID = setInterval(function() {updateTimer(null)},333);
 		} // end else
-		return false;
+		return true;
 	} // end function setupTimer()
 
 	function updateTimer(time) {
@@ -872,7 +872,7 @@
 			timerEl.innerHTML = displayTime;
 			timerEl.style.display = "block";
 		} // end else
-		return false;
+		return true;
 	} // end function updateTimer(time)
 
 	</script>
