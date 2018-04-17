@@ -4,9 +4,11 @@
 <head>
 </head>
 <body style="width:100%;height:100%; padding: 0px;margin: 0px; overflow-x: hidden;" onload="setTimeout(function() {showMenu(document.getElementById('menuDiv')) },500);">
-<h1 style="width:100%; padding:0.1em;text-align: center;background-color: #666666;background: linear-gradient(#666666,#444444);font-size:4em; margin-top: 0px; color:white; box-shadow: 6px 6px 6px #aaaaaa; margin-bottom: 10px; padding-bottom: 0px; z-index:5">KO<span style="color:#3e99ff">J</span><span style="color:#3ecf8e">I</span></h1>
+
+<h1 id="KOJITitle" style="width:100%; padding:0.1em;text-align: center;background-color: #666666;background: linear-gradient(#666666,#444444);font-size:4em; margin-top: 0px; color:white; box-shadow: 6px 6px 6px #aaaaaa; margin-bottom: 10px; padding-bottom: 0px; z-index:5">KO<span style="color:#3e99ff">J</span><span style="color:#3ecf8e">I</span></h1>
 
 <div id="root" style="position:relative;margin: auto; width:100%;height:100%; text-align: center">
+	
 	<div id="menuDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0px; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0px"><p style="font-family: verdana, arial, sans-serif; margin-top: 0px; padding-right: 0.5em" onclick="closeMenu(document.getElementById('menuDiv'))">X</p></div>
 		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><button id="newGameButton" style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: 0px 4px 6px #aaaaaa; border: none; font-size:3em;padding:.5em;margin-top: 0.2em" onclick="setupNewGame()">New Game</button>
@@ -20,37 +22,72 @@
 	</div>
 
 	<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 4"  onclick="showMenu(document.getElementById('menuDiv'));" onmouseover="animateMenu(document.getElementById('menuPara'), 0);" onmouseout="animateMenu(document.getElementById('menuPara'), 1);"></div>
-	<div style="position:relative;width:100%; height:3em; margin:auto; margin-top: 0px; padding-top: 0px; font-family: verdana, geneva, sans-serif; text-align: right; cursor: default;"><p id="menuPara" style="margin-top: 0px; padding-top: 0px;font-size: 2em; padding-right: 2em; padding-bottom: 3em; transition: background-color 1s, color 1s; background-color: white; color: gray;"><span style="padding-right: 0px; transition: padding-right 1s;">m</span><span style="padding-right: 0px; transition: padding-right 1s;">e</span><span style="padding-right: 0px; transition: padding-right 1s;">n</span><span style="padding-right: 0px; transition: padding-right 1s;">u</span></p></div>
-	<div style="position:relative;width:100%; height:25%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">
+	
+	<div id="menuContainer" style="position:relative;width:100%; height:3em; margin:auto; margin-top: 0px; padding-top: 0px; font-family: verdana, geneva, sans-serif; text-align: right; cursor: default;"><p id="menuPara" style="margin-top: 0px; padding-top: 0px;font-size: 2em; padding-right: 2em; padding-bottom: 3em; transition: background-color 1s, color 1s; background-color: white; color: gray;"><span style="padding-right: 0px; transition: padding-right 1s;">m</span><span style="padding-right: 0px; transition: padding-right 1s;">e</span><span style="padding-right: 0px; transition: padding-right 1s;">n</span><span style="padding-right: 0px; transition: padding-right 1s;">u</span></p>
+	</div><!--end menuContainer div -->
+	
+	<div id="goalContainer" style="position:relative;width:100%; height:25%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">
 		<div id="letterChoicesCont" style="position:absolute;width:100%;height:100%;top: 0px; left: 0px;background-color: white; display:none;text-align:center; z-index: 4"></div>
 		<div id="timer" style="position:absolute; width:10em; padding:0.5em; background-color:ghostwhite; text-align:center; font-size:2em; margin-top:0px; left: 50%; margin-left: -5em; color: gray; border-top: 1px solid gray; z-index: 3;">Goal Color</div>
 		<canvas id="canvas1" style="position:absolute;width:100%;height:100%;top: 0px; left: 0px;display:none;text-align:center; z-index: 2"></canvas>
 		<div id="overlayMessageContainer" style="position:relative;width:100%;height:100%;display:none;text-align:center; background-color:lightgray; opacity:0.75;"><p id="overlayMessageSpan" style="margin-top:3em;font-size:4em;font-family: verdana, geneva, sans-serif"></p></div>
 		<div id="goal" style="width:100%;height:100%; margin: auto; margin-top: 0px; margin-bottom: 0px; min-height: 100px;background-image: url('transparent_background.jpg'); z-index: 1"></div>
-	</div>
+	</div><!--end goalContainer div -->
 
-	<div style="position:relative;width:100%;overflow: hidden; font-family: verdana, geneva, sans-serif; margin: auto; text-align: center; white-space: nowrap; margin-top: 1em;">
+	<div id="pointsandxsContainer" style="position:relative;width:100%;overflow: hidden; font-family: verdana, geneva, sans-serif; margin: auto; text-align: center; white-space: nowrap; margin-top: 1em;">
 		<div style="display: inline-block;width: 100%; text-align:center; overflow: hidden;"><p id="xbox1" style="display: inline-block; width: 25%;font-size:2em;text-align: center"><span style="margin-left: 1em; margin-right: 1em;color: #3e99ff">X</span><span style="margin-left: 1em; margin-right: 1em;color: #3e99ff">X</span></p><strong style="display: inline-block;font-size:2em; border-bottom: 1px solid gray; width: 50%">Points</strong><p id="xbox2" style="display: inline-block; width: 25%;font-size:2em;text-align: center"><span style="margin-left: 1em; margin-right: 1em;color: #3e99ff">X</span><span style="margin-left: 1em; margin-right: 1em;color: #3e99ff">X</span></p><br/><span id="pointsSpan"></span></div>
-	</div>
+	</div><!--end pointsandxsContainer div -->
 
-	<div>
+	<div id="gameLettersContainer">
 		<div style="width:50%; margin: auto; text-align:center; font-size: 2em; border-bottom: 1px solid gray; font-family: verdana, arial, sans-serif"><strong>Letters</strong></div>
 		<div id="gameLettersDiv" style="width:100%; margin: auto; text-align:center"></div>
-	</div>
+	</div><!--end gameLettersContainer div -->
 	
-	<div style="position:relative;width:100%; height:40%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">	
+	<div id="guessContainer" style="position:relative;width:100%; height:40%;overflow: hidden; margin:auto; font-family: verdana, geneva, sans-serif; ">	
 		<div id="guess" style="width:100%;height:80%; margin: auto; margin-top: 0px; min-height: 100px; background-color: #eef0f6;background-image: url('transparent_background.jpg');text-align:left; white-space: nowrap; z-index: 1"></div>
-	</div>
+	</div><!--end guessContainer div -->
 
-</div>
+</div><!--end root div -->
 
 </body>
 <script>
+	missedCorrect = 0;
+	numXs = 0;
+	points = 0;
+	linesDrawnSoFar = {};
+	numberOfLinesDrawnOnCanvas = 0;
+	currentAnswerColor = 0;
+	cycledThroughAnswerColors = false;
+	numberNeededToWin = 2;
+	numberCorrect = 0;
+	bkDivColors = {"div0" : "", "div1" :""};
+	gameData = null;
+	selectedDiv = null;
+	selectedUnderscore = null;
+	selectedLetters = [];
+	webWorker = null;
+	startTime = null;
+	lastTime = 0;
+	intervalID = null;
+	timeoutID = null;
+	borderIntervalID = null;
+	pointsIntervalID = null;
+	previousMinute = 0;
+	xhttp = new XMLHttpRequest();
+	counterU = 0;
+	correctLetters = [];
+	canvas = null, ctx = null;
+	imageData = null;
+	similarLettersLowerCase = {"a": "egqd", "b": "hdgopq", "c": "eouvhy", "d": "bpqgh", "e": "agqd", "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z":"snum"};
+	similarLettersUpperCase = {"A": "VYUH", "B": "KEPRFX", "C": "GOQD", "D": "CGOQ", "E": "KBPRFX", "F" : "KBEPRX", "G":"COQD", "H":"ITLJA", "I":"HTLJ", "J":"HITL", "K":"BEPRFX", "L":"HITJ", "M":"NWUHE", "N": "MWUHE", "O": "CGQD", "P": "KBERFX", "Q":"GCDO", "R": "KBEPFX", "S" : "ZCBE", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNE", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
+
+
+	function setupNewGame() {
 		missedCorrect = 0;
 		numXs = 0;
 		points = 0;
 		linesDrawnSoFar = {};
-		numberOfLinesDrawnOnCanvas = 0;
+		numberOfLinesDrawnOnCanvas = 0;	
 		currentAnswerColor = 0;
 		cycledThroughAnswerColors = false;
 		numberNeededToWin = 2;
@@ -60,849 +97,783 @@
 		selectedDiv = null;
 		selectedUnderscore = null;
 		selectedLetters = [];
+		if (!!webWorker) webWorker.terminate();
 		webWorker = null;
 		startTime = null;
 		lastTime = 0;
+		clearInterval(intervalID);
 		intervalID = null;
+		clearTimeout(timeoutID);
 		timeoutID = null;
+		clearInterval(borderIntervalID);
 		borderIntervalID = null;
+		clearInterval(pointsIntervalID);
 		pointsIntervalID = null;
 		previousMinute = 0;
+		xhttp.abort();
 		xhttp = new XMLHttpRequest();
 		counterU = 0;
 		correctLetters = [];
-		canvas = null, ctx = null;
+		if (!!ctx) ctx.clearRect(0,0,canvas.width,canvas.height);
+		canvas = null;
+		ctx = null;
 		imageData = null;
-		similarLettersLowerCase = {"a": "egqd", "b": "hdgopq", "c": "eouvhy", "d": "bpqgh", "e": "agqd", "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z":"snum"};
-		similarLettersUpperCase = {"A": "VYUH", "B": "KEPRFX", "C": "GOQD", "D": "CGOQ", "E": "KBPRFX", "F" : "KBEPRX", "G":"COQD", "H":"ITLJA", "I":"HTLJ", "J":"HITL", "K":"BEPRFX", "L":"HITJ", "M":"NWUHE", "N": "MWUHE", "O": "CGQD", "P": "KBERFX", "Q":"GCDO", "R": "KBEPFX", "S" : "ZCBE", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNE", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
+		document.getElementById("letterChoicesCont").style.display = "none";
+		document.getElementById("pointsSpan").innerHTML = points;
+		document.getElementById("gameMessage").innerHTML = "";
+		var gameLD = document.getElementById("gameLettersDiv");
+		while (gameLD.firstChild) gameLD.removeChild(gameLD.firstChild);
+		gameLD.innerHTML = "";
+		var box = document.getElementById("xbox1");
+		var first = box.firstChild;
+		while (first) {first.style.color = "#3e99ff"; first.style.fontSize = "inherit"; first.style.fontWeight = "normal"; first.style.boxShadow = "none"; first = first.nextSibling;}
+		box = document.getElementById("xbox2");
+		first = box.firstChild;
+		while (first) {first.style.color = "#3e99ff"; first.style.fontSize = "inherit"; first.style.fontWeight = "normal"; first.style.boxShadow = "none"; first = first.nextSibling;}
+		var goal = document.getElementById("goal");
+		goal.innerHTML = "";
+		goal.style.backgroundImage = "url('transparent_background.jpg')";
+		var messageContainer = document.getElementById("overlayMessageContainer"); 
+		var messageSpan = document.getElementById("overlayMessageSpan");
+		messageSpan.innerHTML = "";
+		messageContainer.style.display = "none";
+		closeMenu(document.getElementById("menuDiv"));
+		getGame();
+		return false;
+	}// end function setupNewGame()
+
+	function getGame() {
+		var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+		xhttp.open("POST", "/games");
+		xhttp.setRequestHeader('X-CSRF-Token', csrfTok)
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				gameData = JSON.parse(this.responseText);
+				console.log(gameData);
+				colorGoalDiv();
+				createColorDivs();
+				createCanvasWithLetters();
+				return false;
+			} // end if
+		} // end onreadystatechange
+		xhttp.send();
+		return false;
+	} // end function getGame()
 
 
-		function setupNewGame() {
-			missedCorrect = 0;
-			numXs = 0;
-			points = 0;
-			linesDrawnSoFar = {};
-			numberOfLinesDrawnOnCanvas = 0;	
-			currentAnswerColor = 0;
-			cycledThroughAnswerColors = false;
-			numberNeededToWin = 2;
-			numberCorrect = 0;
-			bkDivColors = {"div0" : "", "div1" :""};
-			gameData = null;
-			selectedDiv = null;
-			selectedUnderscore = null;
-			selectedLetters = [];
-			if (!!webWorker) webWorker.terminate();
-			webWorker = null;
-			startTime = null;
-			lastTime = 0;
-			clearInterval(intervalID);
-			intervalID = null;
-			clearTimeout(timeoutID);
-			timeoutID = null;
-			clearInterval(borderIntervalID);
-			borderIntervalID = null;
-			clearInterval(pointsIntervalID);
-			pointsIntervalID = null;
-			previousMinute = 0;
-			xhttp.abort();
-			xhttp = new XMLHttpRequest();
-			counterU = 0;
-			correctLetters = [];
-			if (!!ctx) ctx.clearRect(0,0,canvas.width,canvas.height);
-			canvas = null;
-			ctx = null;
-			imageData = null;
-			document.getElementById("letterChoicesCont").style.display = "none";
-			document.getElementById("pointsSpan").innerHTML = points;
-			document.getElementById("gameMessage").innerHTML = "";
-			var gameLD = document.getElementById("gameLettersDiv");
-			while (gameLD.firstChild) gameLD.removeChild(gameLD.firstChild);
-			gameLD.innerHTML = "";
-			var box = document.getElementById("xbox1");
-			var first = box.firstChild;
-			while (first) {first.style.color = "#3e99ff"; first.style.fontSize = "inherit"; first.style.fontWeight = "normal"; first.style.boxShadow = "none"; first = first.nextSibling;}
-			box = document.getElementById("xbox2");
-			first = box.firstChild;
-			while (first) {first.style.color = "#3e99ff"; first.style.fontSize = "inherit"; first.style.fontWeight = "normal"; first.style.boxShadow = "none"; first = first.nextSibling;}
-			var goal = document.getElementById("goal");
-			goal.innerHTML = "";
-			goal.style.backgroundImage = "url('transparent_background.jpg')";
-			var messageContainer = document.getElementById("overlayMessageContainer"); 
-			var messageSpan = document.getElementById("overlayMessageSpan");
-			messageSpan.innerHTML = "";
-			messageContainer.style.display = "none";
-			closeMenu(document.getElementById("menuDiv"));
-			getGame();
-		}
 
-		function getGame() {
-			var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-			xhttp.open("POST", "/games");
-			xhttp.setRequestHeader('X-CSRF-Token', csrfTok)
-			xhttp.onreadystatechange = function() {
-				if (this.readyState == 4 && this.status == 200) {
-					gameData = JSON.parse(this.responseText);
-					console.log(gameData);
-					colorGoalDiv();
-					createColorDivs();
-					createCanvasWithLetters();
-					//setupTimer();
-				} // end if
-			} // end onreadystatechange
-			xhttp.send();
-		} // end function getGame()
+// color mixing functions ...
 
-		function createColorDivs() {
-			var otherColors = gameData.otherColors;
-			var colors = [];
-			var chosenDiv = -1;
-			var randN;
-			for (var i = 0; i < 2; i++) {
-				randN = Math.floor(Math.random() * 5);
-				colors[i] = [];
-				if ((randN == 4) && (chosenDiv == -1)) { 
-					chosenDiv = i;
-					colors[i][0] = gameData.answerColors[currentAnswerColor][0];
-					colors[i][1] = gameData.answerColors[currentAnswerColor][1];
-					if (currentAnswerColor == (gameData.answerColors.length - 1)) cycledThroughAnswerColors = true;
-					if (!cycledThroughAnswerColors) currentAnswerColor++;
-					else currentAnswerColor = Math.floor(Math.random() * gameData.answerColors.length);
-					console.log("got it!");
-				}
-				else {
-					var ind1 = Math.floor(Math.random() * otherColors.length);
-					colors[i].push(otherColors[ind1]);
-					ind2 = Math.floor(Math.random() * otherColors.length);
-					while (ind2==ind1) ind2 = Math.floor(Math.random() * otherColors.length);
-					colors[i].push(otherColors[ind2]);
-				}
-			}
-			// choose the two colors code here
-			var guess = document.getElementById("guess");
-			guess.style.overflow = "hidden";
-			var frag = document.createDocumentFragment();
-			
-			for (var i = 0; i < 2; i++) {
-				var divTempOuter = document.createElement('div');
-				divTempOuter.style.display = "inline-block";
-				divTempOuter.style.position = "relative";
-				divTempOuter.style.height = "100%";
-				divTempOuter.style.width = "50%";
-				divTempOuter.style.margin = "0px";
-				divTempOuter.style.padding = "0px";
-				var divTempA = document.createElement("div");
-				if (i==0) divTempOuter.style.borderRight = "1em solid "+gameData.goalColor;
-				else if (i==1) divTempOuter.style.borderLeft = "1em solid "+gameData.goalColor;
-				divTempA.style.position = "absolute";
-				divTempA.style.width = "100%";
-				divTempA.style.height = "100%";
-				divTempA.style.top = "0px";
-				divTempA.style.left = "0px"; 
-				divTempA.id = "bkcolor:div"+i;
-				divTempOuter.appendChild(divTempA);
-				var colorsForBackDiv = [];
-				for (var j = 0; j < 2; j++) {
-					var divTemp = createMixColorDivs();
-					if (i == chosenDiv) var color = colors[i][j];
-					else var color = getHexFromRGB(colors[i][j]);
-					colorsForBackDiv.push(colors[i][j]);
-					divTemp.style.backgroundColor = color;
-					divTempOuter.appendChild(divTemp);
-				} // end for (var j = 0; j < colorsArr[i].length; j++) {
-				var key = "div" + i;
-				divTempOuter.style.display = "none";
-				divTempOuter = createColorMixDivs(divTempOuter, i, chosenDiv, key, colorsForBackDiv[0], colorsForBackDiv[1], divTempA);
-				divTempOuter.style.display = "inline-block";
-				frag.appendChild(divTempOuter);
-			} // end for (var i = 0; i < colorsArr.length; i++) {
-			guess.style.display = "none";
-			while(!!guess.firstChild) guess.removeChild(guess.firstChild);
-			guess.appendChild(frag);
-			guess.style.display = "block";
-		}
-
-		function getNextColors(par, did) {
-			while (par.firstChild) par.removeChild(par.firstChild);
-			var id = did;
-			var otherColors = gameData.otherColors;
-			var colors = [];
-			var randN = Math.floor(Math.random() * 5);
-			if (randN == 4) { 
-				colors[0] = gameData.answerColors[currentAnswerColor][0];
-				colors[1] = gameData.answerColors[currentAnswerColor][1];
+	function createColorDivs() {
+		var otherColors = gameData.otherColors;
+		var colors = [];
+		var chosenDiv = -1;
+		var randN;
+		for (var i = 0; i < 2; i++) {
+			randN = Math.floor(Math.random() * 5);
+			colors[i] = [];
+			if ((randN == 4) && (chosenDiv == -1)) { 
+				chosenDiv = i;
+				colors[i][0] = gameData.answerColors[currentAnswerColor][0];
+				colors[i][1] = gameData.answerColors[currentAnswerColor][1];
 				if (currentAnswerColor == (gameData.answerColors.length - 1)) cycledThroughAnswerColors = true;
 				if (!cycledThroughAnswerColors) currentAnswerColor++;
 				else currentAnswerColor = Math.floor(Math.random() * gameData.answerColors.length);
-				console.log("got it!");
-				console.log(currentAnswerColor);
-			}
+			} // end if ((randN == 4) && (chosenDiv == -1))
 			else {
 				var ind1 = Math.floor(Math.random() * otherColors.length);
-				colors.push(otherColors[ind1]);
+				colors[i].push(otherColors[ind1]);
 				ind2 = Math.floor(Math.random() * otherColors.length);
 				while (ind2==ind1) ind2 = Math.floor(Math.random() * otherColors.length);
-				colors.push(otherColors[ind2]);
-			}
+				colors[i].push(otherColors[ind2]);
+			} // end else
+		} // for (var i = 0; i < 2; i++)
+		var guess = document.getElementById("guess");
+		guess.style.overflow = "hidden";
+		var frag = document.createDocumentFragment();
+		for (var i = 0; i < 2; i++) {
+			var divTempOuter = document.createElement('div');
+			divTempOuter.style.display = "inline-block";
+			divTempOuter.style.position = "relative";
+			divTempOuter.style.height = "100%";
+			divTempOuter.style.width = "50%";
+			divTempOuter.style.margin = "0px";
+			divTempOuter.style.padding = "0px";
 			var divTempA = document.createElement("div");
+			if (i==0) divTempOuter.style.borderRight = "1em solid "+gameData.goalColor;
+			else if (i==1) divTempOuter.style.borderLeft = "1em solid "+gameData.goalColor;
 			divTempA.style.position = "absolute";
 			divTempA.style.width = "100%";
 			divTempA.style.height = "100%";
 			divTempA.style.top = "0px";
 			divTempA.style.left = "0px"; 
-/*			if (id.split(":")[1] == "div0") divTempA.style.boxShadow = "inset -2px 2px 10px #666666";
-			else if (id.split(":")[1] == "div1") divTempA.style.boxShadow = "inset 2px 2px 10px #666666";*/
-			divTempA.id = id;
-			par.appendChild(divTempA);
+			divTempA.id = "bkcolor:div"+i;
+			divTempOuter.appendChild(divTempA);
 			var colorsForBackDiv = [];
 			for (var j = 0; j < 2; j++) {
 				var divTemp = createMixColorDivs();
-				if (randN == 4) var color = colors[j];
-				else var color = getHexFromRGB(colors[j]);
-				colorsForBackDiv.push(colors[j]);
-				divTemp.style.backgroundColor = color;				
-				par.appendChild(divTemp);
-			} // end for (var j = 0; j < colorsArr[i].length; j++) {
-			var key = id + "";
-			key = key.split(":")[1];
-			par.style.display = "none";
-			par = createColorMixDivs(par, randN, 4, key, colorsForBackDiv[0], colorsForBackDiv[1], divTempA);
-			par.style.display = "inline-block";
-		}
+				if (i == chosenDiv) var color = colors[i][j];
+				else var color = getHexFromRGB(colors[i][j]);
+				colorsForBackDiv.push(colors[i][j]);
+				divTemp.style.backgroundColor = color;
+				divTempOuter.appendChild(divTemp);
+			} // end (var j = 0; j < 2; j++)
+			var key = "div" + i;
+			divTempOuter.style.display = "none";
+			divTempOuter = createColorMixDivs(divTempOuter, i, chosenDiv, key, colorsForBackDiv[0], colorsForBackDiv[1], divTempA);
+			divTempOuter.style.display = "inline-block";
+			frag.appendChild(divTempOuter);
+		} // end for (var i = 0; i < 2; i++)
+		guess.style.display = "none";
+		while(!!guess.firstChild) guess.removeChild(guess.firstChild);
+		guess.appendChild(frag);
+		guess.style.display = "block";
+		return false;
+	} // end function createColorDivs()
 
-		function startLetterBorderAnimation(letter, code) {
-			letter.style.borderWidth = "1em";
-			if (code == 0) letter.style.borderColor = "#3ecf8e";
-			else if (code == 1) letter.style.borderColor = "red";
-			else if (code == 2) console.log("done once");
-			var values = [0,0];
-			clearInterval(borderIntervalID);
-			borderIntervalID = setInterval(
-				function() {
-					if (values[1] == -1) {clearInterval(borderIntervalID); var par = letter.parentNode; par.style.width = (letter.offsetWidth + 5) + "px"; par.style.height = (letter.offsetHeight + 5) + "px"; par.style.borderBottom = "2px solid gray"; var preSib = par.previousSibling; while(!!preSib) {preSib.style.width = (letter.offsetWidth + 5) + "px"; preSib.style.height = (letter.offsetHeight + 5) + "px"; preSib = preSib.previousSibling;}; var postSib = par.nextSibling; while(!!postSib) {postSib.style.width = (letter.offsetWidth + 5) + "px"; postSib.style.height = (letter.offsetHeight + 5) + "px"; postSib = postSib.nextSibling;}; return true;}
-					else {
-						values[1]++;
-						values = animateSmallLargeMedium(1, 2, values[1], 2, borderIntervalID);  
-						letter.style.borderWidth = (values[0]/4)+"em";
-					}
-				},22);
-			if (code == 0) animatePoints(100,2);
-			else if (code == 1) animatePoints(-150,3);
-		}
-
-
-		function animatePoints(add, code) {
-			if (code == 3) {
-				isGameOver();
-			}
-
-			if (code==2) {
-				if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .05))
-					add = add;
-				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .10))
-					add = Math.floor(add * .90);
-				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .15))
-					add = Math.floor(add * .85);
-				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .20))
-					add = Math.floor(add * .70);
-				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .25))
-					add = Math.floor(add * .65);
-				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .30))
-					add = Math.floor(add * .50);
-				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .40))
-					add = Math.floor(add * .40);
-				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .50))
-					add = Math.floor(add * .30);
-				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .60))
-					add = Math.floor(add * .20);
-				else add = Math.floor(add * .10);
-			}
-			points += add;
-			var time;
-			var el = document.getElementById("pointsSpan");
-			if (code==0) {el.innerHTML = "+15"; el.style.color = "green";el.style.fontSize = "1em"; time=22;}
-			else if (code==1) {el.innerHTML = "-5"; el.style.color = "red";el.style.fontSize = "3em"; time=500;}
-			else if (code==2) {el.innerHTML = "+"+add; el.style.color = "green";el.style.fontSize = "1em"; time=22;}
-			else if (code==3) {el.innerHTML = "-150"; el.style.color = "red";el.style.fontSize = "3em";  time=500;}
-			el.style.fontWeight = "bold";
-			//el.style.fontSize = "1em";
-			var values = [0,0];
-			clearInterval(pointsIntervalID);
-			pointsIntervalID = setInterval(
-				function() {
-					if (values[1] == -1) {clearInterval(pointsIntervalID); el.innerHTML = points; if (points >= 0) el.style.color = "orange"; else el.style.color = "red"; el.style.fontWeight = "normal";}
-					else {
-						values[1]++;
-						if ((code == 0) || (code == 2)) {
-							values = animateSmallLargeMedium(1, 3, values[1], 10, pointsIntervalID);  
-							el.style.fontSize = values[0]+"em";
-						}
-						else if ((code == 1) || (code == 3)) {
-							values = [-1,-1];
-							el.style.fontSize = 3+"em";
-/*							values = animateSmallLargeMedium(1, 3, values[1], 3, pointsIntervalID);  
-							console.log(values[0]);
-							el.style.fontSize = values[0]+"em";*/
-						}
-
-					}
-				},time);
-			return false;
-		}
-
-		function animateSmallLargeMedium(origVal, endVal, step, max, intvlID) {
-			var sinVal = (-Math.PI/2) + ((3*Math.PI/2) * (step/10));
-			var currVal = origVal *   (max * Math.sin(sinVal) + (max+1));
-			if (sinVal < Math.PI) return [currVal, step];
-			else if (currVal > endVal) return [currVal, step];
-			else return [endVal, -1];
-		}
-
-
-		function createMixColorDivs() {
-			var divTemp = document.createElement('div');
-			divTemp.style.position = "relative";
-			divTemp.style.width = "100%";
-			divTemp.style.height = "50%";
-			divTemp.style.display = "block";
-			divTemp.style.margin = "0px";
-			divTemp.style.padding = "0px";
-			divTemp.style.opacity = "1";
-			divTemp.style.transition = "margin-top 1s, margin-bottom 1s, opacity 1s";
-			return divTemp;
-		}
-
-		function createColorMixDivs(par, comparator, condition, key, colorA, colorB, divTempA) {
-				if (comparator == condition) {
-					bkDivColors[key] = gameData.goalColor;
-					divTempA.style.backgroundColor = gameData.goalColor;
-					divTempA.style.verticalAlign = "middle";
-					divTempA.style.textAlign = "center";
-				}
-				else {
-					var cl = createInBetweenColor(colorA,colorB);
-					bkDivColors[key] = cl;
-					divTempA.style.backgroundColor = cl;
-					divTempA.style.verticalAlign = "middle";
-					divTempA.style.textAlign = "center";
-				}
-				var buttonDiv = document.createElement("div");
-				buttonDiv.style.width = "100%";
-				buttonDiv.style.height = "3em";
-				buttonDiv.style.textAlign = "center";
-				var button1 = createYesNoButtons();
-				button1.style.backgroundColor = "#0066ff";
-				button1.style.background = "linear-gradient(#3e99ff,#0066ff)";
-				button1.innerHTML = "Yes";
-				button1.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, 0);}
-				var button2 = createYesNoButtons();
-				button2.style.backgroundColor = "#993399";
-				button2.style.background = "linear-gradient(#cc66cc,#993399)";
-				button2.innerHTML = "No";
-				button2.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, 1);}				
-				buttonDiv.appendChild(button1);
-				buttonDiv.appendChild(button2);
-				par.appendChild(buttonDiv);
-				buttonDiv.style.position = "absolute";
-				buttonDiv.style.top = "50%";
-				buttonDiv.style.marginTop = "-3em";
-				var instruct = document.createElement("div");
-				instruct.style.position = "absolute";
-				instruct.style.fontSize = "1.5em";
-				instruct.innerHTML = "Mixes to match goal color?";
-				instruct.style.width = "15em";
-				instruct.style.top = "0em";
-				instruct.style.left = "50%";
-				instruct.style.marginLeft = "-7.5em";
-				instruct.style.backgroundColor = "ghostwhite";
-				instruct.style.color = "#3f3f3f";
-				instruct.style.textAlign = "center";
-				par.appendChild(instruct);
-				return par;
-		}
-
-		function createYesNoButtons() {
-			var button = document.createElement("button");
-			button.style.width = "3em";
-			button.style.height = "2em";
-			button.style.fontSize = "3em";
-			button.style.display = "inline-block";
-			button.style.border = "none";
-			button.style.borderRadius = "5px";
-			button.style.textAlign = "center";
-			button.style.color = "ghostwhite";
-			button.style.marginRight = "0.5em";
-			button.style.marginLeft = "0.5em";
-			return button;
-		}
-
-		function showUnderneathBox(but, par, opt) {
-			but.style.display = "none";
-			if (opt == 0) but.nextSibling.style.display = "none";
-			else if (opt == 1) but.previousSibling.style.display = "none";
-			cn = par.childNodes;
-			cn[1].style.marginTop = "-50%";
-			cn[1].style.marginBottom = "100%";
-			cn[1].style.opacity = "0";
-			cn[2].style.opacity = "0";
-			var key = cn[0].id + "";
-			var sendID = key;
-			key = key.split(":")[1];
-			if (bkDivColors[key].toUpperCase() == gameData.goalColor.toUpperCase()) {
-				var gotitPara = document.createElement("p");
-				gotitPara.style.backgroundColor = "white";
-				gotitPara.style.opacity = "0.5";
-				gotitPara.style.color = "#3ecf8e";
-				gotitPara.style.margin = "auto";
-				if (opt == 0) {gotitPara.style.width = "6em"; gotitPara.style.height = "3em"; gotitPara.style.fontSize = "3em"; gotitPara.innerHTML = "You got it!"; gotitPara.style.marginTop = "1.5em"; gotitPara.style.paddingTop = "1em"; gotitPara.style.color = "gray";
-				/*if (++numberCorrect == numberNeededToWin) goToNextPart();*/ 
-				animatePoints(15, 0);
-				drawLine();
-				setTimeout(function() {getNextColors(par, sendID);},1200);}
-				else if (opt == 1) {gotitPara.style.fontSize = "2em"; gotitPara.innerHTML = "This was it.<br/>You missed it.<br/>:("; gotitPara.style.width = "6em"; gotitPara.style.height = "6em"; gotitPara.style.padding = "2em"; gotitPara.style.marginTop = "1em"; gotitPara.style.color = "gray";animatePoints(-5, 1); missedCorrect++; if (missedCorrect == 2) {missedCorrect = 0; isGameOver();}}
-				document.getElementById(sendID).appendChild(gotitPara);
-			}
-			else if (opt == 0) {					
-				var gotitPara = document.createElement("p");
-				gotitPara.style.backgroundColor = "white";
-				gotitPara.style.opacity = "0.5";
-				gotitPara.style.color = "#3ecf8e";
-				gotitPara.style.margin = "auto";
-				gotitPara.style.fontSize = "3em"; 
-				gotitPara.innerHTML = "Try again"; 
-				gotitPara.style.marginTop = "1.5em";
-				animatePoints(-5, 1);
-				missedCorrect++; 
-				if (missedCorrect == 2) {missedCorrect = 0; isGameOver();}
-				else {
-					document.getElementById(sendID).appendChild(gotitPara);
-					setTimeout(function() {getNextColors(par, sendID);},1200);
-				}
-			}
-			if (opt == 1) setTimeout(function() {getNextColors(par, sendID);},1200);
-		}
-
-		function goToNextPart() {
-			var a = document.getElementById("bkcolor:div0");
-			a.style.boxShadow = "none";
-			a.innerHTML = "";
-			while (a.innerHTML != "") a.innerHTML = "";
-			a = document.getElementById("bkcolor:div1");
-			a.style.boxShadow = "none";
-			while (a.innerHTML != "") a.innerHTML = "";			
-			if (!!webWorker) webWorker.terminate(); 
-			else clearInterval(intervalID); 
-			var messageContainer = document.getElementById("overlayMessageContainer");
-			var messageSpan = document.getElementById("overlayMessageSpan");			
-			messageContainer.style.display = "none"; 
-			messageSpan.innerHTML = "YOU GOT PART 1!!!"; 
-			messageContainer.style.display = "block";
-			createCanvasWithLetters();
-		}
-
-
-		function colorGoalDiv() {
-			goalDiv = document.getElementById("goal");
-			goalDiv.style.display = "none";
-			goalDiv.style.backgroundImage = "none";
-			goalDiv.style.backgroundColor = gameData.goalColor;
-			goalDiv.style.display = "block";
-			//document.getElementById("timer").innerHTML = "This color is your goal";
-		}
-
-
-		function createInBetweenColor(color1, color2) {
-			var color1hex = "", color2hex = "";
-			var hex;
-			alpha = 0.5;
-			var slice = [];
-			slice[0] = Math.floor(color1[0] * alpha + (1-alpha) * color2[0]);
-			slice[1] = Math.floor(color1[1] * alpha + (1-alpha) * color2[1]);
-			slice[2] = Math.floor(color1[2] * alpha + (1-alpha) * color2[2]);
-			hex = getHexFromRGB([slice[0],slice[1],slice[2]])
-			return hex;
-		} // end function createGradient(steps)
-
-		function getRGBComponents(color) {
-			color = color.replace("rgb(","");
-			color = color.replace(")","");
-			var colorArr = color.split(",");
-			return colorArr;
-		} // end function getRGBComponents(color)
-
-		function getHexFromRGB(rgb) {
-				var slice = [];
-				slice.push(parseInt(rgb[0]));
-				slice.push(parseInt(rgb[1]));
-				slice.push(parseInt(rgb[2]));
-				slice[0] = parseInt(slice[0]).toString(16);
-				if (slice[0].length == 1) slice[0] = "0" + slice[0];
-				slice[1] = parseInt(slice[1]).toString(16);
-				if (slice[1].length == 1) slice[1] = "0" + slice[1];
-				slice[2] = parseInt(slice[2]).toString(16);
-				if (slice[2].length == 1) slice[2] = "0" + slice[2];
-				var hex = "#" +  slice[0] + slice[1] + slice[2];
-				return hex
-		} // end function getHexFromRGB(rgb)
-
-
-		function checkGuess(col) {
-			color = col;
-			var messageContainer = document.getElementById("overlayMessageContainer");
-			var messageSpan = document.getElementById("overlayMessageSpan");
-			guessDiv = document.getElementById("guess");
-			guessDiv.style.backgroundColor = color
-			guessDiv.style.backgroundImage = "none";
-			answer1 = answer.correctMixedColor;
-			//if ((answer1.toUpperCase() === color.toUpperCase()) || getVarianceBetweenHexColors(answer1,color,0.95)) 
-			if ( answer1.toUpperCase() === color.toUpperCase() )  {if (!!webWorker) webWorker.terminate(); else clearInterval(intervalID); messageContainer.style.display = "none"; messageSpan.innerHTML = "YOU WON!!!"; messageContainer.style.display = "block"; createCanvasWithLetters();}
-			return true;
-		} // end function checkGuess(col)
+	function getNextColors(par, did) {
+		while (par.firstChild) par.removeChild(par.firstChild);
+		var id = did;
+		var otherColors = gameData.otherColors;
+		var colors = [];
+		var randN = Math.floor(Math.random() * 5);
+		if (randN == 4) { 
+			colors[0] = gameData.answerColors[currentAnswerColor][0];
+			colors[1] = gameData.answerColors[currentAnswerColor][1];
+			if (currentAnswerColor == (gameData.answerColors.length - 1)) cycledThroughAnswerColors = true;
+			if (!cycledThroughAnswerColors) currentAnswerColor++;
+			else currentAnswerColor = Math.floor(Math.random() * gameData.answerColors.length);
+		} // end if (randN == 4)
+		else {
+			var ind1 = Math.floor(Math.random() * otherColors.length);
+			colors.push(otherColors[ind1]);
+			ind2 = Math.floor(Math.random() * otherColors.length);
+			while (ind2==ind1) ind2 = Math.floor(Math.random() * otherColors.length);
+			colors.push(otherColors[ind2]);
+		} // end else
+		var divTempA = document.createElement("div");
+		divTempA.style.position = "absolute";
+		divTempA.style.width = "100%";
+		divTempA.style.height = "100%";
+		divTempA.style.top = "0px";
+		divTempA.style.left = "0px"; 
+		divTempA.id = id;
+		par.appendChild(divTempA);
+		var colorsForBackDiv = [];
+		for (var j = 0; j < 2; j++) {
+			var divTemp = createMixColorDivs();
+			if (randN == 4) var color = colors[j];
+			else var color = getHexFromRGB(colors[j]);
+			colorsForBackDiv.push(colors[j]);
+			divTemp.style.backgroundColor = color;				
+			par.appendChild(divTemp);
+		} // end for (var j = 0; j < 2; j++)
+		var key = id + "";
+		key = key.split(":")[1];
+		par.style.display = "none";
+		par = createColorMixDivs(par, randN, 4, key, colorsForBackDiv[0], colorsForBackDiv[1], divTempA);
+		par.style.display = "inline-block";
+		return false;
+	} // end function getNextColors(par, did)
 	
-		function setupTimer() {
-			if (!!window.Worker) {
-				if (!webWorker) {webWorker = new window.Worker("timer.js"); webWorker.onmessage = function(evt) {updateTimer(evt.data);} }
-			} // end if (!!window.Worker)
-			else {
-				clearInterval(intervalID);
-				intervalID = setInterval(function() {updateTimer(null)},333);
-			} // end else
-		} // end function setupTimer()
+	// this creates the mini-half divs that combine
+	function createMixColorDivs() {
+		var divTemp = document.createElement('div');
+		divTemp.style.position = "relative";
+		divTemp.style.width = "100%";
+		divTemp.style.height = "50%";
+		divTemp.style.display = "block";
+		divTemp.style.margin = "0px";
+		divTemp.style.padding = "0px";
+		divTemp.style.opacity = "1";
+		divTemp.style.transition = "margin-top 1s, margin-bottom 1s, opacity 1s";
+		return divTemp;
+	} // end function createMixColorDivs()
 
-		function updateTimer(time) {
-			timerEl = document.getElementById("timer");
-			var time = time;
-			if (!time) {
-				var d = new Date();
-				time = d.getTime();
-			} // end if (!time)
-			if (!startTime) startTime = time;
-			if (time < lastTime) alert("Don't cheat!");
-			else {
-				var timeDiff = time - startTime;
-				var timeDiffInSec = Math.floor(timeDiff / 1000);
-				var minutes = Math.floor(timeDiffInSec / 60);
-				var seconds = timeDiffInSec % 60;
-				var displayTime = minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
-				if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
-				timerEl.style.display = "none";
-				timerEl.innerHTML = displayTime;
-				timerEl.style.display = "block";
-			} // end else
-		} // end function updateTimer(time)
-
-		
-		function letterObj(letter, cs, font, size, rotation, correct) {
-			this.letter = letter;
-			this.cs = cs;
-			this.font = font;
-			this.size = size;
-			this.rotation = rotation;
-			this.correct = (!!correct) ? correct : false;
-			this.index = null;
+	// this creates the larger left and right divs that contain the mini-divs
+	function createColorMixDivs(par, comparator, condition, key, colorA, colorB, divTempA) {
+		if (comparator == condition) {
+			bkDivColors[key] = gameData.goalColor;
+			divTempA.style.backgroundColor = gameData.goalColor;
+			divTempA.style.verticalAlign = "middle";
+			divTempA.style.textAlign = "center";
 		}
+		else {
+			var cl = createInBetweenColor(colorA,colorB);
+			bkDivColors[key] = cl;
+			divTempA.style.backgroundColor = cl;
+			divTempA.style.verticalAlign = "middle";
+			divTempA.style.textAlign = "center";
+		}
+		var buttonDiv = document.createElement("div");
+		buttonDiv.style.width = "100%";
+		buttonDiv.style.height = "3em";
+		buttonDiv.style.textAlign = "center";
+		var button1 = createYesNoButtons();
+		button1.style.backgroundColor = "#0066ff";
+		button1.style.background = "linear-gradient(#3e99ff,#0066ff)";
+		button1.innerHTML = "Yes";
+		button1.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, 0);}
+		var button2 = createYesNoButtons();
+		button2.style.backgroundColor = "#993399";
+		button2.style.background = "linear-gradient(#cc66cc,#993399)";
+		button2.innerHTML = "No";
+		button2.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, 1);}				
+		buttonDiv.appendChild(button1);
+		buttonDiv.appendChild(button2);
+		par.appendChild(buttonDiv);
+		buttonDiv.style.position = "absolute";
+		buttonDiv.style.top = "50%";
+		buttonDiv.style.marginTop = "-3em";
+		var instruct = document.createElement("div");
+		instruct.style.position = "absolute";
+		instruct.style.fontSize = "1.5em";
+		instruct.innerHTML = "Mixes to match goal color?";
+		instruct.style.width = "15em";
+		instruct.style.top = "0em";
+		instruct.style.left = "50%";
+		instruct.style.marginLeft = "-7.5em";
+		instruct.style.backgroundColor = "ghostwhite";
+		instruct.style.color = "#3f3f3f";
+		instruct.style.textAlign = "center";
+		par.appendChild(instruct);
+		return par;
+	} // end function createColorMixDivs(par, comparator, condition, key, colorA, colorB, divTempA)
 
+	function createYesNoButtons() {
+		var button = document.createElement("button");
+		button.style.width = "3em";
+		button.style.height = "2em";
+		button.style.fontSize = "3em";
+		button.style.display = "inline-block";
+		button.style.border = "none";
+		button.style.borderRadius = "5px";
+		button.style.textAlign = "center";
+		button.style.color = "ghostwhite";
+		button.style.marginRight = "0.5em";
+		button.style.marginLeft = "0.5em";
+		return button;
+	} // end function createYesNoButtons()
 
-		function createCanvasWithLetters() {
-			var messageContainer = document.getElementById("overlayMessageContainer");
-			messageContainer.style.display = "none";
-			canvas = document.getElementById("canvas1");
-			canvas.style.display = "none";
-			ctx = canvas.getContext('2d');
-			var width = Math.floor(canvas.width);
-			var height = Math.floor(canvas.height);
-			var fontSz = Math.floor(width*(1/gameData.letters.length));
-			if (fontSz < 16) fontSz = 16;
-			ctx.font = fontSz+"px Arial";
-			ctx.textBaseline = "middle";
-			ctx.textAlign = "center";
-			ctx.fillStyle = gameData.goalColor;
-			var letters = gameData.letters;
-			for (var i = 0; i < letters.length; i++) {
-				selectedLetters.push(null);
-				var breakpoint;
-				if (letters.length % 2 == 0) breakpoint = null;
-				else if (letters.length %2 != 0) breakpoint = Math.ceil(letters.length/2);
-				var angle = Math.random() * (Math.PI/4);
-				if (Math.random() < 0.5) angle = 0-angle;
-				ctx.translate(canvas.width/2, canvas.height/2);
-				yShift = Math.floor(Math.random() * 3);
-				if (yShift == 0) yShift = -0.5;
-				else if (yShift == 1) yShift = 0;
-				else if (yShift == 2) yShift = 0.5;
-				if ( !breakpoint ) ctx.translate(-(letters.length/2-i)*fontSz*.75, yShift*fontSz);
-				else if (!!breakpoint && (((i+1) < breakpoint) || ((i+1) > breakpoint))) ctx.translate(-(breakpoint-1-i)*fontSz*.75, yShift*fontSz);
-				else if (!!breakpoint && ((i+1) == breakpoint)) ctx.translate(0, yShift*fontSz);
-				//ctx.translate(-((letters.length-i)*fontSz*.75) ,yShift*fontSz);
-				var charCode = letters[i].charCodeAt(0);
-				var cs = "";
-				if ( (charCode >= 65) && (charCode <= 90) ) cs = "upper";
-				else if ( (charCode >= 97) && (charCode <= 122) ) cs = "lower";
-				correctLetters.push(new letterObj(letters[i], cs, "Arial", fontSz, angle, true));
-				ctx.rotate(angle);
-				ctx.fillText(letters[i],0,0);
-				ctx.setTransform(1,0,0,1,0,0);
-			} // end for (var i = 0; i < width; i++)
-			canvas.style.display = "block";
-			//document.getElementById("timer").style.display = "none";
-			var direction = ["vertical", "horizontal"];
-			var lineList = [];
-			for (var i = 0; i < 100; i++) {
-				var numOfLines = Math.floor( Math.random() * 2 ) + 2;
-				numOfLines = 1;
-				var tempArray = [];
-				tempArray.push(numOfLines);
-				//var directionTemp = direction[Math.floor(Math.random() * 2)];
-				if (i < 50 ) directionTemp = "vertical";
-				else if (i >=50 ) directionTemp = "horizontal";
-				for (var j = 0; j < numOfLines; j++) {
-					var pos;
-					if (directionTemp == "vertical") pos = i*(Math.floor(width/50)); //pos = Math.floor( Math.random() * (height+1) );
-					else if (directionTemp == "horizontal") pos = (i-50)*(Math.floor(height/50)); //pos = Math.floor(Math.random() * (width+1) );
-					tempArray.push([directionTemp, pos]);
-				}
-				lineList.push(tempArray);
-			}
-			imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
-			console.log(imageData);
-			var gameLD = document.getElementById("gameLettersDiv");
-			var frag = document.createDocumentFragment();
-			for (var i = 0; i < letters.length; i++) {
-				var tempLetterChoicesDiv = document.createElement("div");
-				tempLetterChoicesDiv.id = "letterChoices" + i;
-				tempLetterChoicesDiv.style.width = "100%";
-				tempLetterChoicesDiv.style.height = "100%";
-				tempLetterChoicesDiv.style.background = "gray";
-				tempLetterChoicesDiv.style.display = "none";
-				var container = document.getElementById("letterChoicesCont");
-				container.appendChild(tempLetterChoicesDiv);
-				var tempDivOuter = document.createElement("div");
-				tempDivOuter.style.margin = "2px";
-				tempDivOuter.style.display = "inline-block";
-				//tempDivOuter.style.borderBottom = "2px solid gray";
-				tempDivOuter.style.fontSize = "2em";
-				tempDivOuter.innerHTML = (i+1);
-				tempDivOuter.style.width = (fontSz+2)+"px";
-				tempDivOuter.style.height = (fontSz+2)+"px";
-				tempDivOuter.style.margin = "2px";
-				tempDivOuter.id = "letterBox:"+i;
-				tempDivOuter.onclick = function() {selectUnderscore(this, letters);}
-				frag.appendChild(tempDivOuter);
-				makeLetterDivs(i);
-			}
-			gameLD.appendChild(frag);
-			gameLD.style.display = "block";
-			/*scroller.oninput = function() {ctx.putImageData(imageData,0,0); counterU = this.value; drawLines(lineList, counterU, imageData);}*/
-		} // end function createCanvasWithLetters()
-
-		
-		function selectUnderscore(el, letters) {
-			var repeat = false;
-			if (!!selectedUnderscore && (selectedUnderscore == el)) {
-				for (var i = 0; i < letters.length; i++) document.getElementById("letterChoices"+i).style.display = "none";
-				document.getElementById("letterChoicesCont").style.display = "none";
-				if (!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
-				else if (!!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "none";
-				selectedUnderscore = null;
-				repeat = true;
-			}
-			else if (!!selectedUnderscore && !selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
-			else if (!!selectedUnderscore && !!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "none"; 
-			
-			if (!repeat) {
-				selectedUnderscore = el;
-				el.style.borderBottom="5px solid gray"; 
-				showLetterChoices(el.id.split(":")[1], letters.length);
+	function showUnderneathBox(but, par, opt) {
+		but.style.display = "none";
+		if (opt == 0) but.nextSibling.style.display = "none";
+		else if (opt == 1) but.previousSibling.style.display = "none";
+		cn = par.childNodes;
+		cn[1].style.marginTop = "-50%";
+		cn[1].style.marginBottom = "100%";
+		cn[1].style.opacity = "0";
+		cn[2].style.opacity = "0";
+		var key = cn[0].id + "";
+		var sendID = key;
+		key = key.split(":")[1];
+		if (bkDivColors[key].toUpperCase() == gameData.goalColor.toUpperCase()) {
+			var gotitPara = document.createElement("p");
+			gotitPara.style.backgroundColor = "white";
+			gotitPara.style.opacity = "0.5";
+			gotitPara.style.color = "#3ecf8e";
+			gotitPara.style.margin = "auto";
+			if (opt == 0) {gotitPara.style.width = "6em"; gotitPara.style.height = "3em"; gotitPara.style.fontSize = "3em"; gotitPara.innerHTML = "You got it!"; gotitPara.style.marginTop = "1.5em"; gotitPara.style.paddingTop = "1em"; gotitPara.style.color = "gray"; missedCorrect = 0; animatePoints(15, 0); drawLine();setTimeout(function() {getNextColors(par, sendID);},1200);}
+			else if (opt == 1) {gotitPara.style.fontSize = "2em"; gotitPara.innerHTML = "This was it.<br/>You missed it.<br/>:("; gotitPara.style.width = "6em"; gotitPara.style.height = "6em"; gotitPara.style.padding = "2em"; gotitPara.style.marginTop = "1em"; gotitPara.style.color = "gray";animatePoints(-5, 1); missedCorrect++; if (missedCorrect == 2) {missedCorrect = 0; isGameLost();}}
+			document.getElementById(sendID).appendChild(gotitPara);
+		}
+		else if (opt == 0) {
+			var gotitPara = document.createElement("p");
+			gotitPara.style.backgroundColor = "white";
+			gotitPara.style.opacity = "0.5";
+			gotitPara.style.color = "#3ecf8e";
+			gotitPara.style.margin = "auto";
+			gotitPara.style.fontSize = "3em"; 
+			gotitPara.innerHTML = "Try again"; 
+			gotitPara.style.marginTop = "1.5em";
+			animatePoints(-5, 1);
+			missedCorrect++; 
+			if (missedCorrect == 2) {missedCorrect = 0; isGameLost();}
+			else {
+				document.getElementById(sendID).appendChild(gotitPara);
+				setTimeout(function() {getNextColors(par, sendID);},1200);
 			}
 		}
+		if (opt == 1) setTimeout(function() {getNextColors(par, sendID);},1200);
+		return false;
+	} // end function showUnderneathBox(but, par, opt)
+
+	function colorGoalDiv() {
+		goalDiv = document.getElementById("goal");
+		goalDiv.style.display = "none";
+		goalDiv.style.backgroundImage = "none";
+		goalDiv.style.backgroundColor = gameData.goalColor;
+		goalDiv.style.display = "block";
+		return false;
+	} // end function colorGoalDiv()
+
+	function createInBetweenColor(color1, color2) {
+		var color1hex = "", color2hex = "";
+		var hex;
+		alpha = 0.5;
+		var slice = [];
+		slice[0] = Math.floor(color1[0] * alpha + (1-alpha) * color2[0]);
+		slice[1] = Math.floor(color1[1] * alpha + (1-alpha) * color2[1]);
+		slice[2] = Math.floor(color1[2] * alpha + (1-alpha) * color2[2]);
+		hex = getHexFromRGB([slice[0],slice[1],slice[2]])
+		return hex;
+	} // end function createInBetweenColor(color1, color2)
+
+	function getHexFromRGB(rgb) {
+		var slice = [];
+		slice.push(parseInt(rgb[0]));
+		slice.push(parseInt(rgb[1]));
+		slice.push(parseInt(rgb[2]));
+		slice[0] = parseInt(slice[0]).toString(16);
+		if (slice[0].length == 1) slice[0] = "0" + slice[0];
+		slice[1] = parseInt(slice[1]).toString(16);
+		if (slice[1].length == 1) slice[1] = "0" + slice[1];
+		slice[2] = parseInt(slice[2]).toString(16);
+		if (slice[2].length == 1) slice[2] = "0" + slice[2];
+		var hex = "#" +  slice[0] + slice[1] + slice[2];
+		return hex
+	} // end function getHexFromRGB(rgb)
 
 
-		function drawLine() {
-			console.log("in drawLine");
-			var width = canvas.width;
-			if (numberOfLinesDrawnOnCanvas < Math.floor(width * .75)) {
-				var ind = Math.floor(Math.random() * (width+1));
-				while (!!linesDrawnSoFar[ind]) ind = Math.floor(Math.random() * (width+1));
-				linesDrawnSoFar[ind] = 1;
-				numberOfLinesDrawnOnCanvas++;
-			} else {
-				var ind;
-				for (var i = 0; i < Math.floor(width); i++) {
-					if (!linesDrawnSoFar[i]) {ind = i; break;}
-				}
-				linesDrawnSoFar[ind] = 1;
-				numberOfLinesDrawnOnCanvas++;				
-			}
-			canvas.style.display = "none";
-			ctx.globalCompositeOperation = "exclusion";
-			ctx.fillStyle = "white";
+
+// create canvas and letter obj functions ...
+
+	function letterObj(letter, cs, font, size, rotation, correct) {
+		this.letter = letter;
+		this.cs = cs;
+		this.font = font;
+		this.size = size;
+		this.rotation = rotation;
+		this.correct = (!!correct) ? correct : false;
+		this.index = null;
+	} // end function letterObj(letter, cs, font, size, rotation, correct)
+
+	function createCanvasWithLetters() {
+		var messageContainer = document.getElementById("overlayMessageContainer");
+		messageContainer.style.display = "none";
+		canvas = document.getElementById("canvas1");
+		canvas.style.display = "none";
+		ctx = canvas.getContext('2d');
+		var width = Math.floor(canvas.width);
+		var height = Math.floor(canvas.height);
+		var fontSz = Math.floor(width*(1/gameData.letters.length));
+		if (fontSz < 16) fontSz = 16;
+		ctx.font = fontSz+"px Arial";
+		ctx.textBaseline = "middle";
+		ctx.textAlign = "center";
+		ctx.fillStyle = gameData.goalColor;
+		var letters = gameData.letters;
+		for (var i = 0; i < letters.length; i++) {
+			selectedLetters.push(null);
+			var breakpoint;
+			if (letters.length % 2 == 0) breakpoint = null;
+			else if (letters.length %2 != 0) breakpoint = Math.ceil(letters.length/2);
+			var angle = Math.random() * (Math.PI/4);
+			if (Math.random() < 0.5) angle = 0-angle;
+			ctx.translate(canvas.width/2, canvas.height/2);
+			yShift = Math.floor(Math.random() * 3);
+			if (yShift == 0) yShift = -0.5;
+			else if (yShift == 1) yShift = 0;
+			else if (yShift == 2) yShift = 0.5;
+			if ( !breakpoint ) ctx.translate(-(letters.length/2-i)*fontSz*.75, yShift*fontSz);
+			else if (!!breakpoint && (((i+1) < breakpoint) || ((i+1) > breakpoint))) ctx.translate(-(breakpoint-1-i)*fontSz*.75, yShift*fontSz);
+			else if (!!breakpoint && ((i+1) == breakpoint)) ctx.translate(0, yShift*fontSz);
+			var charCode = letters[i].charCodeAt(0);
+			var cs = "";
+			if ( (charCode >= 65) && (charCode <= 90) ) cs = "upper";
+			else if ( (charCode >= 97) && (charCode <= 122) ) cs = "lower";
+			correctLetters.push(new letterObj(letters[i], cs, "Arial", fontSz, angle, true));
+			ctx.rotate(angle);
+			ctx.fillText(letters[i],0,0);
 			ctx.setTransform(1,0,0,1,0,0);
-			end = Math.floor(canvas.height);
-			ctx.fillRect(ind,0,1,end);
-			canvas.style.display = "block";
-			return true;
-		}
+		} // end for (var i = 0; i < letters.length; i++)
+		canvas.style.display = "block";
+		var direction = ["vertical", "horizontal"];
+		var lineList = [];
+		for (var i = 0; i < 100; i++) {
+			var numOfLines = Math.floor( Math.random() * 2 ) + 2;
+			numOfLines = 1;
+			var tempArray = [];
+			tempArray.push(numOfLines);
+			if (i < 50 ) directionTemp = "vertical";
+			else if (i >=50 ) directionTemp = "horizontal";
+			for (var j = 0; j < numOfLines; j++) {
+				var pos;
+				if (directionTemp == "vertical") pos = i*(Math.floor(width/50)); 
+				else if (directionTemp == "horizontal") pos = (i-50)*(Math.floor(height/50)); 
+				tempArray.push([directionTemp, pos]);
+			} // for (var j = 0; j < numOfLines; j++)
+			lineList.push(tempArray);
+		} // for (var i = 0; i < 100; i++)
+		imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+		var gameLD = document.getElementById("gameLettersDiv");
+		var frag = document.createDocumentFragment();
+		for (var i = 0; i < letters.length; i++) {
+			var tempLetterChoicesDiv = document.createElement("div");
+			tempLetterChoicesDiv.id = "letterChoices" + i;
+			tempLetterChoicesDiv.style.width = "100%";
+			tempLetterChoicesDiv.style.height = "100%";
+			tempLetterChoicesDiv.style.background = "gray";
+			tempLetterChoicesDiv.style.display = "none";
+			var container = document.getElementById("letterChoicesCont");
+			container.appendChild(tempLetterChoicesDiv);
+			var tempDivOuter = document.createElement("div");
+			tempDivOuter.style.margin = "2px";
+			tempDivOuter.style.display = "inline-block";
+			tempDivOuter.style.fontSize = "2em";
+			tempDivOuter.innerHTML = (i+1);
+			tempDivOuter.style.width = (fontSz+2)+"px";
+			tempDivOuter.style.height = (fontSz+2)+"px";
+			tempDivOuter.style.margin = "2px";
+			tempDivOuter.id = "letterBox:"+i;
+			tempDivOuter.onclick = function() {selectUnderscore(this, letters);}
+			frag.appendChild(tempDivOuter);
+			makeLetterDivs(i);
+		} // for (var i = 0; i < letters.length; i++)
+		gameLD.appendChild(frag);
+		gameLD.style.display = "block";
+		return false;
+	} // end function createCanvasWithLetters()
 
-		function showLetterChoices(ind,len) {
-			for (var i = 0; i < len; i++) document.getElementById("letterChoices"+i).style.display = "none";
-			var el = document.getElementById("letterChoices"+ind);
-			el.style.display = "block";
-			document.getElementById("letterChoicesCont").style.display = "block";
-		}
-
-		function makeLetterDivs(ind) {
-			var frag = document.createDocumentFragment();
-			var useTheseLetters = [];
-			var orderedLetters = [];
-			var cl = correctLetters[ind];
-			var letterBlock = "";
-			if (cl.cs == "upper") letterBlock = similarLettersUpperCase[cl.letter];
-			else if (cl.cs == "lower") letterBlock = similarLettersLowerCase[cl.letter];
-			letterBlock += cl.letter;
-			orderedLetters.push(cl);
-			var rotation, usedRotations = {};
-			for (var i = 0; i < 5; i++) {
-				rotation = Math.random() * (Math.PI/4);
-				while (!!usedRotations[rotation] || (rotation == cl.rotation)) rotation = Math.random() * (Math.PI/4);
-				usedRotations[rotation] = 1;
-				if ( cl.rotation < 0 ) rotation = -rotation;
-				orderedLetters.push(new letterObj(letterBlock[Math.floor(Math.random()*letterBlock.length)], cl.cs, cl.font, cl.size, rotation ,false));
-			}
-			for (var i = 0; i < orderedLetters.length; i++) useTheseLetters.push(null);
-			for (var i = 0; i < orderedLetters.length; i++) {
-				var newInd = Math.floor(Math.random() * useTheseLetters.length);
-				while (useTheseLetters[newInd] != null) newInd = Math.floor(Math.random() * useTheseLetters.length);
-				useTheseLetters[newInd] = orderedLetters[i];
-				if (i == 0) correctLetters[ind].index = newInd + "";
-			}
-			for (var i = 0; i  < useTheseLetters.length; i++) {
-				angle = useTheseLetters[i].rotation * (180/Math.PI);
-				var elP = document.createElement("p");
-				elP.style.textAlign = "center";
-				elP.style.display = "inline-block";
-				elP.style.margin = "auto";
-				elP.style.fontFamily = useTheseLetters[i].font;
-				elP.style.fontSize = cl.size + "px";
-				elP.style.webkitTransform = "rotate("+angle+"deg)";
-				elP.style.WebkitTransform = "rotate("+angle+"deg)";
-				elP.style.mozTransform = "rotate("+angle+"deg)";
-				elP.style.MozTransform = "rotate("+angle+"deg)";
-				elP.style.msTransform = "rotate("+angle+"deg)";
-				elP.style.oTransform = "rotate("+angle+"deg)";
-				elP.style.OTransform = "rotate("+angle+"deg)";
-				elP.style.transform = "rotate("+angle+"deg)";
-				var t = document.createTextNode(useTheseLetters[i].letter);
-				elP.appendChild(t);
-				var div = document.createElement("div");
-				div.id = "hoopla"+i+":"+i;
-				div.style.border = "3px solid ghostwhite";
-				div.style.textAlign = "center";
-				div.style.width = (cl.size+Math.floor(cl.size/4))+"px";
-				div.style.height = (cl.size+Math.floor(cl.size/4))+"px";
-				div.style.display = "inline-block";
-				div.style.margin = ".5em";
-				div.style.lineHeight = (cl.size+Math.floor(cl.size/4))+"px";
-				div.style.verticalAlign = "middle";
-				div.style.boxShadow = "-2px 1px 2px lightgray";
-				div.style.background = "lightblue";
-				div.style.borderRadius = "0.4em";
-				div.onclick = function(){selectLetter(this);}
-				div.appendChild(elP);
-				frag.appendChild(div);
-			}
-			var el = document.getElementById("letterChoices"+ind);
-			while (!!el.lastChild) el.removeChild(el.lastChild);
-			el.appendChild(frag);
-		} // end function showLetterChoices(i) 
-
-		function selectLetter(letter){
-			var par = selectedUnderscore;
-			var ind = par.id.split(":")[1];
-			if (!!par.childNodes[0]) par.removeChild(par.childNodes[0]);
-			par.innerHTML = "";
-			par.appendChild(letter);
-			par.style.padding = "0.5em";
-			par.style.borderBottom = "none";
-			selectedLetters[ind] = letter;
-			letter.onclick = null;
-			var ind2 = letter.id + "";
-			ind2 = ind2.split(":")[1];
-			if (correctLetters[ind].index == ind2) startLetterBorderAnimation(letter, 0);
-			else startLetterBorderAnimation(letter, 1);
-			if (isGameWon()) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You Won!"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); }
-		} // end function selectLetter(letter)
-
-		function isGameWon() {
-			var par = document.getElementById("gameLettersDiv");
-			var first = par.firstChild;
-			var numLetts = 0;
-			while(!!first) {if (!!first.firstChild && !!first.firstChild.id) {var id = first.firstChild.id + ""; if (id[0]=="h") numLetts++;} first = first.nextSibling;}
-			if (numLetts == correctLetters.length) {
-				first = par.firstChild;
-				var ind = 0;
-				var numCorr = 0;
-				while(!!first) {var id = first.firstChild.id + ""; if ( parseInt(id.split(":")[1]) == correctLetters[ind].index ) numCorr++; first = first.nextSibling; ind++;}
-				if (numCorr == correctLetters.length) return true;
-			}
-			return false;
-		}
-
-		function isGameOver() {
-			numXs++;
-			var par, ind;
-			if (numXs < 3) {par = document.getElementById("xbox1"); ind = numXs;}
-			else if (numXs >= 3) {par = document.getElementById("xbox2"); ind = numXs - 2;}
-			var first = par.firstChild;
-			for (var i = 0; i < ind-1; i++) first = first.nextSibling;
-			first.style.color = "red";
-			first.style.boxShadow = "-2px 2px 10px #bbbbbb";
-			first.style.fontWeight = "bold";
-			first.style.fontSize = "1.5em";
-			if (numXs == 4) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "red"; el.innerHTML = "Game Over"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); }
-		}
-
-		function showLetters() {
-			var w = canvas.width;
-			drawLine();
-			if (numberOfLinesDrawnOnCanvas < w) setTimeout(function() {showLetters()}, 100);
-		} // end function showLetters()
-
-		function showL(arr, counter) {
-			ctx.fillRect(0,arr[counter],canvas.width,3);
-			counter++;
-			if (counter < (canvas.height-1)) setTimeout(function() {showL(arr, counter)}, 100);
-		}
+	function selectUnderscore(el, letters) {
+		var repeat = false;
+		if (!!selectedUnderscore && (selectedUnderscore == el)) {
+			for (var i = 0; i < letters.length; i++) document.getElementById("letterChoices"+i).style.display = "none";
+			document.getElementById("letterChoicesCont").style.display = "none";
+			if (!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
+			else if (!!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "none";
+			selectedUnderscore = null;
+			repeat = true;
+		} // if (!!selectedUnderscore && (selectedUnderscore == el))
+		else if (!!selectedUnderscore && !selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
+		else if (!!selectedUnderscore && !!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "none"; 
 		
-		function showMenu(el) {
-			console.log("show");
-			el.style.height = "80%";
-			el.style.marginTop="3em"; 
-			el.style.opacity="1";
-			return false;
-		}
+		if (!repeat) {
+			selectedUnderscore = el;
+			el.style.borderBottom="5px solid gray"; 
+			showLetterChoices(el.id.split(":")[1], letters.length);
+		} // if (!repeat) 
+		return false;
+	} // end function selectUnderscore(el, letters)
 
-		function closeMenu(el) {
-			el.style.opacity = "0";
-			el.style.marginTop = "-2em";
-			if (el.id == "menuDiv") animateMenu(document.getElementById("menuPara"),1);
-			setTimeout(function() {el.style.height = "0px";}, 600);
-			return false;
-		}
-
-		function animateMenu(para, code) {
-			if (code == 0) {
-				para.style.backgroundColor = "gray";
-				para.style.color = "white";
-				first = para.firstChild;
-				while (!!first) {first.style.paddingRight = "1em"; first = first.nextSibling;}
+	function drawLine() {
+		var width = canvas.width;
+		if (numberOfLinesDrawnOnCanvas < Math.floor(width * .75)) {
+			var ind = Math.floor(Math.random() * (width+1));
+			while (!!linesDrawnSoFar[ind]) ind = Math.floor(Math.random() * (width+1));
+			linesDrawnSoFar[ind] = 1;
+			numberOfLinesDrawnOnCanvas++;
+		} else {
+			var ind;
+			for (var i = 0; i < Math.floor(width); i++) {
+				if (!linesDrawnSoFar[i]) {ind = i; break;}
 			}
-			if (code == 1) {
-				para.style.backgroundColor = "white";
-				para.style.color = "gray";
-				first = para.firstChild;
-				while (!!first) {first.style.paddingRight = "0em"; first = first.nextSibling;}
-			}		
+			linesDrawnSoFar[ind] = 1;
+			numberOfLinesDrawnOnCanvas++;				
 		}
+		canvas.style.display = "none";
+		ctx.globalCompositeOperation = "exclusion";
+		ctx.fillStyle = "white";
+		ctx.setTransform(1,0,0,1,0,0);
+		end = Math.floor(canvas.height);
+		ctx.fillRect(ind,0,1,end);
+		canvas.style.display = "block";
+		return true;
+	} // end function drawLine()
+
+	function showLetterChoices(ind,len) {
+		for (var i = 0; i < len; i++) document.getElementById("letterChoices"+i).style.display = "none";
+		var el = document.getElementById("letterChoices"+ind);
+		el.style.display = "block";
+		document.getElementById("letterChoicesCont").style.display = "block";
+		return false;
+	} // end function showLetterChoices(ind,len)
+
+	function makeLetterDivs(ind) {
+		var frag = document.createDocumentFragment();
+		var useTheseLetters = [];
+		var orderedLetters = [];
+		var cl = correctLetters[ind];
+		var letterBlock = "";
+		if (cl.cs == "upper") letterBlock = similarLettersUpperCase[cl.letter];
+		else if (cl.cs == "lower") letterBlock = similarLettersLowerCase[cl.letter];
+		letterBlock += cl.letter;
+		orderedLetters.push(cl);
+		var rotation, usedRotations = {};
+		for (var i = 0; i < 5; i++) {
+			rotation = Math.random() * (Math.PI/4);
+			while (!!usedRotations[rotation] || (rotation == cl.rotation)) rotation = Math.random() * (Math.PI/4);
+			usedRotations[rotation] = 1;
+			if ( cl.rotation < 0 ) rotation = -rotation;
+			orderedLetters.push(new letterObj(letterBlock[Math.floor(Math.random()*letterBlock.length)], cl.cs, cl.font, cl.size, rotation ,false));
+		}
+		for (var i = 0; i < orderedLetters.length; i++) useTheseLetters.push(null);
+		for (var i = 0; i < orderedLetters.length; i++) {
+			var newInd = Math.floor(Math.random() * useTheseLetters.length);
+			while (useTheseLetters[newInd] != null) newInd = Math.floor(Math.random() * useTheseLetters.length);
+			useTheseLetters[newInd] = orderedLetters[i];
+			if (i == 0) correctLetters[ind].index = newInd + "";
+		}
+		for (var i = 0; i  < useTheseLetters.length; i++) {
+			angle = useTheseLetters[i].rotation * (180/Math.PI);
+			var elP = document.createElement("p");
+			elP.style.textAlign = "center";
+			elP.style.display = "inline-block";
+			elP.style.margin = "auto";
+			elP.style.fontFamily = useTheseLetters[i].font;
+			elP.style.fontSize = cl.size + "px";
+			elP.style.webkitTransform = "rotate("+angle+"deg)";
+			elP.style.WebkitTransform = "rotate("+angle+"deg)";
+			elP.style.mozTransform = "rotate("+angle+"deg)";
+			elP.style.MozTransform = "rotate("+angle+"deg)";
+			elP.style.msTransform = "rotate("+angle+"deg)";
+			elP.style.oTransform = "rotate("+angle+"deg)";
+			elP.style.OTransform = "rotate("+angle+"deg)";
+			elP.style.transform = "rotate("+angle+"deg)";
+			var t = document.createTextNode(useTheseLetters[i].letter);
+			elP.appendChild(t);
+			var div = document.createElement("div");
+			div.id = "hoopla"+i+":"+i;
+			div.style.border = "3px solid ghostwhite";
+			div.style.textAlign = "center";
+			div.style.width = (cl.size+Math.floor(cl.size/4))+"px";
+			div.style.height = (cl.size+Math.floor(cl.size/4))+"px";
+			div.style.display = "inline-block";
+			div.style.margin = ".5em";
+			div.style.lineHeight = (cl.size+Math.floor(cl.size/4))+"px";
+			div.style.verticalAlign = "middle";
+			div.style.boxShadow = "-2px 1px 2px lightgray";
+			div.style.background = "lightblue";
+			div.style.borderRadius = "0.4em";
+			div.onclick = function(){selectLetter(this);}
+			div.appendChild(elP);
+			frag.appendChild(div);
+		}
+		var el = document.getElementById("letterChoices"+ind);
+		while (!!el.lastChild) el.removeChild(el.lastChild);
+		el.appendChild(frag);
+		return false;
+	} // end function makeLetterDivs(ind) 
+
+	function selectLetter(letter){
+		var par = selectedUnderscore;
+		var ind = par.id.split(":")[1];
+		if (!!par.childNodes[0]) par.removeChild(par.childNodes[0]);
+		par.innerHTML = "";
+		par.appendChild(letter);
+		par.style.padding = "0.5em";
+		par.style.borderBottom = "none";
+		selectedLetters[ind] = letter;
+		letter.onclick = null;
+		var ind2 = letter.id + "";
+		ind2 = ind2.split(":")[1];
+		if (correctLetters[ind].index == ind2) startLetterBorderAnimation(letter, 0);
+		else startLetterBorderAnimation(letter, 1);
+		if (isGameWon()) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You Won!"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); 
+		} // if
+		return false;
+	} // end function selectLetter(letter)
+
+
+
+// animation functions ...
+
+	function startLetterBorderAnimation(letter, code) {
+		letter.style.borderWidth = "1em";
+		if (code == 0) letter.style.borderColor = "#3ecf8e";
+		else if (code == 1) letter.style.borderColor = "red";
+		else if (code == 2) console.log("done once");
+		var values = [0,0];
+		clearInterval(borderIntervalID);
+		borderIntervalID = setInterval(
+			function() {
+				if (values[1] == -1) {clearInterval(borderIntervalID); var par = letter.parentNode; par.style.width = (letter.offsetWidth + 5) + "px"; par.style.height = (letter.offsetHeight + 5) + "px"; par.style.borderBottom = "2px solid gray"; var preSib = par.previousSibling; while(!!preSib) {preSib.style.width = (letter.offsetWidth + 5) + "px"; preSib.style.height = (letter.offsetHeight + 5) + "px"; preSib = preSib.previousSibling;}; var postSib = par.nextSibling; while(!!postSib) {postSib.style.width = (letter.offsetWidth + 5) + "px"; postSib.style.height = (letter.offsetHeight + 5) + "px"; postSib = postSib.nextSibling;}; return true;}
+				else {
+					values[1]++;
+					values = animateSmallLargeMedium(1, 2, values[1], 2, borderIntervalID);  
+					letter.style.borderWidth = (values[0]/4)+"em";
+				}
+			},22);
+		if (code == 0) animatePoints(100,2);
+		else if (code == 1) animatePoints(-150,3);
+		return false;
+	} // end function startLetterBorderAnimation(letter, code)
+
+	function animatePoints(add, code) {
+		if (code == 3) {
+			isGameLost();
+		}
+
+		if (code==2) {
+			if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .05))
+				add = add;
+			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .10))
+				add = Math.floor(add * .90);
+			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .15))
+				add = Math.floor(add * .85);
+			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .20))
+				add = Math.floor(add * .70);
+			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .25))
+				add = Math.floor(add * .65);
+			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .30))
+				add = Math.floor(add * .50);
+			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .40))
+				add = Math.floor(add * .40);
+			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .50))
+				add = Math.floor(add * .30);
+			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .60))
+				add = Math.floor(add * .20);
+			else add = Math.floor(add * .10);
+		}
+		points += add;
+		var time;
+		var el = document.getElementById("pointsSpan");
+		if (code==0) {el.innerHTML = "+15"; el.style.color = "green";el.style.fontSize = "1em"; time=22;}
+		else if (code==1) {el.innerHTML = "-5"; el.style.color = "red";el.style.fontSize = "3em"; time=500;}
+		else if (code==2) {el.innerHTML = "+"+add; el.style.color = "green";el.style.fontSize = "1em"; time=22;}
+		else if (code==3) {el.innerHTML = "-150"; el.style.color = "red";el.style.fontSize = "3em";  time=500;}
+		el.style.fontWeight = "bold";
+		var values = [0,0];
+		clearInterval(pointsIntervalID);
+		pointsIntervalID = setInterval(
+			function() {
+				if (values[1] == -1) {clearInterval(pointsIntervalID); el.innerHTML = points; if (points >= 0) el.style.color = "orange"; else el.style.color = "red"; el.style.fontWeight = "normal";}
+				else {
+					values[1]++;
+					if ((code == 0) || (code == 2)) {
+						values = animateSmallLargeMedium(1, 3, values[1], 10, pointsIntervalID);  
+						el.style.fontSize = values[0]+"em";
+					}
+					else if ((code == 1) || (code == 3)) {
+						values = [-1,-1];
+						el.style.fontSize = 3+"em";
+					}
+
+				}
+			},time);
+		return false;
+	} // end function animatePoints(add, code)
+
+	function animateSmallLargeMedium(origVal, endVal, step, max, intvlID) {
+		var sinVal = (-Math.PI/2) + ((3*Math.PI/2) * (step/10));
+		var currVal = origVal *   (max * Math.sin(sinVal) + (max+1));
+		if (sinVal < Math.PI) return [currVal, step];
+		else if (currVal > endVal) return [currVal, step];
+		else return [endVal, -1];
+	} // end animateSmallLargeMedium(origVal, endVal, step, max, intvlID)
+
+
+
+// end of game functions ...
+
+	function isGameWon() {
+		var par = document.getElementById("gameLettersDiv");
+		var first = par.firstChild;
+		var numLetts = 0;
+		while(!!first) {if (!!first.firstChild && !!first.firstChild.id) {var id = first.firstChild.id + ""; if (id[0]=="h") numLetts++;} first = first.nextSibling;}
+		if (numLetts == correctLetters.length) {
+			first = par.firstChild;
+			var ind = 0;
+			var numCorr = 0;
+			while(!!first) {var id = first.firstChild.id + ""; if ( parseInt(id.split(":")[1]) == correctLetters[ind].index ) numCorr++; first = first.nextSibling; ind++;}
+			if (numCorr == correctLetters.length) return true;
+		} // if (numLetts == correctLetters.length)
+		return false;
+	} // end function isGameWon() 
+
+	function isGameLost() {
+		numXs++;
+		var par, ind;
+		if (numXs < 3) {par = document.getElementById("xbox1"); ind = numXs;}
+		else if (numXs >= 3) {par = document.getElementById("xbox2"); ind = numXs - 2;}
+		var first = par.firstChild;
+		for (var i = 0; i < ind-1; i++) first = first.nextSibling;
+		first.style.color = "red";
+		first.style.boxShadow = "-2px 2px 10px #bbbbbb";
+		first.style.fontWeight = "bold";
+		first.style.fontSize = "1.5em";
+		if (numXs == 4) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "red"; el.innerHTML = "Game Over"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); }
+		return false;
+	} // end function isGameLost()
+
+	function showLetters() {
+		drawLine();
+		if (numberOfLinesDrawnOnCanvas < canvas.width) setTimeout(function() {showLetters()}, 100);
+		return false;
+	} // end function showLetters()
+
+
+
+// general purpose app functions ...
+	
+	function showMenu(el) {
+		el.style.height = "80%";
+		el.style.marginTop="3em"; 
+		el.style.opacity="1";
+		return false;
+	} // end function showMenu(el)
+
+	function closeMenu(el) {
+		el.style.opacity = "0";
+		el.style.marginTop = "-2em";
+		if (el.id == "menuDiv") animateMenu(document.getElementById("menuPara"),1);
+		setTimeout(function() {el.style.height = "0px";}, 600);
+		return false;
+	} // end function closeMenu(el)
+
+	function animateMenu(para, code) {
+		if (code == 0) {
+			para.style.backgroundColor = "gray";
+			para.style.color = "white";
+			first = para.firstChild;
+			while (!!first) {first.style.paddingRight = "1em"; first = first.nextSibling;}
+		} // if (code == 0)
+		if (code == 1) {
+			para.style.backgroundColor = "white";
+			para.style.color = "gray";
+			first = para.firstChild;
+			while (!!first) {first.style.paddingRight = "0em"; first = first.nextSibling;}
+		} // if (code == 1)	
+		return false;
+	} // end function animateMenu(para, code)
+
+
+
+// legacy functions ...
+
+	function setupTimer() {
+		if (!!window.Worker) {
+			if (!webWorker) {webWorker = new window.Worker("timer.js"); webWorker.onmessage = function(evt) {updateTimer(evt.data);} }
+		} // end if (!!window.Worker)
+		else {
+			clearInterval(intervalID);
+			intervalID = setInterval(function() {updateTimer(null)},333);
+		} // end else
+		return false;
+	} // end function setupTimer()
+
+	function updateTimer(time) {
+		timerEl = document.getElementById("timer");
+		var time = time;
+		if (!time) {
+			var d = new Date();
+			time = d.getTime();
+		} // end if (!time)
+		if (!startTime) startTime = time;
+		if (time < lastTime) alert("Don't cheat!");
+		else {
+			var timeDiff = time - startTime;
+			var timeDiffInSec = Math.floor(timeDiff / 1000);
+			var minutes = Math.floor(timeDiffInSec / 60);
+			var seconds = timeDiffInSec % 60;
+			var displayTime = minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
+			if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
+			timerEl.style.display = "none";
+			timerEl.innerHTML = displayTime;
+			timerEl.style.display = "block";
+		} // end else
+		return false;
+	} // end function updateTimer(time)
 
 	</script>
 
