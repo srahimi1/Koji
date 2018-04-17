@@ -376,7 +376,7 @@
 			if (opt == 0) {gotitPara.style.width = "6em"; gotitPara.style.height = "3em"; gotitPara.style.fontSize = "3em"; gotitPara.innerHTML = "You got it!"; gotitPara.style.marginTop = "1.5em"; gotitPara.style.paddingTop = "1em"; gotitPara.style.color = "gray"; missedCorrect = 0; animatePoints(15, 0); drawLine();setTimeout(function() {getNextColors(par, sendID);},1200);}
 			else if (opt == 1) {gotitPara.style.fontSize = "2em"; gotitPara.innerHTML = "This was it.<br/>You missed it.<br/>:("; gotitPara.style.width = "6em"; gotitPara.style.height = "6em"; gotitPara.style.padding = "2em"; gotitPara.style.marginTop = "1em"; gotitPara.style.color = "gray";animatePoints(-5, 1); missedCorrect++; if (missedCorrect == 2) {missedCorrect = 0; isGameLost();}}
 			document.getElementById(sendID).appendChild(gotitPara);
-		}
+		} // if (bkDivColors[key].toUpperCase() == gameData.goalColor.toUpperCase()) 
 		else if (opt == 0) {
 			var gotitPara = document.createElement("p");
 			gotitPara.style.backgroundColor = "white";
@@ -388,12 +388,12 @@
 			gotitPara.style.marginTop = "1.5em";
 			animatePoints(-5, 1);
 			missedCorrect++; 
-			if (missedCorrect == 2) {missedCorrect = 0; isGameLost();}
-			else {
+			if (missedCorrect == 2) missedCorrect = 0;
+			if (!isGameLost()) {
 				document.getElementById(sendID).appendChild(gotitPara);
 				setTimeout(function() {getNextColors(par, sendID);},1200);
 			}
-		}
+		} // else if (opt == 0)
 		if (opt == 1) setTimeout(function() {getNextColors(par, sendID);},1200);
 		return true;
 	} // end function showUnderneathBox(but, par, opt)
@@ -792,8 +792,8 @@
 		first.style.boxShadow = "-2px 2px 10px #bbbbbb";
 		first.style.fontWeight = "bold";
 		first.style.fontSize = "1.5em";
-		if (numXs == 4) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "red"; el.innerHTML = "Game Over"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); }
-		return true;
+		if (numXs == 4) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "red"; el.innerHTML = "Game Over"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); return true; }
+		return false;
 	} // end function isGameLost()
 
 	function showLetters() {
