@@ -44,7 +44,7 @@
 		<ul style="width: 100%; height: 80%;list-style: none; font-size: 1.5em; color: #8e3ecf; margin: 0; padding: 0; text-align: left;">
 			<li style="padding: 0.1em 3em 0.1em 3em;"><h4>The game concept is simple, but playing is fun and exciting. Your congitive deduction skills are challenged. The game is made up of two parts:</h4></li>
 			<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #3e8ecf; margin: 0;">Part 1: Determine if two random colors will mix to match your goal color.</p>
-				<p style="color: #8e3ecf; font-size: 0.9em;">You get two random colors to mix on a left panel and two random colors to mix on a right panel. If in either panel you think the colors will mix to match the goal color, which is displayed on the 'goal' panel on the top, hit 'yes', if not, hit 'no'. That's it. Either incorrectly guess 'yes' or 'no' twice in a row and you'll get an X. Four X's and the game is over.</p></li>
+				<p style="color: #8e3ecf; font-size: 0.9em;">At the top of the screen, a 'goal' color is displayed. At the bottom, you get two random colors to mix on a left panel and two random colors to mix on a right panel. If in either panel you think the colors will mix to match the goal color, hit 'yes', if not, hit 'no'. That's it. Either incorrectly guess 'yes' or 'no' twice in a row and you'll get an X. Four X's and the game is over.</p></li>
 			<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #3e8ecf; margin: 0;">Part 2: Behind the top 'goal' panel, there are hidden, twisted letters. Figure out the letters.</p>
 				<p style="color: #8e3ecf; font-size: 0.9em;">After every correct 'yes' selection you make from the color matching part of the game, a single line will appear in the 'goal' panel, revealing a portion of one of the letters. Your goal is to determine the correct letters before too much of the letters are revealed. The less the letters are revealed, the higher number of points you earn when you guess the letters correctly. For every incorrect letter guess, you'll get an X. If you get a total of four X's, the game is over. Correctly selected letters will have a green border, incorrectly selected letters will have a red border.</p></li>
 		</ul>
@@ -100,6 +100,7 @@
 <!--  background-color: #8e3ecf; background: linear-gradient(#ae5eef,#8e3ecf); -->
 </body>
 <script>
+	gameOver = false;
 	missedCorrect = 0;
 	numXs = 0;
 	points = 0;
@@ -133,6 +134,7 @@
 
 
 	function setupNewGame() {
+		gameOver = false;
 		missedCorrect = 0;
 		numXs = 0;
 		points = 0;
@@ -284,47 +286,49 @@
 	} // end function createColorDivs()
 
 	function getNextColors(par, did) {
-		while (par.firstChild) par.removeChild(par.firstChild);
-		var id = did;
-		var otherColors = gameData.otherColors;
-		var colors = [];
-		var randN = Math.floor(Math.random() * 5);
-		if (randN == 4) { 
-			colors[0] = gameData.answerColors[currentAnswerColor][0];
-			colors[1] = gameData.answerColors[currentAnswerColor][1];
-			if (currentAnswerColor == (gameData.answerColors.length - 1)) cycledThroughAnswerColors = true;
-			if (!cycledThroughAnswerColors) currentAnswerColor++;
-			else currentAnswerColor = Math.floor(Math.random() * gameData.answerColors.length);
-		} // end if (randN == 4)
-		else {
-			var ind1 = Math.floor(Math.random() * otherColors.length);
-			colors.push(otherColors[ind1]);
-			ind2 = Math.floor(Math.random() * otherColors.length);
-			while (ind2==ind1) ind2 = Math.floor(Math.random() * otherColors.length);
-			colors.push(otherColors[ind2]);
-		} // end else
-		var divTempA = document.createElement("div");
-		divTempA.style.position = "absolute";
-		divTempA.style.width = "100%";
-		divTempA.style.height = "100%";
-		divTempA.style.top = "0px";
-		divTempA.style.left = "0px"; 
-		divTempA.id = id;
-		par.appendChild(divTempA);
-		var colorsForBackDiv = [];
-		for (var j = 0; j < 2; j++) {
-			var divTemp = createMixColorDivs();
-			if (randN == 4) var color = colors[j];
-			else var color = getHexFromRGB(colors[j]);
-			colorsForBackDiv.push(colors[j]);
-			divTemp.style.backgroundColor = color;				
-			par.appendChild(divTemp);
-		} // end for (var j = 0; j < 2; j++)
-		var key = id + "";
-		key = key.split(":")[1];
-		par.style.display = "none";
-		par = createColorMixDivs(par, randN, 4, key, colorsForBackDiv[0], colorsForBackDiv[1], divTempA);
-		par.style.display = "inline-block";
+		if (!gameOver) {
+			while (par.firstChild) par.removeChild(par.firstChild);
+			var id = did;
+			var otherColors = gameData.otherColors;
+			var colors = [];
+			var randN = Math.floor(Math.random() * 5);
+			if (randN == 4) { 
+				colors[0] = gameData.answerColors[currentAnswerColor][0];
+				colors[1] = gameData.answerColors[currentAnswerColor][1];
+				if (currentAnswerColor == (gameData.answerColors.length - 1)) cycledThroughAnswerColors = true;
+				if (!cycledThroughAnswerColors) currentAnswerColor++;
+				else currentAnswerColor = Math.floor(Math.random() * gameData.answerColors.length);
+			} // end if (randN == 4)
+			else {
+				var ind1 = Math.floor(Math.random() * otherColors.length);
+				colors.push(otherColors[ind1]);
+				ind2 = Math.floor(Math.random() * otherColors.length);
+				while (ind2==ind1) ind2 = Math.floor(Math.random() * otherColors.length);
+				colors.push(otherColors[ind2]);
+			} // end else
+			var divTempA = document.createElement("div");
+			divTempA.style.position = "absolute";
+			divTempA.style.width = "100%";
+			divTempA.style.height = "100%";
+			divTempA.style.top = "0px";
+			divTempA.style.left = "0px"; 
+			divTempA.id = id;
+			par.appendChild(divTempA);
+			var colorsForBackDiv = [];
+			for (var j = 0; j < 2; j++) {
+				var divTemp = createMixColorDivs();
+				if (randN == 4) var color = colors[j];
+				else var color = getHexFromRGB(colors[j]);
+				colorsForBackDiv.push(colors[j]);
+				divTemp.style.backgroundColor = color;				
+				par.appendChild(divTemp);
+			} // end for (var j = 0; j < 2; j++)
+			var key = id + "";
+			key = key.split(":")[1];
+			par.style.display = "none";
+			par = createColorMixDivs(par, randN, 4, key, colorsForBackDiv[0], colorsForBackDiv[1], divTempA);
+			par.style.display = "inline-block";
+		} // if (!gameOver)
 		return true;
 	} // end function getNextColors(par, did)
 	
@@ -586,23 +590,25 @@
 	} // end function createCanvasWithLetters()
 
 	function selectUnderscore(el, letters) {
-		var repeat = false;
-		if (!!selectedUnderscore && (selectedUnderscore == el)) {
-			for (var i = 0; i < letters.length; i++) document.getElementById("letterChoices"+i).style.display = "none";
-			document.getElementById("letterChoicesCont").style.display = "none";
-			if (!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
-			else if (!!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "none";
-			selectedUnderscore = null;
-			repeat = true;
-		} // if (!!selectedUnderscore && (selectedUnderscore == el))
-		else if (!!selectedUnderscore && !selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
-		else if (!!selectedUnderscore && !!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "none"; 
-		
-		if (!repeat) {
-			selectedUnderscore = el;
-			el.style.borderBottom="5px solid gray"; 
-			showLetterChoices(el.id.split(":")[1], letters.length);
-		} // if (!repeat) 
+		if (!gameOver) {
+			var repeat = false;
+			if (!!selectedUnderscore && (selectedUnderscore == el)) {
+				for (var i = 0; i < letters.length; i++) document.getElementById("letterChoices"+i).style.display = "none";
+				document.getElementById("letterChoicesCont").style.display = "none";
+				if (!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
+				else if (!!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "none";
+				selectedUnderscore = null;
+				repeat = true;
+			} // if (!!selectedUnderscore && (selectedUnderscore == el))
+			else if (!!selectedUnderscore && !selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
+			else if (!!selectedUnderscore && !!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "none"; 
+			
+			if (!repeat) {
+				selectedUnderscore = el;
+				el.style.borderBottom="5px solid gray"; 
+				showLetterChoices(el.id.split(":")[1], letters.length);
+			} // if (!repeat) 
+		} // end if (!gameOver) {
 		return true;
 	} // end function selectUnderscore(el, letters)
 
@@ -706,21 +712,22 @@
 	} // end function makeLetterDivs(ind) 
 
 	function selectLetter(letter){
-		var par = selectedUnderscore;
-		var ind = par.id.split(":")[1];
-		if (!!par.childNodes[0]) par.removeChild(par.childNodes[0]);
-		par.innerHTML = "";
-		par.appendChild(letter);
-		par.style.padding = "0.5em";
-		par.style.borderBottom = "none";
-		selectedLetters[ind] = letter;
-		letter.onclick = null;
-		var ind2 = letter.id + "";
-		ind2 = ind2.split(":")[1];
-		if (correctLetters[ind].index == ind2) startLetterBorderAnimation(letter, 0);
-		else startLetterBorderAnimation(letter, 1);
-		if (isGameWon()) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You Won!"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); 
-		} // if
+		if (!gameOver) {
+			var par = selectedUnderscore;
+			var ind = par.id.split(":")[1];
+			if (!!par.childNodes[0]) par.removeChild(par.childNodes[0]);
+			par.innerHTML = "";
+			par.appendChild(letter);
+			par.style.padding = "0.5em";
+			par.style.borderBottom = "none";
+			selectedLetters[ind] = letter;
+			letter.onclick = null;
+			var ind2 = letter.id + "";
+			ind2 = ind2.split(":")[1];
+			if (correctLetters[ind].index == ind2) startLetterBorderAnimation(letter, 0);
+			else startLetterBorderAnimation(letter, 1);
+			if (isGameWon()) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You Won!"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); } // if
+		} // if (!gameOver) {
 		return true;
 	} // end function selectLetter(letter)
 
@@ -826,7 +833,7 @@
 			var ind = 0;
 			var numCorr = 0;
 			while(!!first) {var id = first.firstChild.id + ""; if ( parseInt(id.split(":")[1]) == correctLetters[ind].index ) numCorr++; first = first.nextSibling; ind++;}
-			if (numCorr == correctLetters.length) return true;
+			if (numCorr == correctLetters.length) {gameOver = true; return true;}
 		} // if (numLetts == correctLetters.length)
 		return false;
 	} // end function isGameWon() 
@@ -841,7 +848,7 @@
 		first.style.color = "red";
 		first.style.fontWeight = "bold";
 		first.style.fontSize = "1.5em";
-		if (numXs == 4) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "red"; el.innerHTML = "Game Over"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); return true; }
+		if (numXs == 4) {gameOver = true; document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "red"; el.innerHTML = "Game Over"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); return true; }
 		return false;
 	} // end function isGameLost()
 
