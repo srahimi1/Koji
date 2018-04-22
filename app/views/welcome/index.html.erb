@@ -3,13 +3,14 @@
 <title></title>
 <head>
 </head>
-<body style="width:100%;height:100%; padding: 0; margin: 0; overflow-x: hidden; background-color: #f3f6f9; font-family: 'Trebuchet MS', helvetica, tahoma;" onload="setTimeout(function() {showMenu(document.getElementById('menuDiv')) },500);">
+<body style="width:100%;height:100%; padding: 0; margin: 0; overflow-x: hidden; background-color: #f3f6f9; font-family: 'Trebuchet MS', helvetica, tahoma;" onload="checkForImportantMessage();setTimeout(function() {showMenu(document.getElementById('menuDiv')) },500);">
 
 <h1 id="KOJITitle" style="width:100%; padding:0.1em;text-align: center;background-color: #3ecf8e;background: linear-gradient(#5eefae,#3ecf8e);font-size:4em; margin-top: 0; color:white; box-shadow: 6px 6px 6px #aaaaaa; margin-bottom: 10px; padding-bottom: 0; z-index:5">KO<span style="color:#3e8ecf">J</span><span style="color:#8e3ecf">I</span></h1>
 
 <div id="root" style="position:relative;width:100%;height:80%; text-align: center; margin: 0 auto 0 auto; padding: 0px;">
 	
 	<div id="menuDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; transition: margin-top 1s, opacity 1s; overflow: hidden;">
+		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('menuDiv'))"></div>
 		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e);"><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Menu</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('menuDiv'))">X</p></div>
 		<ul style="width: 100%; height: 80%;list-style: none; font-size: 2em; color: gray; margin: 0.5em 0 0 0; padding: 0">
 			<li id="instructionsChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: linear-gradient(to right, #ffffff, #e6e9ec);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('instructionsDiv'));">
@@ -33,13 +34,23 @@
 		<div style="width: 100%; height: 10%; background-color:#3ecf8e; background: linear-gradient(#5eefae,#3ecf8e);"></div>
 	</div>
 
+	<div id="importantMessageDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; transition: margin-top 1s, opacity 1s; overflow: hidden;">
+		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('importantMessageDiv'))"></div>
+		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('importantMessageDiv'))">X</p></div>
+		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><p id="importantMessageSpan" style="font-size: 2em; text-align: center;"></p>
+		</div>
+	</div>
+
 	<div id="gameMessageDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; transition: margin-top 1s, opacity 1s; overflow: hidden;">
+		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('gameMessageDiv'))"></div>
 		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('gameMessageDiv'))">X</p></div>
-		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><p id="gameMessage" style="font-size: 2em; text-align: center;"></p>
+		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><h2 id="gameMessage" style="font-size: 2em; text-align: center;"></h2>
 		</div>
 	</div>
 
 	<div id="instructionsDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; transition: margin-top 1s, opacity 1s; overflow: hidden;">
+		<div style="position: absolute; width: 15em; height: 10em; left: 0%; z-index: 6"  onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));"></div>
+		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('instructionsDiv'))"></div>
 		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">How To Play</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('instructionsDiv'))">X</p></div>
 		<ul style="width: 100%; height: 80%; overflow-y: auto; list-style: none; font-size: 2em; color: #8E3ECF; padding: 0; text-align: left;">
 			<li style="padding: 0.1em 3em 0.1em 3em;"><h4>The game concept is simple, but playing is fun and exciting. Your congitive deduction skills are challenged. The game is made up of two parts:</h4></li>
@@ -52,6 +63,8 @@
 	</div>
 
 	<div id="signupDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; transition: margin-top 1s, opacity 1s; overflow: hidden;">
+		<div style="position: absolute; width: 15em; height: 10em; left: 0%; z-index: 6"  onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));"></div>
+		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('signupDiv'))"></div>
 		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Sign Up</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv'))">X</p></div>
 		<ul style="width: 100%; height: 80%;list-style: none; font-size: 2em; color: #3ecf8e; margin: 0; padding: 0">
 			<li></li><li></li>
@@ -60,6 +73,8 @@
 	</div>
 
 	<div id="signinDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; transition: margin-top 1s, opacity 1s; overflow: hidden;">
+		<div style="position: absolute; width: 15em; height: 10em; left: 0%; z-index: 6"  onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));"></div>
+		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('signinDiv'))"></div>
 		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Sign In</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('signinDiv'))">X</p></div>
 		<ul style="width: 100%; height: 80%;list-style: none; font-size: 2em; color: #3ecf8e; margin: 0; padding: 0">
 			<li></li><li></li>
@@ -892,6 +907,28 @@
 		} // if (code == 1)	
 		return true;
 	} // end function animateMenu(para, code)
+
+	function checkForImportantMessage() {
+		var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+		xhttp.open("GET", "/message");
+		xhttp.setRequestHeader('X-CSRF-Token', csrfTok)
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var message = this.responseText + "";
+				if (message != "") {
+					var el = document.getElementById('importantMessageSpan');
+					el.innerHTML = message;
+					el = document.getElementById('importantMessageDiv');
+					el.style.height = "95%";
+					el.style.marginTop="3em"; 
+					el.style.opacity="1";
+				}
+				return true;
+			} // end if
+		} // end onreadystatechange
+		xhttp.send();
+		return true;
+	} // end function checkForImportantMessage()
 
 
 
