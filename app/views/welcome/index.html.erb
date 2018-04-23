@@ -446,8 +446,8 @@
 			gotitPara.style.opacity = "0.5";
 			gotitPara.style.color = "#3ecf8e";
 			gotitPara.style.margin = "auto";
-			if (opt == 0) {gotitPara.style.width = "6em"; gotitPara.style.height = "3em"; gotitPara.style.fontSize = "3em"; gotitPara.innerHTML = "You got it!"; gotitPara.style.marginTop = "1.5em"; gotitPara.style.paddingTop = "1em"; gotitPara.style.color = "gray"; missedCorrect = 0; animatePoints(15, 0); drawLine();setTimeout(function() {getNextColors(par, sendID);},900);}
-			else if (opt == 1) {gotitPara.style.fontSize = "2em"; gotitPara.innerHTML = "This was it.<br/>You missed it.<br/>:("; gotitPara.style.width = "6em"; gotitPara.style.height = "6em"; gotitPara.style.padding = "2em"; gotitPara.style.marginTop = "1em"; gotitPara.style.color = "gray";animatePoints(-5, 1); missedCorrect++; if (missedCorrect == 2) {missedCorrect = 0; isGameLost();} setTimeout(function() {getNextColors(par, sendID);},900);}
+			if (opt == 0) {gotitPara.style.width = "6em"; gotitPara.style.height = "3em"; gotitPara.style.fontSize = "3em"; gotitPara.innerHTML = "You got it!"; gotitPara.style.marginTop = "1.5em"; gotitPara.style.paddingTop = "1em"; gotitPara.style.color = "gray"; missedCorrect = 0; animatePoints(15, 0); drawLine();setTimeout(function() {getNextColors(par, sendID);},800);}
+			else if (opt == 1) {gotitPara.style.fontSize = "2em"; gotitPara.innerHTML = "This was it.<br/>You missed it.<br/>:("; gotitPara.style.width = "6em"; gotitPara.style.height = "6em"; gotitPara.style.padding = "2em"; gotitPara.style.marginTop = "1em"; gotitPara.style.color = "gray";animatePoints(-5, 1); missedCorrect++; if (missedCorrect == 2) {missedCorrect = 0; isGameLost();} setTimeout(function() {getNextColors(par, sendID);},800);}
 			document.getElementById(sendID).appendChild(gotitPara);
 		} // if (bkDivColors[key].toUpperCase() == gameData.goalColor.toUpperCase()) 
 		else if (opt == 0) {
@@ -463,9 +463,9 @@
 			missedCorrect++; 
 			if (missedCorrect == 2) {missedCorrect = 0; isGameLost();}
 			document.getElementById(sendID).appendChild(gotitPara);
-			setTimeout(function() {getNextColors(par, sendID);},900);
+			setTimeout(function() {getNextColors(par, sendID);},800);
 		} // else if (opt == 0)
-		else if (opt == 1) {missedCorrect = 0;setTimeout(function() {getNextColors(par, sendID);},900);}
+		else if (opt == 1) {missedCorrect = 0;setTimeout(function() {getNextColors(par, sendID);},800);}
 		return true;
 	} // end function showUnderneathBox(but, par, opt)
 
