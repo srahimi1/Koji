@@ -5,53 +5,53 @@
 </head>
 <body style="width:100%;height:100%; padding: 0; margin: 0; overflow-x: hidden; background-color: #f3f6f9; font-family: 'Trebuchet MS', helvetica, tahoma;" onload="checkForImportantMessage();setTimeout(function() {showMenu(document.getElementById('menuDiv')) },500);">
 
-<h1 id="KOJITitle" style="width:100%; padding:0.1em;text-align: center;background-color: #3ecf8e;background: linear-gradient(#5eefae,#3ecf8e);font-size:4em; margin-top: 0; color:white; box-shadow: 6px 6px 6px #aaaaaa; margin-bottom: 10px; padding-bottom: 0; z-index:5">KO<span style="color:#3e8ecf">J</span><span style="color:#8e3ecf">I</span></h1>
+<h1 id="KOJITitle" style="width:100%; padding:0.1em;text-align: center;background-color: #3ecf8e; background: -moz-linear-gradient(#5eefae,#3ecf8e); background: -webkit-linear-gradient(#5eefae,#3ecf8e);background: -o-linear-gradient(#5eefae,#3ecf8e); background: linear-gradient(#5eefae,#3ecf8e); font-size:4em; margin-top: 0; color:white; box-shadow: 6px 6px 6px #aaaaaa; margin-bottom: 10px; padding-bottom: 0; z-index:5">KO<span style="color:#3e8ecf">J</span><span style="color:#8e3ecf">I</span></h1>
+
+<div id="importantMessageDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:20; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
+		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 21"  onclick="closeMenu(document.getElementById('importantMessageDiv'))"></div>
+		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('importantMessageDiv'))">X</p></div>
+		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><p id="importantMessageSpan" style="font-size: 2em; text-align: center;"></p>
+		</div>
+</div>
 
 <div id="root" style="position:relative;width:100%;height:80%; text-align: center; margin: 0 auto 0 auto; padding: 0px;">
 	
 	<div id="menuDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('menuDiv'))"></div>
-		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e);"><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Menu</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('menuDiv'))">X</p></div>
+		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color: #3ecf8e; background: -moz-linear-gradient(#3eef8e,#3ecf8e); background: -webkit-linear-gradient(#3eef8e,#3ecf8e);background: -o-linear-gradient(#3eef8e,#3ecf8e); background: linear-gradient(#3eef8e,#3ecf8e);"><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Menu</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('menuDiv'))">X</p></div>
 		<ul style="width: 100%; height: 80%;list-style: none; font-size: 2em; color: gray; margin: 0.5em 0 0 0; padding: 0">
-			<li id="instructionsChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: linear-gradient(to right, #ffffff, #e6e9ec);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('instructionsDiv'));">
+			<li id="instructionsChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #ffffff, #e6e9ec); background: -webkit-linear-gradient(left, #ffffff, #e6e9ec); background: -o-linear-gradient(left, #ffffff, #e6e9ec); background: linear-gradient(to right, #ffffff, #e6e9ec);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('instructionsDiv'));">
 				<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%;float: left;padding-left:1em;" viewbox="0 0 25 25"><circle cx="12" cy="12" r="12" fill="#d6facf"/><path d="M14.23 12.24A3.3 3.3 0 0 0 16 9.36C16 8.2 15.15 6 12.1 6A3.806 3.806 0 0 0 8 10h2.36c0-1.45.82-2.06 1.67-2.06a1.184 1.184 0 0 1 1.37 1.3c0 .96-.15 1.14-1.03 1.82A3.365 3.365 0 0 0 10.8 14H13a2.526 2.526 0 0 1 1.23-1.76zM12 18.5a1.5 1.5 0 1 0-1.5-1.5 1.5 1.5 0 0 0 1.5 1.5z" fill="#3ecf8e"/></svg>
 				<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; margin-top:1.5em;">How To Play</p>
 				<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #8e3ecf;">Instructions on how to play this <span style="font-style: italic; font-weight: bold;">fun</span> color matching game that keeps you <span style="font-style: italic; font-weight: bold;">constantly entertained.</span></p>
 			</li>
-			<li id="signupChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: linear-gradient(to right, #e6e9ec, #ffffff);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signupDiv'));">
+			<li id="signupChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #e6e9ec, #ffffff); background: -webkit-linear-gradient(left, #e6e9ec, #ffffff); background: -o-linear-gradient(left, #e6e9ec, #ffffff); background: linear-gradient(to right, #e6e9ec, #ffffff);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signupDiv'));">
 				<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%; float: left;padding-left:1em;" viewbox="0 0 50 50"><g><path fill="#3ecf8e" d="M31.81 31H11a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h25a1 1 0 0 0 1-1v-1.806l5-2.446V39a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h31a3 3 0 0 1 3 3v14.767L31.81 31zM10 25a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v3zm27-13a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h25a1 1 0 0 0 1-1v-3zm0 10a1 1 0 0 0-1-1H26a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3z"></path><path fill="#3e8ecf" d="M34.956 32.365L46.1 21.205a3.06 3.06 0 0 0 0-4.318 3.043 3.043 0 0 0-4.31 0l-11.143 11.16a2.445 2.445 0 0 0-.64 1.133l-.98 3.925a.728.728 0 0 0 .88.884l3.918-.984a2.4 2.4 0 0 0 1.13-.642z"></path></g></svg>
 				<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; margin-top:1.5em;">Sign Up</p>
 				<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #8e3ecf;">Get the benefits of more challenges, recording of your high scores, and access to the upcoming multi-player version.</p>
 			</li>
-			<li id="signinChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: linear-gradient(to right, #ffffff, #e6e9ec);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signinDiv'));">
+			<li id="signinChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #ffffff, #e6e9ec); background: -webkit-linear-gradient(left, #ffffff, #e6e9ec); background: -o-linear-gradient(left, #ffffff, #e6e9ec); background: linear-gradient(to right, #ffffff, #e6e9ec);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signinDiv'));">
 				<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%; float: left;padding-left:1em;" viewbox="0 0 50 50"><path fill="#1eaf6e" d="m 31.006,20 v -6.76 c -0.04746,-4.1119342 -3.394295,-7.4203555 -7.5065,-7.4203555 -4.112205,0 -7.459039,3.3084213 -7.5065,7.4203555 V 16 H 11 V 13.5 C 11,6.597 16.596,1 23.5,1 30.404,1 36,6.597 36,13.5 V 20 Z"></path><path fill="#3ecf8e" d="M20 30c0 1.48.805 2.77 2 3.46V37a2 2 0 0 0 2 2v6H10a4 4 0 0 1-4-4V24a4 4 0 0 1 4-4h14v6a4 4 0 0 0-4 4z"></path><path fill="#1eaf6e" d="M37 45H24v-6a2 2 0 0 0 2-2v-3.54A3.99 3.99 0 0 0 28 30a4 4 0 0 0-4-4v-6h13a4 4 0 0 1 4 4v17a4 4 0 0 1-4 4z"></path></svg>
 				<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; margin-top:1.5em;">Sign In</p>
 				<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #8e3ecf;">View your high score history or cancel your membership. Thank you for signing-up and enjoy!</p>
 			</li>
-			<li style="width: 100%; text-align:center; background-color: white;"><button id="newGameButton" style="background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: -2px 4px 8px #aaaaaa; border: none; font-size:1.5em;padding:.5em; margin-top: 0.2em;" onclick="setupNewGame()">New Game</button>
+			<li style="width: 100%; text-align:center; background-color: white;"><button id="newGameButton" style="background-color: #3ecf8e; background: -moz-linear-gradient(#3eef8e,#3ecf8e); background: -webkit-linear-gradient(#3eef8e,#3ecf8e);background: -o-linear-gradient(#3eef8e,#3ecf8e); background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: -2px 4px 8px #aaaaaa; border: none; font-size:1.5em;padding:.5em; margin-top: 0.2em;" onclick="setupNewGame()">New Game</button>
 			</li>
 		</ul>
-		<div style="width: 100%; height: 10%; background-color:#3ecf8e; background: linear-gradient(#5eefae,#3ecf8e);"></div>
-	</div>
-
-	<div id="importantMessageDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
-		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('importantMessageDiv'))"></div>
-		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('importantMessageDiv'))">X</p></div>
-		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><p id="importantMessageSpan" style="font-size: 2em; text-align: center;"></p>
-		</div>
+		<div style="width: 100%; height: 10%; background-color:#3ecf8e; background: -moz-linear-gradient(#5eefae,#3ecf8e); background: -webkit-linear-gradient(#5eefae,#3ecf8e); background: -o-linear-gradient(#5eefae,#3ecf8e); background: linear-gradient(#5eefae,#3ecf8e);"></div>
 	</div>
 
 	<div id="gameMessageDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('gameMessageDiv'))"></div>
-		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('gameMessageDiv'))">X</p></div>
-		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><h2 id="gameMessage" style="font-size: 2em; text-align: center;"></h2>
+		<div style="width: 100%; height: 6em; text-align: right; color: gray; font-size: 4em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('gameMessageDiv'))">X</p></div>
+		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><h2 id="gameMessage" style="font-size: 4em; text-align: center;"></h2>
 		</div>
 	</div>
 
 	<div id="instructionsDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 0%; z-index: 6"  onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));"></div>
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('instructionsDiv'))"></div>
-		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">How To Play</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('instructionsDiv'))">X</p></div>
+		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">How To Play</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('instructionsDiv'))">X</p></div>
 		<ul style="width: 100%; height: 80%; overflow-y: auto; list-style: none; font-size: 2em; color: #8E3ECF; padding: 0; text-align: left;">
 			<li style="padding: 0.1em 3em 0.1em 3em;"><h4>The game concept is simple, but playing is fun and exciting. Your congitive deduction skills are challenged. The game is made up of two parts:</h4></li>
 			<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #8E3ECF; margin: 0;">Part 1: Determine if two random colors will mix to match your goal color.</p>
@@ -59,32 +59,32 @@
 			<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #8E3ECF; margin: 0;">Part 2: Behind the top 'goal' panel, there are hidden, twisted letters. Figure out the letters.</p>
 				<p style="color: gray; font-size: 0.9em;">After every correct color mixing guess, a single line will appear in the 'goal' panel, revealing a portion of a hidden letter. Your goal is to determine the correct letters before too much of the letters are revealed. The less the letters are revealed, the higher number of points you earn when you guess the letters correctly. For every incorrect letter guess, you'll get an X. If you get a total of four X's, the game is over. Correctly selected letters will have a green border, incorrectly selected letters will have a red border.</p></li>
 		</ul>
-		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: linear-gradient(#ae6eef,#8e3ecf);"></div>
+		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
 	</div>
 
 	<div id="signupDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 0%; z-index: 6"  onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));"></div>
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('signupDiv'))"></div>
-		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Sign Up</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv'))">X</p></div>
+		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Sign Up</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv'))">X</p></div>
 		<ul style="width: 100%; height: 80%;list-style: none; font-size: 2em; color: #3ecf8e; margin: 0; padding: 0">
 			<li></li><li></li>
 		</ul>
-		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: linear-gradient(#ae6eef,#8e3ecf);"></div>
+		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
 	</div>
 
 	<div id="signinDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 0%; z-index: 6"  onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));"></div>
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('signinDiv'))"></div>
-		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Sign In</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('signinDiv'))">X</p></div>
+		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Sign In</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('signinDiv'))">X</p></div>
 		<ul style="width: 100%; height: 80%;list-style: none; font-size: 2em; color: #3ecf8e; margin: 0; padding: 0">
 			<li></li><li></li>
 		</ul>
-		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: linear-gradient(#ae6eef,#8e3ecf);"></div>
+		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
 	</div>
 
 	<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 4"  onclick="closeMenu(document.getElementById('instructionsDiv')); closeMenu(document.getElementById('signupDiv')); closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));" onmouseover="animateMenu(document.getElementById('menuPara'), 0);" onmouseout="animateMenu(document.getElementById('menuPara'), 1);"></div>
 	
-	<div id="menuOptionContainer" style="position:relative;width:100%; height:3em; margin:auto; margin-top: 0; padding-top: 0; text-align: right; cursor: default;"><p id="menuPara" style="margin-top: 0; padding-top: 0;font-size: 2em; padding-right: 2em; padding-bottom: 3em; transition: background-color 1s, color 1s; background-color: white; color: gray;"><span style="padding-right: 0; transition: padding-right 1s;">m</span><span style="padding-right: 0; transition: padding-right 1s;">e</span><span style="padding-right: 0; transition: padding-right 1s;">n</span><span style="padding-right: 0; transition: padding-right 1s;">u</span></p>
+	<div id="menuOptionContainer" style="position:relative;width:100%; height:3em; margin:auto; margin-top: 0; padding-top: 0; text-align: right; cursor: default;"><p id="menuPara" style="margin-top: 0; padding-top: 0;font-size: 2em; padding-right: 2em; padding-bottom: 3em; -moz-transition: background-color 1s, color 1s; -webkit-transition: background-color 1s, color 1s; -o-transition: background-color 1s, color 1s; transition: background-color 1s, color 1s; background-color: white; color: gray;"><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">m</span><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">e</span><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">n</span><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">u</span></p>
 	</div><!--end menuOptionContainer div -->
 	
 	<div id="goalContainer" style="position:relative;width:100%; height:25%;overflow: hidden; margin:auto;">
@@ -110,11 +110,13 @@
 
 </div><!--end root div -->
 
-<div id="footer" style="width: 100%; height: 15%; background-color: #3ecf8e; background: linear-gradient(#5eefae,#3ecf8e); padding: 0;"><p style="color: ghostwhite; font-size:1.5em; padding: 0.5em 3em 2em 3em; margin-top:0.5em;">a First Flight Ingenuities<span style="font-size: 1em">&trade;</span> production</p></div>
+<div id="footer" style="width: 100%; height: 15%; background-color: #3ecf8e; background: -moz-linear-gradient(#5eefae,#3ecf8e); background: -webkit-linear-gradient(#5eefae,#3ecf8e);background: -o-linear-gradient(#5eefae,#3ecf8e); background: -ms-linear-gradient(#5eefae,#3ecf8e); background: linear-gradient(#5eefae,#3ecf8e); background: linear-gradient(#5eefae,#3ecf8e); padding: 0;"><p style="color: ghostwhite; font-size:1.5em; padding: 0.5em 3em 2em 3em; margin-top:0.5em;">a First Flight Ingenuities<span style="font-size: 1em">&trade;</span> production</p></div>
 
 <input type="hidden" id="versionNo" name="versionNo" value="1.0">
 </body>
 <script>
+	cycleTopDataAt = 0;
+	cycleTopDataCounter = 0;
 	gameOver = false;
 	missedCorrect = 0;
 	numXs = 0;
@@ -127,6 +129,7 @@
 	numberCorrect = 0;
 	bkDivColors = {"div0" : "", "div1" :""};
 	gameData = null;
+	topData = null;
 	selectedDiv = null;
 	selectedUnderscore = null;
 	selectedLetters = [];
@@ -149,6 +152,8 @@
 
 
 	function setupNewGame() {
+		cycleTopDataAt = 0;
+		cycleTopDataCounter = 0;
 		gameOver = false;
 		missedCorrect = 0;
 		numXs = 0;
@@ -161,6 +166,7 @@
 		numberCorrect = 0;
 		bkDivColors = {"div0" : "", "div1" :""};
 		gameData = null;
+		topData = null;
 		selectedDiv = null;
 		selectedUnderscore = null;
 		selectedLetters = [];
@@ -217,8 +223,11 @@
 		xhttp.setRequestHeader('X-CSRF-Token', csrfTok)
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
-				gameData = JSON.parse(this.responseText);
-				console.log(gameData);
+				topData = JSON.parse(this.responseText);
+				console.log(topData);
+				cycleTopDataAt = Math.floor(Math.random() * 25) + 15;
+				gameData = topData[0];
+				console.log("goal color is "+gameData.goalColor);
 				colorGoalDiv();
 				createColorDivs();
 				createCanvasWithLetters();
@@ -229,7 +238,17 @@
 		return true;
 	} // end function getGame()
 
-
+	function cycleThroughTopData() {
+		var prev = gameData.goalColor;
+		gameData = topData[Math.floor(Math.random() * topData.length)];
+		cycleTopDataAt = Math.floor(Math.random() * 25) + 15;
+		cycleTopDataCounter = 0;
+		console.log("goal color is "+gameData.goalColor);
+		colorGoalDiv();
+		createColorDivs();
+		changeColorOfSelectCanvasPixels(prev);
+		return true;
+	}
 
 // color mixing functions ...
 
@@ -239,16 +258,16 @@
 		var chosenDiv = -1;
 		var randN;
 		for (var i = 0; i < 2; i++) {
-			randN = Math.floor(Math.random() * 5);
+			randN = Math.floor(Math.random() * 4);
 			colors[i] = [];
-			if ((randN == 4) && (chosenDiv == -1)) { 
+			if ((randN == 3) && (chosenDiv == -1)) { 
 				chosenDiv = i;
 				colors[i][0] = gameData.answerColors[currentAnswerColor][0];
 				colors[i][1] = gameData.answerColors[currentAnswerColor][1];
 				if (currentAnswerColor == (gameData.answerColors.length - 1)) cycledThroughAnswerColors = true;
 				if (!cycledThroughAnswerColors) currentAnswerColor++;
 				else currentAnswerColor = Math.floor(Math.random() * gameData.answerColors.length);
-			} // end if ((randN == 4) && (chosenDiv == -1))
+			} // end if ((randN == 3) && (chosenDiv == -1))
 			else {
 				var ind1 = Math.floor(Math.random() * otherColors.length);
 				colors[i].push(otherColors[ind1]);
@@ -302,19 +321,21 @@
 	} // end function createColorDivs()
 
 	function getNextColors(par, did) {
-		if (!gameOver) {
+		cycleTopDataCounter++;
+		if (cycleTopDataCounter == cycleTopDataAt) cycleThroughTopData();
+		else if (!gameOver) {
 			while (par.firstChild) par.removeChild(par.firstChild);
 			var id = did;
 			var otherColors = gameData.otherColors;
 			var colors = [];
-			var randN = Math.floor(Math.random() * 5);
-			if (randN == 4) { 
+			var randN = Math.floor(Math.random() * 4);
+			if (randN == 3) { 
 				colors[0] = gameData.answerColors[currentAnswerColor][0];
 				colors[1] = gameData.answerColors[currentAnswerColor][1];
 				if (currentAnswerColor == (gameData.answerColors.length - 1)) cycledThroughAnswerColors = true;
 				if (!cycledThroughAnswerColors) currentAnswerColor++;
 				else currentAnswerColor = Math.floor(Math.random() * gameData.answerColors.length);
-			} // end if (randN == 4)
+			} // end if (randN == 3)
 			else {
 				var ind1 = Math.floor(Math.random() * otherColors.length);
 				colors.push(otherColors[ind1]);
@@ -333,7 +354,7 @@
 			var colorsForBackDiv = [];
 			for (var j = 0; j < 2; j++) {
 				var divTemp = createMixColorDivs();
-				if (randN == 4) var color = colors[j];
+				if (randN == 3) var color = colors[j];
 				else var color = getHexFromRGB(colors[j]);
 				colorsForBackDiv.push(colors[j]);
 				divTemp.style.backgroundColor = color;				
@@ -342,7 +363,7 @@
 			var key = id + "";
 			key = key.split(":")[1];
 			par.style.display = "none";
-			par = createColorMixDivs(par, randN, 4, key, colorsForBackDiv[0], colorsForBackDiv[1], divTempA);
+			par = createColorMixDivs(par, randN, 3, key, colorsForBackDiv[0], colorsForBackDiv[1], divTempA);
 			par.style.display = "inline-block";
 		} // if (!gameOver)
 		return true;
@@ -358,6 +379,12 @@
 		divTemp.style.margin = "0px";
 		divTemp.style.padding = "0px";
 		divTemp.style.opacity = "1";
+		divTemp.style.MozTransition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
+		divTemp.style.mozTransition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
+		divTemp.style.WebkitTransition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
+		divTemp.style.webkitTransition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
+		divTemp.style.OTransition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
+		divTemp.style.oTransition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
 		divTemp.style.transition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
 		return divTemp;
 	} // end function createMixColorDivs()
@@ -507,7 +534,7 @@
 
 
 
-// create canvas and letter obj functions ...
+// canvas and letter obj functions ...
 
 	function letterObj(letter, cs, font, size, rotation, correct) {
 		this.letter = letter;
@@ -606,6 +633,36 @@
 		return true;
 	} // end function createCanvasWithLetters()
 
+	function changeColorOfSelectCanvasPixels(hexC) {
+		var hexColor = hexC;
+		var prevR = parseInt(hexColor[1]+""+hexColor[2], 16);
+		var prevG = parseInt(hexColor[3]+""+hexColor[4], 16);
+		var prevB = parseInt(hexColor[5]+""+hexColor[6], 16);
+	
+		hexColor = gameData.goalColor;
+
+		var newR = parseInt(hexColor[1]+""+hexColor[2], 16);
+		var newG = parseInt(hexColor[3]+""+hexColor[4], 16);
+		var newB = parseInt(hexColor[5]+""+hexColor[6], 16);
+
+		imageData = ctx.getImageData(0,0,canvas.width,canvas.height);
+		var pixArr = imageData.data;
+		var len = pixArr.length;
+	
+		for (var i = 0; i < len; i = i + 4) {
+			var r = pixArr[i];
+			var g = pixArr[i+1];
+			var b = pixArr[i+2];
+			var a = pixArr[i+3];
+
+			if (((r+5 >= prevR) && (r-5 <= prevR))  && ((g+5 >= prevG) && (g-5 <= prevG)) && ((b+5 >= prevB) && (b-5 <= prevB))) { pixArr[i] = newR; pixArr[i+1] = newG; pixArr[i+2] = newB;}
+		}// for (var i = 0; i < len; i = i + 4)
+		canvas.style.display = "none";
+		ctx.putImageData(imageData, 0, 0);
+		canvas.style.display = "block";
+		console.log("finished changing canvas colors");
+	} // end function changeColorOfSelectCanvasPixels(hexColor)
+
 	function selectUnderscore(el, letters) {
 		if (!gameOver) {
 			var repeat = false;
@@ -700,6 +757,7 @@
 			elP.style.mozTransform = "rotate("+angle+"deg)";
 			elP.style.MozTransform = "rotate("+angle+"deg)";
 			elP.style.msTransform = "rotate("+angle+"deg)";
+			elP.style.MsTransform = "rotate("+angle+"deg)";
 			elP.style.oTransform = "rotate("+angle+"deg)";
 			elP.style.OTransform = "rotate("+angle+"deg)";
 			elP.style.transform = "rotate("+angle+"deg)";
@@ -743,7 +801,7 @@
 			ind2 = ind2.split(":")[1];
 			if (correctLetters[ind].index == ind2) startLetterBorderAnimation(letter, 0);
 			else startLetterBorderAnimation(letter, 1);
-			if (isGameWon()) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You Won!"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); } // if
+			if (isGameWon()) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You Won!"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},1500); showLetters(); } // if
 		} // if (!gameOver) {
 		return true;
 	} // end function selectLetter(letter)
@@ -865,7 +923,7 @@
 		first.style.color = "red";
 		first.style.fontWeight = "bold";
 		first.style.fontSize = "1.5em";
-		if (numXs == 4) {gameOver = true; document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "red"; el.innerHTML = "Game Over"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); return true; }
+		if (numXs == 4) {gameOver = true; document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "red"; el.innerHTML = "Game Over"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},1500); showLetters(); return true; }
 		return false;
 	} // end function isGameLost()
 

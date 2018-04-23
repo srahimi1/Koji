@@ -3,40 +3,40 @@ class Game < ApplicationRecord
 	def start_new_game
 		@game_levels = { a1: {num_colors:3, shades_per_color:3, time_per_letter_segment: 240, min_letters_per_word: 3, max_letters_per_word: 9}, a2:{num_colors:5, shades_per_color:3, time_per_letter_segment: 210, min_letters_per_word: 5, max_letters_per_word: 10}}
 		@level = @game_levels[:a1]		
-		response = {}
-		goal_color = get_random_colors(1, 1, nil)
-		puts "this is goal color"
-		puts goal_color.inspect
-		goal_color_rgb = goal_color[0]
-		goal_color_hex = goal_color[1]
-		answer_colors_hex = []
-		answer_colors_rgb = []
-		15.times do |i|
-			temp = get_answer_colors(goal_color_rgb[0])
-			answer_colors_hex.push( [temp[0], temp[1]] )
-			answer_colors_rgb.push( [temp[2], temp[3]] )
+		responses = []
+		4.times do	
+			response = {}
+			goal_color = get_random_colors(1, 1, nil)
+			goal_color_rgb = goal_color[0]
+			goal_color_hex = goal_color[1]
+			answer_colors_hex = []
+			answer_colors_rgb = []
+			15.times do |i|
+				temp = get_answer_colors(goal_color_rgb[0])
+				answer_colors_hex.push( [temp[0], temp[1]] )
+				answer_colors_rgb.push( [temp[2], temp[3]] )
+			end
+			colors_to_avoid = []
+			colors_to_avoid.push(goal_color_rgb[0])
+			answer_colors_rgb.length.times do |i|
+				colors_to_avoid.push(answer_colors_rgb[i][0])
+				colors_to_avoid.push(answer_colors_rgb[i][1])
+			end
+			other_colors = get_random_colors(2, 10, colors_to_avoid)
+			other_colors_rgb = other_colors[0]
+			answer_colors_rgb.length.times do |i|
+				ind = rand(2)
+				other_colors_rgb.push(answer_colors_rgb[i][ind])
+			end		
+			letters = get_letters 
+			response["goalColor"] = goal_color_hex[0]
+			response["answerColors"] = answer_colors_hex
+			response["answerColorsRGB"] = answer_colors_rgb
+			response["otherColors"] = other_colors_rgb
+			response["letters"] = letters
+			responses.push(response)
 		end
-		colors_to_avoid = []
-		colors_to_avoid.push(goal_color_rgb[0])
-		answer_colors_rgb.length.times do |i|
-			colors_to_avoid.push(answer_colors_rgb[i][0])
-			colors_to_avoid.push(answer_colors_rgb[i][1])
-		end
-		puts "this is colors to avoid"
-		puts colors_to_avoid.inspect
-		other_colors = get_random_colors(2, 10, colors_to_avoid)
-		other_colors_rgb = other_colors[0]
-		answer_colors_rgb.length.times do |i|
-			ind = rand(2)
-			other_colors_rgb.push(answer_colors_rgb[i][ind])
-		end		
-		letters = get_letters 
-		response["goalColor"] = goal_color_hex[0]
-		response["answerColors"] = answer_colors_hex
-		response["answerColorsRGB"] = answer_colors_rgb
-		response["otherColors"] = other_colors_rgb
-		response["letters"] = letters
-		return response
+		return responses
 	end
 
 	def get_letters
@@ -181,8 +181,6 @@ class Game < ApplicationRecord
 	end
 
 	def mix_up(colors_orig)
-		puts "this is colors_orig"
-		puts colors_orig.inspect
 		used = {}
 		colors = colors_orig.map {|item| item.clone }
 		mixed_arr = Array.new(colors.length)
@@ -203,8 +201,6 @@ class Game < ApplicationRecord
 				end # end if
 			end # end mixed_arr.length.times
 		end # end 2.times do
-		puts "this is mixed_arr"
-		puts mixed_arr.inspect
 		return mixed_arr
 	end
 
@@ -216,7 +212,6 @@ class Game < ApplicationRecord
 	end
 
 	def create_in_between_colors_for_similar_colors(spects)
-		puts spects.inspect
 		arr = []
 		ans = ""
 		col1 = ""
