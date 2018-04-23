@@ -9,7 +9,7 @@
 
 <div id="root" style="position:relative;width:100%;height:80%; text-align: center; margin: 0 auto 0 auto; padding: 0px;">
 	
-	<div id="menuDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; transition: margin-top 1s, opacity 1s; overflow: hidden;">
+	<div id="menuDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('menuDiv'))"></div>
 		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color: #3ecf8e; background: linear-gradient(#3eef8e,#3ecf8e);"><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Menu</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('menuDiv'))">X</p></div>
 		<ul style="width: 100%; height: 80%;list-style: none; font-size: 2em; color: gray; margin: 0.5em 0 0 0; padding: 0">
@@ -34,35 +34,35 @@
 		<div style="width: 100%; height: 10%; background-color:#3ecf8e; background: linear-gradient(#5eefae,#3ecf8e);"></div>
 	</div>
 
-	<div id="importantMessageDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; transition: margin-top 1s, opacity 1s; overflow: hidden;">
+	<div id="importantMessageDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('importantMessageDiv'))"></div>
 		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('importantMessageDiv'))">X</p></div>
 		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><p id="importantMessageSpan" style="font-size: 2em; text-align: center;"></p>
 		</div>
 	</div>
 
-	<div id="gameMessageDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; transition: margin-top 1s, opacity 1s; overflow: hidden;">
+	<div id="gameMessageDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('gameMessageDiv'))"></div>
 		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('gameMessageDiv'))">X</p></div>
 		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><h2 id="gameMessage" style="font-size: 2em; text-align: center;"></h2>
 		</div>
 	</div>
 
-	<div id="instructionsDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; transition: margin-top 1s, opacity 1s; overflow: hidden;">
+	<div id="instructionsDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 0%; z-index: 6"  onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));"></div>
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('instructionsDiv'))"></div>
 		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">How To Play</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('instructionsDiv'))">X</p></div>
 		<ul style="width: 100%; height: 80%; overflow-y: auto; list-style: none; font-size: 2em; color: #8E3ECF; padding: 0; text-align: left;">
 			<li style="padding: 0.1em 3em 0.1em 3em;"><h4>The game concept is simple, but playing is fun and exciting. Your congitive deduction skills are challenged. The game is made up of two parts:</h4></li>
 			<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #8E3ECF; margin: 0;">Part 1: Determine if two random colors will mix to match your goal color.</p>
-				<p style="color: gray; font-size: 0.9em;">At the top of the screen, a 'goal' color is displayed. At the bottom, you get two random colors to mix on a left panel and two random colors to mix on a right panel. If in either panel you think the colors will mix to match the goal color, hit 'yes', if not, hit 'no'. That's it. Either incorrectly guess 'yes' or 'no' twice in a row and you'll get an X. Four X's and the game is over.</p></li>
+				<p style="color: gray; font-size: 0.9em;">A 'goal' color is displayed at the top of the screen. At the bottom, two random colors are displayed. If you think the random colors will mix to match the goal color, hit 'yes', if not, hit 'no'. That's it. Either incorrectly guess 'yes' or 'no' twice in a row and you'll get an X. Four X's and the game is over. Pay attention as the 'goal' color might change throughout the game.</p></li>
 			<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #8E3ECF; margin: 0;">Part 2: Behind the top 'goal' panel, there are hidden, twisted letters. Figure out the letters.</p>
-				<p style="color: gray; font-size: 0.9em;">After every correct 'yes' selection you make from the color matching part of the game, a single line will appear in the 'goal' panel, revealing a portion of one of the letters. Your goal is to determine the correct letters before too much of the letters are revealed. The less the letters are revealed, the higher number of points you earn when you guess the letters correctly. For every incorrect letter guess, you'll get an X. If you get a total of four X's, the game is over. Correctly selected letters will have a green border, incorrectly selected letters will have a red border.</p></li>
+				<p style="color: gray; font-size: 0.9em;">After every correct color mixing guess, a single line will appear in the 'goal' panel, revealing a portion of a hidden letter. Your goal is to determine the correct letters before too much of the letters are revealed. The less the letters are revealed, the higher number of points you earn when you guess the letters correctly. For every incorrect letter guess, you'll get an X. If you get a total of four X's, the game is over. Correctly selected letters will have a green border, incorrectly selected letters will have a red border.</p></li>
 		</ul>
 		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: linear-gradient(#ae6eef,#8e3ecf);"></div>
 	</div>
 
-	<div id="signupDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; transition: margin-top 1s, opacity 1s; overflow: hidden;">
+	<div id="signupDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 0%; z-index: 6"  onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));"></div>
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('signupDiv'))"></div>
 		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Sign Up</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv'))">X</p></div>
@@ -72,7 +72,7 @@
 		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: linear-gradient(#ae6eef,#8e3ecf);"></div>
 	</div>
 
-	<div id="signinDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; transition: margin-top 1s, opacity 1s; overflow: hidden;">
+	<div id="signinDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 0%; z-index: 6"  onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));"></div>
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('signinDiv'))"></div>
 		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Sign In</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('signinDiv'))">X</p></div>
@@ -112,7 +112,7 @@
 
 <div id="footer" style="width: 100%; height: 15%; background-color: #3ecf8e; background: linear-gradient(#5eefae,#3ecf8e); padding: 0;"><p style="color: ghostwhite; font-size:1.5em; padding: 0.5em 3em 2em 3em; margin-top:0.5em;">a First Flight Ingenuities<span style="font-size: 1em">&trade;</span> production</p></div>
 
-<!--  background-color: #8e3ecf; background: linear-gradient(#ae5eef,#8e3ecf); -->
+<input type="hidden" id="versionNo" name="versionNo" value="1.0">
 </body>
 <script>
 	gameOver = false;
@@ -260,17 +260,18 @@
 		var guess = document.getElementById("guess");
 		guess.style.overflow = "hidden";
 		var frag = document.createDocumentFragment();
-		for (var i = 0; i < 2; i++) {
+		for (var i = 0; i < 1; i++) {
 			var divTempOuter = document.createElement('div');
 			divTempOuter.style.display = "inline-block";
 			divTempOuter.style.position = "relative";
 			divTempOuter.style.height = "100%";
-			divTempOuter.style.width = "50%";
+			divTempOuter.style.width = "100%";
 			divTempOuter.style.margin = "0px";
 			divTempOuter.style.padding = "0px";
 			var divTempA = document.createElement("div");
-			if (i==0) divTempOuter.style.borderRight = "1em solid "+gameData.goalColor;
-			else if (i==1) divTempOuter.style.borderLeft = "1em solid "+gameData.goalColor;
+			divTempOuter.style.borderTop = "1em solid "+gameData.goalColor;
+			/*if (i==0) divTempOuter.style.borderRight = "1em solid "+gameData.goalColor;
+			else if (i==1) divTempOuter.style.borderLeft = "1em solid "+gameData.goalColor;*/
 			divTempA.style.position = "absolute";
 			divTempA.style.width = "100%";
 			divTempA.style.height = "100%";
@@ -909,8 +910,10 @@
 	} // end function animateMenu(para, code)
 
 	function checkForImportantMessage() {
+		var id = document.getElementById("versionNo").value;
 		var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-		xhttp.open("GET", "/message");
+		var route = "/message?version="+id;
+		xhttp.open("GET", route);
 		xhttp.setRequestHeader('X-CSRF-Token', csrfTok)
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
