@@ -379,14 +379,14 @@
 		}
 		var buttonDiv = document.createElement("div");
 		buttonDiv.style.width = "100%";
-		buttonDiv.style.height = "3em";
+		buttonDiv.style.height = "10em";
 		buttonDiv.style.textAlign = "center";
-		var button1 = createYesNoButtons();
+		var button1 = createYesNoButton();
 		button1.style.backgroundColor = "#0066ff";
 		button1.style.background = "linear-gradient(#5eaeef,#3e8ecf)";
 		button1.innerHTML = "Yes";
 		button1.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, 0);}
-		var button2 = createYesNoButtons();
+		var button2 = createYesNoButton();
 		button2.style.backgroundColor = "#993399";
 		button2.style.background = "linear-gradient(#ae5eef,#8e3ecf)";
 		button2.innerHTML = "No";
@@ -396,7 +396,7 @@
 		par.appendChild(buttonDiv);
 		buttonDiv.style.position = "absolute";
 		buttonDiv.style.top = "50%";
-		buttonDiv.style.marginTop = "-3em";
+		buttonDiv.style.marginTop = "-5em";
 		var instruct = document.createElement("div");
 		instruct.style.position = "absolute";
 		instruct.style.fontSize = "1.5em";
@@ -412,20 +412,20 @@
 		return par;
 	} // end function createColorMixDivs(par, comparator, condition, key, colorA, colorB, divTempA)
 
-	function createYesNoButtons() {
+	function createYesNoButton() {
 		var button = document.createElement("button");
-		button.style.width = "3em";
-		button.style.height = "2em";
+		button.style.width = "2.5em";
+		button.style.height = "2.5em";
 		button.style.fontSize = "3em";
 		button.style.display = "inline-block";
 		button.style.border = "none";
 		button.style.borderRadius = "5px";
 		button.style.textAlign = "center";
 		button.style.color = "ghostwhite";
-		button.style.marginRight = "0.5em";
-		button.style.marginLeft = "0.5em";
+		button.style.marginRight = "2em";
+		button.style.marginLeft = "2em";
 		return button;
-	} // end function createYesNoButtons()
+	} // end function createYesNoButton()
 
 	function showUnderneathBox(but, par, opt) {
 		but.style.display = "none";
