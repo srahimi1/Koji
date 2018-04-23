@@ -225,7 +225,7 @@
 			if (this.readyState == 4 && this.status == 200) {
 				topData = JSON.parse(this.responseText);
 				console.log(topData);
-				cycleTopDataAt = Math.floor(Math.random() * 25) + 15;
+				cycleTopDataAt = Math.floor(Math.random() * 15) + 15;
 				gameData = topData[0];
 				console.log("goal color is "+gameData.goalColor);
 				colorGoalDiv();
@@ -241,7 +241,7 @@
 	function cycleThroughTopData() {
 		var prev = gameData.goalColor;
 		gameData = topData[Math.floor(Math.random() * topData.length)];
-		cycleTopDataAt = Math.floor(Math.random() * 25) + 15;
+		cycleTopDataAt = Math.floor(Math.random() * 15) + 15;
 		cycleTopDataCounter = 0;
 		console.log("goal color is "+gameData.goalColor);
 		colorGoalDiv();
