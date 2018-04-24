@@ -1041,10 +1041,10 @@
 			inp.nextSibling.style.visibility = "visible"; 
 			errorEl.innerHTML = "";
 		}
-		console.log(number);
 		inp.setAttribute("type","text");
-		inp.focus();
 		inp.value = number;
+		inp.setAttribute("type","number");
+		inp.focus();
 		inp.focus();
 	} // end function validateCell()
 
