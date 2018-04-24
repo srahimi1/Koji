@@ -941,7 +941,14 @@
 	
 	function showMenu(el) {
 		var id = el.id + "";
-		if (id == "signupDiv") document.getElementById("signupForm").reset();
+		if (id == "signupDiv") {
+			document.getElementById("signupForm").reset();
+			document.getElementById("emailInput").nextSibling.style.visibility = "hidden";
+			document.getElementById("cellInput").nextSibling.style.visibility = "hidden";
+			document.getElementById("displaynameInput").nextSibling.style.visibility = "hidden";
+			document.getElementById("password1Input").nextSibling.style.visibility = "hidden";
+			document.getElementById("password2Input").nextSibling.style.visibility = "hidden";
+		}
 		el.style.height = "95%";
 		el.style.marginTop="3em"; 
 		el.style.opacity="1";
