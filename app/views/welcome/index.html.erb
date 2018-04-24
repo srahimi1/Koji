@@ -131,6 +131,7 @@
 <input type="hidden" id="versionNo" name="versionNo" value="1.0">
 </body>
 <script>
+	hidLength = 0;
 	cycleTopDataAt = 0;
 	cycleTopDataCounter = 0;
 	gameOver = false;
@@ -168,6 +169,7 @@
 	allLetters = {"a": 1, "b": 1, "c": 1, "d": 1, "e": 1, "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z":"snum", "A": "VYUH", "B": "KEPRFX", "C": "GOQD", "D": "CGOQ", "E": "KBPRFX", "F" : "KBEPRX", "G":"COQD", "H":"ITLJA", "I": 1, "J": 1, "K": 1, "L": 1, "M": 1, "N": 1, "O": 1, "P": 1, "Q": 1, "R": 1, "S" : 1, "T": 1, "U": 1, "V" : 1, "W" : 1, "X" : 1, "Y": 1, "Z" : 1};
 
 	function setupNewGame() {
+		hidLength = 0;
 		cycleTopDataAt = 0;
 		cycleTopDataCounter = 0;
 		gameOver = false;
@@ -1025,14 +1027,16 @@
 		inp.blur();
 		hid.focus();
 		var char = hid.value + "";
-		var t = document.getElementById("displaynameInput");
-		t.value = char.charCodeAt(char.length-1);
-		hid.value = "";
+		char = char[char.length-1];
 		var errorEl = document.getElementById("cellNoErrorMessage");
-		var test = inp.value + "" + char;
+		var test = inp.value + "";
 		var len = test.length;
 		var number = "";
-		if (len < 13) {
+		if (char.length > hidLength) {hidLength = char.length;  test = test + char; len = test.length;}
+		if (char.length < hidLength) {
+			hidLength = char.length;
+			for (var i = 0; i < len - 1; i++) number = number + test[i];
+		} else if (len < 13) {
 			for (var i = 0; i < len; i++) {
 				if ((i == 0) && (test[i] != "(") && !((Number.isNaN(parseInt(test[i]))) || (parseInt(test[i]) == "") || (parseInt(test[i]) == null))) number = "(" + parseInt(test[i]);
 				else if ((i == 0) && (test[i] == "(")) number = "(";
