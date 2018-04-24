@@ -67,7 +67,7 @@
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('signupDiv'))"></div>
 		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Sign Up</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv'))">X</p></div>
 		<ul style="width: 100%; height: 80%;list-style: none; font-size: 1.5em; color: #3ecf8e; margin: 2em 0 0 3em; padding: 0 0 0 1em; overflow-y: auto;">
-			<li style="text-align: left;"><%= form_tag("/users", method: "post") do %>
+			<li style="text-align: left;"><%= form_tag("/users", method: "post", id: "signupForm") do %>
 				<p>Email and cell phone will be used for login and password recovery</p>
 				<p>Email <span id="emailErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="emailInput" type="text" name="email" placeholder="email" maxlength="70" style="width: 40%; font-size: 1em;" onkeyup="validateEmail(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
@@ -940,6 +940,8 @@
 // general purpose app functions ...
 	
 	function showMenu(el) {
+		var id = el.id + "";
+		if (id == "signupDiv") document.getElementById("signupForm").reset();
 		el.style.height = "95%";
 		el.style.marginTop="3em"; 
 		el.style.opacity="1";
