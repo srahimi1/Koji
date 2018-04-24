@@ -1024,7 +1024,8 @@
 		var hid = document.getElementById("numberInput");
 		inp.blur();
 		hid.focus();
-		var char = hid.value;
+		var char = hid.value + "";
+		alert(char.charCodeAt());
 		hid.value = "";
 		var errorEl = document.getElementById("cellNoErrorMessage");
 		var test;
