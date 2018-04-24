@@ -69,16 +69,16 @@
 		<ul style="width: 100%; height: 80%;list-style: none; font-size: 1.5em; color: #3ecf8e; margin: 2em 0 0 3em; padding: 0 0 0 1em; overflow-y: auto;">
 			<li style="text-align: left;"><form>
 				<p>Email and cell phone will be used for login and password recovery</p>
-				<p>Email</p>
+				<p>Email <span id="emailErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="emailInput" type="text" name="email" placeholder="email" maxlength="70" style="width: 40%; font-size: 1em;" onkeyup="validateEmail(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p >- and/or -</p>
-				<p>Cellphone number</p>
+				<p>Cellphone number <span id="cellNoErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="cellInput" type="number" name="cell" placeholder="cellphone number" maxlength="20" style="width: 40%; font-size: 1em;" onkeyup="validateCellNo(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-				<p>Display name</p>
+				<p>Display name <span id="displayNameErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="displaynameInput" type="text" name="displayname" placeholder="display name" maxlength="70" style="width: 40%; font-size: 1em;" onkeyup="validateDisplayName(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-				<p>Password</p>
-				<p style="margin:-0.75em 0 0 0;"><input id="password1Input" type="password" name="password1" placeholder="password" maxlength="70" style="width: 40%; font-size: 1em;"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-				<p>Re-enter password</p>
+				<p>Password <span id="password1ErrorMessage" style="color:red"></span></p>
+				<p style="margin:-0.75em 0 0 0;"><input id="password1Input" type="password" name="password1" placeholder="password" maxlength="70" style="width: 40%; font-size: 1em;" onkeyup="validatePassword(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+				<p>Re-enter password <span id="password2ErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="password2Input" type="password" name="password2" placeholder="re-enter password" maxlength="70" style="width: 40%; font-size: 1em;" onkeyup="validatePassword(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p></p>
 				<p style="width: 40%; text-align: right;"><input id="signupSubmit" type="submit" name="signupSubmit" value="Sign up" style="background-color: #8e3ecf; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em"></p>
@@ -994,25 +994,93 @@
 	} // end function checkForImportantMessage()
 
 	function validateEmail(inp) {
-		console.log(inp.value);
+		var errorEl = document.getElementById("emailErrorMessage");
 		var test = inp.value + "";
-		var noOfAts = 0;
-		for (var i = 0; i < test.length; i++) if (test[i] == "@") noOfAts++;
-		if (noOfAts == 1) {
+		var noAts = 0;
+		var noWhiteSpaces = 0;
+		var errorMessage = "";
+		var isValid = true;
+		var len = test.length;
+		for (var i = 0; i < len; i++) {
+			if (test[i] == "@") 
+				noAts++;
+			else if ((i < len-1) && ((test[i] == "\n") || (test[i] == "\r") || (test[i] == "\t") || (test[i] == "\v") || (test[i] == "\f") || (test[i] == " ")))
+				{noWhiteSpaces++; errorMessage = "please remove any spaces or other whitespace characters";}
+		} // for (var i = 0; i < len; i++)
 
+		if ((noAts != 1) || (noWhiteSpaces != 0)) { isValid = false; }
+		else if (test.split("@")[1].length < 2) { isValid = false; }
+		else {
+			var patt = /[^A-z0-9@_.]/g;
+			var val = patt.test(test);
+			if (val) {isValid = false; errorMessage = "invalid characters present";}
 		}
+		if (isValid) {inp.nextSibling.style.visibility = "visible"; errorEl.innerHTML = "";}
+		else {inp.nextSibling.style.visibility = "hidden"; errorEl.innerHTML = errorMessage;}
 	} // end function validateEmail()
 
 	function validateCellNo(inp) {
-		console.log(inp.value);
+		var errorEl = document.getElementById("cellNoErrorMessage");
+		var test = inp.value + "";
+		var len = test.length;
+		var number = "";
+		if (len < 13) {
+			for (var i = 0; i < len; i++) {
+				if ((i == 0) && (test[i] != "(") && !((Number.isNaN(parseInt(test[i]))) || (parseInt(test[i]) == "") || (parseInt(test[i]) == null))) number = "(" + parseInt(test[i]);
+				else if ((i == 0) && (test[i] == "(")) number = "(";
+				else if ((i == 4) && (test[i] != ")") && !((Number.isNaN(parseInt(test[i]))) || (parseInt(test[i]) == "") || (parseInt(test[i]) == null))) number = number + ")" + parseInt(test[i]);
+				else if ((i == 4) && (test[i] == ")")) number = number + ")";
+				else if ((i == 8) && (test[i] != "-") && !((Number.isNaN(parseInt(test[i]))) || (parseInt(test[i]) == "") || (parseInt(test[i]) == null))) number = number + "-" + parseInt(test[i]);
+				else if ((i == 8) && (test[i] == "-")) number = number + "-";
+				else if (test[i] == "0") number = number + "0";
+				else if ((Number.isNaN(parseInt(test[i]))) || (parseInt(test[i]) == "") || (parseInt(test[i]) == null)) {}
+				else number = number + parseInt(test[i]);
+			} // for (var i = 0; i < len; i++)
+		} else {
+			for (var i = 0; i < 13; i++) number = number + test[i];
+			inp.nextSibling.style.visibility = "visible"; 
+			errorEl.innerHTML = "";
+		}
+		console.log(number);
+		inp.setAttribute("type","text");
+		inp.focus();
+		inp.value = number;
+		inp.focus();
 	} // end function validateCell()
 
 	function validateDisplayName(inp) {
-		console.log(inp.value);
+		var test = inp.value + "";
 	} // end function validateDisplayName()
 
-	function validatePassword(inp) {
-		console.log(inp.value);
+	function validatePassword() {
+		var el1 = document.getElementById("password1Input");
+		var el2 = document.getElementById("password2Input");
+		var errorEl1 = document.getElementById("password1ErrorMessage");
+		var errorEl2 = document.getElementById("password2ErrorMessage");
+		var test1 = el1.value + "";
+		var test2 = el2.value + "";
+		if (test1.length < 8) {
+			errorEl1.innerHTML = "password length must be at least 8 characters";
+			errorEl2.innerHTML = "";
+			el1.nextSibling.style.visibility = "hidden";
+			el2.nextSibling.style.visibility = "hidden";
+		} else if ((test2.length >= test1.length) && (el1.value != el2.value)) {
+			errorEl1.innerHTML = "passwords do not match";
+			errorEl2.innerHTML = "passwords do not match";
+			el1.nextSibling.style.visibility = "hidden";
+			el2.nextSibling.style.visibility = "hidden";
+		} else if (el1.value == el2.value) {
+			errorEl1.innerHTML = "";
+			errorEl2.innerHTML = "";
+			el1.nextSibling.style.visibility = "visible";
+			el2.nextSibling.style.visibility = "visible";
+		} else {
+			errorEl1.innerHTML = "";
+			errorEl2.innerHTML = "";
+			el1.nextSibling.style.visibility = "hidden";
+			el2.nextSibling.style.visibility = "hidden";
+		}
+
 	} // end function validatePassword()
 
 
