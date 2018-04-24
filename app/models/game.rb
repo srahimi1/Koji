@@ -9,30 +9,8 @@ class Game < ApplicationRecord
 			goal_color = get_random_colors(1, 1, nil)
 			goal_color_rgb = goal_color[0]
 			goal_color_hex = goal_color[1]
-			answer_colors_hex = []
-			answer_colors_rgb = []
-			15.times do |i|
-				temp = get_answer_colors(goal_color_rgb[0])
-				answer_colors_hex.push( [temp[0], temp[1]] )
-				answer_colors_rgb.push( [temp[2], temp[3]] )
-			end
-			colors_to_avoid = []
-			colors_to_avoid.push(goal_color_rgb[0])
-			answer_colors_rgb.length.times do |i|
-				colors_to_avoid.push(answer_colors_rgb[i][0])
-				colors_to_avoid.push(answer_colors_rgb[i][1])
-			end
-			other_colors = get_random_colors(2, 10, colors_to_avoid)
-			other_colors_rgb = other_colors[0]
-			answer_colors_rgb.length.times do |i|
-				ind = rand(2)
-				other_colors_rgb.push(answer_colors_rgb[i][ind])
-			end		
 			letters = get_letters 
 			response["goalColor"] = goal_color_hex[0]
-			response["answerColors"] = answer_colors_hex
-			response["answerColorsRGB"] = answer_colors_rgb
-			response["otherColors"] = other_colors_rgb
 			response["letters"] = letters
 			responses.push(response)
 		end

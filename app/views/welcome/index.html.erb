@@ -120,7 +120,7 @@
 	</div><!--end gameLettersContainer div -->
 
 	<div id="guessContainer" style="position:relative;width:100%; height:25%;overflow: hidden; margin:auto;">	
-		<div id="guess" style="width:100%;height:100%; margin: auto; margin-top: 0; min-height: 100px; background-color: #eef0f6;background-image: url('transparent_background.jpg');text-align:left; white-space: nowrap; z-index: 1"></div>
+		<div id="guess" style="width:100%;height:100%; margin: auto; margin-top: 0; min-height: 100px; background-color: #eef0f6;background-image: url('transparent_background.jpg');text-align:left; white-space: nowrap; overflow: hidden; z-index: 1"></div>
 	</div><!--end guessContainer div -->
 
 </div><!--end root div -->
@@ -142,7 +142,7 @@
 	cycledThroughAnswerColors = false;
 	numberNeededToWin = 2;
 	numberCorrect = 0;
-	bkDivColors = {"div0" : "", "div1" :""};
+	divColors = {"div0" : "", "div1" :"", "answer" : ""};
 	gameData = null;
 	topData = null;
 	selectedDiv = null;
@@ -179,7 +179,7 @@
 		cycledThroughAnswerColors = false;
 		numberNeededToWin = 2;
 		numberCorrect = 0;
-		bkDivColors = {"div0" : "", "div1" :""};
+		divColors = {"div0" : "", "div1" :"", "answer" : ""};
 		gameData = null;
 		topData = null;
 		selectedDiv = null;
@@ -268,31 +268,7 @@
 // color mixing functions ...
 
 	function createColorDivs() {
-		var otherColors = gameData.otherColors;
-		var colors = [];
-		var chosenDiv = -1;
-		var randN;
-		for (var i = 0; i < 2; i++) {
-			randN = Math.floor(Math.random() * 4);
-			colors[i] = [];
-			if ((randN == 3) && (chosenDiv == -1)) { 
-				chosenDiv = i;
-				colors[i][0] = gameData.answerColors[currentAnswerColor][0];
-				colors[i][1] = gameData.answerColors[currentAnswerColor][1];
-				if (currentAnswerColor == (gameData.answerColors.length - 1)) cycledThroughAnswerColors = true;
-				if (!cycledThroughAnswerColors) currentAnswerColor++;
-				else currentAnswerColor = Math.floor(Math.random() * gameData.answerColors.length);
-			} // end if ((randN == 3) && (chosenDiv == -1))
-			else {
-				var ind1 = Math.floor(Math.random() * otherColors.length);
-				colors[i].push(otherColors[ind1]);
-				ind2 = Math.floor(Math.random() * otherColors.length);
-				while (ind2==ind1) ind2 = Math.floor(Math.random() * otherColors.length);
-				colors[i].push(otherColors[ind2]);
-			} // end else
-		} // for (var i = 0; i < 2; i++)
-		var guess = document.getElementById("guess");
-		guess.style.overflow = "hidden";
+		getColorsForHalfDivs();
 		var frag = document.createDocumentFragment();
 		for (var i = 0; i < 1; i++) {
 			var divTempOuter = document.createElement('div');
@@ -302,29 +278,24 @@
 			divTempOuter.style.width = "100%";
 			divTempOuter.style.margin = "0px";
 			divTempOuter.style.padding = "0px";
-			var divTempA = document.createElement("div");
 			divTempOuter.style.borderTop = "1em solid "+gameData.goalColor;
-			/*if (i==0) divTempOuter.style.borderRight = "1em solid "+gameData.goalColor;
-			else if (i==1) divTempOuter.style.borderLeft = "1em solid "+gameData.goalColor;*/
+			var divTempA = document.createElement("div");
 			divTempA.style.position = "absolute";
 			divTempA.style.width = "100%";
 			divTempA.style.height = "100%";
 			divTempA.style.top = "0px";
 			divTempA.style.left = "0px"; 
 			divTempA.id = "bkcolor:div"+i;
+			divTempA.style.backgroundColor = divColors["answer"];
 			divTempOuter.appendChild(divTempA);
-			var colorsForBackDiv = [];
 			for (var j = 0; j < 2; j++) {
 				var divTemp = createMixColorDivs();
-				if (i == chosenDiv) var color = colors[i][j];
-				else var color = getHexFromRGB(colors[i][j]);
-				colorsForBackDiv.push(colors[i][j]);
-				divTemp.style.backgroundColor = color;
+				divTemp.style.backgroundColor = divColors["div"+j];
 				divTempOuter.appendChild(divTemp);
 			} // end (var j = 0; j < 2; j++)
-			var key = "div" + i;
+			
 			divTempOuter.style.display = "none";
-			divTempOuter = createColorMixDivs(divTempOuter, i, chosenDiv, key, colorsForBackDiv[0], colorsForBackDiv[1], divTempA);
+			divTempOuter = attachYesNoButtons(divTempOuter);
 			divTempOuter.style.display = "inline-block";
 			frag.appendChild(divTempOuter);
 		} // end for (var i = 0; i < 2; i++)
@@ -339,51 +310,81 @@
 		cycleTopDataCounter++;
 		if (cycleTopDataCounter == cycleTopDataAt) cycleThroughTopData();
 		else if (!gameOver) {
-			while (par.firstChild) par.removeChild(par.firstChild);
-			var id = did;
-			var otherColors = gameData.otherColors;
-			var colors = [];
-			var randN = Math.floor(Math.random() * 4);
-			if (randN == 3) { 
-				colors[0] = gameData.answerColors[currentAnswerColor][0];
-				colors[1] = gameData.answerColors[currentAnswerColor][1];
-				if (currentAnswerColor == (gameData.answerColors.length - 1)) cycledThroughAnswerColors = true;
-				if (!cycledThroughAnswerColors) currentAnswerColor++;
-				else currentAnswerColor = Math.floor(Math.random() * gameData.answerColors.length);
-			} // end if (randN == 3)
-			else {
-				var ind1 = Math.floor(Math.random() * otherColors.length);
-				colors.push(otherColors[ind1]);
-				ind2 = Math.floor(Math.random() * otherColors.length);
-				while (ind2==ind1) ind2 = Math.floor(Math.random() * otherColors.length);
-				colors.push(otherColors[ind2]);
-			} // end else
-			var divTempA = document.createElement("div");
-			divTempA.style.position = "absolute";
-			divTempA.style.width = "100%";
-			divTempA.style.height = "100%";
-			divTempA.style.top = "0px";
-			divTempA.style.left = "0px"; 
-			divTempA.id = id;
-			par.appendChild(divTempA);
-			var colorsForBackDiv = [];
-			for (var j = 0; j < 2; j++) {
-				var divTemp = createMixColorDivs();
-				if (randN == 3) var color = colors[j];
-				else var color = getHexFromRGB(colors[j]);
-				colorsForBackDiv.push(colors[j]);
-				divTemp.style.backgroundColor = color;				
-				par.appendChild(divTemp);
-			} // end for (var j = 0; j < 2; j++)
-			var key = id + "";
-			key = key.split(":")[1];
-			par.style.display = "none";
-			par = createColorMixDivs(par, randN, 3, key, colorsForBackDiv[0], colorsForBackDiv[1], divTempA);
-			par.style.display = "inline-block";
+			createColorDivs();
 		} // if (!gameOver)
 		return true;
 	} // end function getNextColors(par, did)
 	
+	
+	function getColorsForHalfDivs() {
+		var color1 = [], color2 = [], answer = [];
+		var temp = gameData.goalColor;
+		for (var i = 1; i < 6; i+=2) answer.push( parseInt(temp[i]+""+temp[i+1],16) )
+		console.log(answer);
+		var opt = Math.floor(Math.random() * 5);
+		
+		for (var i = 0; i < 3; i++) {
+			if (answer[i] < 40)
+				factor = 0;
+			else if (answer[i] < 120)
+				factor = 30 + Math.floor(Math.random() * (answer[i]-30));
+			else if ((answer[i] >= 120) && (answer[i] <= 150))
+				factor = 30 + Math.floor(Math.random() * 51);
+			else if (answer[i] > 150)
+				factor = 30 + Math.floor(Math.random() * (210-answer[i]));
+			
+			if (opt == 0) { 
+				color1[i] = answer[i] - factor; 
+				color2[i] = answer[i] + factor;
+			} else if (opt == 1) {
+				color1[i] = answer[i] + factor;
+				color2[i] = answer[i] - factor;
+			} else if ((opt == 2) || (opt == 3) || (opt == 4)) {
+				var shift = 0;
+				if (factor < 30)
+					shift = 0;
+				else if (factor < 70)
+					shift = 25;
+				else 
+					shift = 30;
+
+				var opt2 = Math.floor(Math.random() * 4);
+				if (opt2 == 0) {
+					color1[i] = answer[i] + (factor + shift);
+					color2[i] = answer[i] - (factor - shift);
+				} else if (opt2 == 1) {
+					color1[i] = answer[i] + (factor + shift);
+					color2[i] = answer[i] - (factor - shift);
+				} else if (opt2 == 2) {
+					color1[i] = answer[i] - (factor - shift);
+					color2[i] = answer[i] + (factor + shift);
+				} else if (opt2 == 3) {
+					color1[i] = answer[i] - (factor + shift);
+					color2[i] = answer[i] + (factor - shift);
+				}
+			
+				if (color1[i] > 255) color1[i] = 255;
+				else if (color1[i] < 0 ) color1[i] = 0;
+
+				if (color2[i] > 255) color2[i] = 255;
+				else if (color2[i] < 0 ) color2[i] = 0;
+			} // else if ((opt == 2) || (opt == 3) || (opt == 4))
+
+		} // for (var i = 0; i < 3; i++)
+		hex1 = getHexFromRGB(color1);
+		hex2 = getHexFromRGB(color2);
+		if ((opt == 0) || (opt == 1)) {
+			divColors["div0"] = hex1;
+			divColors["div1"] = hex2;
+			divColors["answer"] = gameData.goalColor;
+		} else if ((opt == 2) || (opt == 3) || (opt == 4)) {
+			divColors["div0"] = hex1;
+			divColors["div1"] = hex2;
+			divColors["answer"] = createInBetweenColor(color1,color2);
+		}
+		return true;
+} // end function getColorsForHalfDivs()
+
 	// this creates the mini-half divs that combine
 	function createMixColorDivs() {
 		var divTemp = document.createElement('div');
@@ -391,8 +392,8 @@
 		divTemp.style.width = "100%";
 		divTemp.style.height = "50%";
 		divTemp.style.display = "block";
-		divTemp.style.margin = "0px";
-		divTemp.style.padding = "0px";
+		divTemp.style.margin = "0";
+		divTemp.style.padding = "0";
 		divTemp.style.opacity = "1";
 		divTemp.style.MozTransition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
 		divTemp.style.mozTransition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
@@ -404,21 +405,8 @@
 		return divTemp;
 	} // end function createMixColorDivs()
 
-	// this creates the larger left and right divs that contain the mini-divs
-	function createColorMixDivs(par, comparator, condition, key, colorA, colorB, divTempA) {
-		if (comparator == condition) {
-			bkDivColors[key] = gameData.goalColor;
-			divTempA.style.backgroundColor = gameData.goalColor;
-			divTempA.style.verticalAlign = "middle";
-			divTempA.style.textAlign = "center";
-		}
-		else {
-			var cl = createInBetweenColor(colorA,colorB);
-			bkDivColors[key] = cl;
-			divTempA.style.backgroundColor = cl;
-			divTempA.style.verticalAlign = "middle";
-			divTempA.style.textAlign = "center";
-		}
+	// this creates and attaches the buttons to the larger div
+	function attachYesNoButtons(par) {
 		var buttonDiv = document.createElement("div");
 		buttonDiv.style.width = "100%";
 		buttonDiv.style.height = "10em";
@@ -453,7 +441,7 @@
 		instruct.style.textAlign = "center";
 		par.appendChild(instruct);
 		return par;
-	} // end function createColorMixDivs(par, comparator, condition, key, colorA, colorB, divTempA)
+	} // end function attachYesNoButtons(par)
 
 	function createYesNoButton() {
 		var button = document.createElement("button");
@@ -479,10 +467,8 @@
 		cn[1].style.marginBottom = "100%";
 		cn[1].style.opacity = "0";
 		cn[2].style.opacity = "0";
-		var key = cn[0].id + "";
-		var sendID = key;
-		key = key.split(":")[1];
-		if (bkDivColors[key].toUpperCase() == gameData.goalColor.toUpperCase()) {
+		var sendID = cn[0].id + "";
+		if (divColors["answer"].toUpperCase() == gameData.goalColor.toUpperCase()) {
 			var gotitPara = document.createElement("p");
 			gotitPara.style.backgroundColor = "white";
 			gotitPara.style.opacity = "0.5";
