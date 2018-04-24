@@ -1030,6 +1030,9 @@
 		var test = inp.value + "" + char;
 		var len = test.length;
 		var number = "";
+		if (char == "\b") {
+			for (var i = 0; i < len-1; i++) number = number + test[i];
+		}
 		if (len < 13) {
 			for (var i = 0; i < len; i++) {
 				if ((i == 0) && (test[i] != "(") && !((Number.isNaN(parseInt(test[i]))) || (parseInt(test[i]) == "") || (parseInt(test[i]) == null))) number = "(" + parseInt(test[i]);
