@@ -323,7 +323,7 @@
 		for (var i = 1; i < 6; i+=2) answer.push( parseInt(temp[i]+""+temp[i+1],16) )
 		console.log(answer);
 		var opt = Math.floor(Math.random() * 5);
-		
+		var opt2 = null;
 		for (var i = 0; i < 3; i++) {
 			if (answer[i] < 40)
 				factor = 0;
@@ -349,7 +349,7 @@
 				else 
 					shift = 30;
 
-				var opt2 = Math.floor(Math.random() * 12);
+				if (opt2 == null) opt2 = Math.floor(Math.random() * 12);
 				if (opt2 == 0) {
 					color1[i] = answer[i] + (factor + shift);
 					color2[i] = answer[i] - (factor - shift);
