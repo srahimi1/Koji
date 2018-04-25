@@ -1042,29 +1042,33 @@
 	} // end function validateEmail()
 
 	function validateCellNo(inp) {
+		var errorEl = document.getElementById("cellNoErrorMessage");
 		var hid = document.getElementById("numberInput");
 		inp.blur();
 		hid.focus();
-		var char = hid.value + "";
-		hid.value = "";
-		var errorEl = document.getElementById("cellNoErrorMessage");
-		var test = inp.value + "" + char;
+		var hidValue = hid.value + "";
+		var char = hidValue[hidValue.length - 1];
+		var test = "";
+		if ( isNaN(char) || (parseInt(test[i]) == "") || (parseInt(test[i]) == null) || (hidValue.length > 10) ) {
+			var temp = "";
+			for (var i = 0; i < hidValue.length - 1; i++)
+				temp += hidValue[i];
+			hid.value = temp;
+			test = temp;
+		} else {
+			test = hidValue;
+		}
+		
 		var len = test.length;
 		var number = "";
-		if (len < 13) {
+		if (len < 10) {
 			for (var i = 0; i < len; i++) {
-				if ((i == 0) && (test[i] != "(") && !((Number.isNaN(parseInt(test[i]))) || (parseInt(test[i]) == "") || (parseInt(test[i]) == null))) number = "(" + parseInt(test[i]);
-				else if ((i == 0) && (test[i] == "(")) number = "(";
-				else if ((i == 4) && (test[i] != ")") && !((Number.isNaN(parseInt(test[i]))) || (parseInt(test[i]) == "") || (parseInt(test[i]) == null))) number = number + ")" + parseInt(test[i]);
-				else if ((i == 4) && (test[i] == ")")) number = number + ")";
-				else if ((i == 8) && (test[i] != "-") && !((Number.isNaN(parseInt(test[i]))) || (parseInt(test[i]) == "") || (parseInt(test[i]) == null))) number = number + "-" + parseInt(test[i]);
-				else if ((i == 8) && (test[i] == "-")) number = number + "-";
-				else if (test[i] == "0") number = number + "0";
-				else if ((Number.isNaN(parseInt(test[i]))) || (parseInt(test[i]) == "") || (parseInt(test[i]) == null)) {}
-				else number = number + parseInt(test[i]);
+				if (i == 0) number = "(" + test[i];
+				else if (i == 4) number = number + ")" + test[i];
+				else if (i == 8) number = number + "-" + test[i];
+				else number = number + test[i];
 			} // for (var i = 0; i < len; i++)
 		} else {
-			for (var i = 0; i < 13; i++) number = number + test[i];
 			inp.nextSibling.style.visibility = "visible"; 
 			errorEl.innerHTML = "";
 		}

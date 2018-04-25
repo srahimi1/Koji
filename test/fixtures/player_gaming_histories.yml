@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  player: one
+  current_total: 1
+  current_high_score: 1
+  history: MyText
+
+two:
+  player: two
+  current_total: 1
+  current_high_score: 1
+  history: MyText

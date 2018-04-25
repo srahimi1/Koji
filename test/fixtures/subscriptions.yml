@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  player: one
+  date_first_subscribed: 2018-04-25 00:28:23
+  status: 1
+  status_description: MyString
+  date_last_charged: 2018-04-25 00:28:23
+  payment_history: MyText
+
+two:
+  player: two
+  date_first_subscribed: 2018-04-25 00:28:23
+  status: 1
+  status_description: MyString
+  date_last_charged: 2018-04-25 00:28:23
+  payment_history: MyText

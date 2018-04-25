@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  player: one
+  payment_service_provider: one
+  psp_customer_id: MyString
+
+two:
+  player: two
+  payment_service_provider: two
+  psp_customer_id: MyString
