@@ -74,7 +74,7 @@
 				<p >- and/or -</p>
 				<p>Cellphone number <span id="cellNoErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="cellInput" type="text" name="cell" placeholder="cellphone number" maxlength="20" style="width: 40%; font-size: 1em;" onkeyup="validateCellNo(this)" onfocus="validateCellNo(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-				<p style="height: 0; width: 0; margin: 0; padding: 0;"><input id="numberInput" type="number" name="none" style="height: 0; width: 0; margin: 0; padding: 0;" onkeyup="validateCellNo(document.getElementById('cellInput'))"></p>
+				<p style="height: 10; width: 100; margin: 0; padding: 0;"><input id="numberInput" type="number" name="none" style="height: 10; width: 100; margin: 0; padding: 0;" onkeyup="validateCellNo(document.getElementById('cellInput'))"></p>
 				<p>Display name <span id="displayNameErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="displaynameInput" type="text" name="displayname" placeholder="display name" maxlength="70" style="width: 40%; font-size: 1em;" onkeyup="validateDisplayName(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p>Password <span id="password1ErrorMessage" style="color:red"></span></p>
