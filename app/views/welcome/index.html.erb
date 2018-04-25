@@ -1042,6 +1042,7 @@
 	} // end function validateEmail()
 
 	function validateCellNo(inp) {
+		var dis = document.getElementById("displaynameInput");
 		var errorEl = document.getElementById("cellNoErrorMessage");
 		var hid = document.getElementById("numberInput");
 		inp.blur();
@@ -1053,12 +1054,12 @@
 			var temp = "";
 			for (var i = 0; i < hidValue.length - 1; i++)
 				temp += hidValue[i];
-			errorEl.innerHTML = temp;
+			dis.value = temp;
 			hid.value = temp;
 			test = temp;
 		} else {
 			test = hidValue;
-			errorEl.innerHTML = test;
+			dis.value = test;
 		}
 		
 		var len = test.length;
