@@ -1048,19 +1048,21 @@
 		inp.blur();
 		hid.focus();
 		var hidValue = hid.value + "";
-		var char = hidValue[hidValue.length - 1];
+		var char = hidValue[0];
 		var test = "";
+		var temp = "";
+		var temp2 = "";
 		if ( isNaN(char) || (parseInt(char) == "") || (parseInt(char) == null) || (hidValue.length > 10) ) {
-			var temp = "";
 			for (var i = 0; i < hidValue.length - 1; i++)
-				temp += hidValue[i];
-			dis.value = temp;
-			hid.value = temp;
-			test = temp;
+				{temp = hidValue[i] + temp; temp2 = temp2 + hidValue[i];}
 		} else {
-			test = hidValue;
-			dis.value = test;
+			for (var i = 0; i < hidValue.length; i++)
+				{temp = hidValue[i] + temp; temp2 = temp2 + hidValue[i];}
 		}
+
+		dis.value = temp;
+		hid.value = temp2;
+		test = temp;
 		
 		var len = test.length;
 		var number = "";
@@ -1072,7 +1074,7 @@
 				else number = number + test[i];
 			} // for (var i = 0; i < 10; i++)
 		}
-		
+
 		if (len == 10) {
 			inp.nextSibling.style.visibility = "visible"; 
 			errorEl.innerHTML = "";
