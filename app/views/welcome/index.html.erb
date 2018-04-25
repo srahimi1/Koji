@@ -349,7 +349,7 @@
 				else 
 					shift = 30;
 
-				var opt2 = Math.floor(Math.random() * 4);
+				var opt2 = Math.floor(Math.random() * 12);
 				if (opt2 == 0) {
 					color1[i] = answer[i] + (factor + shift);
 					color2[i] = answer[i] - (factor - shift);
@@ -362,6 +362,18 @@
 				} else if (opt2 == 3) {
 					color1[i] = answer[i] - (factor + shift);
 					color2[i] = answer[i] + (factor - shift);
+				} else if ((opt2 == 4) || (opt2 == 5)) {
+					color1[i] = answer[i] - (factor + shift);
+					color2[i] = answer[i] + factor;
+				} else if ((opt2 == 6) || (opt2 == 7)) {
+					color1[i] = answer[i] - factor;
+					color2[i] = answer[i] + (factor - shift);
+				} else if ((opt2 == 8) || (opt2 == 9)) {
+					color1[i] = answer[i] + (factor - shift);
+					color2[i] = answer[i] - factor;
+				} else if ((opt2 == 10) || (opt2 == 11)) {
+					color1[i] = answer[i] + factor;
+					color2[i] = answer[i] - (factor + shift);
 				}
 			
 				if (color1[i] > 255) color1[i] = 255;
@@ -476,7 +488,7 @@
 			gotitPara.style.color = "#3ecf8e";
 			gotitPara.style.margin = "auto";
 			if (opt == 0) {gotitPara.style.width = "6em"; gotitPara.style.height = "3em"; gotitPara.style.fontSize = "3em"; gotitPara.innerHTML = "You got it!"; gotitPara.style.marginTop = "1.5em"; gotitPara.style.paddingTop = "1em"; gotitPara.style.color = "gray"; missedCorrect = 0; animatePoints(15, 0); drawLine();setTimeout(function() {getNextColors(par, sendID);},800);}
-			else if (opt == 1) {gotitPara.style.fontSize = "2em"; gotitPara.innerHTML = "This was it.<br/>You missed it.<br/>:("; gotitPara.style.width = "6em"; gotitPara.style.height = "6em"; gotitPara.style.padding = "2em"; gotitPara.style.marginTop = "1em"; gotitPara.style.color = "gray";animatePoints(-5, 1); missedCorrect++; if (missedCorrect == 2) {missedCorrect = 0; isGameLost();} setTimeout(function() {getNextColors(par, sendID);},800);}
+			else if (opt == 1) {gotitPara.style.fontSize = "2em"; gotitPara.innerHTML = "This was it.<br/>You missed it.<br/>:("; gotitPara.style.width = "6em"; gotitPara.style.height = "6em"; gotitPara.style.padding = "2em"; gotitPara.style.marginTop = "1em"; gotitPara.style.color = "gray";animatePoints(-25, 1); missedCorrect++; if (missedCorrect == 2) {missedCorrect = 0; isGameLost();} setTimeout(function() {getNextColors(par, sendID);},800);}
 			document.getElementById(sendID).appendChild(gotitPara);
 		} // if (bkDivColors[key].toUpperCase() == gameData.goalColor.toUpperCase()) 
 		else if (opt == 0) {
@@ -863,7 +875,7 @@
 		var time;
 		var el = document.getElementById("pointsSpan");
 		if (code==0) {el.innerHTML = "+15"; el.style.color = "green";el.style.fontSize = "1em"; time=22;}
-		else if (code==1) {el.innerHTML = "-5"; el.style.color = "red";el.style.fontSize = "3em"; time=500;}
+		else if (code==1) {el.innerHTML = "-25"; el.style.color = "red";el.style.fontSize = "3em"; time=500;}
 		else if (code==2) {el.innerHTML = "+"+add; el.style.color = "green";el.style.fontSize = "1em"; time=22;}
 		else if (code==3) {el.innerHTML = "-150"; el.style.color = "red";el.style.fontSize = "3em";  time=500;}
 		el.style.fontWeight = "bold";
