@@ -1032,7 +1032,11 @@
 
 		if ((noAts != 1) || (noWhiteSpaces != 0)) { isValid = false; }
 		else if (test.split("@")[1].length < 2) { isValid = false; }
-		else {
+		else if (test.split("@")[1].length >= 2) { 
+			if ( (test.split("@")[1].split(".").length < 2) || (test.split("@")[1].split(".")[1] == "") ) isValid = false; 
+		}
+		
+		if (isValid) {
 			var patt = /[^A-z0-9@_.]/g;
 			var val = patt.test(test);
 			if (val) {isValid = false; errorMessage = "invalid characters present";}
