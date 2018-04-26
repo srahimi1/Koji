@@ -1,2 +1,0 @@
-class PayementProvider < ApplicationRecord
-end

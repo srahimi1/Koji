@@ -1,9 +1,9 @@
 class CreatePlayers < ActiveRecord::Migration[5.1]
   def change
     create_table :players do |t|
-      t.string :email
-      t.string :cellphone
-      t.string :display_name
+      t.string :email, index: {unique: true}
+      t.string :cellphone, index: {unique: true}
+      t.string :display_name, index: {unique: true}
       t.string :phone_country
       t.string :password
       t.string :game_version

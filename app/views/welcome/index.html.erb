@@ -67,22 +67,22 @@
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('signupDiv'))"></div>
 		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Sign Up</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv'))">X</p></div>
 		<ul style="width: 100%; height: 80%;list-style: none; font-size: 1.5em; color: #3ecf8e; margin: 2em 0 0 3em; padding: 0 0 0 1em; overflow-y: auto;">
-			<li style="text-align: left;"><%= form_tag("/users", method: "post", id: "signupForm") do %>
+			<li style="text-align: left;"><%= form_tag("/", method: "", id: "signupForm") do %>
 				<p>Email and cell phone will be used for login and password recovery</p>
 				<p>Email <span id="emailErrorMessage" style="color:red"></span></p>
-				<p style="margin:-0.75em 0 0 0;"><input id="emailInput" type="text" name="email" placeholder="email" maxlength="70" style="width: 40%; font-size: 1em;" onkeyup="validateEmail(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+				<p style="margin:-0.75em 0 0 0;"><input id="emailInput" type="text" name="email" placeholder="email" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateEmail(this)" onblur="validateEmail(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p >- and/or -</p>
 				<p>Cellphone number <span id="cellphoneErrorMessage" style="color:red"></span></p>
-				<p style="height: 1em; width: 40%; margin-top: -0.5em; padding: 0;"><input id="numberInput" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellNo(document.getElementById('cellphoneInput'))"></p>
-				<p style="margin:-1.75em 0 0 0;"><input id="cellphoneInput" type="text" name="cell" placeholder="cellphone number" maxlength="20" style="height: 1em; width: 40%; font-size: 1em;" onkeyup="validateCellNo(this)" onfocus="validateCellNo(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+				<p style="height: 1em; width: 40%; margin-top: -0.5em; padding: 0;"><input id="numberInput" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('cellphoneInput'))"></p>
+				<p style="margin:-1.75em 0 0 0;"><input id="cellphoneInput" type="text" name="cell" placeholder="cellphone number" maxlength="20" style="height: 1em; width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateCellphone(this)" onfocus="validateCellphone(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p>Display name <span id="displaynameErrorMessage" style="color:red"></span></p>
-				<p style="margin:-0.75em 0 0 0;"><input id="displaynameInput" type="text" name="displayname" placeholder="display name" maxlength="70" style="width: 40%; font-size: 1em;" onkeyup="validateDisplayName(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+				<p style="margin:-0.75em 0 0 0;"><input id="displaynameInput" type="text" name="displayname" placeholder="display name" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateDisplayName(this)" onblur="validateDisplayName(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p>Password <span id="password1ErrorMessage" style="color:red"></span></p>
-				<p style="margin:-0.75em 0 0 0;"><input id="password1Input" type="password" name="password1" placeholder="password" maxlength="70" style="width: 40%; font-size: 1em;" onkeyup="validatePassword(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+				<p style="margin:-0.75em 0 0 0;"><input id="password1Input" type="password" name="password1" placeholder="password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validatePassword(this)" onblur="validatePassword(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p>Re-enter password <span id="password2ErrorMessage" style="color:red"></span></p>
-				<p style="margin:-0.75em 0 0 0;"><input id="password2Input" type="password" name="password2" placeholder="re-enter password" maxlength="70" style="width: 40%; font-size: 1em;" onkeyup="validatePassword(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+				<p style="margin:-0.75em 0 0 0;"><input id="password2Input" type="password" name="password2" placeholder="re-enter password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validatePassword(this)" onblur="validatePassword(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p></p>
-				<p style="width: 40%; text-align: right;"><input id="signupSubmit" type="submit" name="signupSubmit" value="Sign up" style="background-color: #8e3ecf; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em"></p>
+				<p style="width: 40%; text-align: right;"><input id="signupSubmit" type="button" name="signupSubmit" value="Sign up" style="background-color: #8e3ecf; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="signupFormSubmit()"></p>
 			<% end %></li>
 		</ul>
 		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
@@ -128,11 +128,13 @@
 
 <div id="footer" style="width: 100%; height: 15%; background-color: #3ecf8e; background: -moz-linear-gradient(#5eefae,#3ecf8e); background: -webkit-linear-gradient(#5eefae,#3ecf8e);background: -o-linear-gradient(#5eefae,#3ecf8e); background: -ms-linear-gradient(#5eefae,#3ecf8e); background: linear-gradient(#5eefae,#3ecf8e); background: linear-gradient(#5eefae,#3ecf8e); padding: 0;"><p style="color: ghostwhite; font-size:1.5em; padding: 0.5em 3em 2em 3em; margin-top:0.5em;">a First Flight Ingenuities<span style="font-size: 1em">&trade;</span> production</p></div>
 
-<input type="hidden" id="versionNo" name="versionNo" value="1.0">
+<input type="hidden" id="gameVersion" name="gameVersion" value="1.0">
 
 </body>
 
 <script>
+	formcheck = [];
+	for (var i = 0; i < 4; i++) formcheck.push(false);
 	cycleTopDataAt = 0;
 	cycleTopDataCounter = 0;
 	gameOver = false;
@@ -994,9 +996,9 @@
 	} // end function animateMenu(para, code)
 
 	function checkForStartupMessage() {
-		var id = document.getElementById("versionNo").value;
+		var version = document.getElementById("gameVersion").value;
 		var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-		var route = "/message?version="+id;
+		var route = "/message?version="+version;
 		xhttp.open("GET", route);
 		xhttp.setRequestHeader('X-CSRF-Token', csrfTok)
 		xhttp.onreadystatechange = function() {
@@ -1018,6 +1020,7 @@
 	} // end function checkForStartupMessage()
 
 	function validateEmail(inp) {
+		formcheck[0] = false;
 		var errorEl = document.getElementById("emailErrorMessage");
 		var test = inp.value + "";
 		var noAts = 0;
@@ -1058,9 +1061,11 @@
 			inp.nextSibling.style.visibility = "hidden"; 
 			errorEl.innerHTML = errorMessage;
 		}
+
 	} // end function validateEmail()
 
-	function validateCellNo(inp) {
+	function validateCellphone(inp) {
+		formcheck[1] = false;
 		var errorEl = document.getElementById("cellphoneErrorMessage");
 		var hid = document.getElementById("numberInput");
 		inp.blur();
@@ -1098,9 +1103,10 @@
 		}
 		inp.value = number;
 		hid.focus();
-	} // end function validateCell()
+	} // end function validateCellphone()
 
 	function validateDisplayName(inp) {
+		formcheck[2] = false;
 		var test = inp.value + "";
 		var success = "document.getElementById('displaynameInput').nextSibling.style.visibility = 'visible'; document.getElementById('displaynameErrorMessage').innerHTML = ''";
 		var fail = "document.getElementById('displaynameInput').nextSibling.style.visibility = 'hidden'; document.getElementById('displaynameErrorMessage').innerHTML = 'display name already exists'";
@@ -1108,6 +1114,7 @@
 	} // end function validateDisplayName()
 
 	function validatePassword() {
+		formcheck[3] = false;
 		var el1 = document.getElementById("password1Input");
 		var el2 = document.getElementById("password2Input");
 		var errorEl1 = document.getElementById("password1ErrorMessage");
@@ -1119,12 +1126,15 @@
 			errorEl2.innerHTML = "";
 			el1.nextSibling.style.visibility = "hidden";
 			el2.nextSibling.style.visibility = "hidden";
-		} else if ((test2.length >= test1.length) && (el1.value != el2.value)) {
+		} else if (test1 != test2) {
+			console.log(test1);
+			console.log(test2);
 			errorEl1.innerHTML = "passwords do not match";
 			errorEl2.innerHTML = "passwords do not match";
 			el1.nextSibling.style.visibility = "hidden";
 			el2.nextSibling.style.visibility = "hidden";
 		} else if (el1.value == el2.value) {
+			formcheck[3] = true;
 			errorEl1.innerHTML = "";
 			errorEl2.innerHTML = "";
 			el1.nextSibling.style.visibility = "visible";
@@ -1138,20 +1148,50 @@
 
 	} // end function validatePassword()
 
-
 	function checkIfExist(route, data, success, fail) {
 		var xhttptemp = new XMLHttpRequest();
   		xhttptemp.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
       			var res = this.responseText + "";
-      			if (res.toUpperCase() == "OK") eval(success);
-      			else if (res.toUpperCase() == "DUPLICATE") eval(fail);
-    		}
-  		};
+      			if (res.toUpperCase() == "OK") {
+      				if (route == "/checkemail") formcheck[0] = true;
+      				else if (route == "/checkcellphone") formcheck[1] = true;
+      				else if (route == "/checkdisplayname") formcheck[2] = true;
+      				eval(success);
+      			} else if (res.toUpperCase() == "DUPLICATE") {
+      				eval(fail);
+      			}
+    		} // if (this.readyState == 4 && this.status == 200)
+  		}; // xhttptemp.onreadystatechange = function()
   		var routetotal = route + "?data=" + encodeURIComponent(data);
   		xhttptemp.open("GET", routetotal, true);
   		xhttptemp.send();
 	} // end function checkIfExist(route, method, data, success, fail)
+
+	function signupFormSubmit() {
+		var cont = false;
+		if ((formcheck[0] || formcheck[1]) && formcheck[2] && formcheck[3]) cont = true;
+		var email = encodeURIComponent(document.getElementById("emailInput").value);
+		var cellphone = encodeURIComponent(document.getElementById("numberInput").value);
+		var displayname= encodeURIComponent(document.getElementById("displaynameInput").value);
+		var password1 = encodeURIComponent(document.getElementById("password1Input").value);
+		var password2 = encodeURIComponent(document.getElementById("password2Input").value);
+		var auth_token = document.getElementsByName("authenticity_token")[0].value;
+		var version = document.getElementById("gameVersion").value;
+		console.log(auth_token);
+		var xhttptemp = new XMLHttpRequest();
+  		xhttptemp.onreadystatechange = function() {
+    		if (this.readyState == 4 && this.status == 200) {
+      			var res = this.responseText + "";
+    		} // if (this.readyState == 4 && this.status == 200)
+  		}; // xhttptemp.onreadystatechange = function()
+  		xhttptemp.open("POST", "/players", true);
+  		xhttptemp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  		xhttptemp.setRequestHeader('X-CSRF-Token', auth_token);
+  		xhttptemp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version);
+	} // end function signupFormSubmit()
+
+
 
 // legacy functions ...
 
