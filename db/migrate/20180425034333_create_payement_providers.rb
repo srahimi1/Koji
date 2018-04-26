@@ -1,6 +1,6 @@
-class CreatePayementServiceProviders < ActiveRecord::Migration[5.1]
+class CreatePayementProviders < ActiveRecord::Migration[5.1]
   def change
-    create_table :payement_service_providers do |t|
+    create_table :payement_providers do |t|
       t.string :name
       t.string :main_url
       t.string :account_number

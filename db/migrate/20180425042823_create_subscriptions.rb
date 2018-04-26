@@ -6,7 +6,7 @@ class CreateSubscriptions < ActiveRecord::Migration[5.1]
       t.integer :status
       t.string :status_description
       t.timestamp :date_last_charged
-      t.references :payment_service_provider, foreign_key: true
+      t.references :payment_provider, foreign_key: true
       t.string :psp_player_id
       t.string :most_recent_transaction_confirmation_number
       t.text :payment_history

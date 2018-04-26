@@ -72,10 +72,10 @@
 				<p>Email <span id="emailErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="emailInput" type="text" name="email" placeholder="email" maxlength="70" style="width: 40%; font-size: 1em;" onkeyup="validateEmail(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p >- and/or -</p>
-				<p>Cellphone number <span id="cellNoErrorMessage" style="color:red"></span></p>
-				<p style="height: 1em; width: 40%; margin-top: -0.5em; padding: 0;"><input id="numberInput" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellNo(document.getElementById('cellInput'))"></p>
-				<p style="margin:-1.75em 0 0 0;"><input id="cellInput" type="text" name="cell" placeholder="cellphone number" maxlength="20" style="height: 1em; width: 40%; font-size: 1em;" onkeyup="validateCellNo(this)" onfocus="validateCellNo(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-				<p>Display name <span id="displayNameErrorMessage" style="color:red"></span></p>
+				<p>Cellphone number <span id="cellphoneErrorMessage" style="color:red"></span></p>
+				<p style="height: 1em; width: 40%; margin-top: -0.5em; padding: 0;"><input id="numberInput" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellNo(document.getElementById('cellphoneInput'))"></p>
+				<p style="margin:-1.75em 0 0 0;"><input id="cellphoneInput" type="text" name="cell" placeholder="cellphone number" maxlength="20" style="height: 1em; width: 40%; font-size: 1em;" onkeyup="validateCellNo(this)" onfocus="validateCellNo(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+				<p>Display name <span id="displaynameErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="displaynameInput" type="text" name="displayname" placeholder="display name" maxlength="70" style="width: 40%; font-size: 1em;" onkeyup="validateDisplayName(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p>Password <span id="password1ErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="password1Input" type="password" name="password1" placeholder="password" maxlength="70" style="width: 40%; font-size: 1em;" onkeyup="validatePassword(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
@@ -958,7 +958,7 @@
 		if (id == "signupDiv") {
 			document.getElementById("signupForm").reset();
 			document.getElementById("emailInput").nextSibling.style.visibility = "hidden";
-			document.getElementById("cellInput").nextSibling.style.visibility = "hidden";
+			document.getElementById("cellphoneInput").nextSibling.style.visibility = "hidden";
 			document.getElementById("displaynameInput").nextSibling.style.visibility = "hidden";
 			document.getElementById("password1Input").nextSibling.style.visibility = "hidden";
 			document.getElementById("password2Input").nextSibling.style.visibility = "hidden";
@@ -1032,23 +1032,36 @@
 				{noWhiteSpaces++; errorMessage = "please remove any spaces or other whitespace characters";}
 		} // for (var i = 0; i < len; i++)
 
-		if ((noAts != 1) || (noWhiteSpaces != 0)) { isValid = false; }
-		else if (test.split("@")[1].length < 2) { isValid = false; }
-		else if (test.split("@")[1].length >= 2) { 
-			if ( (test.split("@")[1].split(".").length < 2) || (test.split("@")[1].split(".")[1] == "") ) isValid = false; 
+		if ((noAts != 1) || (noWhiteSpaces != 0)) { 
+			isValid = false; 
+		} else if (test.split("@")[1].length < 2) { 
+			isValid = false; 
+		} else if (test.split("@")[1].length >= 2) { 
+			if ( (test.split("@")[1].split(".").length < 2) || (test.split("@")[1].split(".")[1] == "") ) 
+				isValid = false; 
 		}
 		
 		if (isValid) {
 			var patt = /[^A-z0-9@_.]/g;
 			var val = patt.test(test);
-			if (val) {isValid = false; errorMessage = "invalid characters present";}
+			if (val) {
+				isValid = false; 
+				errorMessage = "invalid characters present";
+			}
 		}
-		if (isValid) {inp.nextSibling.style.visibility = "visible"; errorEl.innerHTML = "";}
-		else {inp.nextSibling.style.visibility = "hidden"; errorEl.innerHTML = errorMessage;}
+		
+		if (isValid) {
+			var success = "document.getElementById('emailInput').nextSibling.style.visibility = 'visible'; document.getElementById('emailErrorMessage').innerHTML = ''";
+			var fail = "document.getElementById('emailInput').nextSibling.style.visibility = 'hidden'; document.getElementById('emailErrorMessage').innerHTML = 'email already exists'";
+			checkIfExist("/checkemail",test,success,fail);
+		} else {
+			inp.nextSibling.style.visibility = "hidden"; 
+			errorEl.innerHTML = errorMessage;
+		}
 	} // end function validateEmail()
 
 	function validateCellNo(inp) {
-		var errorEl = document.getElementById("cellNoErrorMessage");
+		var errorEl = document.getElementById("cellphoneErrorMessage");
 		var hid = document.getElementById("numberInput");
 		inp.blur();
 		hid.focus();
@@ -1074,9 +1087,11 @@
 			else if (i == 6) number = number + "-" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
 			else number = number + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
 		} // for (var i = 0; i < 10; i++)
+		
 		if (len == 10) {
-			inp.nextSibling.style.visibility = "visible"; 
-			errorEl.innerHTML = "";
+			var success = "document.getElementById('cellphoneInput').nextSibling.style.visibility = 'visible'; document.getElementById('cellphoneErrorMessage').innerHTML = ''";
+			var fail = "document.getElementById('cellphoneInput').nextSibling.style.visibility = 'hidden'; document.getElementById('cellphoneErrorMessage').innerHTML = 'cellphone number already exists'";
+			checkIfExist("/checkcellphone",test,success,fail);
 		} else {
 			inp.nextSibling.style.visibility = "hidden"; 
 			errorEl.innerHTML = "";
@@ -1087,6 +1102,9 @@
 
 	function validateDisplayName(inp) {
 		var test = inp.value + "";
+		var success = "document.getElementById('displaynameInput').nextSibling.style.visibility = 'visible'; document.getElementById('displaynameErrorMessage').innerHTML = ''";
+		var fail = "document.getElementById('displaynameInput').nextSibling.style.visibility = 'hidden'; document.getElementById('displaynameErrorMessage').innerHTML = 'display name already exists'";
+		checkIfExist("/checkdisplayname",test,success,fail);
 	} // end function validateDisplayName()
 
 	function validatePassword() {
@@ -1120,6 +1138,21 @@
 
 	} // end function validatePassword()
 
+
+	function checkIfExist(route, data, success, fail) {
+		var xhttptemp = new XMLHttpRequest();
+  		xhttptemp.onreadystatechange = function() {
+    		if (this.readyState == 4 && this.status == 200) {
+      			var res = this.responseText + "";
+      			if (res.toUpperCase() == "OK") eval(success);
+      			else if (res.toUpperCase() == "DUPLICATE") eval(fail);
+    		}
+  		};
+  		var routetotal = route + "?data=" + data;
+  		routetotal = encodeURIComponent(routetotal);
+  		xhttptemp.open("GET", routetotal, true);
+  		xhttptemp.send();
+	} // end function checkIfExist(route, method, data, success, fail)
 
 // legacy functions ...
 
