@@ -1048,14 +1048,40 @@
 	} // end function validateEmail()
 
 	function validateCellNo(inp) {
-		var dis = document.getElementById("displaynameInput");
 		var errorEl = document.getElementById("cellNoErrorMessage");
 		var hid = document.getElementById("numberInput");
 		inp.blur();
 		hid.focus();
-		var hidValue = hid.value;
-		dis.value = hidValue;
+		var hidValue = hid.value + "";
+		var char = hidValue[hidValue.length - 1];
+		var test = "";
+		var temp = "";
+		if ( isNaN(char) || (parseInt(char) == "") || (parseInt(char) == null) || (hidValue.length > 10) ) {
+			for (var i = 0; i < hidValue.length - 1; i++)
+				temp += hidValue[i];
+		} else {
+			for (var i = 0; i < hidValue.length; i++)
+				temp += hidValue[i];
+		}
+		hid.value = parseInt(temp);
+		test = temp;
 		
+		var len = test.length;
+		var number = "";
+		for (var i = 0; i < 10; i++) {
+			if (i == 0) number = "(" + test[i];
+			else if (i == 4) number = number + ")" + test[i];
+			else if (i == 8) number = number + "-" + test[i];
+			else number = number + test[i];
+		} // for (var i = 0; i < 10; i++)
+		if (len == 10) {
+			inp.nextSibling.style.visibility = "visible"; 
+			errorEl.innerHTML = "";
+		} else {
+			inp.nextSibling.style.visibility = "hidden"; 
+			errorEl.innerHTML = "";
+		}
+		inp.value = number;
 		hid.focus();
 	} // end function validateCell()
 
