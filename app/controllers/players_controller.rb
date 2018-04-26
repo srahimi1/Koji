@@ -10,7 +10,7 @@ class PlayersController < ApplicationController
 				PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "vtext.com").deliver_now
 				PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "tmomail.net").deliver_now
 				PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "txt.att.net").deliver_now
-				PlayerMailer.send_confirmation_email(player.email, "1234zz", "txt.att.net").deliver_now
+				PlayerMailer.send_confirmation_email(player.email, "1234zz").deliver_now
 			end
 		end
 	end
