@@ -32,4 +32,11 @@ class Player < ApplicationRecord
     	else
     		return true
     end
+
+    def self.create_and_send_confirmation_codes(id)
+    	player = Player.find(id)
+    	email = player.email
+    	cellphone = player.cellphone
+    	PlayerMailer.send_cellphone_confirmation(cellphone, "1232A")
+    end
 end
