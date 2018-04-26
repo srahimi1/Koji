@@ -1,0 +1,2 @@
+class PaymentProvider < ApplicationRecord
+end

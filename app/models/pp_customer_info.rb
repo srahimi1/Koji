@@ -1,0 +1,2 @@
+class PpCustomerInfo < ApplicationRecord
+end
