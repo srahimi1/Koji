@@ -7,8 +7,7 @@ class PlayerMailer < ApplicationMailer
 	end
 
 	def send_confirmation_email(email, code)
-		add = num.to_s+"@vtext.com"
 		message = "Thank you for signing up to play Koji. Your Koji confirmation code is "+code.to_s
-		mail(from: "kojigame.com", to: add, subject: "kojigame confirmation code", body: message)
+		mail(from: "kojigame.com", to: email, subject: "kojigame confirmation code", body: message)
 	end
 end
