@@ -1,11 +1,11 @@
 class PlayerMailer < ApplicationMailer
 
-	def self.send_cellphone_confirmation(num, code)
-		player
+	def send_cellphone_confirmation
+		num = params["cellphone"]
+		code = params["code"]
 		add = num.to_s+"@vtext.com"
 		message = "your koji confirmation code is "+code.to_s
-		mail(to: add, subject: "koji confirmation code") do |format|
-			format.text {render plain: message}
+		mail(from: "kojigame.com", to: add, subject: "koji confirmation code", body: message)
 		end
 	end
 end
