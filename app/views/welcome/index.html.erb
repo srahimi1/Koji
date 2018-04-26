@@ -1056,7 +1056,7 @@
 		var char = hidValue[hidValue.length - 1];
 		var test = "";
 		var temp = "";
-		if ( isNaN(char) || (parseInt(char) == "") || (parseInt(char) == null) || (hidValue.length > 10) ) {
+		if ( isNaN(char) || (parseInt(char) == null) || (hidValue.length > 10) ) {
 			for (var i = 0; i < hidValue.length - 1; i++)
 				temp += hidValue[i];
 		} else {
