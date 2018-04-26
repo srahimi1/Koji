@@ -1,19 +1,15 @@
 class PlayersController < ApplicationController
 
 	def create
-		puts "in create"
-		validate_cellphone(params["cellphone"])
-		player = Player.new(email: params["email"], cellphone: params["cellphone"], display_name: params["display_name"], phone_country: "USA", game_version: params["game_version"], subscribed: 0, email_verified: 0, cellphone_verified: 0)
-		if player.save
-			puts "player saved"
+		cellValid = Player.validate_cellphone(params["cellphone"])
+		if (cellValid)
+			player = Player.new(email: params["email"], cellphone: params["cellphone"], display_name: params["display_name"], phone_country: "USA", game_version: params["game_version"], subscribed: 0, email_verified: 0, cellphone_verified: 0)
+			if player.save
+				puts "player saved"
+			end
 		end
 	end
-
-	def validate_cellphone
-		
-	end
-
-
+	
 	def check_email
 		player = Player.find_by(email: params["data"])
 		output = ""
