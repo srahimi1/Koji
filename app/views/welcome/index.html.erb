@@ -3,14 +3,14 @@
 <title></title>
 <head>
 </head>
-<body style="width:100%;height:100%; padding: 0; margin: 0; overflow-x: hidden; background-color: #f3f6f9; font-family: 'Trebuchet MS', helvetica, tahoma;" onload="checkForImportantMessage();setTimeout(function() {showMenu(document.getElementById('menuDiv')) },500);">
+<body style="width:100%;height:100%; padding: 0; margin: 0; overflow-x: hidden; background-color: #f3f6f9; font-family: 'Trebuchet MS', helvetica, tahoma;" onload="checkForStartupMessage();setTimeout(function() {showMenu(document.getElementById('menuDiv')) },500);">
 
 <h1 id="KOJITitle" style="width:100%; padding:0.1em;text-align: center;background-color: #3ecf8e; background: -moz-linear-gradient(#5eefae,#3ecf8e); background: -webkit-linear-gradient(#5eefae,#3ecf8e);background: -o-linear-gradient(#5eefae,#3ecf8e); background: linear-gradient(#5eefae,#3ecf8e); font-size:4em; margin-top: 0; color:white; box-shadow: 6px 6px 6px #aaaaaa; margin-bottom: 10px; padding-bottom: 0; z-index:5">KO<span style="color:#3e8ecf">J</span><span style="color:#8e3ecf">I</span></h1>
 
-<div id="importantMessageDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:20; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
-		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 21"  onclick="closeMenu(document.getElementById('importantMessageDiv'))"></div>
-		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('importantMessageDiv'))">X</p></div>
-		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><p id="importantMessageSpan" style="font-size: 2em; text-align: center;"></p>
+<div id="startupMessageDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:20; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
+		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 21"  onclick="closeMenu(document.getElementById('startupMessageDiv'))"></div>
+		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('startupMessageDiv'))">X</p></div>
+		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><p id="startupMessageSpan" style="font-size: 2em; text-align: center;"></p>
 		</div>
 </div>
 
@@ -993,7 +993,7 @@
 		return true;
 	} // end function animateMenu(para, code)
 
-	function checkForImportantMessage() {
+	function checkForStartupMessage() {
 		var id = document.getElementById("versionNo").value;
 		var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 		var route = "/message?version="+id;
@@ -1003,9 +1003,9 @@
 			if (this.readyState == 4 && this.status == 200) {
 				var message = this.responseText + "";
 				if (message != "") {
-					var el = document.getElementById('importantMessageSpan');
+					var el = document.getElementById('startupMessageSpan');
 					el.innerHTML = message;
-					el = document.getElementById('importantMessageDiv');
+					el = document.getElementById('startupMessageDiv');
 					el.style.height = "95%";
 					el.style.marginTop="3em"; 
 					el.style.opacity="1";
@@ -1015,7 +1015,7 @@
 		} // end onreadystatechange
 		xhttp.send();
 		return true;
-	} // end function checkForImportantMessage()
+	} // end function checkForStartupMessage()
 
 	function validateEmail(inp) {
 		var errorEl = document.getElementById("emailErrorMessage");
@@ -1148,8 +1148,7 @@
       			else if (res.toUpperCase() == "DUPLICATE") eval(fail);
     		}
   		};
-  		var routetotal = route + "?data=" + data;
-  		routetotal = encodeURIComponent(routetotal);
+  		var routetotal = route + "?data=" + encodeURIComponent(data);
   		xhttptemp.open("GET", routetotal, true);
   		xhttptemp.send();
 	} // end function checkIfExist(route, method, data, success, fail)

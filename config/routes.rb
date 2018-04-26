@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get '/checkemail', to: 'players#check_email'
   get '/checkcellphone', to: 'players#check_cellphone'
   get '/checkdisplayname', to: 'players#check_displayname'
-
+  get '/message', to: 'players#startup_message'
 
   resources :players
   resources :paymentserviceproviders

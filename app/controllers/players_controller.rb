@@ -25,4 +25,9 @@ class PlayersController < ApplicationController
 		data = URI.decode(params['data'])
 		puts data
 	end
+
+	def startup_message
+		puts "startup_message"
+	end
+
 end
