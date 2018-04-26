@@ -1,7 +1,4 @@
 class PlayersController < ApplicationController
-	validates :email, uniqueness: true
-	validates :cellphone, uniqueness: true
-	validates :display_name, uniqueness: true
 
 	def create
 		puts "in create"

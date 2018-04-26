@@ -70,6 +70,9 @@ ActiveRecord::Schema.define(version: 20180426104445) do
     t.integer "cellphone_verified"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["cellphone"], name: "index_players_on_cellphone", unique: true
+    t.index ["display_name"], name: "index_players_on_display_name", unique: true
+    t.index ["email"], name: "index_players_on_email", unique: true
   end
 
   create_table "pp_customer_infos", force: :cascade do |t|
