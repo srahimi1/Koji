@@ -2,7 +2,8 @@ class PlayersController < ApplicationController
 
 	def create
 		cellValid = Player.validate_cellphone(params["cellphone"])
-		if (cellValid)
+		emailValid = Player.validate_email(params["email"])
+		if (cellValid && emailValid)
 			player = Player.new(email: params["email"], cellphone: params["cellphone"], display_name: params["display_name"], phone_country: "USA", game_version: params["game_version"], subscribed: 0, email_verified: 0, cellphone_verified: 0)
 			if player.save
 				puts "player saved"

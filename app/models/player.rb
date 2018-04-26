@@ -2,6 +2,7 @@ class Player < ApplicationRecord
 	validates :email, uniqueness: true
 	validates :cellphone, uniqueness: true
 	validates :display_name, uniqueness: true
+	require 'mail'
 
 	def self.validate_cellphone(num)
 		cellphone = num.to_s
@@ -21,5 +22,14 @@ class Player < ApplicationRecord
 
 	def self.is_number?(obj)
         obj.to_s == obj.to_i.to_s
+    end
+
+    def self.validate_email(email)
+    	valid = true
+    	a = Mail::Address.new(email)
+    	rescue Mail::Field::ParseError
+    		return false
+    	else
+    		return true
     end
 end
