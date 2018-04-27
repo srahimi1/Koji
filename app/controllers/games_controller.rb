@@ -9,9 +9,13 @@ class GamesController < ApplicationController
   		response = @game.start_new_game
       @game.game_data = JSON.generate(response)
       @game.save
-      puts @game.game_data
-      puts @game.game_data.inspect
+      session["game_id"] = @game.id
+      response["gameID"] = @game.id
+      puts session["game_id"]
   		render json: response
+  end
+
+  def update
   end
 
   def current_player

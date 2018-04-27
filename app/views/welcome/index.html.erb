@@ -53,11 +53,11 @@
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('instructionsDiv'))"></div>
 		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">How To Play</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('instructionsDiv'))">X</p></div>
 		<ul style="width: 100%; height: 80%; overflow-y: auto; list-style: none; font-size: 2em; color: #8E3ECF; padding: 0; text-align: left;">
-			<li style="padding: 0.1em 3em 0.1em 3em;"><h4>The game concept is simple, but playing is fun and exciting. Your congitive deduction skills are challenged. The game is made up of two parts:</h4></li>
-			<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #8E3ECF; margin: 0;">Part 1: Determine if two random colors will mix to match your goal color.</p>
-				<p style="color: gray; font-size: 0.9em;">A 'goal' color is displayed at the top of the screen. At the bottom, two random colors are displayed. If you think the random colors will mix to match the goal color, hit 'yes', if not, hit 'no'. That's it. Either incorrectly guess 'yes' or 'no' twice in a row and you'll get an X. Four X's and the game is over. Pay attention as the 'goal' color might change throughout the game.</p></li>
-			<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #8E3ECF; margin: 0;">Part 2: Behind the top 'goal' panel, there are hidden, twisted letters. Figure out the letters.</p>
-				<p style="color: gray; font-size: 0.9em;">After every correct color mixing guess, a single line will appear in the 'goal' panel, revealing a portion of a hidden letter. Your goal is to determine the correct letters before too much of the letters are revealed. The less the letters are revealed, the higher number of points you earn when you guess the letters correctly. For every incorrect letter guess, you'll get an X. If you get a total of four X's, the game is over. Correctly selected letters will have a green border, incorrectly selected letters will have a red border.</p></li>
+			<li style="padding: 0.1em 3em 0.1em 3em;"><h4>The concept is simple, but playing is fun and exciting. The aim of the game is to guess which two colors will mix to match a specified color AND to figure out the hidden letters hidden behind one of the panels.</h4></li>
+			<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #8E3ECF; margin: 0;">Part 1: Determine if two random colors will mix to match a goal color.</p>
+				<p style="color: gray; font-size: 0.9em;">A 'goal' color is displayed at the top of the screen. At the bottom, two random colors are displayed. If you think the random colors will mix to match the goal color, hit 'yes', if not, hit 'no'. That's it. Either incorrectly guess 'yes' or 'no' twice in a row and you'll get an X. Four X's and the game is over. Pay attention as the goal color might change throughout the game.</p></li>
+			<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #8E3ECF; margin: 0;">Part 2: Behind the top goal panel, there are hidden letters. Figure out the letters.</p>
+				<p style="color: gray; font-size: 0.9em;">There are hidden letters in the top goal panel. Every time you guess correctly which colors mix to match the goal color, a small slice of that panel will disappear, revealing part of a hidden letter. Guess all the hidden letters correctly to win the game. The less the letters are revealed, the higher number of points you earn when you guess the letters correctly. For every incorrect letter guess, you'll get an X. If you get a total of four X's, the game is over. Correctly selected letters will have a green border, incorrectly selected letters will have a red border.</p></li>
 		</ul>
 		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
 	</div>
@@ -241,7 +241,9 @@
 
 	function getGame() {
 		var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+		xhttp.abort();
 		xhttp.open("POST", "/games");
+		xhttp.setRequestHeader("Content-type", "");
 		xhttp.setRequestHeader('X-CSRF-Token', csrfTok)
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
@@ -1183,16 +1185,16 @@
 		var auth_token = document.getElementsByName("authenticity_token")[0].value;
 		var version = document.getElementById("gameVersion").value;
 		console.log(auth_token);
-		var xhttptemp = new XMLHttpRequest();
-  		xhttptemp.onreadystatechange = function() {
+		xhttp.abort();
+  		xhttp.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
       			var res = this.responseText + "";
     		} // if (this.readyState == 4 && this.status == 200)
   		}; // xhttptemp.onreadystatechange = function()
-  		xhttptemp.open("POST", "/players", true);
-  		xhttptemp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  		xhttptemp.setRequestHeader('X-CSRF-Token', auth_token);
-  		xhttptemp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version);
+  		xhttp.open("POST", "/players", true);
+  		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
+  		xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version);
 	} // end function signupFormSubmit()
 
 

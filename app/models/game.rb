@@ -17,6 +17,7 @@ class Game < ApplicationRecord
 		output["colors"] = responses
 		letters = get_letters
 		output["letters"] = letters
+		output["numberOfX"] = 0
 		return output
 	end
 
