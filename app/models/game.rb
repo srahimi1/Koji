@@ -4,18 +4,20 @@ class Game < ApplicationRecord
 	def start_new_game
 		@game_levels = { a1: {num_colors:3, shades_per_color:3, time_per_letter_segment: 240, min_letters_per_word: 3, max_letters_per_word: 9}, a2:{num_colors:5, shades_per_color:3, time_per_letter_segment: 210, min_letters_per_word: 5, max_letters_per_word: 10}}
 		@level = @game_levels[:a1]		
+		output = {}
 		responses = []
 		5.times do	
 			response = {}
 			goal_color = get_random_colors(1, 1, nil)
 			goal_color_rgb = goal_color[0]
-			goal_color_hex = goal_color[1]
-			letters = get_letters 
+			goal_color_hex = goal_color[1] 
 			response["goalColor"] = goal_color_hex[0]
-			response["letters"] = letters
 			responses.push(response)
 		end
-		return responses
+		output["colors"] = responses
+		letters = get_letters
+		output["letters"] = letters
+		return output
 	end
 
 	def get_letters

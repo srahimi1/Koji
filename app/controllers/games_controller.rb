@@ -1,11 +1,21 @@
 class GamesController < ApplicationController
   def create
-	  	@game = Game.new
+      if (session["id"] != nil)
+        player = Player.find(session[:id])
+      else 
+        player = Player.find(0)
+      end
+      @game = player.games.create(score: 0)
   		response = @game.start_new_game
+      @game.game_data = JSON.generate(response)
+      @game.save
+      puts @game.game_data
+      puts @game.game_data.inspect
   		render json: response
   end
 
-  def old
+  def current_player
+    @current_player ||= session[:id] && Player.find(session[:id])
   end
 
   private
