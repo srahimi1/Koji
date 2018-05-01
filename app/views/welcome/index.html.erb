@@ -1200,13 +1200,13 @@
       				return false;
       			} else if (res.toUpperCase() == "DUPLICATE") {
       				eval(fail);
+      				return false;
       			}
     		} // if (this.readyState == 4 && this.status == 200)
   		}; // xhttptemp.onreadystatechange = function()
   		var routetotal = route + "?data=" + encodeURIComponent(data);
   		xhttptemp.open("GET", routetotal, true);
   		xhttptemp.send();
-  		return false;
 	} // end function checkIfExist(route, method, data, success, fail)
 
 	function signupFormSubmit() {
@@ -1223,6 +1223,7 @@
 		xhttp.abort();
   		xhttp.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
+      			console.log(this.responseText);
       			var res = this.responseText + "";
     			if (res.toUpperCase() == "OK") {
     				var el = document.getElementById("gameMessage"); 
@@ -1231,7 +1232,7 @@
     				closeMenu(document.getElementById('signupDiv'));
     				showMenu(document.getElementById('gameMessageDiv')); 
     				setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},4000);
-    				return false;
+    				return true;
     			} // if (res.toUpperCase() == "OK")
     		} // if (this.readyState == 4 && this.status == 200)
   		}; // xhttptemp.onreadystatechange = function()
@@ -1239,7 +1240,6 @@
   		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
   		xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version);
-		return false;
 	} // end function signupFormSubmit()
 
 	function signinFormSubmit() {
@@ -1258,6 +1258,7 @@
     				closeMenu(document.getElementById('signinDiv'));
     				showMenu(document.getElementById('gameMessageDiv')); 
     				setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},4000);
+    				return false;
     			}
     		} // if (this.readyState == 4 && this.status == 200)
   		}; // xhttptemp.onreadystatechange = function()
@@ -1265,8 +1266,7 @@
   		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
   		xhttp.send("email="+email+"&cellphone="+cellphone+"&password="+password);
-		return false;
-	} // end function signupFormSubmit()
+	} // end function signinFormSubmit()
 
 
 

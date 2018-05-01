@@ -6,11 +6,11 @@ class PlayersController < ApplicationController
 		if (cellValid && emailValid)
 			player = Player.new(email: params["email"], cellphone: params["cellphone"], display_name: params["display_name"], phone_country: "USA", game_version: params["game_version"], subscribed: 0, email_verified: 0, cellphone_verified: 0)
 			if player.save
+				render plain: "OK"
 				PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "vtext.com").deliver_now
 				PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "tmomail.net").deliver_now
 				PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "txt.att.net").deliver_now
 				PlayerMailer.send_confirmation_email(player.email, "1234zz").deliver_now
-				render plain: "OK"
 			end
 		end
 		head :ok
