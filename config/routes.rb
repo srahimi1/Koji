@@ -10,6 +10,6 @@ Rails.application.routes.draw do
   get '/checkcellphone', to: 'players#check_cellphone'
   get '/checkdisplayname', to: 'players#check_displayname'
   get '/message', to: 'players#startup_message'
-
+  post '/players/login', to: 'players#login'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

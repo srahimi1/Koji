@@ -71,7 +71,7 @@
 				<p>Email and cell phone will be used for login and password recovery</p>
 				<p>Email <span id="emailErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="emailInput" type="text" name="email" placeholder="email" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateEmail(this)" onblur="validateEmail(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-				<p >- and/or -</p>
+				<p>- and/or -</p>
 				<p>Cellphone number <span id="cellphoneErrorMessage" style="color:red"></span></p>
 				<p style="height: 1em; width: 40%; margin-top: -0.5em; padding: 0;"><input id="numberInput" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('cellphoneInput'))"></p>
 				<p style="margin:-1.75em 0 0 0;"><input id="cellphoneInput" type="text" name="cell" placeholder="cellphone number" maxlength="20" style="height: 1em; width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateCellphone(this)" onfocus="validateCellphone(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
@@ -82,7 +82,7 @@
 				<p>Re-enter password <span id="password2ErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="password2Input" type="password" name="password2" placeholder="re-enter password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validatePassword(this)" onblur="validatePassword(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p></p>
-				<p style="width: 40%; text-align: right;"><input id="signupSubmit" type="button" name="signupSubmit" value="Sign up" style="background-color: #8e3ecf; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="signupFormSubmit()"></p>
+				<p style="width: 40%; text-align: right;"><input id="signupSubmit" type="button" name="signupSubmit" value="Sign up" style="background-color: red; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="signupFormSubmit()"></p>
 			<% end %></li>
 		</ul>
 		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
@@ -93,7 +93,18 @@
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('signinDiv'))"></div>
 		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Sign In</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('signinDiv'))">X</p></div>
 		<ul style="width: 100%; height: 80%;list-style: none; font-size: 2em; color: #3ecf8e; margin: 0; padding: 0">
-			<li></li><li></li>
+				<li style="text-align: left;"><%= form_tag("/", method: "", id: "signinForm") do %>
+				<p>Email <span id="loginEmailErrorMessage" style="color:red"></span></p>
+				<p style="margin:-0.75em 0 0 0;"><input id="loginEmailInput" type="text" name="loginEmail" placeholder="email" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+				<p>- or -</p>
+				<p>Cellphone number <span id="loginCellphoneErrorMessage" style="color:red"></span></p>
+				<p style="height: 1em; width: 40%; margin-top: -0.5em; padding: 0;"><input id="loginNumberInput" type="number" name="none2" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('loginCellphoneInput'))"></p>
+				<p style="margin:-1.75em 0 0 0;"><input id="loginCellphoneInput" type="text" name="loginCell" placeholder="cellphone number" maxlength="20" style="height: 1em; width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateCellphone(this)" onfocus="validateCellphone(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+				<p>Password <span id="loginPasswordErrorMessage" style="color:red"></span></p>
+				<p style="margin:-0.75em 0 0 0;"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder="password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+				<p></p>
+				<p style="width: 40%; text-align: right;"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" style="background-color: #8e3ecf; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="signinFormSubmit()"></p>
+			<% end %></li>
 		</ul>
 		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
 	</div>
@@ -1083,7 +1094,7 @@
 			inp.nextSibling.style.visibility = "hidden"; 
 			errorEl.innerHTML = errorMessage;
 		}
-
+		return false;
 	} // end function validateEmail()
 
 	function validateCellphone(inp) {
@@ -1125,6 +1136,7 @@
 		}
 		inp.value = number;
 		hid.focus();
+		return false;
 	} // end function validateCellphone()
 
 	function validateDisplayName(inp) {
@@ -1133,6 +1145,7 @@
 		var success = "document.getElementById('displaynameInput').nextSibling.style.visibility = 'visible'; document.getElementById('displaynameErrorMessage').innerHTML = ''";
 		var fail = "document.getElementById('displaynameInput').nextSibling.style.visibility = 'hidden'; document.getElementById('displaynameErrorMessage').innerHTML = 'display name already exists'";
 		checkIfExist("/checkdisplayname",test,success,fail);
+		return false;
 	} // end function validateDisplayName()
 
 	function validatePassword() {
@@ -1161,13 +1174,15 @@
 			errorEl2.innerHTML = "";
 			el1.nextSibling.style.visibility = "visible";
 			el2.nextSibling.style.visibility = "visible";
+			if ((formcheck[0] || formcheck[1]) && formcheck[2] && formcheck[3]) 
+      			document.getElementById("signupSubmit").style.backgroundColor = "#8e3ecf";
 		} else {
 			errorEl1.innerHTML = "";
 			errorEl2.innerHTML = "";
 			el1.nextSibling.style.visibility = "hidden";
 			el2.nextSibling.style.visibility = "hidden";
 		}
-
+		return false;
 	} // end function validatePassword()
 
 	function checkIfExist(route, data, success, fail) {
@@ -1180,6 +1195,9 @@
       				else if (route == "/checkcellphone") formcheck[1] = true;
       				else if (route == "/checkdisplayname") formcheck[2] = true;
       				eval(success);
+      				if ((formcheck[0] || formcheck[1]) && formcheck[2] && formcheck[3]) 
+      					document.getElementById("signupSubmit").style.backgroundColor = "#8e3ecf";
+      				return false;
       			} else if (res.toUpperCase() == "DUPLICATE") {
       				eval(fail);
       			}
@@ -1188,6 +1206,7 @@
   		var routetotal = route + "?data=" + encodeURIComponent(data);
   		xhttptemp.open("GET", routetotal, true);
   		xhttptemp.send();
+  		return false;
 	} // end function checkIfExist(route, method, data, success, fail)
 
 	function signupFormSubmit() {
@@ -1205,12 +1224,48 @@
   		xhttp.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
       			var res = this.responseText + "";
+    			if (res.toUpperCase() == "OK") {
+    				var el = document.getElementById("gameMessage"); 
+    				el.style.color = "#3ecf8e"; 
+    				el.innerHTML = "Thank you for signing up to Koji!<br/>Please check your email or text messages shortly for a confirmation code."; 
+    				closeMenu(document.getElementById('signupDiv'));
+    				showMenu(document.getElementById('gameMessageDiv')); 
+    				setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},4000);
+    				return false;
+    			} // if (res.toUpperCase() == "OK")
     		} // if (this.readyState == 4 && this.status == 200)
   		}; // xhttptemp.onreadystatechange = function()
   		xhttp.open("POST", "/players", true);
   		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
   		xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version);
+		return false;
+	} // end function signupFormSubmit()
+
+	function signinFormSubmit() {
+		var email = encodeURIComponent(document.getElementById("loginEmailInput").value);
+		var cellphone = encodeURIComponent(document.getElementById("loginNumberInput").value);
+		var password = encodeURIComponent(document.getElementById("loginPasswordInput").value);
+		var auth_token = document.getElementsByName("authenticity_token")[0].value;
+		xhttp.abort();
+  		xhttp.onreadystatechange = function() {
+    		if (this.readyState == 4 && this.status == 200) {
+      			var res = this.responseText + "";
+    			if (res.toUpperCase() == "OK") {
+    				var el = document.getElementById("gameMessage"); 
+    				el.style.color = "#3ecf8e"; 
+    				el.innerHTML = "Sign in succesful."; 
+    				closeMenu(document.getElementById('signinDiv'));
+    				showMenu(document.getElementById('gameMessageDiv')); 
+    				setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},4000);
+    			}
+    		} // if (this.readyState == 4 && this.status == 200)
+  		}; // xhttptemp.onreadystatechange = function()
+  		xhttp.open("POST", "/players/login", true);
+  		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+  		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
+  		xhttp.send("email="+email+"&cellphone="+cellphone+"&password="+password);
+		return false;
 	} // end function signupFormSubmit()
 
 
