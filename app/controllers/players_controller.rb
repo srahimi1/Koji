@@ -4,7 +4,7 @@ class PlayersController < ApplicationController
 		cellValid = Player.validate_cellphone(params["cellphone"])
 		emailValid = Player.validate_email(params["email"])
 		if (cellValid && emailValid)
-			player = Player.new(email: params["email"], cellphone: params["cellphone"], display_name: params["display_name"], phone_country: "USA", game_version: params["game_version"], subscribed: 0, email_verified: 0, cellphone_verified: 0)
+			player = Player.new(email: params["email"].to_s.downcase, cellphone: params["cellphone"], display_name: params["display_name"], phone_country: "USA", game_version: params["game_version"], subscribed: 0, email_verified: 0, cellphone_verified: 0)
 			if player.save
 				render plain: "OK"
 				PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "vtext.com").deliver_now
@@ -18,7 +18,7 @@ class PlayersController < ApplicationController
 	def login
 		@player = nil
 		if (!params["email"].blank?)
-			@player = Player.find_by(email: params["email"])
+			@player = Player.find_by(email: params["email"].to_s.downcase)
 		elsif (!params["email"].blank?)
 			@player = Player.find_by(cellphone: params["cellphone"])
 		end
