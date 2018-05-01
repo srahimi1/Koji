@@ -13,6 +13,7 @@ class PlayersController < ApplicationController
 				PlayerMailer.send_confirmation_email(player.email, "1234zz").deliver_now
 			end
 		end
+		head :ok
 	end
 	
 	def check_email
