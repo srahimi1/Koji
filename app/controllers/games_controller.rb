@@ -27,6 +27,7 @@ class GamesController < ApplicationController
     end
     if (!params[:points].blank?)
       @response["points"] = params[:points]
+      @game.score = params[:points].to_i
     end
     if (!params[:won].blank?)
       @game.won = params[:won].to_i
