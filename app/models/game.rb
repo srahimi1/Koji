@@ -18,6 +18,7 @@ class Game < ApplicationRecord
 		letters = get_letters
 		output["letters"] = letters
 		output["numberOfX"] = 0
+		output["points"] = 0
 		return output
 	end
 
