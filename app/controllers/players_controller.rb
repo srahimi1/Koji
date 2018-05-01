@@ -3,8 +3,8 @@ class PlayersController < ApplicationController
 	def create
 		cellValid = Player.validate_cellphone(params["cellphone"])
 		emailValid = Player.validate_email(params["email"])
-		if (cellValid && emailValid)
-			player = Player.new(email: params["email"].to_s.downcase, cellphone: params["cellphone"], display_name: params["display_name"], phone_country: "USA", game_version: params["game_version"], subscribed: 0, email_verified: 0, cellphone_verified: 0)
+		if (cellValid && emailValid && (params["password1"].to_s == params["password2"].to_s))
+			player = Player.new(email: params["email"].to_s.downcase, cellphone: params["cellphone"], display_name: params["display_name"], password: params["password1"], phone_country: "USA", game_version: params["game_version"], subscribed: 0, email_verified: 0, cellphone_verified: 0)
 			if player.save
 				render plain: "OK"
 				PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "vtext.com").deliver_now
