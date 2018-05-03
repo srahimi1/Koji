@@ -41,14 +41,15 @@ class GamesController < ApplicationController
     if ( (@game.player_id != 0) && update_gaming_history) 
       PlayerGamingHistory.update(@game)
     end
-  end
-
-  def current_player
-    @current_player ||= session[:player_id] && Player.find(session[:player_id])
+    head :no_content
   end
 
   private
   	def game_params
   		params.require(:game).permit(:username)
   	end
+
+    def current_player
+      @current_player ||= session[:player_id] && Player.find(session[:player_id])
+    end
 end

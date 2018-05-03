@@ -3,6 +3,7 @@ class PlayersController < ApplicationController
 	def create
 		cellValid = Player.validate_cellphone(params["cellphone"])
 		emailValid = Player.validate_email(params["email"])
+		output = ""
 		if (cellValid && emailValid && (params["password1"].to_s == params["password2"].to_s))
 			player = Player.new(email: params["email"].to_s.downcase, cellphone: params["cellphone"].to_s, display_name: params["display_name"], password: params["password1"], phone_country: "USA", game_version: params["game_version"], subscribed: 0, email_verified: 0, cellphone_verified: 0)
 			if player.save
@@ -22,13 +23,17 @@ class PlayersController < ApplicationController
 					PlayerMailer.send_confirmation_email(player.email, "1234zz").deliver_now
 				}
 				ActiveRecord::Base.connection.close
-				render plain: "OK"
+				output = "OK"
 			end
+		else
+			output = "BAD"
 		end
+		render plain: output
 	end
 	
 	def login
 		@player = nil
+		output = ""
 		if (!params["email"].blank?)
 			@player = Player.find_by(email: params["email"].to_s.downcase)
 		elsif (!params["cellphone"].blank?)
@@ -38,13 +43,14 @@ class PlayersController < ApplicationController
 		if(!@player.blank?)
 			if (params[:password] == @player.password)
 				session["player_id"] = @player.id
-				render plain: "OK"
+				output = "OK"
 			else
-				render plain: "BAD"
+				output = "BAD"
 			end
 		else
-			render plain: "BAD"
+			output = "BAD"
 		end
+		render plain: output
 	end
 
 	def check_email
