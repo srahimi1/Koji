@@ -18,7 +18,7 @@ class PlayerGamingHistory < ApplicationRecord
 		temp_history = JSON.parse(history.history)
 	end
 	temp_history["#{game_date}"] = {:total => history.current_total, :high_score => history.current_high_score}  	
-	history.history = JSON.generate(history.history)
+	history.history = JSON.generate(temp_history)
 	history.save
   end
 
