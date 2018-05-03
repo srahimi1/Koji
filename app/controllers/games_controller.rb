@@ -32,11 +32,15 @@ class GamesController < ApplicationController
     end
     if (!params[:won].blank?)
       @game.won = params[:won].to_i
-      if ( (params[:won].to_i == 1) || (params[:won].to_i == 2) ) update_gaming_history = true 
+      if ( (params[:won].to_i == 1) || (params[:won].to_i == 2) ) 
+        update_gaming_history = true 
+      end
     end
     @game.game_data = JSON.generate(@response)
     @game.save
-    if ( (@game.player_id != 0) && update_gaming_history) PlayerGamingHistory.update(@game)
+    if ( (@game.player_id != 0) && update_gaming_history) 
+      PlayerGamingHistory.update(@game)
+    end
   end
 
   def current_player
