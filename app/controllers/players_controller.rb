@@ -6,7 +6,7 @@ class PlayersController < ApplicationController
 		if (cellValid && emailValid && (params["password1"].to_s == params["password2"].to_s))
 			player = Player.new(email: params["email"].to_s.downcase, cellphone: params["cellphone"].to_s, display_name: params["display_name"], password: params["password1"], phone_country: "USA", game_version: params["game_version"], subscribed: 0, email_verified: 0, cellphone_verified: 0)
 			if player.save
-				player.player_gaming_history.create(current_total: 0, current_high_score: 0, history: "")
+				player.player_gaming_histories.create(current_total: 0, current_high_score: 0, history: "")
 				Thread.new { 
 					PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "vtext.com").deliver_now
 					PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "tmomail.net").deliver_now
