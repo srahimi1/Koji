@@ -5,10 +5,12 @@ class PlayerMailer < ApplicationMailer
 		add = num.to_s+"@"+provider
 		body = "Your Koji confirmation code is: #{@code}"
 		mail(from: "kojigame@sendgrid.net", subject: "", to: add, body: body, content_type: "text/plain")
+		return true
 	end
 
 	def send_confirmation_email(email, code)
 		@code = code
 		mail(from: "kojigame@sendgrid.net", to: email, subject: "kojigame confirmation code")
+		return true
 	end
 end
