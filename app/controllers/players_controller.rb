@@ -47,7 +47,7 @@ class PlayersController < ApplicationController
 	end
 
 	def check_email
-		player = Player.find_by(email: params["data"])
+		player = Player.find_by(email: params["data"].to_s.downcase)
 		output = ""
 		if (!player) 
 			output = "OK"
