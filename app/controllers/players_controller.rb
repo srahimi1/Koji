@@ -13,7 +13,6 @@ class PlayersController < ApplicationController
 					PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "tmomail.net").deliver_now
 					PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "txt.att.net").deliver_now
 					PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "messaging.sprintpcs.com").deliver_now
-					PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "txt.att.net").deliver_now
 					PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "vmobl.com").deliver_now
 					PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "myboostmobile.com").deliver_now
 					PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "mymetropcs.com").deliver_now
