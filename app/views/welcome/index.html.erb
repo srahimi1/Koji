@@ -502,6 +502,8 @@
 		cn[1].style.opacity = "0";
 		cn[2].style.opacity = "0";
 		var sendID = cn[0].id + "";
+		points = 0;
+		code = 0;
 		if (divColors["answer"].toUpperCase() == gameData.goalColor.toUpperCase()) {
 			var gotitPara = document.createElement("p");
 			gotitPara.style.backgroundColor = "white";
@@ -512,12 +514,13 @@
 				gotitPara.style.width = "6em"; 
 				gotitPara.style.height = "3em"; 
 				gotitPara.style.fontSize = "3em"; 
-				gotitPara.innerHTML =  "<span id='pointsSpan2'></span>"; //"You got it!"; 
+				gotitPara.innerHTML = "You got it!"; 
 				gotitPara.style.marginTop = "1.5em"; 
 				gotitPara.style.paddingTop = "1em"; 
 				gotitPara.style.color = "gray"; 
 				missedCorrect = 0; 
-				animatePoints(15, 0); 
+				points = 15;
+				code = 0; 
 				drawLine();
 			}
 			else if (opt == 1) {
@@ -528,7 +531,8 @@
 				gotitPara.style.padding = "2em"; 
 				gotitPara.style.marginTop = "1em"; 
 				gotitPara.style.color = "gray";
-				animatePoints(-25, 1); 
+				points = -25;
+				code = 1;
 				missedCorrect++; 
 			}
 			document.getElementById(sendID).appendChild(gotitPara);
@@ -542,7 +546,8 @@
 			gotitPara.style.fontSize = "3em"; 
 			gotitPara.innerHTML = "Try again"; 
 			gotitPara.style.marginTop = "1.5em";
-			animatePoints(-5, 1);
+			points = -5;
+			code = 1;
 			missedCorrect++; 
 			document.getElementById(sendID).appendChild(gotitPara);
 		} // else if (opt == 0)
@@ -553,6 +558,7 @@
 			missedCorrect = 0; 
 			isGameLost();
 		}
+		if (points != 0) animatePoints(points, code);
 		setTimeout(function() {getNextColors(par, sendID);},800);
 		return true;
 	} // end function showUnderneathBox(but, par, opt)
