@@ -558,7 +558,7 @@
 			missedCorrect = 0; 
 			isGameLost();
 		}
-		if (points != 0) animatePoints(points, code);
+		if (points != 0) setTimeout(function() {animatePoints(points, code);},1000);
 		setTimeout(function() {getNextColors(par, sendID);},800);
 		return true;
 	} // end function showUnderneathBox(but, par, opt)
