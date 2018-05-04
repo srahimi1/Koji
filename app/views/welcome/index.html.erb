@@ -512,7 +512,7 @@
 				gotitPara.style.width = "6em"; 
 				gotitPara.style.height = "3em"; 
 				gotitPara.style.fontSize = "3em"; 
-				gotitPara.innerHTML = "You got it!"; 
+				gotitPara.innerHTML =  "<span id='pointsSpan2'></span>"; //"You got it!"; 
 				gotitPara.style.marginTop = "1.5em"; 
 				gotitPara.style.paddingTop = "1em"; 
 				gotitPara.style.color = "gray"; 
@@ -920,7 +920,7 @@
 		points += add;
 		updateGameDataOnServer(0);
 		var time;
-		var el = document.getElementById("pointsSpan");
+		var el = document.getElementById("pointsSpan2");
 		if (code==0) {el.innerHTML = "+15"; el.style.color = "green";el.style.fontSize = "1em"; time=22;}
 		else if (code==1) {el.innerHTML = "-25"; el.style.color = "red";el.style.fontSize = "3em"; time=500;}
 		else if (code==2) {el.innerHTML = "+"+add; el.style.color = "green";el.style.fontSize = "1em"; time=22;}
