@@ -383,6 +383,7 @@
 </body>
 
 <script>
+	lettersToPickFrom = [];
 	var gctemp = document.getElementById("guessContainer");
 	gctemp.style.top = "50%";
 	gctemp.style.marginTop = -(gctemp.offsetHeight/2) + "px";
@@ -426,6 +427,8 @@
 	allLetters = {"a": 1, "b": 1, "c": 1, "d": 1, "e": 1, "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z":"snum", "A": "VYUH", "B": "KEPRFX", "C": "GOQD", "D": "CGOQ", "E": "KBPRFX", "F" : "KBEPRX", "G":"COQD", "H":"ITLJA", "I": 1, "J": 1, "K": 1, "L": 1, "M": 1, "N": 1, "O": 1, "P": 1, "Q": 1, "R": 1, "S" : 1, "T": 1, "U": 1, "V" : 1, "W" : 1, "X" : 1, "Y": 1, "Z" : 1};
 
 	function setupNewGame() {
+		while (lettersToPickFrom.length > 0) lettersToPickFrom.pop();
+		lettersToPickFrom = [];
 		inputData = null;
 		cycleTopDataAt = 0;
 		cycleTopDataCounter = 0;
@@ -757,6 +760,8 @@
 				missedCorrect = 0; 
 				points2 = 15;
 				code = 0; 
+				numberCorrect++;
+				if (numberCorrect == 3) {numberCorrect = 0; popUpALetter();}
 				drawLine();
 			}
 			else if (opt == 1) {
@@ -840,7 +845,27 @@
 		return hex
 	} // end function getHexFromRGB(rgb)
 
-
+	function popUpALetter() {
+		var underscoreIndex = Math.floor(Math.random() * lettersToPickFrom.length);
+		var letterIndex = Math.floor(Math.random() * lettersToPickFrom[underscoreIndex].length);
+		var tLetter = lettersToPickFrom[underscoreIndex][letterIndex];
+		console.log("tLetter");
+		console.log(tLetter);
+		var uScore = document.getElementById("letterBox:"+underscoreIndex);
+		if (!!uScore.firstChild) uScore.removeChild(uScore.firstChild);
+		tLetter.style.width = "0";
+		tLetter.style.height = "0";
+		tLetter.style.MozTransition = "width 15s, height 15s";
+		tLetter.style.mozTransition = "width 15s, height 15s";
+		tLetter.style.WebkitTransition = "width 15s, height 15s";
+		tLetter.style.webkitTransition = "width 15s, height 15s";
+		tLetter.style.OTransition = "width 15s, height 15s";
+		tLetter.style.oTransition = "width 15s, height 15s";
+		tLetter.style.transition = "width 15s, height 15s";
+		uScore.appendChild(tLetter);
+		tLetter.style.width = "100%";
+		tLetter.style.height = "100%";
+	}
 
 // canvas and letter obj functions ...
 
@@ -1052,6 +1077,7 @@
 			useTheseLetters[newInd] = orderedLetters[i];
 			if (i == 0) correctLetters[ind].index = newInd + "";
 		}
+		var tempLettersHolderArray = [];
 		for (var i = 0; i  < useTheseLetters.length; i++) {
 			angle = useTheseLetters[i].rotation * (180/Math.PI);
 			var elP = document.createElement("p");
@@ -1086,8 +1112,10 @@
 			div.style.borderRadius = "0.4em";
 			div.onclick = function(){selectLetter(this);}
 			div.appendChild(elP);
+			tempLettersHolderArray.push(div); 
 			frag.appendChild(div);
 		}
+		lettersToPickFrom.push(tempLettersHolderArray);
 		var el = document.getElementById("letterChoices"+ind);
 		while (!!el.lastChild) el.removeChild(el.lastChild);
 		el.appendChild(frag);
