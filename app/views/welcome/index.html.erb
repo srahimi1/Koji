@@ -130,8 +130,8 @@
 		<div id="gameLettersDiv" style="width:100%; margin: auto; text-align:center; color: gray"></div>
 	</div><!--end gameLettersContainer div -->
 
-	<div id="guessOutside" style="position:relative;width:100%; height:60%;overflow: hidden; margin:auto;"> 
-	<div id="guessContainer" style="position:relative;width:100%; height:80%;overflow: hidden; margin:auto;margin-top: 2%;">	
+	<div id="guessOutside" style="position:relative;width:100%; height:45%;overflow: hidden; margin:auto;"> 
+	<div id="guessContainer" style="position:relative;width:100%; height:80%;overflow: hidden; margin:auto;">	
 		<div id="guess" style="position: relative; width:100%;height:100%; margin: auto; margin-top: 0; min-height: 100px; background-color: #eef0f6;background-image: url('transparent_background.jpg');text-align:left; white-space: nowrap; overflow: hidden; z-index: 1"></div>
 	</div><!--end guessContainer div -->
 	</div>
@@ -382,6 +382,9 @@
 </body>
 
 <script>
+	var gctemp = document.getElementById("guessContainer");
+	gctemp.style.top = "50%";
+	gctemp.style.marginTop = -(gctemp.offsetHeight/2) + "px";
 	inputData = null;
 	formcheck = [];
 	for (var i = 0; i < 4; i++) formcheck.push(false);
@@ -539,7 +542,6 @@
 			divTempOuter.style.width = "100%";
 			divTempOuter.style.margin = "0px";
 			divTempOuter.style.padding = "0px";
-			divTempOuter.style.borderTop = "1em solid "+gameData.goalColor;
 			var divTempA = document.createElement("div");
 			divTempA.style.position = "absolute";
 			divTempA.style.width = "100%";
@@ -1178,9 +1180,11 @@
 		var values = [0,0];
 		clearInterval(pointsIntervalID);
 		el2 = document.getElementById("plus15svg2");
+		document.getElementById("guessContainer").style.overflow = "visible";
+		document.getElementById("guess").style.overflow = "visible";
 		pointsIntervalID = setInterval(
 			function() {
-				if (values[1] == -1) {clearInterval(pointsIntervalID);}
+				if (values[1] == -1) {clearInterval(pointsIntervalID);document.getElementById("guessContainer").style.overflow = "hidden";document.getElementById("guess").style.overflow = "visible";}
 				else {
 					values[1]++;
 					if ((code == 0) || (code == 2)) {
@@ -1191,9 +1195,6 @@
 						el2.style.left = "50%";
 						el2.style.marginTop = -(el2.getBoundingClientRect().height/2) + "px";
 						el2.style.marginLeft = -(el2.getBoundingClientRect().width/2) + "px";
-
-
-
 					}
 					else if ((code == 1) || (code == 3)) {
 						values = [-1,-1];
