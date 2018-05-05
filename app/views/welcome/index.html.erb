@@ -1061,6 +1061,9 @@
 		else if (code==3) time=500;
 		el.style.fontWeight = "bold";
 		el.style.fontSize = "3em";
+		if (points < 0) el.style.color = "#F00000";
+		else if (points == 0) el.style.color = "gray";
+		else if (points > 0) el.style.color = "#00F000";
 		el.innerHTML = points;
 		var values = [0,0];
 		clearInterval(pointsIntervalID);
