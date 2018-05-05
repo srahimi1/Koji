@@ -761,7 +761,7 @@
 			}
 			else if (opt == 1) {
 				inner = document.getElementById("youmisseditsvg").innerHTML;
-				points2 = -25;
+				points2 = -15;
 				code = 1;
 				missedCorrect++; 
 			}
@@ -771,7 +771,7 @@
 			main.style.display = "block";
 			var svg = null;
 			if (points2 == 15) svg = document.getElementById("plus15svg2");
-			else if (points2 == -25) svg = main.firstChild;
+			else if (points2 == -15) svg = main.firstChild;
 			svg.style.top = "50%";
 			svg.style.left = "50%";
 			svg.style.marginTop = -(svg.getBoundingClientRect().height/2) + "px";
