@@ -115,7 +115,6 @@
 	</div><!--end menuOptionContainer div -->
 	
 	<div id="goalContainer" style="position:relative;width:100%; height:20%;overflow: hidden; margin:auto;">
-		<div id="letterChoicesCont" style="position:absolute;width:100%;height:100%;top: 0; left: 0;background-color: white; display:none;text-align:center; z-index: 4"></div>
 		<div id="timer" style="position:absolute; width:6em; padding:0.5em; background-color:ghostwhite; text-align:center; font-size:1.5em; margin-top:0; left: 50%; margin-left: -3em; color: gray; border-top: 1px solid gray; opacity:0.75; z-index: 3;">Goal Color</div>
 		<canvas id="canvas1" style="position:absolute;width:100%;height:100%;top: 0; left: 0;display:none;text-align:center; z-index: 2"></canvas>
 		<div id="overlayMessageContainer" style="position:relative;width:100%;height:100%;display:none;text-align:center; background-color:lightgray; opacity:0.75;"><p id="overlayMessageSpan" style="margin-top:3em;font-size:4em;"></p></div>
@@ -131,6 +130,7 @@
 	</div><!--end gameLettersContainer div -->
 
 	<div id="guessOutside" style="position:relative;width:100%; height:45%;overflow: hidden; margin:auto;"> 
+	<div id="letterChoicesCont" style="position:absolute;width:100%;height:100%;top: 0; left: 0;background-color: white; display:none;text-align:center; z-index: 4"></div>
 	<div id="guessContainer" style="position:relative;width:100%; height:80%;overflow: hidden; margin:auto;">	
 		<div id="guess" style="position: relative; width:100%;height:100%; margin: auto; margin-top: 0; min-height: 100px; background-color: #eef0f6;background-image: url('transparent_background.jpg');text-align:left; white-space: nowrap; overflow: hidden; z-index: 1"></div>
 	</div><!--end guessContainer div -->
@@ -384,6 +384,7 @@
 
 <script>
 	lettersToPickFrom = [];
+	getNextColorsTimeoutID = null;
 	var gctemp = document.getElementById("guessContainer");
 	gctemp.style.top = "50%";
 	gctemp.style.marginTop = -(gctemp.offsetHeight/2) + "px";
@@ -462,6 +463,8 @@
 		pointsIntervalID = null;
 		clearTimeout(showLettersTimeoutID);
 		showLettersTimeoutID = null;
+		clearTimeout(getNextColorsTimeoutID);
+		getNextColorsTimeoutID = null;
 		previousMinute = 0;
 		xhttp.abort();
 		xhttp = new XMLHttpRequest();
@@ -761,7 +764,6 @@
 				points2 = 15;
 				code = 0; 
 				numberCorrect++;
-				if (numberCorrect == 3) {numberCorrect = 0; popUpALetter();}
 				drawLine();
 			}
 			else if (opt == 1) {
@@ -803,7 +805,7 @@
 			isGameLost();
 		}
 		if (points2 != 0) setTimeout(function() {animatePoints(points2, code);},300);
-		setTimeout(function() {document.getElementById("instruction1").style.visibility = "visible"; getNextColors(par, sendID);},800);
+		getNextColorsTimeoutID = setTimeout(function() {document.getElementById("instruction1").style.visibility = "visible"; getNextColors(par, sendID);},800);
 		return true;
 	} // end function showUnderneathBox(but, par, opt)
 
@@ -1047,8 +1049,11 @@
 	function showLetterChoices(ind,len) {
 		for (var i = 0; i < len; i++) document.getElementById("letterChoices"+i).style.display = "none";
 		var el = document.getElementById("letterChoices"+ind);
+		var letCC = document.getElementById("letterChoicesCont");
+		el.style.verticalAlign = "middle";
+		letCC.style.display = "block";
 		el.style.display = "block";
-		document.getElementById("letterChoicesCont").style.display = "block";
+		letCC.style.lineHeight = letCC.offsetHeight + "px";
 		return true;
 	} // end function showLetterChoices(ind,len)
 
@@ -1196,7 +1201,7 @@
 		updateGameDataOnServer(0);
 		var time;
 		var el = document.getElementById("pointsSpan");
-		if (code==0) time=22;
+		if (code==0) {if (numberCorrect == 3) clearTimeout(getNextColorsTimeoutID);time=22;}
 		else if (code==1) time=500;
 		else if (code==2) time=22;
 		else if (code==3) time=500;
@@ -1213,7 +1218,15 @@
 		document.getElementById("guess").style.overflow = "visible";
 		pointsIntervalID = setInterval(
 			function() {
-				if (values[1] == -1) {clearInterval(pointsIntervalID);document.getElementById("guessContainer").style.overflow = "hidden";document.getElementById("guess").style.overflow = "visible";}
+				if (values[1] == -1) {
+					clearInterval(pointsIntervalID);
+					document.getElementById("guessContainer").style.overflow = "hidden";
+					document.getElementById("guess").style.overflow = "visible";
+					if (numberCorrect == 3) {
+						numberCorrect = 0; 
+						setTimeout(function() {selectUnderscore(document.getElementById("letterBox:0"), inputData.letters);},1000);
+					}
+				}
 				else {
 					values[1]++;
 					if ((code == 0) || (code == 2)) {
