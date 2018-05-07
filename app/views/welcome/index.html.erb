@@ -1175,8 +1175,6 @@
 				if (!!par.childNodes[0]) par.removeChild(par.childNodes[0]);
 				par.innerHTML = "";
 				popUpALetter(letter);
-				//par.appendChild(letter);
-				//par.style.padding = "0.5em";
 				par.style.borderBottom = "none";
 				selectedLetters[ind] = letter;
 				letter.onclick = null;
@@ -1186,13 +1184,13 @@
 				//else startLetterBorderAnimation(letter, 1);
 				if (isGameWon()) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You Won!"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},1500); showLetters(); } // if
 			}
-			/*numberCorrect = 4;
+			numberCorrect = 4;
 			selectUnderscore(selectedUnderscore, inputData.letters);
 			numberCorrect = 0;
 			var par = document.getElementById("guess").firstChild;
 			var cn = par.childNodes;
 			var sendID = cn[0].id + "";
-			getNextColors(par, sendID);*/
+			getNextColors(par, sendID);
 		} // if (!gameOver && (numberCorrect == 4) ) {
 		return true;
 	} // end function selectLetter(letter)
