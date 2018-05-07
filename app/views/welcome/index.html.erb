@@ -508,12 +508,9 @@
 			if (this.readyState == 4 && this.status == 200) {
 				inputData = JSON.parse(this.responseText);
 				localStorage.setItem("gameID", inputData.gameID);
-				console.log(inputData);
 				topData = inputData["colors"];
-				console.log(topData);
 				cycleTopDataAt = Math.floor(Math.random() * 15) + 15;
 				gameData = topData[0];
-				console.log("goal color is "+gameData.goalColor);
 				colorGoalDiv();
 				createColorDivs();
 				createCanvasWithLetters();
@@ -529,7 +526,6 @@
 		gameData = topData[Math.floor(Math.random() * topData.length)];
 		cycleTopDataAt = Math.floor(Math.random() * 15) + 15;
 		cycleTopDataCounter = 0;
-		console.log("goal color is "+gameData.goalColor);
 		colorGoalDiv();
 		createColorDivs();
 		changeColorOfSelectCanvasPixels(prev);
@@ -590,7 +586,6 @@
 		var color1 = [], color2 = [], answer = [];
 		var temp = gameData.goalColor;
 		for (var i = 1; i < 6; i+=2) answer.push( parseInt(temp[i]+""+temp[i+1],16) )
-		console.log(answer);
 		var opt = Math.floor(Math.random() * 5);
 		var opt2 = null;
 		for (var i = 0; i < 3; i++) {
@@ -684,6 +679,13 @@
 		divTemp.style.OTransition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
 		divTemp.style.oTransition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
 		divTemp.style.transition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
+		divTemp.style.MozTransitionTimingFunction = "ease";
+		divTemp.style.mozTransitionTimingFunction = "ease";
+		divTemp.style.WebkitTransitionTimingFunction = "ease";
+		divTemp.style.webkitTransitionTimingFunction = "ease";
+		divTemp.style.OTransitionTimingFunction = "ease";
+		divTemp.style.oTransitionTimingFunction = "ease";
+		divTemp.style.transitionTimingFunction = "ease";
 		return divTemp;
 	} // end function createMixColorDivs()
 
@@ -697,12 +699,12 @@
 		button1.style.backgroundColor = "#0066ff";
 		button1.style.background = "linear-gradient(#5eaeef,#3e8ecf)";
 		button1.innerHTML = "Yes";
-		button1.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, 0);}
+		button1.onclick = function() {showUnderneathDiv(this,this.parentNode.parentNode, 0);}
 		var button2 = createYesNoButton();
 		button2.style.backgroundColor = "#993399";
 		button2.style.background = "linear-gradient(#ae5eef,#8e3ecf)";
 		button2.innerHTML = "No";
-		button2.onclick = function() {showUnderneathBox(this,this.parentNode.parentNode, 1);}				
+		button2.onclick = function() {showUnderneathDiv(this,this.parentNode.parentNode, 1);}				
 		buttonDiv.appendChild(button1);
 		buttonDiv.appendChild(button2);
 		par.appendChild(buttonDiv);
@@ -741,18 +743,25 @@
 		return button;
 	} // end function createYesNoButton()
 
-	function showUnderneathBox(but, par, opt) {
+	function showUnderneathDiv(but, par, opt) {
 		but.style.display = "none";
 		document.getElementById("instruction1").style.visibility = "hidden";
 		if (opt == 0) but.nextSibling.style.display = "none";
 		else if (opt == 1) but.previousSibling.style.display = "none";
-		cn = par.childNodes;
+		var cn = par.childNodes;
 		cn[1].style.marginTop = "-50%";
 		cn[1].style.marginBottom = "100%";
 		cn[1].style.opacity = "0";
 		cn[2].style.opacity = "0";
 		var sendID = cn[0].id + "";
-		var points2 = 0;
+		determineResultOfChoice(sendID, opt);
+		if (numberCorrect != 4) 
+			getNextColorsTimeoutID = setTimeout(function() {document.getElementById("instruction1").style.visibility = "visible"; getNextColors(par, sendID);},1300);
+		return true;
+	} // end function showUnderneathDiv(but, par, opt)
+
+	function determineResultOfChoice(sendID, opt) {
+		var points = 0;
 		code = 0;
 		if (divColors["answer"].toUpperCase() == gameData.goalColor.toUpperCase()) {
 			var inner = "";
@@ -761,14 +770,13 @@
 				var inner2 = document.getElementById("plus15svg");
 				inner = inner1.innerHTML + "<br/>" + inner2.innerHTML;
 				missedCorrect = 0; 
-				points2 = 15;
-				code = 0; 
+				points = 15;
 				numberCorrect++;
 				drawLine();
 			}
 			else if (opt == 1) {
 				inner = document.getElementById("youmisseditsvg").innerHTML;
-				points2 = -15;
+				points = -15;
 				code = 1;
 				missedCorrect++; 
 			}
@@ -777,8 +785,8 @@
 			main.innerHTML = inner;
 			main.style.display = "block";
 			var svg = null;
-			if (points2 == 15) svg = document.getElementById("plus15svg2");
-			else if (points2 == -15) svg = main.firstChild;
+			if (points == 15) svg = document.getElementById("plus15svg2");
+			else if (points == -15) svg = main.firstChild;
 			svg.style.top = "50%";
 			svg.style.left = "50%";
 			svg.style.marginTop = -(svg.getBoundingClientRect().height/2) + "px";
@@ -786,7 +794,7 @@
 		} // if (bkDivColors[key].toUpperCase() == gameData.goalColor.toUpperCase()) 
 		else if (opt == 0) {
 			var inner = document.getElementById("tryagainsvg").innerHTML;
-			points2 = -15;
+			points = -15;
 			code = 1;
 			missedCorrect++; 
 			var main = document.getElementById(sendID);
@@ -800,14 +808,20 @@
 		else if (opt == 1) {
 			missedCorrect = 0;		
 		}
+		
 		if (missedCorrect == 2) {
 			missedCorrect = 0; 
 			isGameLost();
 		}
-		if (points2 != 0) setTimeout(function() {animatePoints(points2, code);},300);
-		getNextColorsTimeoutID = setTimeout(function() {document.getElementById("instruction1").style.visibility = "visible"; getNextColors(par, sendID);},800);
+		
+		if (points != 0) {
+			updatePoints(points, code);  
+			if (code == 0) 
+				setTimeout(function() {animatePoints(points, code);},300);
+		}
 		return true;
-	} // end function showUnderneathBox(but, par, opt)
+	} // function determineResultOfChoice(sendID, opt)
+
 
 	function colorGoalDiv() {
 		var goalDiv = document.getElementById("goal");
@@ -847,26 +861,37 @@
 		return hex
 	} // end function getHexFromRGB(rgb)
 
-	function popUpALetter() {
-		var underscoreIndex = Math.floor(Math.random() * lettersToPickFrom.length);
-		var letterIndex = Math.floor(Math.random() * lettersToPickFrom[underscoreIndex].length);
-		var tLetter = lettersToPickFrom[underscoreIndex][letterIndex];
-		console.log("tLetter");
-		console.log(tLetter);
-		var uScore = document.getElementById("letterBox:"+underscoreIndex);
-		if (!!uScore.firstChild) uScore.removeChild(uScore.firstChild);
-		tLetter.style.width = "0";
-		tLetter.style.height = "0";
-		tLetter.style.MozTransition = "width 15s, height 15s";
-		tLetter.style.mozTransition = "width 15s, height 15s";
-		tLetter.style.WebkitTransition = "width 15s, height 15s";
-		tLetter.style.webkitTransition = "width 15s, height 15s";
-		tLetter.style.OTransition = "width 15s, height 15s";
-		tLetter.style.oTransition = "width 15s, height 15s";
-		tLetter.style.transition = "width 15s, height 15s";
-		uScore.appendChild(tLetter);
-		tLetter.style.width = "100%";
-		tLetter.style.height = "100%";
+	function popUpALetter(letter) {
+		clearInterval(borderIntervalID);
+		letter.style.margin = "auto";
+		var values = [0,0];
+		var width = letter.offsetWidth;
+		var height = letter.offsetHeight;
+		selectedUnderscore.style.width = (width + 10) + "px";
+		selectedUnderscore.style.height = (height + 10) + "px";
+		var moved = 0;
+		borderIntervalID = setInterval(
+			function() {
+				if (values[1] == -1) {
+					letter.style.width = width + "px";
+					letter.style.height = height + "px";					
+				} else {					
+					values[1]++;
+					values = animateLargeSmallLarge(0, 100, values[1]);  
+					if (((100 - values[0]) > 0)  && ((100 - values[0]) < 100)) {
+						letter.style.width = (width * ((100 - values[0])/100)) + "px";
+						letter.style.height = (height * ((100 - values[0])/100)) + "px";				
+					}
+					if (((100 - values[0]) < 10) && (moved == 0)) {					
+						letter.style.visibility = "hidden";
+						selectedUnderscore.appendChild(letter);	
+						moved = 1;
+					} else if (((100 - values[0]) > 1) && (moved == 1)) {					
+						letter.style.visibility = "visible";
+						moved = 2;
+					} // if (((100 - values[0]) < 10) && (moved == 0)) 
+				}
+			},22);
 	}
 
 // canvas and letter obj functions ...
@@ -951,6 +976,7 @@
 			var container = document.getElementById("letterChoicesCont");
 			container.appendChild(tempLetterChoicesDiv);
 			var tempDivOuter = document.createElement("div");
+			tempDivOuter.style.position = "relative";
 			tempDivOuter.style.margin = "2px";
 			tempDivOuter.style.display = "inline-block";
 			tempDivOuter.style.fontSize = "2em";
@@ -995,11 +1021,10 @@
 		canvas.style.display = "none";
 		ctx.putImageData(imageData, 0, 0);
 		canvas.style.display = "block";
-		console.log("finished changing canvas colors");
 	} // end function changeColorOfSelectCanvasPixels(hexColor)
 
 	function selectUnderscore(el, letters) {
-		if (!gameOver) {
+		if (!gameOver && (numberCorrect == 4) ) {
 			var repeat = false;
 			if (!!selectedUnderscore && (selectedUnderscore == el)) {
 				for (var i = 0; i < letters.length; i++) document.getElementById("letterChoices"+i).style.display = "none";
@@ -1017,7 +1042,7 @@
 				el.style.borderBottom="5px solid gray"; 
 				showLetterChoices(el.id.split(":")[1], letters.length);
 			} // if (!repeat) 
-		} // end if (!gameOver) {
+		} // end if (!gameOver && (numberCorrect == 4) ) {
 		return true;
 	} // end function selectUnderscore(el, letters)
 
@@ -1053,7 +1078,7 @@
 		el.style.verticalAlign = "middle";
 		letCC.style.display = "block";
 		el.style.display = "block";
-		letCC.style.lineHeight = letCC.offsetHeight + "px";
+		//letCC.style.lineHeight = letCC.offsetHeight + "px";
 		return true;
 	} // end function showLetterChoices(ind,len)
 
@@ -1104,6 +1129,7 @@
 			elP.appendChild(t);
 			var div = document.createElement("div");
 			div.id = "hoopla"+i+":"+i;
+			div.style.position = "relative";
 			div.style.border = "3px solid ghostwhite";
 			div.style.textAlign = "center";
 			div.style.width = (cl.size+Math.floor(cl.size/4))+"px";
@@ -1117,6 +1143,7 @@
 			div.style.borderRadius = "0.4em";
 			div.onclick = function(){selectLetter(this);}
 			div.appendChild(elP);
+			div.style.overflow = "hidden";
 			tempLettersHolderArray.push(div); 
 			frag.appendChild(div);
 		}
@@ -1124,26 +1151,49 @@
 		var el = document.getElementById("letterChoices"+ind);
 		while (!!el.lastChild) el.removeChild(el.lastChild);
 		el.appendChild(frag);
+		var p = document.createElement("p");
+		p.style.fontSize = "2em";
+		p.innerHTML = "- or -";
+		el.appendChild(p);
+		p = document.createElement("p");
+		var a = document.createElement("a");
+		a.href = "javascript:void(0)";
+		a.innerHTML = "Not Yet";
+		a.setAttribute("onclick", "selectLetter(-1)");
+		p.style.fontSize = "2em";
+		p.appendChild(a);
+		el.appendChild(p);
 		return true;
 	} // end function makeLetterDivs(ind) 
 
 	function selectLetter(letter){
-		if (!gameOver) {
-			var par = selectedUnderscore;
-			var ind = par.id.split(":")[1];
-			if (!!par.childNodes[0]) par.removeChild(par.childNodes[0]);
-			par.innerHTML = "";
-			par.appendChild(letter);
-			par.style.padding = "0.5em";
-			par.style.borderBottom = "none";
-			selectedLetters[ind] = letter;
-			letter.onclick = null;
-			var ind2 = letter.id + "";
-			ind2 = ind2.split(":")[1];
-			if (correctLetters[ind].index == ind2) startLetterBorderAnimation(letter, 0);
-			else startLetterBorderAnimation(letter, 1);
-			if (isGameWon()) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You Won!"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},1500); showLetters(); } // if
-		} // if (!gameOver) {
+		if (!gameOver && (numberCorrect == 4) ) {
+			numberCorrect = 0;
+			if (letter != -1) {
+				var par = selectedUnderscore;
+				var ind = par.id.split(":")[1];
+				if (!!par.childNodes[0]) par.removeChild(par.childNodes[0]);
+				par.innerHTML = "";
+				popUpALetter(letter);
+				//par.appendChild(letter);
+				//par.style.padding = "0.5em";
+				par.style.borderBottom = "none";
+				selectedLetters[ind] = letter;
+				letter.onclick = null;
+				var ind2 = letter.id + "";
+				ind2 = ind2.split(":")[1];
+				//if (correctLetters[ind].index == ind2) startLetterBorderAnimation(letter, 0);
+				//else startLetterBorderAnimation(letter, 1);
+				if (isGameWon()) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You Won!"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},1500); showLetters(); } // if
+			}
+			/*numberCorrect = 4;
+			selectUnderscore(selectedUnderscore, inputData.letters);
+			numberCorrect = 0;
+			var par = document.getElementById("guess").firstChild;
+			var cn = par.childNodes;
+			var sendID = cn[0].id + "";
+			getNextColors(par, sendID);*/
+		} // if (!gameOver && (numberCorrect == 4) ) {
 		return true;
 	} // end function selectLetter(letter)
 
@@ -1163,20 +1213,20 @@
 				if (values[1] == -1) {clearInterval(borderIntervalID); var par = letter.parentNode; par.style.width = (letter.offsetWidth + 5) + "px"; par.style.height = (letter.offsetHeight + 5) + "px"; par.style.borderBottom = "2px solid gray"; var preSib = par.previousSibling; while(!!preSib) {preSib.style.width = (letter.offsetWidth + 5) + "px"; preSib.style.height = (letter.offsetHeight + 5) + "px"; preSib = preSib.previousSibling;}; var postSib = par.nextSibling; while(!!postSib) {postSib.style.width = (letter.offsetWidth + 5) + "px"; postSib.style.height = (letter.offsetHeight + 5) + "px"; postSib = postSib.nextSibling;}; return true;}
 				else {
 					values[1]++;
-					values = animateSmallLargeMedium(1, 2, values[1], 2, borderIntervalID);  
+					values = animateSmallLargeMedium(1, 2, values[1], 2);  
 					letter.style.borderWidth = (values[0]/4)+"em";
 				}
 			},22);
-		if (code == 0) animatePoints(100,2);
+		if (code == 0) {updatePoints(100,2); animatePoints(100,2);}
 		else if (code == 1) {
-			animatePoints(-150,3);
+			updatePoints(-150,3);
 			isGameLost();
 		}
 		return true;
 	} // end function startLetterBorderAnimation(letter, code)
 
-	function animatePoints(add, code) {
-		if (code==2) {
+	function updatePoints(add, code) {
+		if (code == 2) {
 			if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .05))
 				add = add;
 			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .10))
@@ -1199,20 +1249,31 @@
 		}
 		points += add;
 		updateGameDataOnServer(0);
-		var time;
 		var el = document.getElementById("pointsSpan");
-		if (code==0) {if (numberCorrect == 3) clearTimeout(getNextColorsTimeoutID);time=22;}
-		else if (code==1) time=500;
-		else if (code==2) time=22;
-		else if (code==3) time=500;
 		el.style.fontWeight = "bold";
 		el.style.fontSize = "3em";
 		if (points < 0) el.style.color = "#F00000";
 		else if (points == 0) el.style.color = "gray";
 		else if (points > 0) el.style.color = "#00F000";
 		el.innerHTML = points;
-		var values = [0,0];
+		return true;
+	}
+
+	function animatePoints(add, code) {
 		clearInterval(pointsIntervalID);
+		var time;
+		if (code == 0) {
+			if (numberCorrect == 4) 
+				clearTimeout(getNextColorsTimeoutID);
+			time=22;
+		}
+		else if (code == 1) 
+			time=500;
+		else if (code == 2) 
+			time=22;
+		else if (code == 3) 
+			time=500;
+		var values = [0,0];
 		el2 = document.getElementById("plus15svg2");
 		document.getElementById("guessContainer").style.overflow = "visible";
 		document.getElementById("guess").style.overflow = "visible";
@@ -1221,19 +1282,19 @@
 				if (values[1] == -1) {
 					clearInterval(pointsIntervalID);
 					document.getElementById("guessContainer").style.overflow = "hidden";
-					document.getElementById("guess").style.overflow = "visible";
-					if (numberCorrect == 3) {
-						numberCorrect = 0; 
-						setTimeout(function() {selectUnderscore(document.getElementById("letterBox:0"), inputData.letters);},1000);
+					document.getElementById("guess").style.overflow = "hidden";
+					if (numberCorrect == 4) {
+						clearTimeout(getNextColorsTimeoutID);
+						setTimeout(function() {selectUnderscore(document.getElementById("letterBox:0"), inputData.letters);},500);
 					}
 				}
 				else {
 					values[1]++;
 					if ((code == 0) || (code == 2)) {
-						values = animateSmallLargeMedium(1, 3, values[1], 8, pointsIntervalID);  
+						values = animateSmallLargeMedium(1, 3, values[1], 8);  
 						el2.style.width = (12.5*values[0])+"%";
 						el2.style.height = (12.5*values[0])+"%";
-						el2.style.top = "50%";
+						el2.style.top = "65%";
 						el2.style.left = "50%";
 						el2.style.marginTop = -(el2.getBoundingClientRect().height/2) + "px";
 						el2.style.marginLeft = -(el2.getBoundingClientRect().width/2) + "px";
@@ -1247,14 +1308,20 @@
 		return true;
 	} // end function animatePoints(add, code)
 
-	function animateSmallLargeMedium(origVal, endVal, step, max, intvlID) {
-		var sinVal = (-Math.PI/2) + ((3*Math.PI/2) * (step/10));
-		var currVal = origVal *   (max * Math.sin(sinVal) + (max+1));
+	function animateSmallLargeMedium(origVal, endVal, step, max) {
+		var sinVal = (-Math.PI/2) + (3 * (Math.PI/2) * (step/25));
+		var currVal = origVal * (max * Math.sin(sinVal) + (max+1));
 		if (sinVal < Math.PI) return [currVal, step];
 		else if (currVal > endVal) return [currVal, step];
 		else return [endVal, -1];
 	} // end animateSmallLargeMedium(origVal, endVal, step, max, intvlID)
 
+	function animateLargeSmallLarge(origVal, endVal, step) {
+		var sinVal = (-Math.PI/2) + (2 * Math.PI * (step/25));
+		var currVal = (endVal - origVal)  * (0.5 * (Math.sin(sinVal) + 1));
+		if (sinVal < (3 * Math.PI/2)) return [currVal, step];
+		else if (sinVal >= (3 * Math.PI/2)) return [endVal, -1]; // || (currVal >= endVal)
+	} // end animateEase(origVal, endVal, step)
 
 
 // end of game functions ...
@@ -1523,8 +1590,6 @@
 			el1.nextSibling.style.visibility = "hidden";
 			el2.nextSibling.style.visibility = "hidden";
 		} else if (test1 != test2) {
-			console.log(test1);
-			console.log(test2);
 			errorEl1.innerHTML = "passwords do not match";
 			errorEl2.innerHTML = "passwords do not match";
 			el1.nextSibling.style.visibility = "hidden";
@@ -1580,11 +1645,9 @@
 		var password2 = encodeURIComponent(document.getElementById("password2Input").value);
 		var auth_token = document.getElementsByName("authenticity_token")[0].value;
 		var version = document.getElementById("gameVersion").value;
-		console.log(auth_token);
 		xhttp.abort();
   		xhttp.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
-      			console.log(this.responseText);
       			var res = this.responseText + "";
     			if (res.toUpperCase() == "OK") {
     				var el = document.getElementById("gameMessage"); 
@@ -1611,7 +1674,6 @@
 		xhttp.abort();
   		xhttp.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
-      			console.log(this.responseText);
       			var res = this.responseText + "";
     			if (res.toUpperCase() == "OK") {
     				var el = document.getElementById("gameMessage"); 
