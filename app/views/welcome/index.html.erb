@@ -67,9 +67,9 @@
 		<ul style="width: 100%; height: 80%; overflow-y: auto; list-style: none; font-size: 2em; color: #8E3ECF; padding: 0; text-align: left;">
 			<li style="padding: 0.1em 3em 0.1em 3em;"><h4>The goal of this fun, online game is two things. First, decide if two colors will mix to match the color of a rectangle located at the top of the screen. Second, determine what letters are hidden with-in that colorful rectangle. </h4></li>
 			<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #8E3ECF; margin: 0;">Part 1: Determine if two colors, when mixed, will make a desired color.</p>
-				<p style="color: gray; font-size: 0.9em;">A rectangle at the top of the screen has a desired color. If you think mixing two colors, located towards the bottom of screen, will make the desired color, hit 'yes'. If not, hit 'no'. That's it. Either incorrectly guess 'yes' or 'no' twice in a row and you'll get an X. Four X's and the game is over. Pay attention as the goal color might change throughout the game.</p></li>
+				<p style="color: gray; font-size: 0.9em;">Two colors are shown at the bottom of the screen, a goal color is shown at top. If you think the two colors mix to make the desired goal color, hit 'yes'. If not, hit 'no'.</p></li>
 			<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #8E3ECF; margin: 0;">Part 2: Behind the rectangle, there are hidden letters. Figure out the letters.</p>
-				<p style="color: gray; font-size: 0.9em;">Every time you guess correctly which colors mix to make the desired color, a small slice of the top rectangle will disappear, revealing part of a hidden letter. Guess all the hidden letters correctly to win the game. The less the letters are revealed, the higher number of points you earn when you guess the letters correctly. For every incorrect letter guess, you'll get an X. If you get a total of four X's, the game is over. Correctly selected letters will have a green border, incorrectly selected letters will have a red border.</p></li>
+				<p style="color: gray; font-size: 0.9em;">Choose the correct color pair 3 times, and a group of letters will appear. If you think any of those letters are one of the hidden letters, click on it. Guess all the hidden letters correctly to win the game. The less the letters are revealed, the higher number of points you earn when you guess the letters correctly. For every incorrect letter guess, you'll get an X. If you get a total of four X's, the game is over. Correctly selected letters will have a green border, incorrectly selected letters will have a red border.</p></li>
 		</ul>
 		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
 	</div>
@@ -1344,8 +1344,8 @@
 		orderedLetters.push(cl);
 		var rotation, usedRotations = {};
 		for (var i = 0; i < 5; i++) {
-			rotation = Math.random() * (Math.PI/4);
-			while (!!usedRotations[rotation] || (rotation == cl.rotation)) rotation = Math.random() * (Math.PI/4);
+			rotation = parseFloat((Math.random() * (Math.PI/2)).toFixed(2));
+			while (!!usedRotations[rotation] || ((rotation < cl.rotation + 0.5) && (rotation > cl.rotation - 0.5))) rotation = parseFloat((Math.random() * (Math.PI/2)).toFixed(2));
 			usedRotations[rotation] = 1;
 			if ( cl.rotation < 0 ) rotation = -rotation;
 			orderedLetters.push(new letterObj(letterBlock[Math.floor(Math.random()*letterBlock.length)], cl.cs, cl.font, cl.size, rotation ,false));
@@ -1385,7 +1385,7 @@
 			div.style.width = (cl.size+Math.floor(cl.size/4))+"px";
 			div.style.height = (cl.size+Math.floor(cl.size/4))+"px";
 			div.style.display = "inline-block";
-			div.style.margin = "3em 0.5em 0em 0.5em";
+			div.style.margin = "4em 0.5em 0em 0.5em";
 			div.style.lineHeight = (cl.size+Math.floor(cl.size/4))+"px";
 			div.style.verticalAlign = "middle";
 			div.style.boxShadow = "-2px 1px 2px lightgray";
@@ -1508,6 +1508,30 @@
 			else add = Math.floor(add * .10);
 		}
 		points += add;
+		if (numberCorrect == 4) {
+			numXs = ((numXs - 2) < 0) ? 0 : (numXs - 2);
+			for (var i = 0; i < 2; i++) {
+				if (i == 0) par = document.getElementById("xbox1");
+				else par = document.getElementById("xbox2");
+				var first = par.firstChild;							
+				while (!!first) {
+					first.style.color = "gray";
+					first.style.fontWeight = "normal";
+					first.style.fontSize = "1em";
+					first = first.nextSibling;
+				}
+			} // for (var i = 0; i < 4; i++)
+			for (var i = 0; i < numXs; i++) {
+				if (i < 2) par = document.getElementById("xbox1");
+				else par = document.getElementById("xbox2");
+				var first = par.firstChild;
+				var end = (i < 2) ? i : (i - 2);
+				for (var j = 0; j < end; j++) first = first.nextSibling;					
+				first.style.color = "#F00000";
+				first.style.fontWeight = "bold";
+				first.style.fontSize = "1.5em";
+			} // for (var i = 0; i < 4; i++)
+		} // if (numberCorrect == 4)
 		updateGameDataOnServer(0);
 		var el = document.getElementById("pointsSpan");
 		el.style.fontWeight = "bold";
@@ -1547,25 +1571,6 @@
 					document.getElementById("guess").style.overflow = "hidden";
 					if (numberCorrect == 4) {
 						clearTimeout(getNextColorsTimeoutID);
-						numXs = ((numXs - 2) < 0) ? 0 : (numXs - 2);
-						for (var i = 0; i < 4; i++) {
-							if (i < 2) par = document.getElementById("xbox1");
-							else par = document.getElementById("xbox2");
-							var first = par.firstChild;							
-							while (!!first) {
-								first.style.color = "gray";
-								first.style.fontWeight = "normal";
-								first.style.fontSize = "1em";
-								first = first.nextSibling;
-							}
-						} // for (var i = 0; i < 4; i++)
-						if (numXs < 3) {par = document.getElementById("xbox1"); ind = numXs;}
-						else if (numXs >= 3) {par = document.getElementById("xbox2"); ind = numXs - 2;}
-						var first = par.firstChild;
-						for (var i = 0; i < ind-1; i++) first = first.nextSibling;
-						first.style.color = "red";
-						first.style.fontWeight = "bold";
-						first.style.fontSize = "1.5em";
 						setTimeout(function() {selectUnderscore(document.getElementById("letterBox:0"), inputData.letters);},500);
 					}
 				}
