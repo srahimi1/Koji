@@ -18,21 +18,27 @@
 	
 	<div id="menuDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('menuDiv'))"></div>
-		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color: #3ecf8e; background: -moz-linear-gradient(#3eef8e,#3ecf8e); background: -webkit-linear-gradient(#3eef8e,#3ecf8e);background: -o-linear-gradient(#3eef8e,#3ecf8e); background: linear-gradient(#3eef8e,#3ecf8e);"><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Menu</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('menuDiv'))">X</p></div>
+		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color: #3ecf8e; background: -moz-linear-gradient(#3eef8e,#3ecf8e); background: -webkit-linear-gradient(#3eef8e,#3ecf8e);background: -o-linear-gradient(#3eef8e,#3ecf8e); background: linear-gradient(#3eef8e,#3ecf8e);">
+			<ul style="list-style-type: none; margin: 0; padding: 0">
+				<li style="display: inline-block; text-align: left; width: 20%; margin: 0.25em 0 0 0; overflow: hidden;"></li>
+				<li style="display: inline-block; text-align: center; width: 55%; margin: 0.25em 0 0 0; overflow: hidden;">MENU</li>
+				<li style="display: inline-block; text-align: right; width: 20%; margin: 0.25em 0 0 0; overflow: hidden; cursor: default;" onclick="closeMenu(document.getElementById('menuDiv'))">X</li>
+			</ul>
+		</div>
 		<ul style="width: 100%; height: 80%;list-style: none; font-size: 2em; color: #3ecf8e; margin: 0.5em 0 0 0; padding: 0">
 			<li id="instructionsChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #ffffff, #e6e9ec); background: -webkit-linear-gradient(left, #ffffff, #e6e9ec); background: -o-linear-gradient(left, #ffffff, #e6e9ec); background: linear-gradient(to right, #ffffff, #e6e9ec);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('instructionsDiv'));">
 				<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%;float: left;padding-left:1em;" viewbox="0 0 25 25"><circle cx="12" cy="12" r="12" fill="#d6facf"/><path d="M14.23 12.24A3.3 3.3 0 0 0 16 9.36C16 8.2 15.15 6 12.1 6A3.806 3.806 0 0 0 8 10h2.36c0-1.45.82-2.06 1.67-2.06a1.184 1.184 0 0 1 1.37 1.3c0 .96-.15 1.14-1.03 1.82A3.365 3.365 0 0 0 10.8 14H13a2.526 2.526 0 0 1 1.23-1.76zM12 18.5a1.5 1.5 0 1 0-1.5-1.5 1.5 1.5 0 0 0 1.5 1.5z" fill="#3ecf8e"/></svg>
-				<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; margin-top:1.5em;">How To Play</p>
+				<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; line-height: 2em;">How To Play</p>
 				<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #8a8a8a;">Instructions on how to play this <span style="font-style: italic; font-weight: bold;">fun</span> color matching game that keeps you <span style="font-style: italic; font-weight: bold;">constantly entertained.</span></p>
 			</li>
 			<li id="signupChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #e6e9ec, #ffffff); background: -webkit-linear-gradient(left, #e6e9ec, #ffffff); background: -o-linear-gradient(left, #e6e9ec, #ffffff); background: linear-gradient(to right, #e6e9ec, #ffffff);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signupDiv'));">
 				<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%; float: left;padding-left:1em;" viewbox="0 0 50 50"><g><path fill="#3ecf8e" d="M31.81 31H11a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h25a1 1 0 0 0 1-1v-1.806l5-2.446V39a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h31a3 3 0 0 1 3 3v14.767L31.81 31zM10 25a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v3zm27-13a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h25a1 1 0 0 0 1-1v-3zm0 10a1 1 0 0 0-1-1H26a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3z"></path><path fill="#3e8ecf" d="M34.956 32.365L46.1 21.205a3.06 3.06 0 0 0 0-4.318 3.043 3.043 0 0 0-4.31 0l-11.143 11.16a2.445 2.445 0 0 0-.64 1.133l-.98 3.925a.728.728 0 0 0 .88.884l3.918-.984a2.4 2.4 0 0 0 1.13-.642z"></path></g></svg>
-				<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; margin-top:1.5em;">Sign Up</p>
+				<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; line-height: 2em;">Sign Up</p>
 				<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #8a8a8a;">Get the benefits of more challenges, recording of your high scores, and access to the upcoming multi-player version.</p>
 			</li>
 			<li id="signinChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #ffffff, #e6e9ec); background: -webkit-linear-gradient(left, #ffffff, #e6e9ec); background: -o-linear-gradient(left, #ffffff, #e6e9ec); background: linear-gradient(to right, #ffffff, #e6e9ec);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signinDiv'));">
 				<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%; float: left;padding-left:1em;" viewbox="0 0 50 50"><path fill="#1eaf6e" d="m 31.006,20 v -6.76 c -0.04746,-4.1119342 -3.394295,-7.4203555 -7.5065,-7.4203555 -4.112205,0 -7.459039,3.3084213 -7.5065,7.4203555 V 16 H 11 V 13.5 C 11,6.597 16.596,1 23.5,1 30.404,1 36,6.597 36,13.5 V 20 Z"></path><path fill="#3ecf8e" d="M20 30c0 1.48.805 2.77 2 3.46V37a2 2 0 0 0 2 2v6H10a4 4 0 0 1-4-4V24a4 4 0 0 1 4-4h14v6a4 4 0 0 0-4 4z"></path><path fill="#1eaf6e" d="M37 45H24v-6a2 2 0 0 0 2-2v-3.54A3.99 3.99 0 0 0 28 30a4 4 0 0 0-4-4v-6h13a4 4 0 0 1 4 4v17a4 4 0 0 1-4 4z"></path></svg>
-				<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; margin-top:1.5em;">Sign In</p>
+				<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; line-height: 2em;">Sign In</p>
 				<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #8a8a8a;">View your high score history or cancel your membership. Thank you for signing-up and enjoy!</p>
 			</li>
 			<li style="width: 100%; text-align:center; background-color: white;"><button id="newGameButton" style="background-color: #3ecf8e; background: -moz-linear-gradient(#3eef8e,#3ecf8e); background: -webkit-linear-gradient(#3eef8e,#3ecf8e);background: -o-linear-gradient(#3eef8e,#3ecf8e); background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: -2px 4px 8px #aaaaaa; border: none; font-size:1.5em;padding:.5em; margin-top: 0.2em;" onclick="setupNewGame()">New Game</button>
@@ -51,7 +57,13 @@
 	<div id="instructionsDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 0%; z-index: 6"  onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));"></div>
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('instructionsDiv'))"></div>
-		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">How To Play</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('instructionsDiv'))">X</p></div>
+		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);">
+			<ul style="list-style-type: none; margin: 0; padding: 0">
+				<li style="display: inline-block; text-align: left; width: 20%; margin: 0.25em 0 0 0; overflow: hidden; cursor: default;" onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
+				<li style="display: inline-block; text-align: center; width: 55%; margin: 0.25em 0 0 0; overflow: hidden;">How To Play</li>
+				<li style="display: inline-block; text-align: right; width: 20%; margin: 0.25em 0 0 0; overflow: hidden; cursor: default;" onclick="closeMenu(document.getElementById('instructionsDiv'))">X</li>
+			</ul>
+		</div>
 		<ul style="width: 100%; height: 80%; overflow-y: auto; list-style: none; font-size: 2em; color: #8E3ECF; padding: 0; text-align: left;">
 			<li style="padding: 0.1em 3em 0.1em 3em;"><h4>The goal of this fun, online game is two things. First, decide if two colors will mix to match the color of a rectangle located at the top of the screen. Second, determine what letters are hidden with-in that colorful rectangle. </h4></li>
 			<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #8E3ECF; margin: 0;">Part 1: Determine if two colors, when mixed, will make a desired color.</p>
@@ -65,7 +77,13 @@
 	<div id="signupDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 0%; z-index: 6"  onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));"></div>
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('signupDiv'))"></div>
-		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Sign Up</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv'))">X</p></div>
+		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);">
+			<ul style="list-style-type: none; margin: 0; padding: 0">
+				<li style="display: inline-block; text-align: left; width: 20%; margin: 0.25em 0 0 0; overflow: hidden; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
+				<li style="display: inline-block; text-align: center; width: 55%; margin: 0.25em 0 0 0; overflow: hidden;">Sign Up</li>
+				<li style="display: inline-block; text-align: right; width: 20%; margin: 0.25em 0 0 0; overflow: hidden; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv'))">X</li>
+			</ul>
+		</div>
 		<ul style="width: 100%; height: 80%;list-style: none; font-size: 1.5em; color: #3ecf8e; margin: 2em 0 0 3em; padding: 0 0 0 1em; overflow-y: auto;">
 			<li style="text-align: left;"><%= form_tag("/", method: "", id: "signupForm") do %>
 				<p>Email and cell phone will be used for login and password recovery</p>
@@ -91,7 +109,13 @@
 	<div id="signinDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 0%; z-index: 6"  onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));"></div>
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('signinDiv'))"></div>
-		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"><p style="margin: -0.60em -2.5em 0 -0.40em; padding: 0.2em 0 0.2em 0.5em; font-size:2.5em; overflow: hidden; float: left; cursor: default;" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</p><p style="display: inline-block; margin: 0.25em 0 0 0; padding: 0.2em">Sign In</p><p style="margin: 0.25em 0 0 0; padding: 0.2em 0.5em 0.2em 0; float: right; cursor: default;" onclick="closeMenu(document.getElementById('signinDiv'))">X</p></div>
+		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);">
+			<ul style="list-style-type: none; margin: 0; padding: 0">
+				<li style="display: inline-block; text-align: left; width: 20%; margin: 0.25em 0 0 0; overflow: hidden; cursor: default;" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
+				<li style="display: inline-block; text-align: center; width: 55%; margin: 0.25em 0 0 0; overflow: hidden;">Sign In</li>
+				<li style="display: inline-block; text-align: right; width: 20%; margin: 0.25em 0 0 0; overflow: hidden; cursor: default;" onclick="closeMenu(document.getElementById('signinDiv'))">X</li>
+			</ul>
+		</div>
 		<ul style="width: 100%; height: 80%;list-style: none; font-size: 2em; color: #3ecf8e; margin: 0; padding: 0">
 				<li style="text-align: left;"><%= form_tag("/", method: "", id: "signinForm") do %>
 				<p>Email <span id="loginEmailErrorMessage" style="color:red"></span></p>
@@ -103,7 +127,7 @@
 				<p>Password <span id="loginPasswordErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder="password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p></p>
-				<p style="width: 40%; text-align: right;"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" style="background-color: #8e3ecf; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em; box-shadow: -1px 3px 8px gray, 1px 3px 8px gray, 0px 3px 3px #cecece;" onclick="signinFormSubmit()"></p>
+				<p style="width: 40%; text-align: right;"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" style="background-color: #8e3ecf; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em; box-shadow: -3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece;" onclick="signinFormSubmit()"></p>
 			<% end %></li>
 		</ul>
 		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
@@ -933,7 +957,7 @@
 		var sendID = cn[0].id + "";
 		determineResultOfChoice(sendID, opt);
 		if (numberCorrect != 4) 
-			//getNextColorsTimeoutID = setTimeout(function() {document.getElementById("instruction1").style.visibility = "visible"; getNextColors(par, sendID);},1300);
+			getNextColorsTimeoutID = setTimeout(function() {document.getElementById("instruction1").style.visibility = "visible"; getNextColors(par, sendID);},1300);
 		return true;
 	} // end function showUnderneathDiv(but, par, opt)
 
@@ -1676,6 +1700,8 @@
 		var id = el.id + "";
 		if (id == "signupDiv") {
 			document.getElementById("signupForm").reset();
+			document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
+			document.getElementById("signupSubmit").style.boxShadow = "none";
 			document.getElementById("emailInput").nextSibling.style.visibility = "hidden";
 			document.getElementById("cellphoneInput").nextSibling.style.visibility = "hidden";
 			document.getElementById("displaynameInput").nextSibling.style.visibility = "hidden";
@@ -1739,6 +1765,8 @@
 	} // end function checkForStartupMessage()
 
 	function validateEmail(inp) {
+		document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
+		document.getElementById("signupSubmit").style.boxShadow = "none";
 		formcheck[0] = false;
 		var errorEl = document.getElementById("emailErrorMessage");
 		var test = inp.value + "";
@@ -1784,6 +1812,8 @@
 	} // end function validateEmail()
 
 	function validateCellphone(inp, sel) {
+		document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
+		document.getElementById("signupSubmit").style.boxShadow = "none";
 		if (sel == 1) {
 			formcheck[1] = false;
 			var errorEl = document.getElementById("cellphoneErrorMessage");
@@ -1832,10 +1862,12 @@
 
 	function validateDisplayName(inp) {
 		formcheck[2] = false;
+		document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
+		document.getElementById("signupSubmit").style.boxShadow = "none";
 		var test = inp.value + "";
 		var success = "document.getElementById('displaynameInput').nextSibling.style.visibility = 'visible'; document.getElementById('displaynameErrorMessage').innerHTML = ''";
 		var fail = "document.getElementById('displaynameInput').nextSibling.style.visibility = 'hidden'; document.getElementById('displaynameErrorMessage').innerHTML = 'display name already exists'";
-		checkIfExist("/checkdisplayname",test,success,fail);
+		if ((test != "") && (test.split(" ").length < 2))checkIfExist("/checkdisplayname",test,success,fail);
 		return false;
 	} // end function validateDisplayName()
 
@@ -1872,7 +1904,7 @@
 
 		if ((formcheck[0] || formcheck[1]) && formcheck[2] && formcheck[3]) {
       		document.getElementById("signupSubmit").style.backgroundColor = "#8e3ecf";
-			document.getElementById("signupSubmit").style.boxShadow = "-1px 3px 8px gray, 1px 3px 8px gray, 0px 3px 3px #cecece";
+			document.getElementById("signupSubmit").style.boxShadow = "-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece";
 		} else {
 			document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
 			document.getElementById("signupSubmit").style.boxShadow = "none";
@@ -1895,7 +1927,7 @@
       				eval(success);
       				if ((formcheck[0] || formcheck[1]) && formcheck[2] && formcheck[3]) {
       					document.getElementById("signupSubmit").style.backgroundColor = "#8e3ecf";
-						document.getElementById("signupSubmit").style.boxShadow = "-1px 3px 8px gray, 1px 3px 8px gray, 0px 3px 3px #cecece";
+						document.getElementById("signupSubmit").style.boxShadow = "-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece";
 					} else {
 						document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
 						document.getElementById("signupSubmit").style.boxShadow = "none";
