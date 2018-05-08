@@ -2,8 +2,8 @@ class Player < ApplicationRecord
 	has_many :games
 	has_one :player_gaming_history
 
-	validates :email, uniqueness: true
-	validates :cellphone, uniqueness: true
+	validates :email, uniqueness: true, allow_nil: true
+	validates :cellphone, uniqueness: true, allow_nil: true
 	validates :display_name, uniqueness: true
 	require 'mail'
 

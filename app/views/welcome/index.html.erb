@@ -100,7 +100,7 @@
 				<p>Re-enter password <span id="password2ErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="password2Input" type="password" name="password2" placeholder="re-enter password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validatePassword(this)" onblur="validatePassword(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p></p>
-				<p style="width: 40%; text-align: right;"><input id="signupSubmit" type="button" name="signupSubmit" value="Sign up" style="background-color: #e6eded; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="signupFormSubmit()"></p>
+				<p style="width: 40%; text-align: right;"><input id="signupSubmit" type="button" name="signupSubmit" value="Sign up" style="background-color: #e6eded; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="signupFormSubmit()"onmousedown="if (!this.disabled) this.style.boxShadow=''" onmouseup="if (!this.disabled) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
 			<% end %></li>
 		</ul>
 		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
@@ -127,7 +127,7 @@
 				<p>Password <span id="loginPasswordErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder="password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p></p>
-				<p style="width: 40%; text-align: right;"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" style="background-color: #8e3ecf; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em; box-shadow: -3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece;" onclick="signinFormSubmit()"></p>
+				<p style="width: 40%; text-align: right;"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" style="background-color: #8e3ecf; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em; box-shadow: -3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece;" onclick="signinFormSubmit()" onmousedown="if (this.disabled == false) this.style.boxShadow=''" onmouseup="if (this.disabled == false) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
 			<% end %></li>
 		</ul>
 		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
@@ -683,10 +683,10 @@
 		gameLD.innerHTML = "";
 		var box = document.getElementById("xbox1");
 		var first = box.firstChild;
-		while (first) {first.style.color = "#666666"; first.style.fontSize = "inherit"; first.style.fontWeight = "normal"; first.style.boxShadow = "none"; first = first.nextSibling;}
+		while (first) {first.style.color = "#666666"; first.style.fontSize = "inherit"; first.style.fontWeight = "normal"; first.style.boxShadow = ""; first = first.nextSibling;}
 		box = document.getElementById("xbox2");
 		first = box.firstChild;
-		while (first) {first.style.color = "#666666"; first.style.fontSize = "inherit"; first.style.fontWeight = "normal"; first.style.boxShadow = "none"; first = first.nextSibling;}
+		while (first) {first.style.color = "#666666"; first.style.fontSize = "inherit"; first.style.fontWeight = "normal"; first.style.boxShadow = ""; first = first.nextSibling;}
 		var goal = document.getElementById("goal");
 		goal.innerHTML = "";
 		goal.style.backgroundImage = "url('transparent_background.jpg')";
@@ -1280,12 +1280,12 @@
 				for (var i = 0; i < letters.length; i++) document.getElementById("letterChoices"+i).style.display = "none";
 				document.getElementById("letterChoicesCont").style.display = "none";
 				if (!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
-				else if (!!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "none";
+				else if (!!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "";
 				selectedUnderscore = null;
 				repeat = true;
 			} // if (!!selectedUnderscore && (selectedUnderscore == el))
 			else if (!!selectedUnderscore && !selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
-			else if (!!selectedUnderscore && !!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "none"; 
+			else if (!!selectedUnderscore && !!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = ""; 
 			
 			if (!repeat) {
 				selectedUnderscore = el;
@@ -1438,7 +1438,7 @@
 				if (!!par.childNodes[0]) par.removeChild(par.childNodes[0]);
 				par.innerHTML = "";
 				popUpALetter(letter);
-				par.style.borderBottom = "none";
+				par.style.borderBottom = "";
 				selectedLetters[ind] = letter;
 				letter.onclick = null;
 			} else if (letter == -1){
@@ -1705,8 +1705,9 @@
 		var id = el.id + "";
 		if (id == "signupDiv") {
 			document.getElementById("signupForm").reset();
+			document.getElementById("signupSubmit").disabled = true;
 			document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
-			document.getElementById("signupSubmit").style.boxShadow = "none";
+			document.getElementById("signupSubmit").style.boxShadow = "";
 			document.getElementById("emailInput").nextSibling.style.visibility = "hidden";
 			document.getElementById("cellphoneInput").nextSibling.style.visibility = "hidden";
 			document.getElementById("displaynameInput").nextSibling.style.visibility = "hidden";
@@ -1771,7 +1772,8 @@
 
 	function validateEmail(inp) {
 		document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
-		document.getElementById("signupSubmit").style.boxShadow = "none";
+		document.getElementById("signupSubmit").style.boxShadow = "";
+		document.getElementById("signupSubmit").disabled = true;
 		formcheck[0] = false;
 		var errorEl = document.getElementById("emailErrorMessage");
 		var test = inp.value + "";
@@ -1818,7 +1820,8 @@
 
 	function validateCellphone(inp, sel) {
 		document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
-		document.getElementById("signupSubmit").style.boxShadow = "none";
+		document.getElementById("signupSubmit").style.boxShadow = "";
+		document.getElementById("signupSubmit").disabled = true;
 		if (sel == 1) {
 			formcheck[1] = false;
 			var errorEl = document.getElementById("cellphoneErrorMessage");
@@ -1868,11 +1871,12 @@
 	function validateDisplayName(inp) {
 		formcheck[2] = false;
 		document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
-		document.getElementById("signupSubmit").style.boxShadow = "none";
+		document.getElementById("signupSubmit").style.boxShadow = "";
+		document.getElementById("signupSubmit").disabled = true;
 		var test = inp.value + "";
 		var success = "document.getElementById('displaynameInput').nextSibling.style.visibility = 'visible'; document.getElementById('displaynameErrorMessage').innerHTML = ''";
 		var fail = "document.getElementById('displaynameInput').nextSibling.style.visibility = 'hidden'; document.getElementById('displaynameErrorMessage').innerHTML = 'display name already exists'";
-		if ((test != "") && (test.split(" ").length < 2))checkIfExist("/checkdisplayname",test,success,fail);
+		if ((test != "") && (test.split(" ").length < 2)) checkIfExist("/checkdisplayname",test,success,fail);
 		return false;
 	} // end function validateDisplayName()
 
@@ -1910,9 +1914,11 @@
 		if ((formcheck[0] || formcheck[1]) && formcheck[2] && formcheck[3]) {
       		document.getElementById("signupSubmit").style.backgroundColor = "#8e3ecf";
 			document.getElementById("signupSubmit").style.boxShadow = "-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece";
+			document.getElementById("signupSubmit").disabled = false;
 		} else {
 			document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
-			document.getElementById("signupSubmit").style.boxShadow = "none";
+			document.getElementById("signupSubmit").style.boxShadow = "";
+			document.getElementById("signupSubmit").disabled = true;
 		}
 
 		return false;
@@ -1920,7 +1926,7 @@
 
 	function checkIfExist(route, data, success, fail) {
 		document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
-		document.getElementById("signupSubmit").style.boxShadow = "none";
+		document.getElementById("signupSubmit").style.boxShadow = "";
 		var xhttptemp = new XMLHttpRequest();
   		xhttptemp.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
@@ -1933,9 +1939,11 @@
       				if ((formcheck[0] || formcheck[1]) && formcheck[2] && formcheck[3]) {
       					document.getElementById("signupSubmit").style.backgroundColor = "#8e3ecf";
 						document.getElementById("signupSubmit").style.boxShadow = "-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece";
+						document.getElementById("signupSubmit").disabled = false;
 					} else {
 						document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
-						document.getElementById("signupSubmit").style.boxShadow = "none";
+						document.getElementById("signupSubmit").style.boxShadow = "";
+						document.getElementById("signupSubmit").disabled = true;
 					}
       				return false;
       			} else if (res.toUpperCase() == "DUPLICATE") {
@@ -1952,32 +1960,35 @@
 	function signupFormSubmit() {
 		var cont = false;
 		if ((formcheck[0] || formcheck[1]) && formcheck[2] && formcheck[3]) cont = true;
-		var email = encodeURIComponent(document.getElementById("emailInput").value);
-		var cellphone = encodeURIComponent(document.getElementById("numberInput").value);
-		var displayname= encodeURIComponent(document.getElementById("displaynameInput").value);
-		var password1 = encodeURIComponent(document.getElementById("password1Input").value);
-		var password2 = encodeURIComponent(document.getElementById("password2Input").value);
-		var auth_token = document.getElementsByName("authenticity_token")[0].value;
-		var version = document.getElementById("gameVersion").value;
-		xhttp.abort();
-  		xhttp.onreadystatechange = function() {
-    		if (this.readyState == 4 && this.status == 200) {
-      			var res = this.responseText + "";
-    			if (res.toUpperCase() == "OK") {
-    				var el = document.getElementById("gameMessage"); 
-    				el.style.color = "#3ecf8e"; 
-    				el.innerHTML = "Thank you for signing up to Koji!<br/>Please check your email or text messages shortly for a confirmation code."; 
-    				closeMenu(document.getElementById('signupDiv'));
-    				showMenu(document.getElementById('gameMessageDiv')); 
-    				setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},4000);
-    				return true;
-    			} // if (res.toUpperCase() == "OK")
-    		} // if (this.readyState == 4 && this.status == 200)
-  		}; // xhttptemp.onreadystatechange = function()
-  		xhttp.open("POST", "/players", true);
-  		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-  		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
-  		xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version);
+		if (cont) {
+			console.log("aa");
+			var email = encodeURIComponent(document.getElementById("emailInput").value);
+			var cellphone = encodeURIComponent(document.getElementById("numberInput").value);
+			var displayname= encodeURIComponent(document.getElementById("displaynameInput").value);
+			var password1 = encodeURIComponent(document.getElementById("password1Input").value);
+			var password2 = encodeURIComponent(document.getElementById("password2Input").value);
+			var auth_token = document.getElementsByName("authenticity_token")[0].value;
+			var version = document.getElementById("gameVersion").value;
+			xhttp.abort();
+	  		xhttp.onreadystatechange = function() {
+	    		if (this.readyState == 4 && this.status == 200) {
+	      			var res = this.responseText + "";
+	    			if (res.toUpperCase() == "OK") {
+	    				var el = document.getElementById("gameMessage"); 
+	    				el.style.color = "#3ecf8e"; 
+	    				el.innerHTML = "Thank you for signing up to Koji!<br/>Please check your email or text messages shortly for a confirmation code."; 
+	    				closeMenu(document.getElementById('signupDiv'));
+	    				showMenu(document.getElementById('gameMessageDiv')); 
+	    				setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},4000);
+	    				return true;
+	    			} // if (res.toUpperCase() == "OK")
+	    		} // if (this.readyState == 4 && this.status == 200)
+	  		}; // xhttptemp.onreadystatechange = function()
+	  		xhttp.open("POST", "/players", true);
+	  		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	  		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
+	  		xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version);
+		}
 	} // end function signupFormSubmit()
 
 	function signinFormSubmit() {
