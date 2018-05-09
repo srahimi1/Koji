@@ -15,7 +15,7 @@ class PlayersController < ApplicationController
 			@cell = params["cellphone"].to_s;
 			cellValid = Player.validate_cellphone(params["cellphone"])
 		end
-		output = ""
+		output = "BAD"
 		if (cellValid && emailValid && (params["password1"].to_s == params["password2"].to_s) && (!params["email"].blank? || !params["cellphone"].blank?))
 			player = Player.new(email: @email, cellphone: @cell, display_name: params["display_name"], password: params["password1"], phone_country: "USA", game_version: params["game_version"], subscribed: 0, email_verified: 0, cellphone_verified: 0)
 			if (player.save! && !player.id.blank?)
@@ -42,15 +42,13 @@ class PlayersController < ApplicationController
 				ActiveRecord::Base.connection.close
 				output = "OK"
 			end
-		else
-			output = "BAD"
 		end
 		render plain: output
 	end
 	
 	def login
 		@player = nil
-		output = ""
+		output = "BAD"
 		if (!params["email"].blank?)
 			@player = Player.find_by(email: params["email"].to_s.downcase)
 		elsif (!params["cellphone"].blank?)
@@ -61,44 +59,34 @@ class PlayersController < ApplicationController
 			if (params[:password] == @player.password)
 				session["player_id"] = @player.id
 				output = "OK"
-			else
-				output = "BAD"
 			end
-		else
-			output = "BAD"
 		end
 		render plain: output
 	end
 
 	def check_email
 		player = Player.find_by(email: params["data"].to_s.downcase)
-		output = ""
+		output = "DUPLICATE"
 		if (!player) 
 			output = "OK"
-		elsif (!!player) 
-			output = "DUPLICATE" 
 		end
 		render plain: output
 	end
 
 	def check_cellphone
 		player = Player.find_by(cellphone: params["data"].to_s)
-		output = ""
+		output = "DUPLICATE"
 		if (!player) 
-			output = "OK"
-		elsif (!!player) 
-			output = "DUPLICATE" 
+			output = "OK" 
 		end
 		render plain: output
 	end
 
 	def check_displayname
 		player = Player.find_by(display_name: params["data"])
-		output = ""
+		output = "DUPLICATE"
 		if (!player) 
 			output = "OK"
-		elsif (!!player) 
-			output = "DUPLICATE" 
 		end
 		render plain: output
 	end

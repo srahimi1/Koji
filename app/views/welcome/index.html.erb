@@ -14,7 +14,7 @@
 		</div>
 </div>
 
-<div id="root" style="position:relative;width:100%;height:80%; text-align: center; margin: 0 auto 0 auto; padding: 0px;">
+<div id="root" style="position:relative;width:100%;height:80%; text-align: center; margin: 0 auto 0 auto; padding: 0px; background-color: #c284e1;">
 	
 	<div id="menuDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('menuDiv'))"></div>
@@ -1968,7 +1968,6 @@
 			var password1 = encodeURIComponent(document.getElementById("password1Input").value);
 			var password2 = encodeURIComponent(document.getElementById("password2Input").value);
 			var auth_token = document.getElementsByName("authenticity_token")[0].value;
-			alert(auth_token + "    " + csrfTok);
 			var version = document.getElementById("gameVersion").value;
 			xhttp.abort();
 	  		xhttp.onreadystatechange = function() {
@@ -1990,6 +1989,7 @@
 	  		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
 	  		xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version);
 		}
+		return false;
 	} // end function signupFormSubmit()
 
 	function signinFormSubmit() {
@@ -2016,6 +2016,7 @@
   		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
   		xhttp.send("email="+email+"&cellphone="+cellphone+"&password="+password);
+		return false;
 	} // end function signinFormSubmit()
 
 
