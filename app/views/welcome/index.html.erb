@@ -628,29 +628,16 @@
 </svg>
 </div>
 
-
-
-
-
-
-
-
-
-
 <input type="hidden" id="gameVersion" name="gameVersion" value="1.0">
-
-
 </body>
 
 <script>
-	lettersToPickFrom = [];
-	getNextColorsTimeoutID = null;
 	var gctemp = document.getElementById("guessContainer");
 	gctemp.style.top = "50%";
 	gctemp.style.marginTop = -(gctemp.offsetHeight/2) + "px";
-	inputData = null;
 	formcheck = [];
 	for (var i = 0; i < 4; i++) formcheck.push(false);
+	inputData = null;
 	cycleTopDataAt = 0;
 	cycleTopDataCounter = 0;
 	gameOver = false;
@@ -661,7 +648,6 @@
 	numberOfLinesDrawnOnCanvas = 0;
 	currentAnswerColor = 0;
 	cycledThroughAnswerColors = false;
-	numberNeededToWin = 2;
 	numberCorrect = 0;
 	divColors = {"div0" : "", "div1" :"", "answer" : ""};
 	gameData = null;
@@ -677,6 +663,7 @@
 	borderIntervalID = null;
 	pointsIntervalID = null;
 	showLettersTimeoutID = null;
+	getNextColorsTimeoutID = null;
 	previousMinute = 0;
 	xhttp = new XMLHttpRequest();
 	counterU = 0;
@@ -688,8 +675,6 @@
 	allLetters = {"a": 1, "b": 1, "c": 1, "d": 1, "e": 1, "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z":"snum", "A": "VYUH", "B": "KEPRFX", "C": "GOQD", "D": "CGOQ", "E": "KBPRFX", "F" : "KBEPRX", "G":"COQD", "H":"ITLJA", "I": 1, "J": 1, "K": 1, "L": 1, "M": 1, "N": 1, "O": 1, "P": 1, "Q": 1, "R": 1, "S" : 1, "T": 1, "U": 1, "V" : 1, "W" : 1, "X" : 1, "Y": 1, "Z" : 1};
 
 	function setupNewGame() {
-		while (lettersToPickFrom.length > 0) lettersToPickFrom.pop();
-		lettersToPickFrom = [];
 		inputData = null;
 		cycleTopDataAt = 0;
 		cycleTopDataCounter = 0;
@@ -701,7 +686,6 @@
 		numberOfLinesDrawnOnCanvas = 0;	
 		currentAnswerColor = 0;
 		cycledThroughAnswerColors = false;
-		numberNeededToWin = 2;
 		numberCorrect = 0;
 		divColors = {"div0" : "", "div1" :"", "answer" : ""};
 		gameData = null;
@@ -727,7 +711,6 @@
 		getNextColorsTimeoutID = null;
 		previousMinute = 0;
 		xhttp.abort();
-		xhttp = new XMLHttpRequest();
 		counterU = 0;
 		correctLetters = [];
 		if (!!ctx) ctx.clearRect(0,0,canvas.width,canvas.height);
@@ -756,7 +739,7 @@
 		closeMenu(document.getElementById("menuDiv"));
 		getGame();
 		return true;
-	}// end function setupNewGame()
+	}// function setupNewGame()
 
 	function getGame() {
 		var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
@@ -769,7 +752,7 @@
 				inputData = JSON.parse(this.responseText);
 				localStorage.setItem("gameID", inputData.gameID);
 				topData = inputData["colors"];
-				cycleTopDataAt = Math.floor(Math.random() * 15) + 15;
+				cycleTopDataAt = Math.floor(Math.random() * 8) + 15;
 				gameData = topData[0];
 				colorGoalDiv();
 				createColorDivs();
@@ -779,7 +762,9 @@
 		} // end onreadystatechange
 		xhttp.send();
 		return true;
-	} // end function getGame()
+	} // function getGame()
+
+// color mixing part of game functions ...
 
 	function cycleThroughTopData() {
 		var prev = gameData.goalColor;
@@ -790,9 +775,7 @@
 		createColorDivs();
 		changeColorOfSelectCanvasPixels(prev);
 		return true;
-	}
-
-// color mixing functions ...
+	} // function cycleThroughTopData()
 
 	function createColorDivs() {
 		getColorsForHalfDivs();
@@ -830,7 +813,7 @@
 		guess.appendChild(frag);
 		guess.style.display = "block";
 		return true;
-	} // end function createColorDivs()
+	} // function createColorDivs()
 
 	function getNextColors(par, did) {
 		cycleTopDataCounter++;
@@ -839,8 +822,7 @@
 			createColorDivs();
 		} // if (!gameOver)
 		return true;
-	} // end function getNextColors(par, did)
-	
+	} // function getNextColors(par, did)
 	
 	function getColorsForHalfDivs() {
 		var color1 = [], color2 = [], answer = [];
@@ -920,7 +902,7 @@
 			divColors["answer"] = createInBetweenColor(color1,color2);
 		}
 		return true;
-} // end function getColorsForHalfDivs()
+	} // function getColorsForHalfDivs()
 
 	// this creates the mini-half divs that combine
 	function createMixColorDivs() {
@@ -947,7 +929,7 @@
 		divTemp.style.oTransitionTimingFunction = "ease";
 		divTemp.style.transitionTimingFunction = "ease";
 		return divTemp;
-	} // end function createMixColorDivs()
+	} // function createMixColorDivs()
 
 	// this creates and attaches the buttons to the larger div
 	function attachYesNoButtons(par) {
@@ -1099,7 +1081,6 @@
 		return true;
 	} // function determineResultOfChoice(sendID, opt)
 
-
 	function colorGoalDiv() {
 		var goalDiv = document.getElementById("goal");
 		var v = document.getElementById("guessOutside");
@@ -1138,65 +1119,8 @@
 		return hex
 	} // end function getHexFromRGB(rgb)
 
-	function popUpALetter(letter) {
-		clearInterval(borderIntervalID);
-		letter.style.margin = "auto";
-		var values = [0,0];
-		var width = letter.offsetWidth;
-		var height = letter.offsetHeight;
-		selectedUnderscore.style.width = (width + 10) + "px";
-		selectedUnderscore.style.height = (height + 10) + "px";
-		var moved = 0;
-		borderIntervalID = setInterval(
-			function() {
-				if (values[1] == -1) {
-					clearInterval(borderIntervalID);
-					numberCorrect = 0;
-					letter.style.width = width + "px";
-					letter.style.height = height + "px";					
-					var ind = selectedUnderscore.id.split(":")[1];
-					isChosenLetterCorrect(letter, ind);
-					document.getElementById("letterChoicesCont").style.display = "none";
-					selectedUnderscore = null;
-					var par = document.getElementById("guess").firstChild;
-					var cn = par.childNodes;
-					var sendID = cn[0].id + "";
-					getNextColors(par, sendID);
-				} else {					
-					values[1]++;
-					values = animateLargeSmallLarge(0, 100, values[1]);  
-					if (((100 - values[0]) > 0)  && ((100 - values[0]) < 100)) {
-						letter.style.width = (width * ((100 - values[0])/100)) + "px";
-						letter.style.height = (height * ((100 - values[0])/100)) + "px";				
-						letter.style.marginLeft = -(letter.offsetWidth - width)/2 + "px";
-						letter.style.marginTop = -(letter.offsetHeight - height)/2 + "px";
-					}
-					if (((100 - values[0]) < 10) && (moved == 0)) {					
-						letter.style.visibility = "hidden";
-						selectedUnderscore.appendChild(letter);	
-						moved = 1;
-					} else if (((100 - values[0]) > 1) && (moved == 1)) {					
-						letter.style.visibility = "visible";
-						moved = 2;
-					} // if (((100 - values[0]) < 10) && (moved == 0)) 
-				}
-			},22);
-		return true;
-	} // function popUpALetter(letter)
 
-
-	function isChosenLetterCorrect(letter, ind) {
-		var ind2 = letter.id + "";
-		ind2 = ind2.split(":")[1];
-		if (correctLetters[ind].index == ind2) letterBorderAnimation(letter, 0);
-		else letterBorderAnimation(letter, 1);
-		if (isGameWon()) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You Won!"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},1500); showLetters(); } // if
-	}
-
-
-
-
-// canvas and letter obj functions ...
+// canvas and letter guessing part of game functions ...
 
 	function letterObj(letter, cs, font, size, rotation, correct) {
 		this.letter = letter;
@@ -1271,6 +1195,60 @@
 		return true;
 	} // end function createCanvasWithLetters()
 
+	function popUpALetter(letter) {
+		clearInterval(borderIntervalID);
+		letter.style.margin = "auto";
+		var values = [0,0];
+		var width = letter.offsetWidth;
+		var height = letter.offsetHeight;
+		selectedUnderscore.style.width = (width + 10) + "px";
+		selectedUnderscore.style.height = (height + 10) + "px";
+		var moved = 0;
+		borderIntervalID = setInterval(
+			function() {
+				if (values[1] == -1) {
+					clearInterval(borderIntervalID);
+					numberCorrect = 0;
+					letter.style.width = width + "px";
+					letter.style.height = height + "px";					
+					var ind = selectedUnderscore.id.split(":")[1];
+					isChosenLetterCorrect(letter, ind);
+					document.getElementById("letterChoicesCont").style.display = "none";
+					selectedUnderscore = null;
+					var par = document.getElementById("guess").firstChild;
+					var cn = par.childNodes;
+					var sendID = cn[0].id + "";
+					getNextColors(par, sendID);
+				} else {					
+					values[1]++;
+					values = animateLargeSmallLarge(0, 100, values[1]);  
+					if (((100 - values[0]) > 0)  && ((100 - values[0]) < 100)) {
+						letter.style.width = (width * ((100 - values[0])/100)) + "px";
+						letter.style.height = (height * ((100 - values[0])/100)) + "px";				
+						letter.style.marginLeft = -(letter.offsetWidth - width)/2 + "px";
+						letter.style.marginTop = -(letter.offsetHeight - height)/2 + "px";
+					}
+					if (((100 - values[0]) < 10) && (moved == 0)) {					
+						letter.style.visibility = "hidden";
+						selectedUnderscore.appendChild(letter);	
+						moved = 1;
+					} else if (((100 - values[0]) > 1) && (moved == 1)) {					
+						letter.style.visibility = "visible";
+						moved = 2;
+					} // if (((100 - values[0]) < 10) && (moved == 0)) 
+				}
+			},22);
+		return true;
+	} // function popUpALetter(letter)
+
+	function isChosenLetterCorrect(letter, ind) {
+		var ind2 = letter.id + "";
+		ind2 = ind2.split(":")[1];
+		if (correctLetters[ind].index == ind2) letterBorderAnimation(letter, 0);
+		else letterBorderAnimation(letter, 1);
+		if (isGameWon()) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You Won!"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},1500); showLetters(); } // if
+	} // function isChosenLetterCorrect(letter, ind)
+
 	function putLettersOntoPanels(letters, fontSz) {
 		var gameLD = document.getElementById("gameLettersDiv");
 		var frag = document.createDocumentFragment();
@@ -1300,7 +1278,6 @@
 		gameLD.appendChild(frag);
 		gameLD.style.display = "block";
 	} // function putLettersOntoPanels(letters) 
-
 
 	function changeColorOfSelectCanvasPixels(hexC) {
 		var hexColor = hexC;
@@ -1386,7 +1363,6 @@
 		el.style.verticalAlign = "middle";
 		letCC.style.display = "block";
 		el.style.display = "block";
-		//letCC.style.lineHeight = letCC.offsetHeight + "px";
 		return true;
 	} // end function showLetterChoices(ind,len)
 
@@ -1507,41 +1483,82 @@
 				var cn = par.childNodes;
 				var sendID = cn[0].id + "";
 				getNextColors(par, sendID);
-			}
+			} // if (letter != -1)
 		} // if (!gameOver && (numberCorrect == 4) ) {
 		return true;
 	} // end function selectLetter(letter)
 
 
+// end of game functions ...
 
-// animation functions ...
-
-	function letterBorderAnimation(letter, code) {
-		if (code == 0) letter.style.borderColor = "#3ecf8e";
-		else if (code == 1) letter.style.borderColor = "red";
-		else if (code == 2) console.log("done once");
-		var width = letter.offsetWidth;
-		var height = letter.offsetHeight;
-		var values = [0,0];
-		clearInterval(borderIntervalID);
-		borderIntervalID = setInterval(
-			function() {
-				if (values[1] == -1) {clearInterval(borderIntervalID); var par = letter.parentNode; par.style.width = (letter.offsetWidth + 5) + "px"; par.style.height = (letter.offsetHeight + 5) + "px"; return true;}
-				else {
-					values[1]++;
-					values = animateSmallLargeMedium(1, 2, values[1], 2, "letterBorder");  
-					letter.style.borderWidth = (values[0]/6)+"em";
-					letter.style.marginLeft = -(letter.offsetWidth - width)/2 + "px";
-					letter.style.marginTop = -(letter.offsetHeight - height)/2 + "px";
+	function isGameWon() {
+		if (!gameOver) {
+			var par = document.getElementById("gameLettersDiv");
+			var first = par.firstChild;
+			var numLetts = 0;
+			while(!!first) {
+				if (!!first.firstChild && !!first.firstChild.id) {
+					var id = first.firstChild.id + ""; 
+					if (id[0]=="h") numLetts++;
+				} 
+				first = first.nextSibling;
+			}
+			if (numLetts == correctLetters.length) {
+				first = par.firstChild;
+				var ind = 0;
+				var numCorr = 0;
+				while(!!first) {
+					var id = first.firstChild.id + ""; 
+					if ( parseInt(id.split(":")[1]) == correctLetters[ind].index ) 
+						numCorr++; 
+					first = first.nextSibling; 
+					ind++;
 				}
-			},22);
-		if (code == 0) {updatePoints(100,2); animatePoints(100,2);}
-		else if (code == 1) {
-			updatePoints(-150,3);
-			isGameLost();
-		}
+				if (numCorr == correctLetters.length) {
+					updateGameDataOnServer(1);
+					gameOver = true; 
+					return true;
+				}
+			} // if (numLetts == correctLetters.length)
+		} // if (!gameOver)
+		return false;
+	} // end function isGameWon() 
+
+	function isGameLost() {
+		if (!gameOver) {
+			numXs++;
+			var par, ind;
+			if (numXs < 3) {par = document.getElementById("xbox1"); ind = numXs;}
+			else if (numXs >= 3) {par = document.getElementById("xbox2"); ind = numXs - 2;}
+			var first = par.firstChild;
+			for (var i = 0; i < ind-1; i++) first = first.nextSibling;
+			first.style.color = "red";
+			first.style.fontWeight = "bold";
+			first.style.fontSize = "1.5em";
+			if (numXs == 4) {
+				updateGameDataOnServer(2); 
+				gameOver = true; 
+				document.getElementById("letterChoicesCont").style.display = "none"; 
+				var el = document.getElementById("gameMessage"); 
+				el.style.color = "red"; 
+				el.innerHTML = "Game Over"; 
+				showMenu(document.getElementById('gameMessageDiv')); 
+				setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},1500); 
+				showLetters(); 
+				return true; 
+			} // if (numXs == 4)
+		} // if (!gameOver)
+		return false;
+	} // end function isGameLost()
+
+	function showLetters() {
+		drawLine();
+		if (numberOfLinesDrawnOnCanvas < canvas.width) showLettersTimeoutID = setTimeout(function() {showLetters()}, 100);
 		return true;
-	} // end function letterBorderAnimation(letter, code)
+	} // end function showLetters()
+
+
+// updating and saving points and Xs functions ...
 
 	function updatePoints(add, code) {
 		if (!gameOver) {
@@ -1580,7 +1597,7 @@
 			el.innerHTML = points;
 		}
 		return true;
-	}
+	} // function updatePoints(add, code)
 
 	function redoXs() {
 		numXs = ((numXs - 2) < 0) ? 0 : (numXs - 2);
@@ -1606,7 +1623,53 @@
 			first.style.fontSize = "1.5em";
 		} // for (var i = 0; i < 4; i++)	
 		return false;
-	}// function doXs()
+	}// function redoXs()
+
+	function updateGameDataOnServer(won) {
+		var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+		var route = "/games/"+ (!!localStorage.getItem("gameID") ? localStorage.getItem("gameID") : "0");
+		route += "?points="+points+"&numberOfX="+numXs+"&won="+won;
+		xhttp.abort();
+		xhttp.open("PUT", route);
+		xhttp.setRequestHeader('X-CSRF-Token', csrfTok)
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				return true;
+			} // end if
+		} // end onreadystatechange
+		xhttp.send();
+		return true;
+	} // function updateGameDataOnServer(won)
+
+
+// animation functions ...
+
+	function letterBorderAnimation(letter, code) {
+		if (code == 0) letter.style.borderColor = "#3ecf8e";
+		else if (code == 1) letter.style.borderColor = "red";
+		else if (code == 2) console.log("done once");
+		var width = letter.offsetWidth;
+		var height = letter.offsetHeight;
+		var values = [0,0];
+		clearInterval(borderIntervalID);
+		borderIntervalID = setInterval(
+			function() {
+				if (values[1] == -1) {clearInterval(borderIntervalID); var par = letter.parentNode; par.style.width = (letter.offsetWidth + 5) + "px"; par.style.height = (letter.offsetHeight + 5) + "px"; return true;}
+				else {
+					values[1]++;
+					values = animateSmallLargeMedium(1, 2, values[1], 2, "letterBorder");  
+					letter.style.borderWidth = (values[0]/6)+"em";
+					letter.style.marginLeft = -(letter.offsetWidth - width)/2 + "px";
+					letter.style.marginTop = -(letter.offsetHeight - height)/2 + "px";
+				}
+			},22);
+		if (code == 0) {updatePoints(100,2); animatePoints(100,2);}
+		else if (code == 1) {
+			updatePoints(-150,3);
+			isGameLost();
+		}
+		return true;
+	} // end function letterBorderAnimation(letter, code)
 
 	function animatePoints(add, code) {
 		clearInterval(pointsIntervalID);
@@ -1681,160 +1744,127 @@
 	} // end animateEase(origVal, endVal, step)
 
 
-// end of game functions ...
+// Profile and account info get and update functions ...
 
-	function isGameWon() {
-		if (!gameOver) {
-			var par = document.getElementById("gameLettersDiv");
-			var first = par.firstChild;
-			var numLetts = 0;
-			while(!!first) {
-				if (!!first.firstChild && !!first.firstChild.id) {
-					var id = first.firstChild.id + ""; 
-					if (id[0]=="h") numLetts++;
-				} 
-				first = first.nextSibling;
-			}
-			if (numLetts == correctLetters.length) {
-				first = par.firstChild;
-				var ind = 0;
-				var numCorr = 0;
-				while(!!first) {
-					var id = first.firstChild.id + ""; 
-					if ( parseInt(id.split(":")[1]) == correctLetters[ind].index ) 
-						numCorr++; 
-					first = first.nextSibling; 
-					ind++;
-				}
-				if (numCorr == correctLetters.length) {
-					updateGameDataOnServer(1);
-					gameOver = true; 
-					return true;
-				}
-			} // if (numLetts == correctLetters.length)
-		} // if (!gameOver)
-		return false;
-	} // end function isGameWon() 
-
-	function isGameLost() {
-		if (!gameOver) {
-			numXs++;
-			var par, ind;
-			if (numXs < 3) {par = document.getElementById("xbox1"); ind = numXs;}
-			else if (numXs >= 3) {par = document.getElementById("xbox2"); ind = numXs - 2;}
-			var first = par.firstChild;
-			for (var i = 0; i < ind-1; i++) first = first.nextSibling;
-			first.style.color = "red";
-			first.style.fontWeight = "bold";
-			first.style.fontSize = "1.5em";
-			if (numXs == 4) {
-				updateGameDataOnServer(2); 
-				gameOver = true; 
-				document.getElementById("letterChoicesCont").style.display = "none"; 
-				var el = document.getElementById("gameMessage"); 
-				el.style.color = "red"; 
-				el.innerHTML = "Game Over"; 
-				showMenu(document.getElementById('gameMessageDiv')); 
-				setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},1500); 
-				showLetters(); 
-				return true; 
-			} // if (numXs == 4)
-		} // if (!gameOver)
-		return false;
-	} // end function isGameLost()
-
-	function showLetters() {
-		drawLine();
-		if (numberOfLinesDrawnOnCanvas < canvas.width) showLettersTimeoutID = setTimeout(function() {showLetters()}, 100);
-		return true;
-	} // end function showLetters()
-
-	function updateGameDataOnServer(won) {
+	function getProfileData() {
 		var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-		var route = "/games/"+ (!!localStorage.getItem("gameID") ? localStorage.getItem("gameID") : "0");
-		route += "?points="+points+"&numberOfX="+numXs+"&won="+won;
+		var route = "/players/0";
 		xhttp.abort();
-		xhttp.open("PUT", route);
-		xhttp.setRequestHeader('X-CSRF-Token', csrfTok)
-		xhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-				return true;
-			} // end if
-		} // end onreadystatechange
-		xhttp.send();
-		return true;
-	}
-
-// general purpose app functions ...
-	
-	function showMenu(el) {
-		var id = el.id + "";
-		if (id == "signupDiv") {
-			document.getElementById("signupForm").reset();
-			document.getElementById("signupSubmit").disabled = true;
-			document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
-			document.getElementById("signupSubmit").style.boxShadow = "";
-			document.getElementById("emailInput").nextSibling.style.visibility = "hidden";
-			document.getElementById("cellphoneInput").nextSibling.style.visibility = "hidden";
-			document.getElementById("displaynameInput").nextSibling.style.visibility = "hidden";
-			document.getElementById("password1Input").nextSibling.style.visibility = "hidden";
-			document.getElementById("password2Input").nextSibling.style.visibility = "hidden";
-		} else if (id == "signinDiv") {
-			document.getElementById("signinForm").reset();
-		}
-		el.style.height = "95%";
-		el.style.marginTop="3em"; 
-		el.style.opacity="1";
-		return true;
-	} // end function showMenu(el)
-
-	function closeMenu(el) {
-		el.style.opacity = "0";
-		el.style.marginTop = "-2em";
-		if (el.id == "menuDiv") animateMenu(document.getElementById("menuPara"),1);
-		setTimeout(function() {el.style.height = "0";}, 600);
-		return true;
-	} // end function closeMenu(el)
-
-	function animateMenu(para, code) {
-		if (code == 0) {
-			para.style.backgroundColor = "#8e3ecf";
-			para.style.color = "white";
-			first = para.firstChild;
-			while (!!first) {first.style.paddingRight = "1em"; first = first.nextSibling;}
-		} // if (code == 0)
-		if (code == 1) {
-			para.style.backgroundColor = "white";
-			para.style.color = "gray";
-			first = para.firstChild;
-			while (!!first) {first.style.paddingRight = "0em"; first = first.nextSibling;}
-		} // if (code == 1)	
-		return true;
-	} // end function animateMenu(para, code)
-
-	function checkForStartupMessage() {
-		var version = document.getElementById("gameVersion").value;
-		var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-		var route = "/message?version="+version;
 		xhttp.open("GET", route);
 		xhttp.setRequestHeader('X-CSRF-Token', csrfTok)
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
-				var message = this.responseText + "";
-				if (message != "") {
-					var el = document.getElementById('startupMessageSpan');
-					el.innerHTML = message;
-					el = document.getElementById('startupMessageDiv');
-					el.style.height = "95%";
-					el.style.marginTop="3em"; 
-					el.style.opacity="1";
-				}
+				var res = this.responseText + "";
+    			if (res.split("_?*")[0].toUpperCase() == "OK") {
+    				if (res.split("_?*")[1] != "" ) {
+    					var jd = JSON.parse(res.split("_?*")[1]);
+    					fillInProfileDiv(jd);
+    				}
+    			} // if (res.split("_?*")[0].toUpperCase() == "OK")
 				return true;
-			} // end if
+			} // end if (this.readyState == 4 && this.status == 200)
 		} // end onreadystatechange
 		xhttp.send();
-		return true;
-	} // end function checkForStartupMessage()
+		return false;
+	} // function getProfileData()
+
+
+	function fillInProfileDiv(data) {
+		var history = data.history;
+		document.getElementById("profileEmail").innerHTML = data.email;
+		var cell = data.cellphone + "";
+		document.getElementById("profileCellphone").innerHTML = "(" + cell[0] + "" + cell[1] + "" + cell[2] + ")" + cell[3] + "" + cell[4] + "" + cell[5] + "-" + cell[6] + "" + cell[7] + "" + cell[8] + "" + cell[9];
+		var header = document.getElementById("tableHeader");
+		var tableBody = document.getElementById("tableBody");
+		while (!!header.nextSibling) {header.parentNode.removeChild(header.nextSibling); }
+		for (var key in history) {
+			if (history.hasOwnProperty(key)) {
+				var tr = document.createElement("tr");
+				var td1 = document.createElement("td");
+				var td2 = document.createElement("td");
+				var td3 = document.createElement("td");
+				td1.appendChild(document.createTextNode(key));
+				td2.appendChild(document.createTextNode(history[key].high_score));
+				td3.appendChild(document.createTextNode(history[key].total));
+				tr.appendChild(td1);
+				tr.appendChild(td2);
+				tr.appendChild(td3);
+				tableBody.appendChild(tr);
+			} // if (history.hasOwnProperty(key))
+		} // for (var key in history) {
+		return false;
+	} // function fillInProfileDiv(data)
+
+	function updateInfo(sel) {
+		var route = "";
+		var data = "";
+		if (sel == 1) {
+			var password = encodeURIComponent(document.getElementById("changePasswordInput1").value);
+			route = "/players/0";
+			data = "code=1&password="+password;
+		} else if (sel == 2) {
+			var email = encodeURIComponent(document.getElementById("changeEmailInput").value);
+			var cellphone = encodeURIComponent(document.getElementById("changeNumberInput").value);
+			route = "/players/change_login";
+			data = "code=2&email="+email+"&cellphone="+cellphone;
+		} else if (sel == 3) {
+			var cancel = document.getElementById("cancelMembershipInput").value + "";
+			route = "/players/cancel_membership";
+			data = "code=3";
+		} else if (sel == 4) {
+			route = "/players/logout";
+			data = "code=4";
+		}
+		if ((sel == 1) || (sel == 2) || ((sel == 3) && (cancel.toUpperCase() == "CANCEL")) || (sel == 4)) {
+			var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+			xhttp.abort();
+	  		xhttp.onreadystatechange = function() {
+	    		if (this.readyState == 4 && this.status == 200) {
+	      			var res = this.responseText + "";
+	    			if (res.toUpperCase() == "OK") {
+    						getProfileData();
+    				}
+					return false;
+	    		} // if (this.readyState == 4 && this.status == 200)
+	  		}; // xhttptemp.onreadystatechange = function()
+	  		xhttp.open("PUT", "/players/0", true);
+	  		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	  		xhttp.setRequestHeader('X-CSRF-Token', csrfTok);
+	  		xhttp.send(data);
+  		}
+		return false;
+	} // end function updateInfo(sel)
+
+	function profileOption(opt) {
+		document.getElementById("placeHolderDiv").style.display = "none";
+		document.getElementById("changePassword").style.display = "none";
+		document.getElementById("changeLogin").style.display = "none";
+		document.getElementById("cancelMembership").style.display = "none";
+		if (opt == 1) {
+			document.getElementById("changePassword").style.display = "block";
+			document.getElementById("changePasswordInput1").value = '';
+			document.getElementById("changePasswordInput2").value = '';
+			document.getElementById("changePasswordInput1").nextSibling.style.visibility = "hidden";
+			document.getElementById("changePasswordInput2").nextSibling.style.visibility = "hidden";
+			document.getElementById("changePasswordButton").disabled = true;
+		} else if (opt == 2) {
+			document.getElementById("changeLogin").style.display = "block";
+			document.getElementById("changeEmailInput").value = '';
+			document.getElementById("changeCellphoneInput").value = '';
+			document.getElementById("changeNumberInput").value = '';
+			document.getElementById("changeEmailInput").nextSibling.style.visibility = "hidden";
+			document.getElementById("changeCellphoneInput").nextSibling.style.visibility = "hidden";
+			document.getElementById("changeLoginButton").disabled = true;
+		} else if (opt == 3) {
+			document.getElementById("cancelMembership").style.display = "block";
+			document.getElementById("cancelMembershipInput").value = '';
+			document.getElementById("cancelMembershipButton").disabled = true;
+		}
+		return false;
+	} // function profileOption(opt)
+
+
+// form validation and form submission functions ...
 
 	function validateEmail(inp, sel) {
 		document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
@@ -2000,9 +2030,44 @@
 			document.getElementById("signupSubmit").style.boxShadow = "";
 			document.getElementById("signupSubmit").disabled = true;
 		}
-
 		return false;
 	} // end function validatePassword()
+
+	function validatePassword2() {
+		var el1 = document.getElementById("changePasswordInput1");
+		var el2 = document.getElementById("changePasswordInput2");
+		var errorEl1 = document.getElementById("changePasswordErrorMessage");
+		var test1 = el1.value + "";
+		var test2 = el2.value + "";
+		if (test1.length < 8) {
+			errorEl1.innerHTML = "password length must be at least 8 characters";
+			el1.nextSibling.style.visibility = "hidden";
+			el2.nextSibling.style.visibility = "hidden";
+			document.getElementById("changePasswordButton").disabled = true;
+		} else if (test1 != test2) {
+			errorEl1.innerHTML = "passwords do not match";
+			el1.nextSibling.style.visibility = "hidden";
+			el2.nextSibling.style.visibility = "hidden";
+			document.getElementById("changePasswordButton").disabled = true;
+		} else if (el1.value == el2.value) {
+			errorEl1.innerHTML = "";
+			el1.nextSibling.style.visibility = "visible";
+			el2.nextSibling.style.visibility = "visible";
+			document.getElementById("changePasswordButton").disabled = false;
+		} else {
+			errorEl1.innerHTML = "";
+			el1.nextSibling.style.visibility = "hidden";
+			el2.nextSibling.style.visibility = "hidden";
+			document.getElementById("changePasswordButton").disabled = true;
+		}
+		return false;
+	} // end function validatePassword2()
+
+	function validateCancelMembership(el) {
+		document.getElementById("cancelMembershipButton").disabled = true;
+		var cancel = el.value + "";
+		if (cancel.toUpperCase() == "CANCEL") document.getElementById("cancelMembershipButton").disabled = false;
+	} // function validateCancelMembership(el)
 
 	function checkIfExist(route, data, success, fail) {
 		document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
@@ -2100,160 +2165,77 @@
 		return false;
 	} // end function signinFormSubmit()
 
-	function getProfileData() {
+
+// general purpose app functions ...
+	
+	function showMenu(el) {
+		var id = el.id + "";
+		if (id == "signupDiv") {
+			document.getElementById("signupForm").reset();
+			document.getElementById("signupSubmit").disabled = true;
+			document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
+			document.getElementById("signupSubmit").style.boxShadow = "";
+			document.getElementById("emailInput").nextSibling.style.visibility = "hidden";
+			document.getElementById("cellphoneInput").nextSibling.style.visibility = "hidden";
+			document.getElementById("displaynameInput").nextSibling.style.visibility = "hidden";
+			document.getElementById("password1Input").nextSibling.style.visibility = "hidden";
+			document.getElementById("password2Input").nextSibling.style.visibility = "hidden";
+		} else if (id == "signinDiv") {
+			document.getElementById("signinForm").reset();
+		}
+		el.style.height = "95%";
+		el.style.marginTop="3em"; 
+		el.style.opacity="1";
+		return true;
+	} // end function showMenu(el)
+
+	function closeMenu(el) {
+		el.style.opacity = "0";
+		el.style.marginTop = "-2em";
+		if (el.id == "menuDiv") animateMenu(document.getElementById("menuPara"),1);
+		setTimeout(function() {el.style.height = "0";}, 600);
+		return true;
+	} // end function closeMenu(el)
+
+	function animateMenu(para, code) {
+		if (code == 0) {
+			para.style.backgroundColor = "#8e3ecf";
+			para.style.color = "white";
+			first = para.firstChild;
+			while (!!first) {first.style.paddingRight = "1em"; first = first.nextSibling;}
+		} // if (code == 0)
+		if (code == 1) {
+			para.style.backgroundColor = "white";
+			para.style.color = "gray";
+			first = para.firstChild;
+			while (!!first) {first.style.paddingRight = "0em"; first = first.nextSibling;}
+		} // if (code == 1)	
+		return true;
+	} // end function animateMenu(para, code)
+
+	function checkForStartupMessage() {
+		var version = document.getElementById("gameVersion").value;
 		var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-		var route = "/players/0";
-		xhttp.abort();
+		var route = "/message?version="+version;
 		xhttp.open("GET", route);
 		xhttp.setRequestHeader('X-CSRF-Token', csrfTok)
 		xhttp.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
-				var res = this.responseText + "";
-    			if (res.split("_?*")[0].toUpperCase() == "OK") {
-    				if (res.split("_?*")[1] != "" ) {
-    					var jd = JSON.parse(res.split("_?*")[1]);
-    					fillInProfileDiv(jd);
-    				}
-    			} // if (res.split("_?*")[0].toUpperCase() == "OK")
+				var message = this.responseText + "";
+				if (message != "") {
+					var el = document.getElementById('startupMessageSpan');
+					el.innerHTML = message;
+					el = document.getElementById('startupMessageDiv');
+					el.style.height = "95%";
+					el.style.marginTop="3em"; 
+					el.style.opacity="1";
+				}
 				return true;
-			} // end if (this.readyState == 4 && this.status == 200)
+			} // end if
 		} // end onreadystatechange
 		xhttp.send();
-		return false;
-	} // function getProfileData()
-
-
-	function fillInProfileDiv(data) {
-		var history = data.history;
-		document.getElementById("profileEmail").innerHTML = data.email;
-		var cell = data.cellphone + "";
-		document.getElementById("profileCellphone").innerHTML = "(" + cell[0] + "" + cell[1] + "" + cell[2] + ")" + cell[3] + "" + cell[4] + "" + cell[5] + "-" + cell[6] + "" + cell[7] + "" + cell[8] + "" + cell[9];
-		for (var key in history) {
-			var header = document.getElementById("tableHeader");
-			var tableBody = document.getElementById("tableBody");
-			while (!!header.nextSibling) {header.parentNode.removeChild(header.nextSibling); }
-			var frag = document.createDocumentFragment();
-			if (history.hasOwnProperty(key)) {
-				var tr = document.createElement("tr");
-				var td1 = document.createElement("td");
-				var td2 = document.createElement("td");
-				var td3 = document.createElement("td");
-				td1.appendChild(document.createTextNode(key));
-				td2.appendChild(document.createTextNode(history[key].high_score));
-				td3.appendChild(document.createTextNode(history[key].total));
-				tr.appendChild(td1);
-				tr.appendChild(td2);
-				tr.appendChild(td3);
-				frag.appendChild(tr);
-			}
-			tableBody.appendChild(frag);
-		} // for (var key in data) {
-		return false;
-	} // function fillInProfileDiv(data)
-
-	function validatePassword2() {
-		var el1 = document.getElementById("changePasswordInput1");
-		var el2 = document.getElementById("changePasswordInput2");
-		var errorEl1 = document.getElementById("changePasswordErrorMessage");
-		var test1 = el1.value + "";
-		var test2 = el2.value + "";
-		if (test1.length < 8) {
-			errorEl1.innerHTML = "password length must be at least 8 characters";
-			el1.nextSibling.style.visibility = "hidden";
-			el2.nextSibling.style.visibility = "hidden";
-			document.getElementById("changePasswordButton").disabled = true;
-		} else if (test1 != test2) {
-			errorEl1.innerHTML = "passwords do not match";
-			el1.nextSibling.style.visibility = "hidden";
-			el2.nextSibling.style.visibility = "hidden";
-			document.getElementById("changePasswordButton").disabled = true;
-		} else if (el1.value == el2.value) {
-			errorEl1.innerHTML = "";
-			el1.nextSibling.style.visibility = "visible";
-			el2.nextSibling.style.visibility = "visible";
-			document.getElementById("changePasswordButton").disabled = false;
-		} else {
-			errorEl1.innerHTML = "";
-			el1.nextSibling.style.visibility = "hidden";
-			el2.nextSibling.style.visibility = "hidden";
-			document.getElementById("changePasswordButton").disabled = true;
-		}
-		return false;
-	} // end function validatePassword()
-
-	function validateCancelMembership(el) {
-		document.getElementById("cancelMembershipButton").disabled = true;
-		var cancel = el.value + "";
-		if (cancel.toUpperCase() == "CANCEL") document.getElementById("cancelMembershipButton").disabled = false;
-	}
-
-	function updateInfo(sel) {
-		var route = "";
-		var data = "";
-		if (sel == 1) {
-			var password = encodeURIComponent(document.getElementById("changePasswordInput1").value);
-			route = "/players/0";
-			data = "code=1&password="+password;
-		} else if (sel == 2) {
-			var email = encodeURIComponent(document.getElementById("changeEmailInput").value);
-			var cellphone = encodeURIComponent(document.getElementById("changeNumberInput").value);
-			route = "/players/change_login";
-			data = "code=2&email="+email+"&cellphone="+cellphone;
-		} else if (sel == 3) {
-			var cancel = document.getElementById("cancelMembershipInput").value + "";
-			route = "/players/cancel_membership";
-			data = "code=3";
-		} else if (sel == 4) {
-			route = "/players/logout";
-			data = "code=4";
-		}
-		if ((sel == 1) || (sel == 2) || ((sel == 3) && (cancel.toUpperCase() == "CANCEL")) || (sel == 4)) {
-			var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-			xhttp.abort();
-	  		xhttp.onreadystatechange = function() {
-	    		if (this.readyState == 4 && this.status == 200) {
-	      			var res = this.responseText + "";
-	    			if (res.toUpperCase() == "OK") {
-    						getProfileData();
-    				}
-					return false;
-	    		} // if (this.readyState == 4 && this.status == 200)
-	  		}; // xhttptemp.onreadystatechange = function()
-	  		xhttp.open("PUT", "/players/0", true);
-	  		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	  		xhttp.setRequestHeader('X-CSRF-Token', csrfTok);
-	  		xhttp.send(data);
-  		}
-		return false;
-	} // end function updateInfo(sel)
-
-	function profileOption(opt) {
-		document.getElementById("placeHolderDiv").style.display = "none";
-		document.getElementById("changePassword").style.display = "none";
-		document.getElementById("changeLogin").style.display = "none";
-		document.getElementById("cancelMembership").style.display = "none";
-		if (opt == 1) {
-			document.getElementById("changePassword").style.display = "block";
-			document.getElementById("changePasswordInput1").value = '';
-			document.getElementById("changePasswordInput2").value = '';
-			document.getElementById("changePasswordInput1").nextSibling.style.visibility = "hidden";
-			document.getElementById("changePasswordInput2").nextSibling.style.visibility = "hidden";
-			document.getElementById("changePasswordButton").disabled = true;
-		} else if (opt == 2) {
-			document.getElementById("changeLogin").style.display = "block";
-			document.getElementById("changeEmailInput").value = '';
-			document.getElementById("changeCellphoneInput").value = '';
-			document.getElementById("changeNumberInput").value = '';
-			document.getElementById("changeEmailInput").nextSibling.style.visibility = "hidden";
-			document.getElementById("changeCellphoneInput").nextSibling.style.visibility = "hidden";
-			document.getElementById("changeLoginButton").disabled = true;
-		} else if (opt == 3) {
-			document.getElementById("cancelMembership").style.display = "block";
-			document.getElementById("cancelMembershipInput").value = '';
-			document.getElementById("cancelMembershipButton").disabled = true;
-		}
-		return false;
-	} // function profileOption(opt)
+		return true;
+	} // end function checkForStartupMessage()
 
 
 // legacy functions ...
