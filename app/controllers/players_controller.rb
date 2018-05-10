@@ -3,16 +3,16 @@ class PlayersController < ApplicationController
 	def create
 		if (params["email"].blank?)
 			@email = nil 
-			emailValid = true;
+			emailValid = true
 		else
-			@email = params["email"].to_s.downcase;
+			@email = params["email"].to_s.downcase
 			emailValid = Player.validate_email(params["email"])
 		end
 		if (params["cellphone"].blank?) 
 			@cell = nil
-			cellValid = true;
+			cellValid = true
 		else
-			@cell = params["cellphone"].to_s;
+			@cell = params["cellphone"].to_s
 			cellValid = Player.validate_cellphone(params["cellphone"])
 		end
 		output = "BAD"
@@ -44,9 +44,32 @@ class PlayersController < ApplicationController
 		render plain: output
 	end
 
+	def update
+		player = Player.find(session["player_id"])
+		if (params["code"].to_i == 1)
+			player.password = params["password"]
+		elsif (params["code"].to_i == 2)
+			if (!params["email"].blank? && !Player.find_by(email: params[:email]))
+				player.email = params["email"].to_s.downcase
+			end
+			if (!params["cellphone"].blank? && !Player.find_by(cellphone: params[:cellphone]))
+				player.cellphone = params["cellphone"]
+			end
+		elsif (params["code"].to_i == 3)
+			Player.cancel_membership
+		elsif (params["code"].to_i == 4)
+			session[:player_id] = nil
+		end 
+		output = "BAD"
+		if player.save!
+			output = "OK"
+		end
+		render plain: output
+	end
+
 	def login
 		@player = nil
-		output = "BAD:"
+		output = "BAD"
 		if (!params["email"].blank?)
 			@player = Player.find_by(email: params["email"].to_s.downcase)
 		elsif (!params["cellphone"].blank?)
@@ -56,10 +79,21 @@ class PlayersController < ApplicationController
 		if(!@player.blank?)
 			if (params[:password] == @player.password)
 				session["player_id"] = @player.id
-				history = PlayerGamingHistory.find_by(player_id: session["player_id"]);
-				output = "OK:#{history.history}"
+				output = "OK"
 			end
 		end
+		render plain: output
+	end
+
+	def show
+		player = Player.find(session["player_id"])
+		history = PlayerGamingHistory.find_by(player_id: session["player_id"]).history
+		response = {}
+		response["email"] = player.email
+		response["cellphone"] = player.cellphone
+		response["history"] = JSON.parse(history)
+		res = JSON.generate(response)
+		output = "OK_?*#{res}"
 		render plain: output
 	end
 

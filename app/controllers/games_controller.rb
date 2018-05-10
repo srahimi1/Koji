@@ -11,7 +11,6 @@ class GamesController < ApplicationController
       @game.save
       session["game_id"] = @game.id
       @response["gameID"] = @game.id
-      puts session["game_id"]
   		render json: @response
   end
 

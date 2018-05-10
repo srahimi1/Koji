@@ -93,7 +93,7 @@
 			<li style="text-align: left;"><%= form_tag("/", method: "", id: "signupForm") do %>
 				<p>Email and cell phone will be used for login and password recovery</p>
 				<p>Email <span id="emailErrorMessage" style="color:red"></span></p>
-				<p style="margin:-0.75em 0 0 0;"><input id="emailInput" type="text" name="email" placeholder="email" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateEmail(this)" onblur="validateEmail(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+				<p style="margin:-0.75em 0 0 0;"><input id="emailInput" type="text" name="email" placeholder="email" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateEmail(this,1)" onblur="validateEmail(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p>- and/or -</p>
 				<p>Cellphone number <span id="cellphoneErrorMessage" style="color:red"></span></p>
 				<p style="height: 1em; width: 40%; margin-top: -0.5em; padding: 0;"><input id="numberInput" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('cellphoneInput'),1)"></p>
@@ -101,9 +101,9 @@
 				<p>Display name <span id="displaynameErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="displaynameInput" type="text" name="displayname" placeholder="display name" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateDisplayName(this)" onblur="validateDisplayName(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p>Password <span id="password1ErrorMessage" style="color:red"></span></p>
-				<p style="margin:-0.75em 0 0 0;"><input id="password1Input" type="password" name="password1" placeholder="password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validatePassword(this)" onblur="validatePassword(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+				<p style="margin:-0.75em 0 0 0;"><input id="password1Input" type="password" name="password1" placeholder="password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p>Re-enter password <span id="password2ErrorMessage" style="color:red"></span></p>
-				<p style="margin:-0.75em 0 0 0;"><input id="password2Input" type="password" name="password2" placeholder="re-enter password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validatePassword(this)" onblur="validatePassword(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+				<p style="margin:-0.75em 0 0 0;"><input id="password2Input" type="password" name="password2" placeholder="re-enter password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p></p>
 				<p style="width: 40%; text-align: right;"><input id="signupSubmit" type="button" name="signupSubmit" value="Sign up" style="background-color: #e6eded; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="signupFormSubmit()"onmousedown="if (!this.disabled) this.style.boxShadow=''" onmouseup="if (!this.disabled) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
 			<% end %></li>
@@ -149,20 +149,50 @@
 			</ul>
 		</div>
 		<ul style="width: 100%; list-style: none; font-size: 2em; color: #3ecf8e; margin: 0; padding: 0">
-			<li style="display: inline-block;"><a href="#">Change Password</a></li>
-			<li style="display: inline-block;"><a href="#">Change Login</a></li>
-			<li style="display: inline-block;"><a href="#">Cancel/Update Membership</a></li>
-			<li style="display: inline-block;"><a href="#">Logout</a></li>
+			<li style="display: inline-block;"><a href="javascript:void(0);" onclick="profileOption(1);">Change Password</a></li>
+			<li style="display: inline-block;"><a href="javascript:void(0);" onclick="profileOption(2);">Change Account Info</a></li>
+			<li style="display: inline-block;"><a href="javascript:void(0);" onclick="profileOption(3);">Cancel Membership</a></li>
+			<li style="display: inline-block;"><a href="javascript:void(0);" onclick="updateInfo(4);">Logout</a></li>
 		</ul>
+		<div id="placeHolderDiv" style="width:100%; height: 6em;"></div>
+		<div id="changePassword" style="width:100%; height: 6em; border-bottom:1px solid gray; display: none">
+			<span id="changePasswordErrorMessage" style="color:red"></span>
+			<input id="changePasswordInput1" type="password" placeholder="Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %>
+			<input id="changePasswordInput2" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %>
+			<button id="changePasswordButton" onclick="updateInfo(1)" disabled="disabled">Change Password</button>
+		</div>
+		<div id="changeLogin" style="width:100%; height: 6em; display: none">
+			<span id="changeLoginErrorMessage" style="color:red"></span>
+			<input id="changeEmailInput" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onblur="validateEmail(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %>
+			<p>- and/ or -</p>
+			<input id="changeCellphoneInput" type="text" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %>
+			<input id="changeNumberInput" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)">
+			<button id="changeLoginButton" onclick="updateInfo(2)" disabled="disabled">Change Login</button>
+		</div>
+		<div id="cancelMembership" style="width:100%; height: 6em; display: none">
+			<span id="cancelMembershipErrorMessage" style="color:red"></span>
+			<input id="cancelMembershipInput" type="text" placeholder="Type 'cancel'" onkeyup="validateCancelMembership(this)">
+			<button id="cancelMembershipButton" onclick="updateInfo(3)" disabled="disabled">Cancel Membership</button>
+		</div>
+		<p>Email: <span id="profileEmail"></span></p>
+		<p>Cellphone: <span id="profileCellphone"></span></p>
 		<div id="scoreHistory">
-			<h3><span>Date</span><span>High Score</span><span>Total Score</span></h3>
-			<div id="scoreHistoryView"></div>
+			<table id="scoreHistoryTable">
+				<tbody id="tableBody">
+					<tr id="tableHeader">
+						<th>Date</th>
+						<th>High Score</th>
+						<th>Total Daily Score</th>
+					</tr id="tableHeaderEnd">
+				</tbody>
+			</table>
+
 		</div>
 		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
 	</div>
 
 
-	<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 4"  onclick="closeMenu(document.getElementById('instructionsDiv')); closeMenu(document.getElementById('signupDiv')); closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));" onmouseover="animateMenu(document.getElementById('menuPara'), 0);" onmouseout="animateMenu(document.getElementById('menuPara'), 1);"></div>
+	<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 4"  onclick="closeMenu(document.getElementById('instructionsDiv')); closeMenu(document.getElementById('signupDiv')); closeMenu(document.getElementById('signinDiv')); closeMenu(document.getElementById('profileDiv')); showMenu(document.getElementById('menuDiv'));" onmouseover="animateMenu(document.getElementById('menuPara'), 0);" onmouseout="animateMenu(document.getElementById('menuPara'), 1);"></div>
 	
 	<div id="menuOptionContainer" style="position:relative;width:100%; height:3em; margin:auto; margin-top: 0; padding-top: 0; text-align: right; cursor: default;"><p id="menuPara" style="margin-top: 0; padding-top: 0;font-size: 2em; padding-right: 2em; padding-bottom: 3em; -moz-transition: background-color 1s, color 1s; -webkit-transition: background-color 1s, color 1s; -o-transition: background-color 1s, color 1s; transition: background-color 1s, color 1s; background-color: white; color: gray;"><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">m</span><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">e</span><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">n</span><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">u</span></p>
 	</div><!--end menuOptionContainer div -->
@@ -1061,7 +1091,7 @@
 			isGameLost();
 		}
 		
-		if (points != 0) {
+		if ((points != 0) && (!gameOver)) {
 			updatePoints(points, code);  
 			if ((code == 0) || (code == 2))
 				setTimeout(function() {animatePoints(points, code);},300);
@@ -1448,7 +1478,7 @@
 		el.appendChild(p);
 		p = document.createElement("p");
 		var a = document.createElement("a");
-		a.href = "javascript:void(0)";
+		a.href = "javascript:void(0);";
 		a.innerHTML = "Not Yet";
 		a.setAttribute("onclick", "selectLetter(-1)");
 		p.style.fontSize = "2em";
@@ -1514,62 +1544,69 @@
 	} // end function letterBorderAnimation(letter, code)
 
 	function updatePoints(add, code) {
-		if (code == 2) {
-			if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .05))
-				add = add;
-			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .10))
-				add = Math.floor(add * .90);
-			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .15))
-				add = Math.floor(add * .85);
-			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .20))
-				add = Math.floor(add * .70);
-			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .25))
-				add = Math.floor(add * .65);
-			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .30))
-				add = Math.floor(add * .50);
-			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .40))
-				add = Math.floor(add * .40);
-			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .50))
-				add = Math.floor(add * .30);
-			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .60))
-				add = Math.floor(add * .20);
-			else add = Math.floor(add * .10);
+		if (!gameOver) {
+			if (code == 2) {
+				if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .05))
+					add = add;
+				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .10))
+					add = Math.floor(add * .90);
+				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .15))
+					add = Math.floor(add * .85);
+				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .20))
+					add = Math.floor(add * .70);
+				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .25))
+					add = Math.floor(add * .65);
+				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .30))
+					add = Math.floor(add * .50);
+				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .40))
+					add = Math.floor(add * .40);
+				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .50))
+					add = Math.floor(add * .30);
+				else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .60))
+					add = Math.floor(add * .20);
+				else add = Math.floor(add * .10);
+			}
+			points += add;
+			if (numberCorrect == 4) {
+				redoXs();
+			} // if (numberCorrect == 4)
+			updateGameDataOnServer(0);
+			var el = document.getElementById("pointsSpan");
+			el.style.fontWeight = "bold";
+			el.style.fontSize = "3em";
+			if (points < 0) el.style.color = "#F00000";
+			else if (points == 0) el.style.color = "gray";
+			else if (points > 0) el.style.color = "#00F000";
+			el.innerHTML = points;
 		}
-		points += add;
-		if (numberCorrect == 4) {
-			numXs = ((numXs - 2) < 0) ? 0 : (numXs - 2);
-			for (var i = 0; i < 2; i++) {
-				if (i == 0) par = document.getElementById("xbox1");
-				else par = document.getElementById("xbox2");
-				var first = par.firstChild;							
-				while (!!first) {
-					first.style.color = "gray";
-					first.style.fontWeight = "normal";
-					first.style.fontSize = "1em";
-					first = first.nextSibling;
-				}
-			} // for (var i = 0; i < 4; i++)
-			for (var i = 0; i < numXs; i++) {
-				if (i < 2) par = document.getElementById("xbox1");
-				else par = document.getElementById("xbox2");
-				var first = par.firstChild;
-				var end = (i < 2) ? i : (i - 2);
-				for (var j = 0; j < end; j++) first = first.nextSibling;					
-				first.style.color = "#F00000";
-				first.style.fontWeight = "bold";
-				first.style.fontSize = "1.5em";
-			} // for (var i = 0; i < 4; i++)
-		} // if (numberCorrect == 4)
-		updateGameDataOnServer(0);
-		var el = document.getElementById("pointsSpan");
-		el.style.fontWeight = "bold";
-		el.style.fontSize = "3em";
-		if (points < 0) el.style.color = "#F00000";
-		else if (points == 0) el.style.color = "gray";
-		else if (points > 0) el.style.color = "#00F000";
-		el.innerHTML = points;
 		return true;
 	}
+
+	function redoXs() {
+		numXs = ((numXs - 2) < 0) ? 0 : (numXs - 2);
+		for (var i = 0; i < 2; i++) {
+			if (i == 0) par = document.getElementById("xbox1");
+			else par = document.getElementById("xbox2");
+			var first = par.firstChild;							
+			while (!!first) {
+				first.style.color = "gray";
+				first.style.fontWeight = "normal";
+				first.style.fontSize = "1em";
+				first = first.nextSibling;
+			}
+		} // for (var i = 0; i < 4; i++)
+		for (var i = 0; i < numXs; i++) {
+			if (i < 2) par = document.getElementById("xbox1");
+			else par = document.getElementById("xbox2");
+			var first = par.firstChild;
+			var end = (i < 2) ? i : (i - 2);
+			for (var j = 0; j < end; j++) first = first.nextSibling;					
+			first.style.color = "#F00000";
+			first.style.fontWeight = "bold";
+			first.style.fontSize = "1.5em";
+		} // for (var i = 0; i < 4; i++)	
+		return false;
+	}// function doXs()
 
 	function animatePoints(add, code) {
 		clearInterval(pointsIntervalID);
@@ -1716,6 +1753,7 @@
 		var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 		var route = "/games/"+ (!!localStorage.getItem("gameID") ? localStorage.getItem("gameID") : "0");
 		route += "?points="+points+"&numberOfX="+numXs+"&won="+won;
+		xhttp.abort();
 		xhttp.open("PUT", route);
 		xhttp.setRequestHeader('X-CSRF-Token', csrfTok)
 		xhttp.onreadystatechange = function() {
@@ -1798,12 +1836,14 @@
 		return true;
 	} // end function checkForStartupMessage()
 
-	function validateEmail(inp) {
+	function validateEmail(inp, sel) {
 		document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
 		document.getElementById("signupSubmit").style.boxShadow = "";
 		document.getElementById("signupSubmit").disabled = true;
 		formcheck[0] = false;
-		var errorEl = document.getElementById("emailErrorMessage");
+		var errorEl = null;
+		if (sel == 1) errorEl = document.getElementById("emailErrorMessage");
+		else if (sel == 2) errorEl = document.getElementById("changeLoginErrorMessage");
 		var test = inp.value + "";
 		var noAts = 0;
 		var noWhiteSpaces = 0;
@@ -1835,9 +1875,13 @@
 			}
 		}
 		
-		if (isValid) {
+		if ((isValid) && (sel == 1)) {
 			var success = "document.getElementById('emailInput').nextSibling.style.visibility = 'visible'; document.getElementById('emailErrorMessage').innerHTML = ''";
 			var fail = "document.getElementById('emailInput').nextSibling.style.visibility = 'hidden'; document.getElementById('emailErrorMessage').innerHTML = 'email already exists'";
+			checkIfExist("/checkemail",test,success,fail);
+		} else if ((isValid) && (sel == 2)) {
+			var success = "document.getElementById('changeEmailInput').nextSibling.style.visibility = 'visible'; document.getElementById('changeLoginErrorMessage').innerHTML = '';document.getElementById('changeLoginButton').disabled = false;";
+			var fail = "document.getElementById('changeEmailInput').nextSibling.style.visibility = 'hidden'; document.getElementById('changeLoginErrorMessage').innerHTML = 'email already exists';document.getElementById('changeLoginButton').disabled = true;";
 			checkIfExist("/checkemail",test,success,fail);
 		} else {
 			inp.nextSibling.style.visibility = "hidden"; 
@@ -1857,6 +1901,10 @@
 		} else if (sel == 2) {
 			var errorEl = document.getElementById("loginCellphoneErrorMessage");
 			var hid = document.getElementById("loginNumberInput");
+		}
+		else if (sel == 3) {
+			var errorEl = document.getElementById("changeLoginErrorMessage");
+			var hid = document.getElementById("changeNumberInput");
 		}
 		inp.blur();
 		hid.focus();
@@ -1886,6 +1934,10 @@
 		if ((len == 10) && (sel == 1)) {
 			var success = "document.getElementById('cellphoneInput').nextSibling.style.visibility = 'visible'; document.getElementById('cellphoneErrorMessage').innerHTML = ''";
 			var fail = "document.getElementById('cellphoneInput').nextSibling.style.visibility = 'hidden'; document.getElementById('cellphoneErrorMessage').innerHTML = 'cellphone number already exists'";
+			checkIfExist("/checkcellphone",test,success,fail);
+		} else if ((len == 10) && (sel == 3)) {
+			var success = "document.getElementById('changeCellphoneInput').nextSibling.style.visibility = 'visible'; document.getElementById('changeLoginErrorMessage').innerHTML = '';document.getElementById('changeLoginButton').disabled = false;";
+			var fail = "document.getElementById('changeCellphoneInput').nextSibling.style.visibility = 'hidden'; document.getElementById('changeLoginErrorMessage').innerHTML = 'cellphone number already exists';document.getElementById('changeLoginButton').disabled = true;";
 			checkIfExist("/checkcellphone",test,success,fail);
 		} else {
 			inp.nextSibling.style.visibility = "hidden"; 
@@ -2029,18 +2081,18 @@
   		xhttp.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
       			var res = this.responseText + "";
-    			console.log(res);
-    			if (res.split(":")[0].toUpperCase() == "OK") {
-    				var el = document.getElementById("gameMessage"); 
-    				el.style.color = "#3ecf8e"; 
-    				el.innerHTML = "Sign in succesful."; 
-    				closeMenu(document.getElementById('signinDiv'));
-    				showMenu(document.getElementById('gameMessageDiv')); 
-    				setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},4000);
-    				return false;
-    			}
+    			if (res.toUpperCase() == "OK") {
+					getProfileData();
+					var el = document.getElementById("gameMessage"); 
+					el.style.color = "#3ecf8e"; 
+					el.innerHTML = "Sign in succesful."; 
+					closeMenu(document.getElementById('signinDiv'));
+					showMenu(document.getElementById('gameMessageDiv')); 
+					setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},4000);
+				}
+				return false;
     		} // if (this.readyState == 4 && this.status == 200)
-  		}; // xhttptemp.onreadystatechange = function()
+  		}; // xhttp.onreadystatechange = function()
   		xhttp.open("POST", "/players/login", true);
   		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
@@ -2048,6 +2100,160 @@
 		return false;
 	} // end function signinFormSubmit()
 
+	function getProfileData() {
+		var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+		var route = "/players/0";
+		xhttp.abort();
+		xhttp.open("GET", route);
+		xhttp.setRequestHeader('X-CSRF-Token', csrfTok)
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				var res = this.responseText + "";
+    			if (res.split("_?*")[0].toUpperCase() == "OK") {
+    				if (res.split("_?*")[1] != "" ) {
+    					var jd = JSON.parse(res.split("_?*")[1]);
+    					fillInProfileDiv(jd);
+    				}
+    			} // if (res.split("_?*")[0].toUpperCase() == "OK")
+				return true;
+			} // end if (this.readyState == 4 && this.status == 200)
+		} // end onreadystatechange
+		xhttp.send();
+		return false;
+	} // function getProfileData()
+
+
+	function fillInProfileDiv(data) {
+		var history = data.history;
+		document.getElementById("profileEmail").innerHTML = data.email;
+		var cell = data.cellphone + "";
+		document.getElementById("profileCellphone").innerHTML = "(" + cell[0] + "" + cell[1] + "" + cell[2] + ")" + cell[3] + "" + cell[4] + "" + cell[5] + "-" + cell[6] + "" + cell[7] + "" + cell[8] + "" + cell[9];
+		for (var key in history) {
+			var header = document.getElementById("tableHeader");
+			var tableBody = document.getElementById("tableBody");
+			while (!!header.nextSibling) {header.parentNode.removeChild(header.nextSibling); }
+			var frag = document.createDocumentFragment();
+			if (history.hasOwnProperty(key)) {
+				var tr = document.createElement("tr");
+				var td1 = document.createElement("td");
+				var td2 = document.createElement("td");
+				var td3 = document.createElement("td");
+				td1.appendChild(document.createTextNode(key));
+				td2.appendChild(document.createTextNode(history[key].high_score));
+				td3.appendChild(document.createTextNode(history[key].total));
+				tr.appendChild(td1);
+				tr.appendChild(td2);
+				tr.appendChild(td3);
+				frag.appendChild(tr);
+			}
+			tableBody.appendChild(frag);
+		} // for (var key in data) {
+		return false;
+	} // function fillInProfileDiv(data)
+
+	function validatePassword2() {
+		var el1 = document.getElementById("changePasswordInput1");
+		var el2 = document.getElementById("changePasswordInput2");
+		var errorEl1 = document.getElementById("changePasswordErrorMessage");
+		var test1 = el1.value + "";
+		var test2 = el2.value + "";
+		if (test1.length < 8) {
+			errorEl1.innerHTML = "password length must be at least 8 characters";
+			el1.nextSibling.style.visibility = "hidden";
+			el2.nextSibling.style.visibility = "hidden";
+			document.getElementById("changePasswordButton").disabled = true;
+		} else if (test1 != test2) {
+			errorEl1.innerHTML = "passwords do not match";
+			el1.nextSibling.style.visibility = "hidden";
+			el2.nextSibling.style.visibility = "hidden";
+			document.getElementById("changePasswordButton").disabled = true;
+		} else if (el1.value == el2.value) {
+			errorEl1.innerHTML = "";
+			el1.nextSibling.style.visibility = "visible";
+			el2.nextSibling.style.visibility = "visible";
+			document.getElementById("changePasswordButton").disabled = false;
+		} else {
+			errorEl1.innerHTML = "";
+			el1.nextSibling.style.visibility = "hidden";
+			el2.nextSibling.style.visibility = "hidden";
+			document.getElementById("changePasswordButton").disabled = true;
+		}
+		return false;
+	} // end function validatePassword()
+
+	function validateCancelMembership(el) {
+		document.getElementById("cancelMembershipButton").disabled = true;
+		var cancel = el.value + "";
+		if (cancel.toUpperCase() == "CANCEL") document.getElementById("cancelMembershipButton").disabled = false;
+	}
+
+	function updateInfo(sel) {
+		var route = "";
+		var data = "";
+		if (sel == 1) {
+			var password = encodeURIComponent(document.getElementById("changePasswordInput1").value);
+			route = "/players/0";
+			data = "code=1&password="+password;
+		} else if (sel == 2) {
+			var email = encodeURIComponent(document.getElementById("changeEmailInput").value);
+			var cellphone = encodeURIComponent(document.getElementById("changeNumberInput").value);
+			route = "/players/change_login";
+			data = "code=2&email="+email+"&cellphone="+cellphone;
+		} else if (sel == 3) {
+			var cancel = document.getElementById("cancelMembershipInput").value + "";
+			route = "/players/cancel_membership";
+			data = "code=3";
+		} else if (sel == 4) {
+			route = "/players/logout";
+			data = "code=4";
+		}
+		if ((sel == 1) || (sel == 2) || ((sel == 3) && (cancel.toUpperCase() == "CANCEL")) || (sel == 4)) {
+			var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+			xhttp.abort();
+	  		xhttp.onreadystatechange = function() {
+	    		if (this.readyState == 4 && this.status == 200) {
+	      			var res = this.responseText + "";
+	    			if (res.toUpperCase() == "OK") {
+    						getProfileData();
+    				}
+					return false;
+	    		} // if (this.readyState == 4 && this.status == 200)
+	  		}; // xhttptemp.onreadystatechange = function()
+	  		xhttp.open("PUT", "/players/0", true);
+	  		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	  		xhttp.setRequestHeader('X-CSRF-Token', csrfTok);
+	  		xhttp.send(data);
+  		}
+		return false;
+	} // end function updateInfo(sel)
+
+	function profileOption(opt) {
+		document.getElementById("placeHolderDiv").style.display = "none";
+		document.getElementById("changePassword").style.display = "none";
+		document.getElementById("changeLogin").style.display = "none";
+		document.getElementById("cancelMembership").style.display = "none";
+		if (opt == 1) {
+			document.getElementById("changePassword").style.display = "block";
+			document.getElementById("changePasswordInput1").value = '';
+			document.getElementById("changePasswordInput2").value = '';
+			document.getElementById("changePasswordInput1").nextSibling.style.visibility = "hidden";
+			document.getElementById("changePasswordInput2").nextSibling.style.visibility = "hidden";
+			document.getElementById("changePasswordButton").disabled = true;
+		} else if (opt == 2) {
+			document.getElementById("changeLogin").style.display = "block";
+			document.getElementById("changeEmailInput").value = '';
+			document.getElementById("changeCellphoneInput").value = '';
+			document.getElementById("changeNumberInput").value = '';
+			document.getElementById("changeEmailInput").nextSibling.style.visibility = "hidden";
+			document.getElementById("changeCellphoneInput").nextSibling.style.visibility = "hidden";
+			document.getElementById("changeLoginButton").disabled = true;
+		} else if (opt == 3) {
+			document.getElementById("cancelMembership").style.display = "block";
+			document.getElementById("cancelMembershipInput").value = '';
+			document.getElementById("cancelMembershipButton").disabled = true;
+		}
+		return false;
+	} // function profileOption(opt)
 
 
 // legacy functions ...

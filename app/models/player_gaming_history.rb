@@ -2,7 +2,7 @@ class PlayerGamingHistory < ApplicationRecord
   belongs_to :player
 
   def update(game)
-  	history = PlayerGamingHistory.find_by(player_id: game.player_id)
+    history = PlayerGamingHistory.find_by(player_id: game.player_id)
   	game_date = Time.at(game.created_at).to_date
   	if (game_date === Time.at(history.updated_at).to_date)
   		history.current_total = history.current_total + game.score
