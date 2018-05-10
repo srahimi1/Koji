@@ -1,20 +1,185 @@
 <!DOCTYPE html>
-<html style="height:100%; overflow-x: hidden;">
+<html>
 <title></title>
 <head>
+<style>
+	html {
+		width: 100%;
+		height: 100%;
+		overflow-x: hidden;
+		margin: 0;
+		padding: 0;
+	}
+
+	body {
+		width:100%;
+		height:100%; 
+		overflow-x: hidden;
+		margin: 0;
+		padding: 0;
+		background-color: #bebebe;
+		font-family: 'Trebuchet MS', helvetica, tahoma;"
+	}
+
+	/* main app sections */
+	.title-bar {
+		width:100%;
+		font-size:4em;
+		margin: 0 auto;
+		padding: .1em 0;
+		color:white;
+		text-align: center;
+		background-color: #7a00cc;
+		background: -moz-linear-gradient(#9900ff,#7a00cc);
+		background: -webkit-linear-gradient(#9900ff,#7a00cc);
+		background: -o-linear-gradient(#9900ff,#7a00cc);
+		background: linear-gradient(#9900ff,#7a00cc);
+		box-shadow: 6px 6px 16px #666666;
+		z-index: 100;
+	}
+
+	.menu-button {
+
+	}
+
+	.game-content {
+		width: 100%;
+		height: 100%;
+		margin: 1em auto;
+		padding: 4em 0;
+		text-align: center;
+
+	}
+
+	.footer {
+
+	}
+
+
+	/* game sections */
+
+	.goal-container {
+		position: relative;
+		width:100%;
+		height:11em;
+		padding: 0;
+		margin: 0 auto;
+		text-align: center;
+		overflow: hidden;
+		box-shadow: 1px 5px 23px gray, 0px 5px 3px #cecece;
+	}
+
+	.goal-title {
+		position: absolute; 
+		width: 6em;
+		padding: 0.5em;
+		margin: 0 auto 0 -3em;
+		left: 50%;
+		font-size:1.5em;
+		text-align:center;
+		color: #fafffa;
+		background-color:#666666;
+		z-index: 3;
+	}
+
+	.goal-div {
+		width:100%;
+		height:100%;
+		margin: 0 auto;
+		background-image: url('transparent_background.jpg');
+		z-index: 1;
+	}
+
+	.canvas-1 {
+		width:100%;
+		height:100%;
+		text-align:center;
+		display:none;
+		z-index: 2
+	}
+
+	.color-mix-div-outermost {
+
+	}
+
+	.points-and-xs-div {
+
+	}
+
+	.top-half-color-mix-div {
+
+	}
+
+	.lower-half-color-mix-div {
+
+	}
+
+	.yes-button {
+
+	}
+
+	.no-button {
+
+	}
+
+	.mix-div {
+
+	}
+
+	.points15-svg {
+
+	}
+
+	.points5-svg {
+
+	}
+
+	.you-got-it-svg {
+
+	}
+
+	.try-again-svg {
+
+	}
+
+	.missed-it-svg {
+
+	}
+
+	.dont-mix-svg {
+		
+	}
+
+
+
+</style>
 </head>
-<body style="width:100%;height:100%; padding: 0; margin: 0; overflow-x: hidden; background-color: #f3f6f9; font-family: 'Trebuchet MS', helvetica, tahoma;" onload="checkForStartupMessage();setTimeout(function() {showMenu(document.getElementById('menuDiv')) },500);">
+<body onload="checkForStartupMessage();setTimeout(function() {showMenu(document.getElementById('menuDiv')) },500);">
 
-<h1 id="KOJITitle" style="width:100%; padding:0.1em;text-align: center;background-color: #3ecf8e; background: -moz-linear-gradient(#5eefae,#3ecf8e); background: -webkit-linear-gradient(#5eefae,#3ecf8e);background: -o-linear-gradient(#5eefae,#3ecf8e); background: linear-gradient(#5eefae,#3ecf8e); font-size:4em; margin-top: 0; color:white; box-shadow: 6px 6px 6px #aaaaaa; margin-bottom: 10px; padding-bottom: 0; z-index:5">KO<span style="color:#3e8ecf">J</span><span style="color:#8e3ecf">I</span></h1>
+<h1 id="KOJITitle" class="title-bar">KOJI</h1>
 
-<div id="startupMessageDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:20; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
-		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 21"  onclick="closeMenu(document.getElementById('startupMessageDiv'))"></div>
-		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('startupMessageDiv'))">X</p></div>
-		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><p id="startupMessageSpan" style="font-size: 2em; text-align: center;"></p>
-		</div>
-</div>
+<div id="gameContent" class="game-content">
+	<div id="goalContainer" class="goal-container">
+		<div id="goalTitle" class="goal-title">Goal Color</div>
+		<canvas id="canvas1" class="canvas-1"></canvas>
+		<div id="goal" class="goal-div"></div>
+	</div><!--end goalContainer div -->
 
-<div id="root" style="position:relative;width:100%;height:80%; text-align: center; margin: 0 auto 0 auto; padding: 0px; background-color: #c284e1;">
+	<div id="pointsandxsContainer" style="position:relative;width:100%;overflow: hidden; margin: auto; text-align: center; white-space: nowrap; margin-top: 1em; color: gray;">
+		<div style="display: inline-block;width: 100%; text-align:center; overflow: hidden;"><p id="xbox1" style="display: inline-block; width: 25%;font-size:2em;text-align: center"><span style="margin-left: 1em; margin-right: 1em;color: #8e3ecf">X</span><span style="margin-left: 1em; margin-right: 1em;color: #8e3ecf">X</span></p><strong style="display: inline-block;font-size:2em; border-bottom: 1px solid gray; width: 50%;">Points</strong><p id="xbox2" style="display: inline-block; width: 25%;font-size:2em;text-align: center"><span style="margin-left: 1em; margin-right: 1em;color: #8e3ecf">X</span><span style="margin-left: 1em; margin-right: 1em;color: #8e3ecf">X</span></p><p id="pointsSpan" style="margin-top: -0.5em;"></p></div>
+	</div><!--end pointsandxsContainer div -->
+
+	<div id="gameLettersContainer">
+		<div id="gameLettersDiv" style="width:100%; margin: auto; text-align:center; color: gray"></div>
+	</div><!--end gameLettersContainer div -->
+
+	<div id="guessOutside" style="position:relative;width:100%; height:45%;overflow: hidden; margin:auto;"> 
+	<div id="letterChoicesCont" style="position:absolute;width:100%;height:100%;top: 0; left: 0;background-color: white; display:none;text-align:center; z-index: 4"></div>
+	<div id="guessContainer" style="position:relative;width:100%; height:80%;overflow: hidden; margin:auto;">	
+		<div id="guess" style="position: relative; width:100%;height:100%; margin: auto; margin-top: 0; min-height: 100px; background-color: #eef0f6;background-image: url('transparent_background.jpg');text-align:left; white-space: nowrap; overflow: hidden; z-index: 1"></div>
+	</div><!--end guessContainer div -->
+	</div><!--end guessOutside div -->
+</div><!--end gameContent div -->
 	
 	<div id="menuDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('menuDiv'))"></div>
@@ -50,6 +215,13 @@
 			</li>
 		</ul>
 		<div style="width: 100%; height: 10%; background-color:#3ecf8e; background: -moz-linear-gradient(#5eefae,#3ecf8e); background: -webkit-linear-gradient(#5eefae,#3ecf8e); background: -o-linear-gradient(#5eefae,#3ecf8e); background: linear-gradient(#5eefae,#3ecf8e);"></div>
+	</div>
+
+	<div id="startupMessageDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:20; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
+		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 21"  onclick="closeMenu(document.getElementById('startupMessageDiv'))"></div>
+		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('startupMessageDiv'))">X</p></div>
+		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><p id="startupMessageSpan" style="font-size: 2em; text-align: center;"></p>
+		</div>
 	</div>
 
 	<div id="gameMessageDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
@@ -195,31 +367,7 @@
 	<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 4"  onclick="closeMenu(document.getElementById('instructionsDiv')); closeMenu(document.getElementById('signupDiv')); closeMenu(document.getElementById('signinDiv')); closeMenu(document.getElementById('profileDiv')); showMenu(document.getElementById('menuDiv'));" onmouseover="animateMenu(document.getElementById('menuPara'), 0);" onmouseout="animateMenu(document.getElementById('menuPara'), 1);"></div>
 	
 	<div id="menuOptionContainer" style="position:relative;width:100%; height:3em; margin:auto; margin-top: 0; padding-top: 0; text-align: right; cursor: default;"><p id="menuPara" style="margin-top: 0; padding-top: 0;font-size: 2em; padding-right: 2em; padding-bottom: 3em; -moz-transition: background-color 1s, color 1s; -webkit-transition: background-color 1s, color 1s; -o-transition: background-color 1s, color 1s; transition: background-color 1s, color 1s; background-color: white; color: gray;"><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">m</span><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">e</span><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">n</span><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">u</span></p>
-	</div><!--end menuOptionContainer div -->
-	
-	<div id="goalContainer" style="position:relative;width:100%; height:20%;overflow: hidden; margin:auto; box-shadow: 1px 5px 23px gray, 0px 5px 3px #cecece">
-		<div id="timer" style="position:absolute; width:6em; padding:0.5em; background-color:ghostwhite; text-align:center; font-size:1.5em; margin-top:0; left: 50%; margin-left: -3em; color: gray; border-top: 1px solid gray; opacity:0.75; z-index: 3;">Goal Color</div>
-		<canvas id="canvas1" style="position:absolute;width:100%;height:100%;top: 0; left: 0;display:none;text-align:center; z-index: 2"></canvas>
-		<div id="overlayMessageContainer" style="position:relative;width:100%;height:100%;display:none;text-align:center; background-color:lightgray; opacity:0.75;"><p id="overlayMessageSpan" style="margin-top:3em;font-size:4em;"></p></div>
-		<div id="goal" style="width:100%;height:100%; margin: 0 auto 0 auto; min-height: 100px;background-image: url('transparent_background.jpg'); z-index: 1"></div>
-	</div><!--end goalContainer div -->
-
-	<div id="pointsandxsContainer" style="position:relative;width:100%;overflow: hidden; margin: auto; text-align: center; white-space: nowrap; margin-top: 1em; color: gray;">
-		<div style="display: inline-block;width: 100%; text-align:center; overflow: hidden;"><p id="xbox1" style="display: inline-block; width: 25%;font-size:2em;text-align: center"><span style="margin-left: 1em; margin-right: 1em;color: #8e3ecf">X</span><span style="margin-left: 1em; margin-right: 1em;color: #8e3ecf">X</span></p><strong style="display: inline-block;font-size:2em; border-bottom: 1px solid gray; width: 50%;">Points</strong><p id="xbox2" style="display: inline-block; width: 25%;font-size:2em;text-align: center"><span style="margin-left: 1em; margin-right: 1em;color: #8e3ecf">X</span><span style="margin-left: 1em; margin-right: 1em;color: #8e3ecf">X</span></p><p id="pointsSpan" style="margin-top: -0.5em;"></p></div>
-	</div><!--end pointsandxsContainer div -->
-
-	<div id="gameLettersContainer">
-		<div id="gameLettersDiv" style="width:100%; margin: auto; text-align:center; color: gray"></div>
-	</div><!--end gameLettersContainer div -->
-
-	<div id="guessOutside" style="position:relative;width:100%; height:45%;overflow: hidden; margin:auto;"> 
-	<div id="letterChoicesCont" style="position:absolute;width:100%;height:100%;top: 0; left: 0;background-color: white; display:none;text-align:center; z-index: 4"></div>
-	<div id="guessContainer" style="position:relative;width:100%; height:80%;overflow: hidden; margin:auto;">	
-		<div id="guess" style="position: relative; width:100%;height:100%; margin: auto; margin-top: 0; min-height: 100px; background-color: #eef0f6;background-image: url('transparent_background.jpg');text-align:left; white-space: nowrap; overflow: hidden; z-index: 1"></div>
-	</div><!--end guessContainer div -->
-	</div>
-
-</div><!--end root div -->
+	</div><!--end menuOptionContainer div -->	
 
 <div id="footer" style="position: fixed; width: 100%; height: 15%; background-color: #3ecf8e; background: -moz-linear-gradient(#5eefae,#3ecf8e); background: -webkit-linear-gradient(#5eefae,#3ecf8e);background: -o-linear-gradient(#5eefae,#3ecf8e); background: -ms-linear-gradient(#5eefae,#3ecf8e); background: linear-gradient(#5eefae,#3ecf8e); background: linear-gradient(#5eefae,#3ecf8e); padding: 0;"><p style="color: ghostwhite; font-size:1.5em; padding: 0.5em 3em 2em 3em; margin-top:0.5em;">a First Flight Ingenuities<span style="font-size: 1em">&trade;</span> production</p></div>
 
@@ -732,10 +880,6 @@
 		var goal = document.getElementById("goal");
 		goal.innerHTML = "";
 		goal.style.backgroundImage = "url('transparent_background.jpg')";
-		var messageContainer = document.getElementById("overlayMessageContainer"); 
-		var messageSpan = document.getElementById("overlayMessageSpan");
-		messageSpan.innerHTML = "";
-		messageContainer.style.display = "none";
 		closeMenu(document.getElementById("menuDiv"));
 		getGame();
 		return true;
@@ -1133,8 +1277,6 @@
 	} // end function letterObj(letter, cs, font, size, rotation, correct)
 
 	function createCanvasWithLetters() {
-		var messageContainer = document.getElementById("overlayMessageContainer");
-		messageContainer.style.display = "none";
 		canvas = document.getElementById("canvas1");
 		canvas.style.display = "none";
 		ctx = canvas.getContext('2d');
