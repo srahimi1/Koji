@@ -146,9 +146,11 @@
 
 	.points-title {
 		 display: inline-block;
+		 width: 45%;
+		 margin: 0 auto;
 		 font-size: 2em;
+		 text-align: center;
 		 border-bottom: 1px solid #fafffa;
-		 width: 50%;
 	}
 
 	.points-span {
@@ -1853,6 +1855,7 @@
 			var first = par.firstChild;							
 			while (!!first) {
 				first.style.color = "#fafffa";
+				first.style.textShadow = "none";
 				first = first.nextSibling;
 			}
 		} // for (var i = 0; i < 4; i++)
