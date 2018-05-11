@@ -6,19 +6,19 @@
 	html {
 		width: 100%;
 		height: 100%;
-		overflow-x: hidden;
+		overflow: hidden;
 		margin: 0;
 		padding: 0;
 	}
 
 	body {
-		width:100%;
-		height:100%; 
+		width: 100%;
+		height: 100%; 
 		overflow-x: hidden;
 		margin: 0;
 		padding: 0;
 		background-color: #bebebe;
-		font-family: 'Trebuchet MS', helvetica, tahoma;"
+		font-family: Trebuchet MS, helvetica, tahoma;
 	}
 
 	/* main app sections */
@@ -26,7 +26,7 @@
 		width:100%;
 		font-size:4em;
 		margin: 0 auto;
-		padding: .1em 0;
+		padding: .2em 0;
 		color:white;
 		text-align: center;
 		background-color: #7a00cc;
@@ -52,7 +52,23 @@
 	}
 
 	.footer {
-
+		position: fixed; 
+		width: 100%;
+		height: 2em;
+		top: 100%;
+		margin: -3em auto 0 auto;
+		padding: 0.2em 3em 0.8em 3em;
+		color: #fafffa;
+		font-size: 1.5em;
+		background-color: #7a00cc;
+		background: -moz-linear-gradient(#9900ff,#7a00cc);
+		background: -webkit-linear-gradient(#9900ff,#7a00cc);
+		background: -o-linear-gradient(#9900ff,#7a00cc);
+		background: linear-gradient(#9900ff,#7a00cc);
+		box-shadow: 6px 6px 16px #666666;
+		overflow: hidden;
+		z-index: 100;
+	
 	}
 
 
@@ -60,13 +76,13 @@
 
 	.goal-container {
 		position: relative;
-		width:100%;
-		height:11em;
+		width: 100%;
+		height: 11em;
 		padding: 0;
 		margin: 0 auto;
 		text-align: center;
 		overflow: hidden;
-		box-shadow: 1px 5px 23px gray, 0px 5px 3px #cecece;
+		box-shadow: 1px 3px 30px #888888;
 	}
 
 	.goal-title {
@@ -78,32 +94,120 @@
 		font-size:1.5em;
 		text-align:center;
 		color: #fafffa;
-		background-color:#666666;
+		background-color: #666666;
 		z-index: 3;
 	}
 
 	.goal-div {
-		width:100%;
-		height:100%;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
 		margin: 0 auto;
 		background-image: url('transparent_background.jpg');
 		z-index: 1;
 	}
 
 	.canvas-1 {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		top: 0;
+		left: 0;
+		margin: 0 auto;
+		text-align: center;
+		display: none;
+		z-index: 2;
+	}
+
+	.points-and-xs-container {
+		position: relative;
+		width: 100%;
+		height: 11em;
+		margin: 0 auto;
+		text-align: center;
+		overflow: hidden;
+		white-space: nowrap;
+		color: #fafffa;
+	}
+
+	.xs-p {
+		display: inline-block;
+		width: 25%;
+		font-size: 2em;
+		font-weight: bold;
+		text-align: center;
+	}
+
+	.x {
+		padding: 0 2em;
+	}
+
+	.points-title {
+		 display: inline-block;
+		 font-size: 2em;
+		 border-bottom: 1px solid #fafffa;
+		 width: 50%;
+	}
+
+	.points-span {
+		width: 100%;
+		margin: -0.5em 0 0 0;
+		text-align: center;
+
+	}
+
+	.game-letters-container {
+		width: 100%;
+		margin: 0 auto;
+		text-align: center;
+		color: #fafffa;
+	}
+
+	.game-letters-div {
 		width:100%;
-		height:100%;
-		text-align:center;
-		display:none;
-		z-index: 2
+		margin: 0 auto;
+		text-align: center;
+		color: #fafffa;
+	}
+	.guess-outer {
+		position: relative;
+		width: 100%;
+		height: 18em;
+		padding: 4em 0;
+		margin: 0 auto;
+		overflow: hidden;
+	}
+	
+	.guess-container {
+		position: relative;
+		width: 100%;
+		height: 18em;
+		margin: 0 auto;
+		overflow: hidden;
 	}
 
-	.color-mix-div-outermost {
-
+	.guess {
+		width: 100%;
+		height: 100%;
+		margin: 0 auto;
+		background-color: #bebebe;
+		background-image: url('transparent_background.jpg');
+		overflow: hidden;
 	}
 
-	.points-and-xs-div {
-
+	.guess-instruction {
+		position: absolute;
+		width: 20em;
+		top: 0;
+		padding: 0.5em;
+		margin: 0 auto 0 -10em;
+		left: 50%;
+		text-align: center;
+		font-size: 1.5em;
+		color: #fafffa;
+		background-color: #666666;
 	}
 
 	.top-half-color-mix-div {
@@ -114,12 +218,25 @@
 
 	}
 
-	.yes-button {
+	.yesno-button {		
+		display: inline-block;
+		font-size: 3em;
+		margin: 0 5em;
+		border: none;
+		border-radius: 5px;
+		text-align: center;
+		color: #fafffa;
+		box-shadow: 1px 11px 16px #333333;
+	}
 
+	.yes-button {
+		background-color: #3ecf8e;
+		padding: 0.5em 1.35em;
 	}
 
 	.no-button {
-
+		background-color: #ff0077;
+		padding: 0.5em 1.5em;
 	}
 
 	.mix-div {
@@ -150,6 +267,17 @@
 		
 	}
 
+	.letter-choices-container {
+		 position: absolute;
+		 width: 100%;
+		 height: 100%;
+		 top: 0;
+		 left: 0;
+		 text-align: center;
+		 background-color: white;
+		 display: none;
+	}
+
 
 
 </style>
@@ -165,22 +293,25 @@
 		<div id="goal" class="goal-div"></div>
 	</div><!--end goalContainer div -->
 
-	<div id="pointsandxsContainer" style="position:relative;width:100%;overflow: hidden; margin: auto; text-align: center; white-space: nowrap; margin-top: 1em; color: gray;">
-		<div style="display: inline-block;width: 100%; text-align:center; overflow: hidden;"><p id="xbox1" style="display: inline-block; width: 25%;font-size:2em;text-align: center"><span style="margin-left: 1em; margin-right: 1em;color: #8e3ecf">X</span><span style="margin-left: 1em; margin-right: 1em;color: #8e3ecf">X</span></p><strong style="display: inline-block;font-size:2em; border-bottom: 1px solid gray; width: 50%;">Points</strong><p id="xbox2" style="display: inline-block; width: 25%;font-size:2em;text-align: center"><span style="margin-left: 1em; margin-right: 1em;color: #8e3ecf">X</span><span style="margin-left: 1em; margin-right: 1em;color: #8e3ecf">X</span></p><p id="pointsSpan" style="margin-top: -0.5em;"></p></div>
+	<div id="pointsandxsContainer" class="points-and-xs-container">
+		<p id="xbox1" class="xs-p"><span class="x">X</span><span class="x">X</span></p><strong class="points-title">Points</strong><p id="xbox2" class="xs-p"><span class="x">X</span><span class="x">X</span></p>
+		<p id="pointsSpan" class="points-span"></p>
 	</div><!--end pointsandxsContainer div -->
 
-	<div id="gameLettersContainer">
-		<div id="gameLettersDiv" style="width:100%; margin: auto; text-align:center; color: gray"></div>
+	<div id="gameLettersContainer" class="game-letters-container">
+		<div id="gameLettersDiv" class="game-letter-div"></div>
 	</div><!--end gameLettersContainer div -->
 
-	<div id="guessOutside" style="position:relative;width:100%; height:45%;overflow: hidden; margin:auto;"> 
-	<div id="letterChoicesCont" style="position:absolute;width:100%;height:100%;top: 0; left: 0;background-color: white; display:none;text-align:center; z-index: 4"></div>
-	<div id="guessContainer" style="position:relative;width:100%; height:80%;overflow: hidden; margin:auto;">	
-		<div id="guess" style="position: relative; width:100%;height:100%; margin: auto; margin-top: 0; min-height: 100px; background-color: #eef0f6;background-image: url('transparent_background.jpg');text-align:left; white-space: nowrap; overflow: hidden; z-index: 1"></div>
+	<div id="guessOuter" class="guess-outer"> 
+	<div id="guessContainer" class="guess-container">	
+		<div id="guess" class="guess"></div>
+		<div id="letterChoicesCont" class="letter-choices-container"></div>
 	</div><!--end guessContainer div -->
-	</div><!--end guessOutside div -->
+	</div><!--end guessOuter div -->
 </div><!--end gameContent div -->
 	
+<div id="footer" class="footer"><p>a First Flight Ingenuities<span style="font-size: 1em">&trade;</span> production</p></div>
+
 	<div id="menuDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
 		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('menuDiv'))"></div>
 		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color: #3ecf8e; background: -moz-linear-gradient(#3eef8e,#3ecf8e); background: -webkit-linear-gradient(#3eef8e,#3ecf8e);background: -o-linear-gradient(#3eef8e,#3ecf8e); background: linear-gradient(#3eef8e,#3ecf8e);">
@@ -277,7 +408,7 @@
 				<p>Re-enter password <span id="password2ErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="password2Input" type="password" name="password2" placeholder="re-enter password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p></p>
-				<p style="width: 40%; text-align: right;"><input id="signupSubmit" type="button" name="signupSubmit" value="Sign up" style="background-color: #e6eded; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="signupFormSubmit()"onmousedown="if (!this.disabled) this.style.boxShadow=''" onmouseup="if (!this.disabled) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
+				<p style="width: 40%; text-align: right;"><input id="signupSubmit" type="button" name="signupSubmit" value="Sign up" style="background-color: #e6eded; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="signupFormSubmit()"onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
 			<% end %></li>
 		</ul>
 		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
@@ -304,7 +435,7 @@
 				<p>Password <span id="loginPasswordErrorMessage" style="color:red"></span></p>
 				<p style="margin:-0.75em 0 0 0;"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder="password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 				<p></p>
-				<p style="width: 40%; text-align: right;"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" style="background-color: #8e3ecf; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em; box-shadow: -3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece;" onclick="signinFormSubmit()" onmousedown="if (this.disabled == false) this.style.boxShadow=''" onmouseup="if (this.disabled == false) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
+				<p style="width: 40%; text-align: right;"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" style="background-color: #8e3ecf; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em; box-shadow: -3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece;" onclick="signinFormSubmit()" onmousedown="if (this.disabled == false) this.style.boxShadow='none'" onmouseup="if (this.disabled == false) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
 			<% end %></li>
 		</ul>
 		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
@@ -368,9 +499,6 @@
 	
 	<div id="menuOptionContainer" style="position:relative;width:100%; height:3em; margin:auto; margin-top: 0; padding-top: 0; text-align: right; cursor: default;"><p id="menuPara" style="margin-top: 0; padding-top: 0;font-size: 2em; padding-right: 2em; padding-bottom: 3em; -moz-transition: background-color 1s, color 1s; -webkit-transition: background-color 1s, color 1s; -o-transition: background-color 1s, color 1s; transition: background-color 1s, color 1s; background-color: white; color: gray;"><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">m</span><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">e</span><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">n</span><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">u</span></p>
 	</div><!--end menuOptionContainer div -->	
-
-<div id="footer" style="position: fixed; width: 100%; height: 15%; background-color: #3ecf8e; background: -moz-linear-gradient(#5eefae,#3ecf8e); background: -webkit-linear-gradient(#5eefae,#3ecf8e);background: -o-linear-gradient(#5eefae,#3ecf8e); background: -ms-linear-gradient(#5eefae,#3ecf8e); background: linear-gradient(#5eefae,#3ecf8e); background: linear-gradient(#5eefae,#3ecf8e); padding: 0;"><p style="color: ghostwhite; font-size:1.5em; padding: 0.5em 3em 2em 3em; margin-top:0.5em;">a First Flight Ingenuities<span style="font-size: 1em">&trade;</span> production</p></div>
-
 
 
 <div id="plus15svg" style="display:none"><svg id="plus15svg2" style="position: absolute; display: block; margin:auto; width: 25%; height: 25%;" viewBox="0 0 21 10" xmlns="http://www.w3.org/2000/svg">
@@ -780,9 +908,6 @@
 </body>
 
 <script>
-	var gctemp = document.getElementById("guessContainer");
-	gctemp.style.top = "50%";
-	gctemp.style.marginTop = -(gctemp.offsetHeight/2) + "px";
 	formcheck = [];
 	for (var i = 0; i < 4; i++) formcheck.push(false);
 	inputData = null;
@@ -873,10 +998,10 @@
 		gameLD.innerHTML = "";
 		var box = document.getElementById("xbox1");
 		var first = box.firstChild;
-		while (first) {first.style.color = "#666666"; first.style.fontSize = "inherit"; first.style.fontWeight = "normal"; first.style.boxShadow = ""; first = first.nextSibling;}
+		while (first) {first.style.color = "#fafffa"; first.style.textShadow = ""; first = first.nextSibling;}
 		box = document.getElementById("xbox2");
 		first = box.firstChild;
-		while (first) {first.style.color = "#666666"; first.style.fontSize = "inherit"; first.style.fontWeight = "normal"; first.style.boxShadow = ""; first = first.nextSibling;}
+		while (first) {first.style.color = "#fafffa"; first.style.textShadow = ""; first = first.nextSibling;}
 		var goal = document.getElementById("goal");
 		goal.innerHTML = "";
 		goal.style.backgroundImage = "url('transparent_background.jpg')";
@@ -1081,16 +1206,20 @@
 		buttonDiv.style.width = "100%";
 		buttonDiv.style.height = "10em";
 		buttonDiv.style.textAlign = "center";
-		var button1 = createYesNoButton();
-		button1.style.backgroundColor = "#0066ff";
-		button1.style.background = "linear-gradient(#5eaeef,#3e8ecf)";
+		var button1 = document.createElement("button");
+		button1.setAttribute("class","yesno-button yes-button");
 		button1.innerHTML = "Yes";
-		button1.onclick = function() {showUnderneathDiv(this,this.parentNode.parentNode, 0);}
-		var button2 = createYesNoButton();
-		button2.style.backgroundColor = "#993399";
-		button2.style.background = "linear-gradient(#ae5eef,#8e3ecf)";
+		button1.onclick = function() {this.style.boxShadow = "none"; showUnderneathDiv(this,this.parentNode.parentNode, 0);}
+		button1.onmousedown = function() {this.style.boxShadow = "none";}
+		button1.onmouseup = function() {this.style.boxShadow = "1px 11px 16px #333333";}
+		button1.onmouseout = function() {this.style.boxShadow = "1px 11px 16px #333333";}
+		var button2 = document.createElement("button");
+		button2.setAttribute("class","yesno-button no-button");
 		button2.innerHTML = "No";
-		button2.onclick = function() {showUnderneathDiv(this,this.parentNode.parentNode, 1);}				
+		button2.onclick = function() {this.style.boxShadow = "none"; showUnderneathDiv(this,this.parentNode.parentNode, 1);}				
+		button2.onmousedown = function() {this.style.boxShadow = "none";}
+		button2.onmouseup = function() {this.style.boxShadow = "1px 11px 16px #333333";}
+		button2.onmouseout = function() {this.style.boxShadow = "1px 11px 16px #333333";}
 		buttonDiv.appendChild(button1);
 		buttonDiv.appendChild(button2);
 		par.appendChild(buttonDiv);
@@ -1098,36 +1227,12 @@
 		buttonDiv.style.top = "50%";
 		buttonDiv.style.marginTop = "-5em";
 		var instruct = document.createElement("div");
-		instruct.style.position = "absolute";
-		instruct.style.fontSize = "2em";
 		instruct.id = "instruction1";
+		instruct.setAttribute("class","guess-instruction");
 		instruct.innerHTML = "Do the two colors below mix to match goal?";
-		instruct.style.width = "20em";
-		instruct.style.top = "0em";
-		instruct.style.left = "50%";
-		instruct.style.marginLeft = "-10em";
-		instruct.style.backgroundColor = "ghostwhite";
-		instruct.style.color = "gray";
-		instruct.style.opacity = "0.75";
-		instruct.style.textAlign = "center";
-		document.getElementById("guessOutside").appendChild(instruct);
+		document.getElementById("guessOuter").appendChild(instruct);
 		return par;
 	} // end function attachYesNoButtons(par)
-
-	function createYesNoButton() {
-		var button = document.createElement("button");
-		button.style.width = "2.5em";
-		button.style.height = "2.5em";
-		button.style.fontSize = "3em";
-		button.style.display = "inline-block";
-		button.style.border = "2px solid white";
-		button.style.borderRadius = "5px";
-		button.style.textAlign = "center";
-		button.style.color = "ghostwhite";
-		button.style.marginRight = "2em";
-		button.style.marginLeft = "2em";
-		return button;
-	} // end function createYesNoButton()
 
 	function showUnderneathDiv(but, par, opt) {
 		but.style.display = "none";
@@ -1227,7 +1332,7 @@
 
 	function colorGoalDiv() {
 		var goalDiv = document.getElementById("goal");
-		var v = document.getElementById("guessOutside");
+		var v = document.getElementById("guessOuter");
 		goalDiv.style.display = "none";
 		goalDiv.style.backgroundImage = "none";
 		goalDiv.style.backgroundColor = gameData.goalColor;
@@ -1674,9 +1779,8 @@
 			else if (numXs >= 3) {par = document.getElementById("xbox2"); ind = numXs - 2;}
 			var first = par.firstChild;
 			for (var i = 0; i < ind-1; i++) first = first.nextSibling;
-			first.style.color = "red";
-			first.style.fontWeight = "bold";
-			first.style.fontSize = "1.5em";
+			first.style.color = "#F00000";
+			first.style.textShadow = "1px 2px 6px #5f5f5f";
 			if (numXs == 4) {
 				updateGameDataOnServer(2); 
 				gameOver = true; 
@@ -1735,7 +1839,7 @@
 			el.style.fontSize = "3em";
 			if (points < 0) el.style.color = "#F00000";
 			else if (points == 0) el.style.color = "gray";
-			else if (points > 0) el.style.color = "#00F000";
+			else if (points > 0) el.style.color = "#7a00cc";
 			el.innerHTML = points;
 		}
 		return true;
@@ -1748,9 +1852,7 @@
 			else par = document.getElementById("xbox2");
 			var first = par.firstChild;							
 			while (!!first) {
-				first.style.color = "gray";
-				first.style.fontWeight = "normal";
-				first.style.fontSize = "1em";
+				first.style.color = "#fafffa";
 				first = first.nextSibling;
 			}
 		} // for (var i = 0; i < 4; i++)
@@ -1761,8 +1863,7 @@
 			var end = (i < 2) ? i : (i - 2);
 			for (var j = 0; j < end; j++) first = first.nextSibling;					
 			first.style.color = "#F00000";
-			first.style.fontWeight = "bold";
-			first.style.fontSize = "1.5em";
+			first.style.textShadow = "1px 2px 6px #5f5f5f";
 		} // for (var i = 0; i < 4; i++)	
 		return false;
 	}// function redoXs()
