@@ -125,7 +125,7 @@ class PlayersController < ApplicationController
 	end
 
 	def startup_message
-		render plain: "GOOD JOB!"
+		render plain: "1"
 	end
 
   def player_params

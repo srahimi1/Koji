@@ -38,8 +38,32 @@
 		z-index: 100;
 	}
 
-	.menu-button {
+	.show-menu-container {
+		width: 100%;
+		margin: 0;
+		padding: 0;
+	}
 
+	.show-menu-paragraph {
+		width: 100%;
+		margin-top: 0;
+		padding: 0.2em 2em 0.2em 0;
+		float: right;
+		font-size: 2em;
+		text-align: right;
+		-moz-transition: background-color 1s, color 1s;
+		-webkit-transition: background-color 1s, color 1s;
+		-o-transition: background-color 1s, color 1s;
+		transition: background-color 1s, color 1s;
+		color: #663399;
+	}
+
+	.show-menu-letters {
+		padding-right: 0;
+		-moz-transition: padding-right 1s;
+		-webkit-transition: padding-right 1s;
+		-o-transition: padding-right 1s;
+		transition: padding-right 1s;
 	}
 
 	.game-content {
@@ -54,10 +78,9 @@
 	.footer {
 		position: fixed; 
 		width: 100%;
-		height: 2em;
 		top: 100%;
-		margin: -3.5em auto 0 auto;
-		padding: 0.2em 3em 1.3em 3em;
+		margin: -3em auto 0 auto;
+		padding: 0.15em 3em 1.35em 3em;
 		color: #fafffa;
 		font-size: 1.5em;
 		background-color: #7a00cc;
@@ -284,13 +307,111 @@
 		 display: none;
 	}
 
+	.modal-div {
+		position: absolute;
+		width: 96%;
+		height: 0;
+		top: 0%; 
+		left: 2%; 
+		background-color: #fafffa;
+		box-shadow: -3px 6px 16px #aaaaaa;
+		margin-top: -2em;
+		opacity: 0;
+		border-radius: 0.5em; 
+		-moz-transition: margin-top 1s, opacity 1s; 
+		-webkit-transition: margin-top 1s, opacity 1s; 
+		-o-transition: margin-top 1s, opacity 1s; 
+		transition: margin-top 1s, opacity 1s; 
+		overflow: hidden;
+		z-index: 100;
+	}
 
+	.modal-div-header {
+		width: 100%;
+		margin: 0;
+		padding: .5em 0;
+		text-align: center;
+		color: #fafffa;
+		font-size: 2.5em;
+		background-color: #7a00cc;
+		background: -moz-linear-gradient(#9900ff,#7a00cc);
+		background: -webkit-linear-gradient(#9900ff,#7a00cc);
+		background: -o-linear-gradient(#9900ff,#7a00cc);
+		background: linear-gradient(#9900ff,#7a00cc);
+	}
 
+	.modal-div-footer {
+		position: relative;
+		width: 100%;
+		padding: 2.5em 0;
+		margin-top: 0.5em;
+		background-color:#3ecf8e;
+		background: -moz-linear-gradient(#5eefae,#3ecf8e);
+		background: -webkit-linear-gradient(#5eefae,#3ecf8e);
+		background: -o-linear-gradient(#5eefae,#3ecf8e);
+		background: linear-gradient(#5eefae,#3ecf8e);
+	}
+
+	.ul-for-header {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.li-for-header-left {
+		display: inline-block;
+		margin: 0;
+		padding-left: 0.5em;
+		float: left;
+		overflow: hidden;
+		cursor: default;
+	}
+
+	.li-for-header-middle {
+		display: inline-block;
+		margin: 0;
+		text-align: center;
+		overflow: hidden;
+	}
+
+	.li-for-header-right {
+		display: inline-block;
+		margin: 0;
+		padding-right: 0.5em;
+		float: right;
+		overflow: hidden;
+		cursor: default;
+	}
+	
+	.hidden-opt-right {
+		position: absolute; 
+		width: 10em;
+		height: 10em;
+		top: 0;
+		left: 100%;
+		margin-left: -10em;
+		z-index: 106
+	}
+
+	.hidden-opt-left {
+		position: absolute; 
+		width: 10em;
+		height: 10em;
+		top: 0;
+		left: 0;
+		margin-left: 0;
+		z-index: 106
+	}
 </style>
 </head>
-<body onload="checkForStartupMessage();setTimeout(function() {showMenu(document.getElementById('menuDiv')) },500);">
+<body onload="checkForStartupMessage();">
 
 <h1 id="KOJITitle" class="title-bar">KOJI</h1>
+
+<div style="position: absolute; width: 15em; height: 6em; left: 100%; margin-left: -15em; z-index: 4" onclick="closeMenu(document.getElementById('instructionsDiv')); closeMenu(document.getElementById('signupDiv')); closeMenu(document.getElementById('signinDiv')); closeMenu(document.getElementById('profileDiv')); showMenu(document.getElementById('menuDiv'));" onmouseover="animateMenu(document.getElementById('menuParagraph'), 0);" onmouseout="animateMenu(document.getElementById('menuParagraph'), 1);"></div>
+
+<div class="show-menu-container"><p id="menuParagraph" class="show-menu-paragraph"><span class="show-menu-letters">m</span><span class="show-menu-letters">e</span><span class="show-menu-letters">n</span><span class="show-menu-letters">u</span></p>
+</div><!--end menuOptionContainer div -->	
 
 <div id="gameContent" class="game-content">
 	<div id="goalContainer" class="goal-container">
@@ -318,193 +439,200 @@
 	
 <div id="footer" class="footer"><p>a First Flight Ingenuities<span style="font-size: 1em">&trade;</span> production</p></div>
 
-	<div id="menuDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
-		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('menuDiv'))"></div>
-		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color: #3ecf8e; background: -moz-linear-gradient(#3eef8e,#3ecf8e); background: -webkit-linear-gradient(#3eef8e,#3ecf8e);background: -o-linear-gradient(#3eef8e,#3ecf8e); background: linear-gradient(#3eef8e,#3ecf8e);">
-			<ul style="list-style-type: none; margin: 0; padding: 0">
-				<li style="display: inline-block; text-align: left; width: 20%; margin: 0.25em 0 0 0; overflow: hidden;"></li>
-				<li style="display: inline-block; text-align: center; width: 55%; margin: 0.25em 0 0 0; overflow: hidden;">MENU</li>
-				<li style="display: inline-block; text-align: right; width: 20%; margin: 0.25em 0 0 0; overflow: hidden; cursor: default;" onclick="closeMenu(document.getElementById('menuDiv'))">X</li>
-			</ul>
-		</div>
-		<ul style="width: 100%; height: 80%;list-style: none; font-size: 2em; color: #3ecf8e; margin: 0; padding: 0">
-			<li id="instructionsChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #ffffff, #e6e9ec); background: -webkit-linear-gradient(left, #ffffff, #e6e9ec); background: -o-linear-gradient(left, #ffffff, #e6e9ec); background: linear-gradient(to right, #ffffff, #e6e9ec);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('instructionsDiv'));">
-				<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%;float: left;padding-left:1em;" viewbox="0 0 25 25"><circle cx="12" cy="12" r="12" fill="#d6facf"/><path d="M14.23 12.24A3.3 3.3 0 0 0 16 9.36C16 8.2 15.15 6 12.1 6A3.806 3.806 0 0 0 8 10h2.36c0-1.45.82-2.06 1.67-2.06a1.184 1.184 0 0 1 1.37 1.3c0 .96-.15 1.14-1.03 1.82A3.365 3.365 0 0 0 10.8 14H13a2.526 2.526 0 0 1 1.23-1.76zM12 18.5a1.5 1.5 0 1 0-1.5-1.5 1.5 1.5 0 0 0 1.5 1.5z" fill="#3ecf8e"/></svg>
-				<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; line-height: 2em;">How To Play</p>
-				<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #9f9f9f;">Instructions on how to play this <span style="font-style: italic; font-weight: bold;">fun</span> color matching game that keeps you <span style="font-style: italic; font-weight: bold;">constantly entertained.</span></p>
-			</li>
-			<li id="signupChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #e6e9ec, #ffffff); background: -webkit-linear-gradient(left, #e6e9ec, #ffffff); background: -o-linear-gradient(left, #e6e9ec, #ffffff); background: linear-gradient(to right, #e6e9ec, #ffffff);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signupDiv'));">
-				<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%; float: left;padding-left:1em;" viewbox="0 0 50 50"><g><path fill="#3ecf8e" d="M31.81 31H11a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h25a1 1 0 0 0 1-1v-1.806l5-2.446V39a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h31a3 3 0 0 1 3 3v14.767L31.81 31zM10 25a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v3zm27-13a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h25a1 1 0 0 0 1-1v-3zm0 10a1 1 0 0 0-1-1H26a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3z"></path><path fill="#3e8ecf" d="M34.956 32.365L46.1 21.205a3.06 3.06 0 0 0 0-4.318 3.043 3.043 0 0 0-4.31 0l-11.143 11.16a2.445 2.445 0 0 0-.64 1.133l-.98 3.925a.728.728 0 0 0 .88.884l3.918-.984a2.4 2.4 0 0 0 1.13-.642z"></path></g></svg>
-				<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; line-height: 2em;">Sign Up</p>
-				<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #9f9f9f;">Get the benefits of more challenges, recording of your high scores, and access to the upcoming multi-player version.</p>
-			</li>
-			<li id="signinChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #ffffff, #e6e9ec); background: -webkit-linear-gradient(left, #ffffff, #e6e9ec); background: -o-linear-gradient(left, #ffffff, #e6e9ec); background: linear-gradient(to right, #ffffff, #e6e9ec);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signinDiv'));">
-				<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%; float: left;padding-left:1em;" viewbox="0 0 50 50"><path fill="#1eaf6e" d="m 31.006,20 v -6.76 c -0.04746,-4.1119342 -3.394295,-7.4203555 -7.5065,-7.4203555 -4.112205,0 -7.459039,3.3084213 -7.5065,7.4203555 V 16 H 11 V 13.5 C 11,6.597 16.596,1 23.5,1 30.404,1 36,6.597 36,13.5 V 20 Z"></path><path fill="#3ecf8e" d="M20 30c0 1.48.805 2.77 2 3.46V37a2 2 0 0 0 2 2v6H10a4 4 0 0 1-4-4V24a4 4 0 0 1 4-4h14v6a4 4 0 0 0-4 4z"></path><path fill="#1eaf6e" d="M37 45H24v-6a2 2 0 0 0 2-2v-3.54A3.99 3.99 0 0 0 28 30a4 4 0 0 0-4-4v-6h13a4 4 0 0 1 4 4v17a4 4 0 0 1-4 4z"></path></svg>
-				<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; line-height: 2em;">Sign In</p>
-				<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #9f9f9f;">Acess your profile and membership information. Thank you for signing-up and enjoy!</p>
-			</li>
-			<li id="profileChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #ffffff, #e6e9ec); background: -webkit-linear-gradient(left, #ffffff, #e6e9ec); background: -o-linear-gradient(left, #ffffff, #e6e9ec); background: linear-gradient(to right, #ffffff, #e6e9ec);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('profileDiv'));">
-				<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%; float: left;padding-left:1em;" viewbox="0 0 50 50"><path fill="#1eaf6e" d="m 31.006,20 v -6.76 c -0.04746,-4.1119342 -3.394295,-7.4203555 -7.5065,-7.4203555 -4.112205,0 -7.459039,3.3084213 -7.5065,7.4203555 V 16 H 11 V 13.5 C 11,6.597 16.596,1 23.5,1 30.404,1 36,6.597 36,13.5 V 20 Z"></path><path fill="#3ecf8e" d="M20 30c0 1.48.805 2.77 2 3.46V37a2 2 0 0 0 2 2v6H10a4 4 0 0 1-4-4V24a4 4 0 0 1 4-4h14v6a4 4 0 0 0-4 4z"></path><path fill="#1eaf6e" d="M37 45H24v-6a2 2 0 0 0 2-2v-3.54A3.99 3.99 0 0 0 28 30a4 4 0 0 0-4-4v-6h13a4 4 0 0 1 4 4v17a4 4 0 0 1-4 4z"></path></svg>
-				<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; line-height: 2em;">Profile</p>
-				<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #9f9f9f;">View your high score history, change your account info, and cancel your membership.</p>
-			</li>
-			<li style="width: 100%; text-align:center; background-color: white;"><button id="newGameButton" style="background-color: #3ecf8e; background: -moz-linear-gradient(#3eef8e,#3ecf8e); background: -webkit-linear-gradient(#3eef8e,#3ecf8e);background: -o-linear-gradient(#3eef8e,#3ecf8e); background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: -2px 4px 8px #aaaaaa; border: none; font-size:1.5em;padding:.5em; margin-top: 0.2em;" onclick="setupNewGame()">New Game</button>
-			</li>
-		</ul>
-		<div style="width: 100%; height: 10%; background-color:#3ecf8e; background: -moz-linear-gradient(#5eefae,#3ecf8e); background: -webkit-linear-gradient(#5eefae,#3ecf8e); background: -o-linear-gradient(#5eefae,#3ecf8e); background: linear-gradient(#5eefae,#3ecf8e);"></div>
+<input type="hidden" id="gameVersion" name="gameVersion" value="1.0">
+</body>
+
+<div id="startupMessageDiv" class="modal-div">
+	<div class="hidden-opt-right" onclick="closeMenu(document.getElementById('startupMessageDiv'))"></div>
+	<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('startupMessageDiv'))">X</p></div>
+	<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><p id="startupMessageSpan" style="font-size: 2em; text-align: center;"></p>
 	</div>
+</div><!-- end startupMessageDiv -->
 
-	<div id="startupMessageDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:20; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
-		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 21"  onclick="closeMenu(document.getElementById('startupMessageDiv'))"></div>
-		<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('startupMessageDiv'))">X</p></div>
-		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><p id="startupMessageSpan" style="font-size: 2em; text-align: center;"></p>
-		</div>
+<div id="gameMessageDiv" class="modal-div">
+	<div class="hidden-opt-right" onclick="closeMenu(document.getElementById('gameMessageDiv'))"></div>
+	<div style="width: 100%; height: 6em; text-align: right; color: gray; font-size: 4em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('gameMessageDiv'))">X</p></div>
+	<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><h2 id="gameMessage" style="font-size: 4em; text-align: center;"></h2>
 	</div>
+</div><!-- end gameMessageDiv -->
 
-	<div id="gameMessageDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
-		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('gameMessageDiv'))"></div>
-		<div style="width: 100%; height: 6em; text-align: right; color: gray; font-size: 4em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('gameMessageDiv'))">X</p></div>
-		<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><h2 id="gameMessage" style="font-size: 4em; text-align: center;"></h2>
-		</div>
-	</div>
-
-	<div id="instructionsDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
-		<div style="position: absolute; width: 15em; height: 10em; left: 0%; z-index: 6"  onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));"></div>
-		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('instructionsDiv'))"></div>
-		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);">
-			<ul style="list-style-type: none; margin: 0; padding: 0">
-				<li style="display: inline-block; text-align: left; width: 20%; margin: 0.25em 0 0 0; overflow: hidden; cursor: default; font-size: 1.5em;line-height: 0.5em; vertical-align: top;" onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
-				<li style="display: inline-block; text-align: center; width: 55%; margin: 0.25em 0 0 0; overflow: hidden;">How To Play</li>
-				<li style="display: inline-block; text-align: right; width: 20%; margin: 0.25em 0 0 0; overflow: hidden; cursor: default;" onclick="closeMenu(document.getElementById('instructionsDiv'))">X</li>
-			</ul>
-		</div>
-		<ul style="width: 100%; height: 80%; overflow-y: auto; list-style: none; font-size: 2em; color: #8E3ECF; padding: 0; text-align: left;">
-			<li style="padding: 0.1em 3em 0.1em 3em;"><h4>The goal of this fun, online game is two things. First, decide if two colors will mix to match the color of a rectangle located at the top of the screen. Second, determine what letters are hidden with-in that colorful rectangle. </h4></li>
-			<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #8E3ECF; margin: 0;">Part 1: Determine if two colors, when mixed, will make a desired color.</p>
-				<p style="color: gray; font-size: 0.9em;">Two colors are shown at the bottom of the screen, a goal color is shown at top. If you think the two colors mix to make the desired goal color, hit 'yes'. If not, hit 'no'.</p></li>
-			<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #8E3ECF; margin: 0;">Part 2: Behind the rectangle, there are hidden letters. Figure out the letters.</p>
-				<p style="color: gray; font-size: 0.9em;">Choose the correct color pair 3 times, and a group of letters will appear. If you think any of those letters are one of the hidden letters, click on it. Guess all the hidden letters correctly to win the game. The less the letters are revealed, the higher number of points you earn when you guess the letters correctly. For every incorrect letter guess, you'll get an X. If you get a total of four X's, the game is over. Correctly selected letters will have a green border, incorrectly selected letters will have a red border.</p></li>
-		</ul>
-		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
-	</div>
-
-	<div id="signupDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
-		<div style="position: absolute; width: 15em; height: 10em; left: 0%; z-index: 6"  onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));"></div>
-		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('signupDiv'))"></div>
-		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);">
-			<ul style="list-style-type: none; margin: 0; padding: 0">
-				<li style="display: inline-block; text-align: left; width: 20%; margin: 0.25em 0 0 0; overflow: hidden; cursor: default; font-size: 1.5em;line-height: 0.5em; vertical-align: top;" onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
-				<li style="display: inline-block; text-align: center; width: 55%; margin: 0.25em 0 0 0; overflow: hidden;">Sign Up</li>
-				<li style="display: inline-block; text-align: right; width: 20%; margin: 0.25em 0 0 0; overflow: hidden; cursor: default;" onclick="closeMenu(document.getElementById('signupDiv'))">X</li>
-			</ul>
-		</div>
-		<ul style="width: 100%; height: 80%;list-style: none; font-size: 1.5em; color: #3ecf8e; margin: 2em 0 0 3em; padding: 0 0 0 1em; overflow-y: auto;">
-			<li style="text-align: left;"><%= form_tag("/", method: "", id: "signupForm") do %>
-				<p>Email and cell phone will be used for login and password recovery</p>
-				<p>Email <span id="emailErrorMessage" style="color:red"></span></p>
-				<p style="margin:-0.75em 0 0 0;"><input id="emailInput" type="text" name="email" placeholder="email" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateEmail(this,1)" onblur="validateEmail(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-				<p>- and/or -</p>
-				<p>Cellphone number <span id="cellphoneErrorMessage" style="color:red"></span></p>
-				<p style="height: 1em; width: 40%; margin-top: -0.5em; padding: 0;"><input id="numberInput" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('cellphoneInput'),1)"></p>
-				<p style="margin:-1.75em 0 0 0;"><input id="cellphoneInput" type="text" name="cell" placeholder="cellphone number" maxlength="20" style="height: 1em; width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateCellphone(this,1)" onfocus="validateCellphone(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-				<p>Display name <span id="displaynameErrorMessage" style="color:red"></span></p>
-				<p style="margin:-0.75em 0 0 0;"><input id="displaynameInput" type="text" name="displayname" placeholder="display name" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateDisplayName(this)" onblur="validateDisplayName(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-				<p>Password <span id="password1ErrorMessage" style="color:red"></span></p>
-				<p style="margin:-0.75em 0 0 0;"><input id="password1Input" type="password" name="password1" placeholder="password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-				<p>Re-enter password <span id="password2ErrorMessage" style="color:red"></span></p>
-				<p style="margin:-0.75em 0 0 0;"><input id="password2Input" type="password" name="password2" placeholder="re-enter password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-				<p></p>
-				<p style="width: 40%; text-align: right;"><input id="signupSubmit" type="button" name="signupSubmit" value="Sign up" style="background-color: #e6eded; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="signupFormSubmit()"onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
-			<% end %></li>
-		</ul>
-		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
-	</div>
-
-	<div id="signinDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
-		<div style="position: absolute; width: 15em; height: 10em; left: 0%; z-index: 6"  onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));"></div>
-		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('signinDiv'))"></div>
-		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);">
-			<ul style="list-style-type: none; margin: 0; padding: 0">
-				<li style="display: inline-block; text-align: left; width: 20%; margin: 0.25em 0 0 0; overflow: hidden; cursor: default; font-size: 1.5em;line-height: 0.5em; vertical-align: top;" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
-				<li style="display: inline-block; text-align: center; width: 55%; margin: 0.25em 0 0 0; overflow: hidden;">Sign In</li>
-				<li style="display: inline-block; text-align: right; width: 20%; margin: 0.25em 0 0 0; overflow: hidden; cursor: default;" onclick="closeMenu(document.getElementById('signinDiv'))">X</li>
-			</ul>
-		</div>
-		<ul style="width: 100%; height: 80%;list-style: none; font-size: 2em; color: #3ecf8e; margin: 0; padding: 0">
-				<li style="text-align: left;"><%= form_tag("/", method: "", id: "signinForm") do %>
-				<p>Email <span id="loginEmailErrorMessage" style="color:red"></span></p>
-				<p style="margin:-0.75em 0 0 0;"><input id="loginEmailInput" type="text" name="loginEmail" placeholder="email" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-				<p>- or -</p>
-				<p>Cellphone number <span id="loginCellphoneErrorMessage" style="color:red"></span></p>
-				<p style="height: 1em; width: 40%; margin-top: -0.5em; padding: 0;"><input id="loginNumberInput" type="number" name="none2" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('loginCellphoneInput'),2)"></p>
-				<p style="margin:-1.75em 0 0 0;"><input id="loginCellphoneInput" type="text" name="loginCell" placeholder="cellphone number" maxlength="20" style="height: 1em; width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateCellphone(this,2)" onfocus="validateCellphone(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-				<p>Password <span id="loginPasswordErrorMessage" style="color:red"></span></p>
-				<p style="margin:-0.75em 0 0 0;"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder="password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-				<p></p>
-				<p style="width: 40%; text-align: right;"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" style="background-color: #8e3ecf; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em; box-shadow: -3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece;" onclick="signinFormSubmit()" onmousedown="if (this.disabled == false) this.style.boxShadow='none'" onmouseup="if (this.disabled == false) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
-			<% end %></li>
-		</ul>
-		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
-	</div>
-
-	<div id="profileDiv" style="position:absolute; top: 0%; left: 5%; width: 90%; height: 0; background-color: white; z-index:5; box-shadow: -3px 6px 16px #aaaaaa; margin-top: -2em; opacity: 0; border-radius: 0.5em; -moz-transition: margin-top 1s, opacity 1s; -webkit-transition: margin-top 1s, opacity 1s; -o-transition: margin-top 1s, opacity 1s; transition: margin-top 1s, opacity 1s; overflow: hidden;">
-		<div style="position: absolute; width: 15em; height: 10em; left: 0%; z-index: 6"  onclick="closeMenu(document.getElementById('profileDiv')); showMenu(document.getElementById('menuDiv'));"></div>
-		<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 6"  onclick="closeMenu(document.getElementById('profileDiv'))"></div>
-		<div style="width: 100%; height: 10%; text-align: center; color: white; font-size: 2.5em; margin-top: 0; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);">
-			<ul style="list-style-type: none; margin: 0; padding: 0">
-				<li style="display: inline-block; text-align: left; width: 20%; margin: 0.25em 0 0 0; overflow: hidden; cursor: default; font-size: 1.5em;line-height: 0.5em; vertical-align: top;" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
-				<li style="display: inline-block; text-align: center; width: 55%; margin: 0.25em 0 0 0; overflow: hidden;">Sign In</li>
-				<li style="display: inline-block; text-align: right; width: 20%; margin: 0.25em 0 0 0; overflow: hidden; cursor: default;" onclick="closeMenu(document.getElementById('signinDiv'))">X</li>
-			</ul>
-		</div>
-		<ul style="width: 100%; list-style: none; font-size: 2em; color: #3ecf8e; margin: 0; padding: 0">
-			<li style="display: inline-block;"><a href="javascript:void(0);" onclick="profileOption(1);">Change Password</a></li>
-			<li style="display: inline-block;"><a href="javascript:void(0);" onclick="profileOption(2);">Change Account Info</a></li>
-			<li style="display: inline-block;"><a href="javascript:void(0);" onclick="profileOption(3);">Cancel Membership</a></li>
-			<li style="display: inline-block;"><a href="javascript:void(0);" onclick="updateInfo(4);">Logout</a></li>
-		</ul>
-		<div id="placeHolderDiv" style="width:100%; height: 6em;"></div>
-		<div id="changePassword" style="width:100%; height: 6em; border-bottom:1px solid gray; display: none">
-			<span id="changePasswordErrorMessage" style="color:red"></span>
-			<input id="changePasswordInput1" type="password" placeholder="Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %>
-			<input id="changePasswordInput2" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %>
-			<button id="changePasswordButton" onclick="updateInfo(1)" disabled="disabled">Change Password</button>
-		</div>
-		<div id="changeLogin" style="width:100%; height: 6em; display: none">
-			<span id="changeLoginErrorMessage" style="color:red"></span>
-			<input id="changeEmailInput" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onblur="validateEmail(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %>
-			<p>- and/ or -</p>
-			<input id="changeCellphoneInput" type="text" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %>
-			<input id="changeNumberInput" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)">
-			<button id="changeLoginButton" onclick="updateInfo(2)" disabled="disabled">Change Login</button>
-		</div>
-		<div id="cancelMembership" style="width:100%; height: 6em; display: none">
-			<span id="cancelMembershipErrorMessage" style="color:red"></span>
-			<input id="cancelMembershipInput" type="text" placeholder="Type 'cancel'" onkeyup="validateCancelMembership(this)">
-			<button id="cancelMembershipButton" onclick="updateInfo(3)" disabled="disabled">Cancel Membership</button>
-		</div>
-		<p>Email: <span id="profileEmail"></span></p>
-		<p>Cellphone: <span id="profileCellphone"></span></p>
-		<div id="scoreHistory">
-			<table id="scoreHistoryTable">
-				<tbody id="tableBody">
-					<tr id="tableHeader">
-						<th>Date</th>
-						<th>High Score</th>
-						<th>Total Daily Score</th>
-					</tr id="tableHeaderEnd">
-				</tbody>
-			</table>
-
-		</div>
-		<div style="width: 100%; height: 20%; background-color:#8e3ecf; background: -moz-linear-gradient(#ae6eef,#8e3ecf); background: -webkit-linear-gradient(#ae6eef,#8e3ecf); background: -o-linear-gradient(#ae6eef,#8e3ecf); background: linear-gradient(#ae6eef,#8e3ecf);"></div>
-	</div>
-
-
-	<div style="position: absolute; width: 15em; height: 10em; left: 100%; margin-left: -15em; z-index: 4"  onclick="closeMenu(document.getElementById('instructionsDiv')); closeMenu(document.getElementById('signupDiv')); closeMenu(document.getElementById('signinDiv')); closeMenu(document.getElementById('profileDiv')); showMenu(document.getElementById('menuDiv'));" onmouseover="animateMenu(document.getElementById('menuPara'), 0);" onmouseout="animateMenu(document.getElementById('menuPara'), 1);"></div>
 	
-	<div id="menuOptionContainer" style="position:relative;width:100%; height:3em; margin:auto; margin-top: 0; padding-top: 0; text-align: right; cursor: default;"><p id="menuPara" style="margin-top: 0; padding-top: 0;font-size: 2em; padding-right: 2em; padding-bottom: 3em; -moz-transition: background-color 1s, color 1s; -webkit-transition: background-color 1s, color 1s; -o-transition: background-color 1s, color 1s; transition: background-color 1s, color 1s; background-color: white; color: gray;"><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">m</span><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">e</span><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">n</span><span style="padding-right: 0; -moz-transition: padding-right 1s; -webkit-transition: padding-right 1s; -o-transition: padding-right 1s; transition: padding-right 1s;">u</span></p>
-	</div><!--end menuOptionContainer div -->	
+<div id="menuDiv" class="modal-div">
+	<div class="modal-div-header">
+		<ul class="ul-for-header">
+			<li class="li-for-header-left"></li>
+			<li class="li-for-header-middle">MENU</li>
+			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('menuDiv'))">X</li>
+		</ul>
+	</div>
+	<ul style="width: 100%; height: 80%;list-style: none; font-size: 2em; color: #3ecf8e; margin: 0; padding: 0">
+		<li id="instructionsChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #ffffff, #e6e9ec); background: -webkit-linear-gradient(left, #ffffff, #e6e9ec); background: -o-linear-gradient(left, #ffffff, #e6e9ec); background: linear-gradient(to right, #ffffff, #e6e9ec);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('instructionsDiv'));">
+			<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%;float: left;padding-left:1em;" viewbox="0 0 25 25"><circle cx="12" cy="12" r="12" fill="#d6facf"/><path d="M14.23 12.24A3.3 3.3 0 0 0 16 9.36C16 8.2 15.15 6 12.1 6A3.806 3.806 0 0 0 8 10h2.36c0-1.45.82-2.06 1.67-2.06a1.184 1.184 0 0 1 1.37 1.3c0 .96-.15 1.14-1.03 1.82A3.365 3.365 0 0 0 10.8 14H13a2.526 2.526 0 0 1 1.23-1.76zM12 18.5a1.5 1.5 0 1 0-1.5-1.5 1.5 1.5 0 0 0 1.5 1.5z" fill="#3ecf8e"/></svg>
+			<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; line-height: 2em;">How To Play</p>
+			<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #9f9f9f;">Instructions on how to play this <span style="font-style: italic; font-weight: bold;">fun</span> color matching game that keeps you <span style="font-style: italic; font-weight: bold;">constantly entertained.</span></p>
+		</li>
+		<li id="signupChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #e6e9ec, #ffffff); background: -webkit-linear-gradient(left, #e6e9ec, #ffffff); background: -o-linear-gradient(left, #e6e9ec, #ffffff); background: linear-gradient(to right, #e6e9ec, #ffffff);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signupDiv'));">
+			<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%; float: left;padding-left:1em;" viewbox="0 0 50 50"><g><path fill="#3ecf8e" d="M31.81 31H11a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h25a1 1 0 0 0 1-1v-1.806l5-2.446V39a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h31a3 3 0 0 1 3 3v14.767L31.81 31zM10 25a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v3zm27-13a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h25a1 1 0 0 0 1-1v-3zm0 10a1 1 0 0 0-1-1H26a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3z"></path><path fill="#3e8ecf" d="M34.956 32.365L46.1 21.205a3.06 3.06 0 0 0 0-4.318 3.043 3.043 0 0 0-4.31 0l-11.143 11.16a2.445 2.445 0 0 0-.64 1.133l-.98 3.925a.728.728 0 0 0 .88.884l3.918-.984a2.4 2.4 0 0 0 1.13-.642z"></path></g></svg>
+			<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; line-height: 2em;">Sign Up</p>
+			<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #9f9f9f;">Get the benefits of more challenges, recording of your high scores, and access to the upcoming multi-player version.</p>
+		</li>
+		<li id="signinChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #ffffff, #e6e9ec); background: -webkit-linear-gradient(left, #ffffff, #e6e9ec); background: -o-linear-gradient(left, #ffffff, #e6e9ec); background: linear-gradient(to right, #ffffff, #e6e9ec);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signinDiv'));">
+			<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%; float: left;padding-left:1em;" viewbox="0 0 50 50"><path fill="#1eaf6e" d="m 31.006,20 v -6.76 c -0.04746,-4.1119342 -3.394295,-7.4203555 -7.5065,-7.4203555 -4.112205,0 -7.459039,3.3084213 -7.5065,7.4203555 V 16 H 11 V 13.5 C 11,6.597 16.596,1 23.5,1 30.404,1 36,6.597 36,13.5 V 20 Z"></path><path fill="#3ecf8e" d="M20 30c0 1.48.805 2.77 2 3.46V37a2 2 0 0 0 2 2v6H10a4 4 0 0 1-4-4V24a4 4 0 0 1 4-4h14v6a4 4 0 0 0-4 4z"></path><path fill="#1eaf6e" d="M37 45H24v-6a2 2 0 0 0 2-2v-3.54A3.99 3.99 0 0 0 28 30a4 4 0 0 0-4-4v-6h13a4 4 0 0 1 4 4v17a4 4 0 0 1-4 4z"></path></svg>
+			<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; line-height: 2em;">Sign In</p>
+			<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #9f9f9f;">Acess your profile and membership information. Thank you for signing-up and enjoy!</p>
+		</li>
+		<li id="profileChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #ffffff, #e6e9ec); background: -webkit-linear-gradient(left, #ffffff, #e6e9ec); background: -o-linear-gradient(left, #ffffff, #e6e9ec); background: linear-gradient(to right, #ffffff, #e6e9ec);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('profileDiv'));">
+			<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%; float: left;padding-left:1em;" viewbox="0 0 50 50"><path fill="#1eaf6e" d="m 31.006,20 v -6.76 c -0.04746,-4.1119342 -3.394295,-7.4203555 -7.5065,-7.4203555 -4.112205,0 -7.459039,3.3084213 -7.5065,7.4203555 V 16 H 11 V 13.5 C 11,6.597 16.596,1 23.5,1 30.404,1 36,6.597 36,13.5 V 20 Z"></path><path fill="#3ecf8e" d="M20 30c0 1.48.805 2.77 2 3.46V37a2 2 0 0 0 2 2v6H10a4 4 0 0 1-4-4V24a4 4 0 0 1 4-4h14v6a4 4 0 0 0-4 4z"></path><path fill="#1eaf6e" d="M37 45H24v-6a2 2 0 0 0 2-2v-3.54A3.99 3.99 0 0 0 28 30a4 4 0 0 0-4-4v-6h13a4 4 0 0 1 4 4v17a4 4 0 0 1-4 4z"></path></svg>
+			<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; line-height: 2em;">Profile</p>
+			<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #9f9f9f;">View your high score history, change your account info, and cancel your membership.</p>
+		</li>
+		<li style="width: 100%; text-align:center; background-color: white;"><button id="newGameButton" style="background-color: #3ecf8e; background: -moz-linear-gradient(#3eef8e,#3ecf8e); background: -webkit-linear-gradient(#3eef8e,#3ecf8e);background: -o-linear-gradient(#3eef8e,#3ecf8e); background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: -2px 4px 8px #aaaaaa; border: none; font-size:1.5em;padding:.5em; margin-top: 0.2em;" onclick="setupNewGame()">New Game</button>
+		</li>
+	</ul>
+	<div class="modal-div-footer"></div>
+	<div class="hidden-opt-right"  onclick="closeMenu(document.getElementById('menuDiv'))"></div>
+</div><!-- end menuDiv -->
+
+
+
+<div id="instructionsDiv" class="modal-div">
+	<div class="modal-div-header">
+		<ul class="ul-for-header">
+			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
+			<li class="li-for-header-middle">How To Play</li>
+			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('instructionsDiv'))">X</li>
+		</ul>
+	</div>
+	<ul style="width: 100%; height: 80%; overflow-y: auto; list-style: none; font-size: 2em; color: #8E3ECF; padding: 0; text-align: left;">
+		<li style="padding: 0.1em 3em 0.1em 3em;"><h4>The goal of this fun, online game is two things. First, decide if two colors will mix to match the color of a rectangle located at the top of the screen. Second, determine what letters are hidden within that colorful rectangle. </h4></li>
+		<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #8E3ECF; margin: 0;">Part 1: Determine if two colors, when mixed, will make a desired color.</p>
+			<p style="color: gray; font-size: 0.9em;">Two colors are shown at the bottom of the screen, a goal color is shown at top. If you think the two colors mix to make the desired goal color, hit 'yes'. If not, hit 'no'.</p></li>
+		<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #8E3ECF; margin: 0;">Part 2: Behind the rectangle, there are hidden letters. Figure out the letters.</p>
+			<p style="color: gray; font-size: 0.9em;">Choose the correct color pair 3 times, and a group of letters will appear. If you think any of those letters are one of the hidden letters, click on it. Guess all the hidden letters correctly to win the game. The less the letters are revealed, the higher number of points you earn when you guess the letters correctly. For every incorrect letter guess, you'll get an X. If you get a total of four X's, the game is over. Correctly selected letters will have a green border, incorrectly selected letters will have a red border.</p></li>
+	</ul>
+	<div class="modal-div-footer"></div>
+	<div class="hidden-opt-left" onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));"></div>
+	<div class="hidden-opt-right" onclick="closeMenu(document.getElementById('instructionsDiv'))"></div>
+</div><!-- end instructionsDiv -->
+
+
+
+<div id="signupDiv" class="modal-div">
+	<div class="modal-div-header">
+		<ul class="ul-for-header">
+			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
+			<li class="li-for-header-middle">Sign Up</li>
+			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('signupDiv'))">X</li>
+		</ul>
+	</div>
+	<ul style="width: 100%; height: 80%;list-style: none; font-size: 1.5em; color: #3ecf8e; margin: 2em 0 0 3em; padding: 0 0 0 1em; overflow-y: auto;">
+		<li style="text-align: left;"><%= form_tag("/", method: "", id: "signupForm") do %>
+			<p>Email and cell phone will be used for login and password recovery</p>
+			<p>Email <span id="emailErrorMessage" style="color:red"></span></p>
+			<p style="margin:-0.75em 0 0 0;"><input id="emailInput" type="text" name="email" placeholder="email" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateEmail(this,1)" onblur="validateEmail(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p>- and/or -</p>
+			<p>Cellphone number <span id="cellphoneErrorMessage" style="color:red"></span></p>
+			<p style="height: 1em; width: 40%; margin-top: -0.5em; padding: 0;"><input id="numberInput" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('cellphoneInput'),1)"></p>
+			<p style="margin:-1.75em 0 0 0;"><input id="cellphoneInput" type="text" name="cell" placeholder="cellphone number" maxlength="20" style="height: 1em; width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateCellphone(this,1)" onfocus="validateCellphone(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p>Display name <span id="displaynameErrorMessage" style="color:red"></span></p>
+			<p style="margin:-0.75em 0 0 0;"><input id="displaynameInput" type="text" name="displayname" placeholder="display name" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateDisplayName(this)" onblur="validateDisplayName(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p>Password <span id="password1ErrorMessage" style="color:red"></span></p>
+			<p style="margin:-0.75em 0 0 0;"><input id="password1Input" type="password" name="password1" placeholder="password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p>Re-enter password <span id="password2ErrorMessage" style="color:red"></span></p>
+			<p style="margin:-0.75em 0 0 0;"><input id="password2Input" type="password" name="password2" placeholder="re-enter password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p></p>
+			<p style="width: 40%; text-align: right;"><input id="signupSubmit" type="button" name="signupSubmit" value="Sign up" style="background-color: #e6eded; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="signupFormSubmit()"onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
+		<% end %></li>
+	</ul>
+	<div class="modal-div-footer"></div>
+	<div class="hidden-opt-left" onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));"></div>
+	<div class="hidden-opt-right" onclick="closeMenu(document.getElementById('signupDiv'))"></div>
+</div><!-- end signupDiv -->
+
+
+
+<div id="signinDiv" class="modal-div">
+	<div class="modal-div-header">
+		<ul class="ul-for-header">
+			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
+			<li class="li-for-header-middle">Sign In</li>
+			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('signinDiv'))">X</li>
+		</ul>
+	</div>
+	<ul style="width: 100%; height: 80%;list-style: none; font-size: 2em; color: #3ecf8e; margin: 0; padding: 0">
+			<li style="text-align: left;"><%= form_tag("/", method: "", id: "signinForm") do %>
+			<p>Email <span id="loginEmailErrorMessage" style="color:red"></span></p>
+			<p style="margin:-0.75em 0 0 0;"><input id="loginEmailInput" type="text" name="loginEmail" placeholder="email" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p>- or -</p>
+			<p>Cellphone number <span id="loginCellphoneErrorMessage" style="color:red"></span></p>
+			<p style="height: 1em; width: 40%; margin-top: -0.5em; padding: 0;"><input id="loginNumberInput" type="number" name="none2" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('loginCellphoneInput'),2)"></p>
+			<p style="margin:-1.75em 0 0 0;"><input id="loginCellphoneInput" type="text" name="loginCell" placeholder="cellphone number" maxlength="20" style="height: 1em; width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateCellphone(this,2)" onfocus="validateCellphone(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p>Password <span id="loginPasswordErrorMessage" style="color:red"></span></p>
+			<p style="margin:-0.75em 0 0 0;"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder="password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p></p>
+			<p style="width: 40%; text-align: right;"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" style="background-color: #8e3ecf; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em; box-shadow: -3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece;" onclick="signinFormSubmit()" onmousedown="if (this.disabled == false) this.style.boxShadow='none'" onmouseup="if (this.disabled == false) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
+		<% end %></li>
+	</ul>
+	<div class="modal-div-footer"></div>
+	<div class="hidden-opt-left" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));"></div>
+	<div class="hidden-opt-right" onclick="closeMenu(document.getElementById('signinDiv'))"></div>
+</div><!-- end signinDiv -->
+
+
+
+<div id="profileDiv" class="modal-div">
+	<div class="modal-div-header">
+		<ul class="ul-for-header">
+			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
+			<li class="li-for-header-middle">Sign In</li>
+			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('signinDiv'))">X</li>
+		</ul>
+	</div>
+	<ul style="width: 100%; list-style: none; font-size: 2em; color: #3ecf8e; margin: 0; padding: 0">
+		<li style="display: inline-block;"><a href="javascript:void(0);" onclick="profileOption(1);">Change Password</a></li>
+		<li style="display: inline-block;"><a href="javascript:void(0);" onclick="profileOption(2);">Change Account Info</a></li>
+		<li style="display: inline-block;"><a href="javascript:void(0);" onclick="profileOption(3);">Cancel Membership</a></li>
+		<li style="display: inline-block;"><a href="javascript:void(0);" onclick="updateInfo(4);">Logout</a></li>
+	</ul>
+	<div id="placeHolderDiv" style="width:100%; height: 6em;"></div>
+	<div id="changePassword" style="width:100%; height: 6em; border-bottom:1px solid gray; display: none">
+		<span id="changePasswordErrorMessage" style="color:red"></span>
+		<input id="changePasswordInput1" type="password" placeholder="Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %>
+		<input id="changePasswordInput2" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %>
+		<button id="changePasswordButton" onclick="updateInfo(1)" disabled="disabled">Change Password</button>
+	</div>
+	<div id="changeLogin" style="width:100%; height: 6em; display: none">
+		<span id="changeLoginErrorMessage" style="color:red"></span>
+		<input id="changeEmailInput" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onblur="validateEmail(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %>
+		<p>- and/ or -</p>
+		<input id="changeCellphoneInput" type="text" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %>
+		<input id="changeNumberInput" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)">
+		<button id="changeLoginButton" onclick="updateInfo(2)" disabled="disabled">Change Login</button>
+	</div>
+	<div id="cancelMembership" style="width:100%; height: 6em; display: none">
+		<span id="cancelMembershipErrorMessage" style="color:red"></span>
+		<input id="cancelMembershipInput" type="text" placeholder="Type 'cancel'" onkeyup="validateCancelMembership(this)">
+		<button id="cancelMembershipButton" onclick="updateInfo(3)" disabled="disabled">Cancel Membership</button>
+	</div>
+	<p>Email: <span id="profileEmail"></span></p>
+	<p>Cellphone: <span id="profileCellphone"></span></p>
+	<div id="scoreHistory">
+		<table id="scoreHistoryTable">
+			<tbody id="tableBody">
+				<tr id="tableHeader">
+					<th>Date</th>
+					<th>High Score</th>
+					<th>Total Daily Score</th>
+				</tr id="tableHeaderEnd">
+			</tbody>
+		</table>
+
+	</div>
+	<div class="modal-div-footer"></div>
+	<div class="hidden-opt-left" onclick="closeMenu(document.getElementById('profileDiv')); showMenu(document.getElementById('menuDiv'));"></div>
+	<div class="hidden-opt-right" onclick="closeMenu(document.getElementById('profileDiv'))"></div>
+</div><!-- end profileDiv -->
+
 
 
 <div id="plus15svg" style="display:none"><svg id="plus15svg2" style="position: absolute; display: block; margin:auto; width: 25%; height: 25%;" viewBox="0 0 21 10" xmlns="http://www.w3.org/2000/svg">
@@ -910,8 +1038,8 @@
 </svg>
 </div>
 
-<input type="hidden" id="gameVersion" name="gameVersion" value="1.0">
-</body>
+
+
 
 <script>
 	formcheck = [];
@@ -1421,7 +1549,8 @@
 			var cs = "";
 			if ( (charCode >= 65) && (charCode <= 90) ) cs = "upper";
 			else if ( (charCode >= 97) && (charCode <= 122) ) cs = "lower";
-			correctLetters.push(new letterObj(letters[i], cs, "Arial", tempfs, angle, true));
+			//correctLetters.push(new letterObj(letters[i], cs, "Arial", tempfs, angle, true));
+			correctLetters.push(new letterObj(letters[i], cs, "Arial", "2em", angle, true));
 			ctx.rotate(angle);
 			ctx.fillText(letters[i],0.5,0.5);
 			ctx.setTransform(1,0,0,1,0,0);
@@ -1463,8 +1592,9 @@
 				if (values[1] == -1) {
 					clearInterval(borderIntervalID);
 					numberCorrect = 0;
-					letter.style.width = width + "px";
-					letter.style.height = height + "px";					
+					letter.style.width = width/6 + "px";
+					letter.style.height = height/6 + "px";
+					letter.style.lineHeight = height/6 + "px";					
 					var ind = selectedUnderscore.id.split(":")[1];
 					isChosenLetterCorrect(letter, ind);
 					document.getElementById("letterChoicesCont").style.display = "none";
@@ -1477,8 +1607,8 @@
 					values[1]++;
 					values = animateLargeSmallLarge(0, 100, values[1]);  
 					if (((100 - values[0]) > 0)  && ((100 - values[0]) < 100)) {
-						letter.style.width = (width * ((100 - values[0])/100)) + "px";
-						letter.style.height = (height * ((100 - values[0])/100)) + "px";				
+						letter.style.width = (width * ((100 - values[0])/600)) + "px";
+						letter.style.height = (height * ((100 - values[0])/600)) + "px";				
 						letter.style.marginLeft = -(letter.offsetWidth - width)/2 + "px";
 						letter.style.marginTop = -(letter.offsetHeight - height)/2 + "px";
 					}
@@ -1498,8 +1628,8 @@
 	function isChosenLetterCorrect(letter, ind) {
 		var ind2 = letter.id + "";
 		ind2 = ind2.split(":")[1];
-		if (correctLetters[ind].index == ind2) letterBorderAnimation(letter, 0);
-		else letterBorderAnimation(letter, 1);
+		//if (correctLetters[ind].index == ind2) letterBorderAnimation(letter, 0);
+		//else letterBorderAnimation(letter, 1);
 		if (isGameWon()) {document.getElementById("letterChoicesCont").style.display = "none"; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You Won!"; showMenu(document.getElementById('gameMessageDiv')); setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},1500); showLetters(); } // if
 	} // function isChosenLetterCorrect(letter, ind)
 
@@ -1517,14 +1647,14 @@
 			container.appendChild(tempLetterChoicesDiv);
 			var tempDivOuter = document.createElement("div");
 			tempDivOuter.style.position = "relative";
-			tempDivOuter.style.margin = "0.2em 2em";
+			tempDivOuter.style.margin = "0.2em 1em";
 			tempDivOuter.style.padding = "0 .5em";
 			tempDivOuter.style.display = "inline-block";
 			tempDivOuter.style.fontSize = "2em";
 			tempDivOuter.innerHTML = (i+1);
-			tempDivOuter.style.width = (fontSz+2)+"px";
-			tempDivOuter.style.height = (fontSz+2)+"px";
-			tempDivOuter.style.margin = "2px";
+			tempDivOuter.style.width = "2em";//(fontSz+2)+"px";
+			tempDivOuter.style.height = "2em";//(fontSz+2)+"px";
+			tempDivOuter.style.lineHeight = "2em";
 			tempDivOuter.id = "letterBox:"+i;
 			tempDivOuter.onclick = function() {selectUnderscore(this, letters);}
 			frag.appendChild(tempDivOuter);
@@ -1637,7 +1767,8 @@
 			while (!!usedRotations[rotation] || ((rotation < cl.rotation + 0.5) && (rotation > cl.rotation - 0.5))) rotation = parseFloat((Math.random() * (Math.PI/2)).toFixed(2));
 			usedRotations[rotation] = 1;
 			if ( cl.rotation < 0 ) rotation = -rotation;
-			orderedLetters.push(new letterObj(letterBlock[Math.floor(Math.random()*letterBlock.length)], cl.cs, cl.font, cl.size, rotation ,false));
+			//orderedLetters.push(new letterObj(letterBlock[Math.floor(Math.random()*letterBlock.length)], cl.cs, cl.font, cl.size, rotation ,false));
+			orderedLetters.push(new letterObj(letterBlock[Math.floor(Math.random()*letterBlock.length)], cl.cs, cl.font, "2em", rotation ,false));
 		}
 		for (var i = 0; i < orderedLetters.length; i++) useTheseLetters.push(null);
 		for (var i = 0; i < orderedLetters.length; i++) {
@@ -1653,7 +1784,7 @@
 			elP.style.display = "inline-block";
 			elP.style.margin = "auto";
 			elP.style.fontFamily = useTheseLetters[i].font;
-			elP.style.fontSize = cl.size + "px";
+			elP.style.fontSize = "2em";
 			elP.style.webkitTransform = "rotate("+angle+"deg)";
 			elP.style.WebkitTransform = "rotate("+angle+"deg)";
 			elP.style.mozTransform = "rotate("+angle+"deg)";
@@ -1669,14 +1800,11 @@
 			var div = document.createElement("div");
 			div.id = "hoopla"+i+":"+i;
 			div.style.position = "relative";
-			div.style.border = "3px solid ghostwhite";
+			div.style.border = "3px solid #fafffa";
 			div.style.textAlign = "center";
-			div.style.width = "2em"; //(cl.size+Math.floor(cl.size/4))+"px";
-			div.style.height = "2em"; //(cl.size+Math.floor(cl.size/4))+"px";
 			div.style.display = "inline-block";
-			div.style.margin = "4em 1.5em 0em 1.5em";
-			div.style.lineHeight = (cl.size+Math.floor(cl.size/4))+"px";
-			div.style.verticalAlign = "middle";
+			div.style.margin = "4em 2em 0em 2em";
+			div.style.padding = "1.5em 2em";
 			div.style.boxShadow = "-2px 1px 2px lightgray";
 			div.style.background = "lightblue";
 			div.style.borderRadius = "0.4em";
@@ -1696,7 +1824,7 @@
 		instruct.style.top = "0em";
 		instruct.style.left = "50%";
 		instruct.style.margin = "0 0 1em -15em";
-		instruct.style.backgroundColor = "ghostwhite";
+		instruct.style.backgroundColor = "#fafffa";
 		instruct.style.color = "gray";
 		instruct.style.opacity = "0.75";
 		instruct.style.textAlign = "center";
@@ -2444,7 +2572,7 @@
 	function closeMenu(el) {
 		el.style.opacity = "0";
 		el.style.marginTop = "-2em";
-		if (el.id == "menuDiv") animateMenu(document.getElementById("menuPara"),1);
+		if (el.id == "menuDiv") animateMenu(document.getElementById("menuParagraph"),1);
 		setTimeout(function() {el.style.height = "0";}, 600);
 		return true;
 	} // end function closeMenu(el)
@@ -2452,13 +2580,13 @@
 	function animateMenu(para, code) {
 		if (code == 0) {
 			para.style.backgroundColor = "#8e3ecf";
-			para.style.color = "white";
+			para.style.color = "#fafffa";
 			first = para.firstChild;
 			while (!!first) {first.style.paddingRight = "1em"; first = first.nextSibling;}
 		} // if (code == 0)
 		if (code == 1) {
-			para.style.backgroundColor = "white";
-			para.style.color = "gray";
+			para.style.backgroundColor = "";
+			para.style.color = "#663399";
 			first = para.firstChild;
 			while (!!first) {first.style.paddingRight = "0em"; first = first.nextSibling;}
 		} // if (code == 1)	
@@ -2475,12 +2603,16 @@
 			if (this.readyState == 4 && this.status == 200) {
 				var message = this.responseText + "";
 				if (message != "") {
-					var el = document.getElementById('startupMessageSpan');
-					el.innerHTML = message;
-					el = document.getElementById('startupMessageDiv');
-					el.style.height = "95%";
-					el.style.marginTop="3em"; 
-					el.style.opacity="1";
+					if (message != "1") {
+						var el = document.getElementById('startupMessageSpan');
+						el.innerHTML = message;
+						el = document.getElementById('startupMessageDiv');
+						el.style.height = "95%";
+						el.style.marginTop="3em"; 
+						el.style.opacity="1"; 
+					} else {
+					setTimeout(function() {showMenu(document.getElementById('menuDiv')) },500);
+					} // if (message != "1")
 				}
 				return true;
 			} // end if
