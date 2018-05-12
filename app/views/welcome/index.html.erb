@@ -309,6 +309,9 @@
 		 display: none;
 	}
 
+	
+	/* modal classes */
+
 	.modal-div {
 		position: absolute;
 		width: 96%;
@@ -404,6 +407,66 @@
 		margin-left: 0;
 		z-index: 106
 	}
+
+/* individual modal classes */
+
+.menu-div-ul {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	color: #3ecf8e;
+}
+
+.menu-div-li {
+	width:100%;
+	overflow: hidden;
+	padding: 0.2em 0.5em 0.2em 0.5em;
+	margin: 0;
+	border-bottom: 1px solid #cccccc;
+	background-color: #f3f6f9;
+}
+
+.li-odd {
+	background: -moz-linear-gradient(left, #ffffff, #e6e9ec);
+	background: -webkit-linear-gradient(left, #ffffff, #e6e9ec);
+	background: -o-linear-gradient(left, #ffffff, #e6e9ec);
+	background: linear-gradient(to right, #ffffff, #e6e9ec);
+}
+
+.li-even {
+	background: -moz-linear-gradient(left, #e6e9ec, #ffffff);
+	background: -webkit-linear-gradient(left, #e6e9ec, #ffffff);
+	background: -o-linear-gradient(left, #e6e9ec, #ffffff);
+	background: linear-gradient(to right, #e6e9ec, #ffffff);
+}
+
+.menu-div-svg-icon {
+	height: 6em;
+	padding: 1.5em 0 0 1em;
+	float: left;
+}
+
+.menu-div-item {
+	width: 25%;
+	padding-left: 1em;
+	text-align: left;
+	font-size: 3em;
+	float: left;
+}
+
+.menu-div-item-description {
+	width: 60%;
+	padding: 0 0.5em;
+	text-align: left;
+	font-size: 2em;
+	color: #9f9f9f;
+	float: right; 
+}
+
+
+
+
 </style>
 </head>
 <body onload="checkForStartupMessage();">
@@ -442,7 +505,9 @@
 <div id="footer" class="footer"><p>a First Flight Ingenuities<span style="font-size: 1em">&trade;</span> production</p></div>
 
 <input type="hidden" id="gameVersion" name="gameVersion" value="1.0">
+
 </body>
+
 
 <div id="startupMessageDiv" class="modal-div">
 	<div class="hidden-opt-right" onclick="closeMenu(document.getElementById('startupMessageDiv'))"></div>
@@ -450,6 +515,8 @@
 	<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><p id="startupMessageSpan" style="font-size: 2em; text-align: center;"></p>
 	</div>
 </div><!-- end startupMessageDiv -->
+
+
 
 <div id="gameMessageDiv" class="modal-div">
 	<div class="hidden-opt-right" onclick="closeMenu(document.getElementById('gameMessageDiv'))"></div>
@@ -459,6 +526,7 @@
 </div><!-- end gameMessageDiv -->
 
 	
+
 <div id="menuDiv" class="modal-div">
 	<div class="modal-div-header">
 		<ul class="ul-for-header">
@@ -467,26 +535,26 @@
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('menuDiv'))">X</li>
 		</ul>
 	</div>
-	<ul style="width: 100%; height: 80%;list-style: none; font-size: 2em; color: #3ecf8e; margin: 0; padding: 0">
-		<li id="instructionsChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #ffffff, #e6e9ec); background: -webkit-linear-gradient(left, #ffffff, #e6e9ec); background: -o-linear-gradient(left, #ffffff, #e6e9ec); background: linear-gradient(to right, #ffffff, #e6e9ec);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('instructionsDiv'));">
-			<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%;float: left;padding-left:1em;" viewbox="0 0 25 25"><circle cx="12" cy="12" r="12" fill="#d6facf"/><path d="M14.23 12.24A3.3 3.3 0 0 0 16 9.36C16 8.2 15.15 6 12.1 6A3.806 3.806 0 0 0 8 10h2.36c0-1.45.82-2.06 1.67-2.06a1.184 1.184 0 0 1 1.37 1.3c0 .96-.15 1.14-1.03 1.82A3.365 3.365 0 0 0 10.8 14H13a2.526 2.526 0 0 1 1.23-1.76zM12 18.5a1.5 1.5 0 1 0-1.5-1.5 1.5 1.5 0 0 0 1.5 1.5z" fill="#3ecf8e"/></svg>
-			<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; line-height: 2em;">How To Play</p>
-			<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #9f9f9f;">Instructions on how to play this <span style="font-style: italic; font-weight: bold;">fun</span> color matching game that keeps you <span style="font-style: italic; font-weight: bold;">constantly entertained.</span></p>
+	<ul class="menu-div-ul">
+		<li id="instructionsChoice" class="menu-div-li li-odd" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('instructionsDiv'));">
+			<svg xmlns="http://www.w3.org/2000/svg" class="menu-div-svg-icon" viewbox="0 0 25 25"><circle cx="12" cy="12" r="12" fill="#d6facf"/><path d="M14.23 12.24A3.3 3.3 0 0 0 16 9.36C16 8.2 15.15 6 12.1 6A3.806 3.806 0 0 0 8 10h2.36c0-1.45.82-2.06 1.67-2.06a1.184 1.184 0 0 1 1.37 1.3c0 .96-.15 1.14-1.03 1.82A3.365 3.365 0 0 0 10.8 14H13a2.526 2.526 0 0 1 1.23-1.76zM12 18.5a1.5 1.5 0 1 0-1.5-1.5 1.5 1.5 0 0 0 1.5 1.5z" fill="#3ecf8e"/></svg>
+			<p class="menu-div-item">How To Play</p>
+			<p class="menu-div-item-description">Instructions on how to play this <span style="font-style: italic; font-weight: bold;">fun</span> color matching game that keeps you <span style="font-style: italic; font-weight: bold;">constantly entertained.</span></p>
 		</li>
-		<li id="signupChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #e6e9ec, #ffffff); background: -webkit-linear-gradient(left, #e6e9ec, #ffffff); background: -o-linear-gradient(left, #e6e9ec, #ffffff); background: linear-gradient(to right, #e6e9ec, #ffffff);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signupDiv'));">
-			<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%; float: left;padding-left:1em;" viewbox="0 0 50 50"><g><path fill="#3ecf8e" d="M31.81 31H11a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h25a1 1 0 0 0 1-1v-1.806l5-2.446V39a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h31a3 3 0 0 1 3 3v14.767L31.81 31zM10 25a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v3zm27-13a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h25a1 1 0 0 0 1-1v-3zm0 10a1 1 0 0 0-1-1H26a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3z"></path><path fill="#3e8ecf" d="M34.956 32.365L46.1 21.205a3.06 3.06 0 0 0 0-4.318 3.043 3.043 0 0 0-4.31 0l-11.143 11.16a2.445 2.445 0 0 0-.64 1.133l-.98 3.925a.728.728 0 0 0 .88.884l3.918-.984a2.4 2.4 0 0 0 1.13-.642z"></path></g></svg>
-			<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; line-height: 2em;">Sign Up</p>
-			<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #9f9f9f;">Get the benefits of more challenges, recording of your high scores, and access to the upcoming multi-player version.</p>
+		<li id="signupChoice" class="menu-div-li li-even" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signupDiv'));">
+			<svg xmlns="http://www.w3.org/2000/svg" class="menu-div-svg-icon" viewbox="0 0 50 50"><g><path fill="#3ecf8e" d="M31.81 31H11a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h25a1 1 0 0 0 1-1v-1.806l5-2.446V39a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h31a3 3 0 0 1 3 3v14.767L31.81 31zM10 25a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v3zm27-13a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h25a1 1 0 0 0 1-1v-3zm0 10a1 1 0 0 0-1-1H26a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3z"></path><path fill="#3e8ecf" d="M34.956 32.365L46.1 21.205a3.06 3.06 0 0 0 0-4.318 3.043 3.043 0 0 0-4.31 0l-11.143 11.16a2.445 2.445 0 0 0-.64 1.133l-.98 3.925a.728.728 0 0 0 .88.884l3.918-.984a2.4 2.4 0 0 0 1.13-.642z"></path></g></svg>
+			<p class="menu-div-item">Sign Up</p>
+			<p class="menu-div-item-description">Get the benefits of more challenges, recording of your high scores, and access to the upcoming multi-player version.</p>
 		</li>
-		<li id="signinChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0.2em 0.5em 0.2em 0.5em; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #ffffff, #e6e9ec); background: -webkit-linear-gradient(left, #ffffff, #e6e9ec); background: -o-linear-gradient(left, #ffffff, #e6e9ec); background: linear-gradient(to right, #ffffff, #e6e9ec);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signinDiv'));">
-			<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%; float: left;padding-left:1em;" viewbox="0 0 50 50"><path fill="#1eaf6e" d="m 31.006,20 v -6.76 c -0.04746,-4.1119342 -3.394295,-7.4203555 -7.5065,-7.4203555 -4.112205,0 -7.459039,3.3084213 -7.5065,7.4203555 V 16 H 11 V 13.5 C 11,6.597 16.596,1 23.5,1 30.404,1 36,6.597 36,13.5 V 20 Z"></path><path fill="#3ecf8e" d="M20 30c0 1.48.805 2.77 2 3.46V37a2 2 0 0 0 2 2v6H10a4 4 0 0 1-4-4V24a4 4 0 0 1 4-4h14v6a4 4 0 0 0-4 4z"></path><path fill="#1eaf6e" d="M37 45H24v-6a2 2 0 0 0 2-2v-3.54A3.99 3.99 0 0 0 28 30a4 4 0 0 0-4-4v-6h13a4 4 0 0 1 4 4v17a4 4 0 0 1-4 4z"></path></svg>
-			<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; line-height: 2em;">Sign In</p>
-			<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #9f9f9f;">Acess your profile and membership information. Thank you for signing-up and enjoy!</p>
+		<li id="signinChoice" class="menu-div-li li-odd" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signinDiv'));">
+			<svg xmlns="http://www.w3.org/2000/svg" class="menu-div-svg-icon" viewbox="0 0 50 50"><path fill="#1eaf6e" d="m 31.006,20 v -6.76 c -0.04746,-4.1119342 -3.394295,-7.4203555 -7.5065,-7.4203555 -4.112205,0 -7.459039,3.3084213 -7.5065,7.4203555 V 16 H 11 V 13.5 C 11,6.597 16.596,1 23.5,1 30.404,1 36,6.597 36,13.5 V 20 Z"></path><path fill="#3ecf8e" d="M20 30c0 1.48.805 2.77 2 3.46V37a2 2 0 0 0 2 2v6H10a4 4 0 0 1-4-4V24a4 4 0 0 1 4-4h14v6a4 4 0 0 0-4 4z"></path><path fill="#1eaf6e" d="M37 45H24v-6a2 2 0 0 0 2-2v-3.54A3.99 3.99 0 0 0 28 30a4 4 0 0 0-4-4v-6h13a4 4 0 0 1 4 4v17a4 4 0 0 1-4 4z"></path></svg>
+			<p class="menu-div-item">Sign In</p>
+			<p class="menu-div-item-description">Acess your profile and membership information. Thank you for signing-up and enjoy!</p>
 		</li>
-		<li id="profileChoice" style="width:100%; height: 22%; overflow: hidden; border-bottom: 1px solid #cccccc; padding: 0; margin: 0;list-style: none; background-color: #f3f6f9; background: -moz-linear-gradient(left, #ffffff, #e6e9ec); background: -webkit-linear-gradient(left, #ffffff, #e6e9ec); background: -o-linear-gradient(left, #ffffff, #e6e9ec); background: linear-gradient(to right, #ffffff, #e6e9ec);" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('profileDiv'));">
-			<svg xmlns="http://www.w3.org/2000/svg" style="width: 20%; height: 100%; float: left;padding-left:1em;" viewbox="0 0 50 50"><path fill="#1eaf6e" d="m 31.006,20 v -6.76 c -0.04746,-4.1119342 -3.394295,-7.4203555 -7.5065,-7.4203555 -4.112205,0 -7.459039,3.3084213 -7.5065,7.4203555 V 16 H 11 V 13.5 C 11,6.597 16.596,1 23.5,1 30.404,1 36,6.597 36,13.5 V 20 Z"></path><path fill="#3ecf8e" d="M20 30c0 1.48.805 2.77 2 3.46V37a2 2 0 0 0 2 2v6H10a4 4 0 0 1-4-4V24a4 4 0 0 1 4-4h14v6a4 4 0 0 0-4 4z"></path><path fill="#1eaf6e" d="M37 45H24v-6a2 2 0 0 0 2-2v-3.54A3.99 3.99 0 0 0 28 30a4 4 0 0 0-4-4v-6h13a4 4 0 0 1 4 4v17a4 4 0 0 1-4 4z"></path></svg>
-			<p style="width: 25%; height: 100%;float: left;padding-left:1em; text-align: left; line-height: 2em;">Profile</p>
-			<p style="width: 40%; height: 100%;float: left;padding-left:0.5em; text-align: left; font-size: 0.80em; color: #9f9f9f;">View your high score history, change your account info, and cancel your membership.</p>
+		<li id="profileChoice" class="menu-div-li li-even" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('profileDiv'));">
+			<svg class="menu-div-svg-icon" class="menu-div-svg-icon" viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><path d="m19.481 45.618c-6.7641 0-12.899-2.7739-17.481-7.2746 0.89634-7.2708 5.3816-11.914 10.88-13.925a14.08 14.787 0 0 0 6.5802 1.7082 14.087 14.794 0 0 0 6.589-1.7119c5.5071 2.0108 10.001 6.6618 10.89 13.949-4.5789 4.4895-10.703 7.256-17.458 7.256z" fill="#3ecf8e" stroke-width="1.8118"/><path d="m29.205 11.221a9.7307 10.219 0 0 1-9.72 10.225 9.7271 10.216 0 0 1-9.7165-10.221 9.7236 10.212 0 0 1 9.7165-10.225 9.7271 10.216 0 0 1 9.72 10.221z" fill="#1eaf6e" stroke-width="1.8118"/></svg>
+			<p class="menu-div-item">Profile</p>
+			<p class="menu-div-item-description">View your high score history, change your account info, and cancel your membership.</p>
 		</li>
 		<li style="width: 100%; text-align:center; background-color: white;"><button id="newGameButton" style="background-color: #3ecf8e; background: -moz-linear-gradient(#3eef8e,#3ecf8e); background: -webkit-linear-gradient(#3eef8e,#3ecf8e);background: -o-linear-gradient(#3eef8e,#3ecf8e); background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: -2px 4px 8px #aaaaaa; border: none; font-size:1.5em;padding:.5em; margin-top: 0.2em;" onclick="setupNewGame()">New Game</button>
 		</li>
