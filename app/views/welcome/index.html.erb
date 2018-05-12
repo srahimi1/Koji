@@ -259,8 +259,8 @@
 	}
 
 	.yes-button {
-		background-color: #dedede;
-		color: #7a00cc;
+		background-color: #3ecf8e; /*#dedede;*/
+		color: #fafffa;
 		padding: 0.5em 1.35em;
 	}
 
@@ -415,7 +415,7 @@
 	margin: 0;
 	padding: 0;
 	list-style: none;
-	color: #3ecf8e;
+	color: #663399 /*#3ecf8e;*/
 }
 
 .menu-div-li {
@@ -423,7 +423,7 @@
 	overflow: hidden;
 	padding: 0.2em 0.5em 0.2em 0.5em;
 	margin: 0;
-	border-bottom: 1px solid #cccccc;
+	
 	background-color: #f3f6f9;
 }
 
@@ -468,6 +468,28 @@
 	clear: both;
 }
 
+.signup-form-div {
+	width: 90%;
+	margin: 2em auto;
+	padding: 1em 1em;
+	font-size: 1.5em;
+	box-shadow: 2px 2px 9px #999999;
+	color: #663399;
+	background-color: #dcdcdc;
+}
+
+.signup-form-paragraph {
+	width: 100%;
+	margin: 0;
+	padding: .2em 0;
+}
+
+.signup-form-input {
+	margin: 0;
+	width: 95%;
+	font-size: 1.5em;
+	color: #3ecf8e;
+}
 
 
 
@@ -591,6 +613,7 @@
 
 
 
+
 <div id="signupDiv" class="modal-div">
 	<div class="modal-div-header">
 		<ul class="ul-for-header">
@@ -599,25 +622,25 @@
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('signupDiv'))">X</li>
 		</ul>
 	</div>
-	<ul style="width: 100%; height: 80%;list-style: none; font-size: 1.5em; color: #3ecf8e; margin: 2em 0 0 3em; padding: 0 0 0 1em; overflow-y: auto;">
-		<li style="text-align: left;"><%= form_tag("/", method: "", id: "signupForm") do %>
+	<div class="signup-form-div">
+		<%= form_tag("/", method: "", id: "signupForm") do %>
 			<p>Email and cell phone will be used for login and password recovery</p>
-			<p>Email <span id="emailErrorMessage" style="color:red"></span></p>
-			<p style="margin:-0.75em 0 0 0;"><input id="emailInput" type="text" name="email" placeholder="- 0.5s; transition: box-shadow 0.5s;" onkeyup="validateEmail(this,1)" onblur="validateEmail(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-			<p>- and/or -</p>
-			<p>Cellphone number <span id="cellphoneErrorMessage" style="color:red"></span></p>
-			<p style="height: 1em; width: 40%; margin-top: -0.5em; padding: 0;"><input id="numberInput" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('cellphoneInput'),1)"></p>
-			<p style="margin:-1.75em 0 0 0;"><input id="cellphoneInput" type="text" name="cell" placeholder="cellphone number" maxlength="20" style="height: 1em; width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateCellphone(this,1)" onfocus="validateCellphone(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-			<p>Display name <span id="displaynameErrorMessage" style="color:red"></span></p>
-			<p style="margin:-0.75em 0 0 0;"><input id="displaynameInput" type="text" name="displayname" placeholder="display name" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validateDisplayName(this)" onblur="validateDisplayName(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-			<p>Password <span id="password1ErrorMessage" style="color:red"></span></p>
-			<p style="margin:-0.75em 0 0 0;"><input id="password1Input" type="password" name="password1" placeholder="password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-			<p>Re-enter password <span id="password2ErrorMessage" style="color:red"></span></p>
-			<p style="margin:-0.75em 0 0 0;"><input id="password2Input" type="password" name="password2" placeholder="re-enter password" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box-shadow 0.5s; transition: box-shadow 0.5s;" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>emashadowil" maxlength="70" style="width: 40%; font-size: 1em;-moz-transition: box-shadow 0.5s; -webkit-transition: box-shadow 0.5s; -o-transition: box
-			<p></p>
-			<p style="width: 40%; text-align: right;"><input id="signupSubmit" type="button" name="signupSubmit" value="Sign up" style="background-color: #e6eded; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="signupFormSubmit()"onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
-		<% end %></li>
-	</ul>
+			<p class="signup-form-paragraph"><span id="emailErrorMessage" style="color:red"></span></p>
+			<p class="signup-form-paragraph"><input id="emailInput" class="signup-form-input" type="text" name="email" placeholder="Email" maxlength="70" onkeyup="validateEmail(this,1)" onblur="validateEmail(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph">- and/or -</p>
+			<p class="signup-form-paragraph"><span id="cellphoneErrorMessage" style="color:red"></span></p>
+			<p class="signup-form-paragraph"><input id="numberInput" style="font-size: 1em; margin: 0;" type="number" name="none" onkeyup="validateCellphone(document.getElementById('cellphoneInput'),1)"></p>
+			<p class="signup-form-paragraph" style="margin-top: -2em;"><input id="cellphoneInput" class="signup-form-input" type="text" name="cell" placeholder="cellphone number" maxlength="20" onkeyup="validateCellphone(this,1)" onfocus="validateCellphone(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><span id="displaynameErrorMessage" style="color:red"></span></p>
+			<p class="signup-form-paragraph"><input id="displaynameInput" class="signup-form-input" type="text" name="displayname" placeholder="display name" maxlength="70" onkeyup="validateDisplayName(this)" onblur="validateDisplayName(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><span id="password1ErrorMessage" style="color:red"></span></p>
+			<p class="signup-form-paragraph"><input id="password1Input" class="signup-form-input" type="password" name="password1" placeholder="password" maxlength="70" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><span id="password2ErrorMessage" style="color:red"></span></p>
+			<p class="signup-form-paragraph"><input id="password2Input" class="signup-form-input" type="password" name="password2" placeholder="re-enter password" maxlength="70" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"></p>
+			<p style="width: 95%; margin: 0; padding: .2em 0; text-align: right;"><input id="signupSubmit" type="button" name="signupSubmit" value="Sign up" style="background-color: #e6eded; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="signupFormSubmit()"onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
+		<% end %>
+	</div>
 	<div class="modal-div-footer"></div>
 	<div class="hidden-opt-left" onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));"></div>
 	<div class="hidden-opt-right" onclick="closeMenu(document.getElementById('signupDiv'))"></div>
