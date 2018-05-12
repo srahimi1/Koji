@@ -15,6 +15,7 @@
 		width: 100%;
 		height: 100%; 
 		overflow-x: hidden;
+		overflow-y: auto;
 		margin: 0;
 		padding: 0;
 		background-color: #bebebe;
@@ -159,7 +160,7 @@
 		text-align: center;
 		overflow: hidden;
 		white-space: nowrap;
-		color: #fafffa;
+		color: #7a00cc;
 	}
 
 	.xs-p {
@@ -471,9 +472,9 @@
 .menu-div-item-description {
 	display: block;
 	margin: 0;
-	padding: 0 1em 0.3em 4em;
+	padding: 0 1em 0.3em 5em;
 	text-align: left;
-	font-size: 2em;
+	font-size: 1.70em;
 	color: #9f9f9f;
 	clear: both;
 }
@@ -1245,10 +1246,10 @@
 		gameLD.innerHTML = "";
 		var box = document.getElementById("xbox1");
 		var first = box.firstChild;
-		while (first) {first.style.color = "#fafffa"; first.style.textShadow = "none"; first = first.nextSibling;}
+		while (first) {first.style.color = "#7a00cc"; first.style.textShadow = "none"; first = first.nextSibling;}
 		box = document.getElementById("xbox2");
 		first = box.firstChild;
-		while (first) {first.style.color = "#fafffa"; first.style.textShadow = "none"; first = first.nextSibling;}
+		while (first) {first.style.color = "#7a00cc"; first.style.textShadow = "none"; first = first.nextSibling;}
 		var goal = document.getElementById("goal");
 		goal.innerHTML = "";
 		goal.style.backgroundImage = "url('transparent_background.jpg')";
@@ -2101,7 +2102,7 @@
 			else par = document.getElementById("xbox2");
 			var first = par.firstChild;							
 			while (!!first) {
-				first.style.color = "#fafffa";
+				first.style.color = "#7a00cc";
 				first.style.textShadow = "none";
 				first = first.nextSibling;
 			}
@@ -2676,7 +2677,7 @@
 		} else if (id == "signinDiv") {
 			document.getElementById("signinForm").reset();
 		}
-		el.style.height = "30em";
+		el.style.height = "auto";
 		el.style.marginTop="3em"; 
 		el.style.opacity="1";
 		return true;
