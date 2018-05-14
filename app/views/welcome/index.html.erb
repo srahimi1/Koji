@@ -321,104 +321,113 @@
 	
 	/* modal classes */
 
-	.modal-div {
-		position: absolute;
-		height: 0;
-		width: 96%;
-		top: 0%; 
-		left: 2%; 
-		background-color: #fafffa;
-		-webkit-box-shadow: -3px 6px 16px #aaaaaa;
-		-moz-box-shadow: -3px 6px 16px #aaaaaa;
-		box-shadow: -3px 6px 16px #aaaaaa;
-		margin-top: -2em;
-		opacity: 0;
-		border-radius: 0.5em; 
-		-moz-transition: margin-top 1s, opacity 1s; 
-		-webkit-transition: margin-top 1s, opacity 1s; 
-		-o-transition: margin-top 1s, opacity 1s; 
-		transition: margin-top 1s, opacity 1s; 
-		overflow-y: auto;
-		z-index: 100;
-	}
+.modal-div {
+	position: absolute;
+	height: 0;
+	width: 96%;
+	top: 0%; 
+	left: 2%; 
+	background-color: #fafffa;
+	-webkit-box-shadow: -3px 6px 16px #aaaaaa;
+	-moz-box-shadow: -3px 6px 16px #aaaaaa;
+	box-shadow: -3px 6px 16px #aaaaaa;
+	margin-top: -2em;
+	opacity: 0;
+	border-radius: 0.5em; 
+	-moz-transition: margin-top 1s, opacity 1s; 
+	-webkit-transition: margin-top 1s, opacity 1s; 
+	-o-transition: margin-top 1s, opacity 1s; 
+	transition: margin-top 1s, opacity 1s; 
+	overflow-y: auto;
+	z-index: 100;
+}
 
-	.modal-div-header {
-		width: 100%;
-		margin: 0;
-		padding: .5em 0;
-		text-align: center;
-		color: #fafffa;
-		font-size: 2.5em;
-		background-color: #7a00cc;
-		background: -moz-linear-gradient(#9900ff,#7a00cc);
-		background: -webkit-linear-gradient(#9900ff,#7a00cc);
-		background: -o-linear-gradient(#9900ff,#7a00cc);
-		background: linear-gradient(#9900ff,#7a00cc);
-	}
+.modal-div-header {
+	width: 100%;
+	margin: 0;
+	padding: .5em 0;
+	text-align: center;
+	color: #fafffa;
+	font-size: 2.5em;
+	background-color: #7a00cc;
+	background: -moz-linear-gradient(#9900ff,#7a00cc);
+	background: -webkit-linear-gradient(#9900ff,#7a00cc);
+	background: -o-linear-gradient(#9900ff,#7a00cc);
+	background: linear-gradient(#9900ff,#7a00cc);
+}
 
-	.modal-div-footer {
-		position: relative;
-		width: 100%;
-		top: 100%;
-		padding: 2.5em 0;
-		margin-top: 0.5em;
-		background-color:#3ecf8e;
-		background: -moz-linear-gradient(#5eefae,#3ecf8e);
-		background: -webkit-linear-gradient(#5eefae,#3ecf8e);
-		background: -o-linear-gradient(#5eefae,#3ecf8e);
-		background: linear-gradient(#5eefae,#3ecf8e);
-	}
+.modal-div-footer {
+	position: relative;
+	width: 100%;
+	top: 100%;
+	padding: 2.5em 0;
+	margin-top: 0.5em;
+	background-color:#3ecf8e;
+	background: -moz-linear-gradient(#5eefae,#3ecf8e);
+	background: -webkit-linear-gradient(#5eefae,#3ecf8e);
+	background: -o-linear-gradient(#5eefae,#3ecf8e);
+	background: linear-gradient(#5eefae,#3ecf8e);
+}
 
-	.ul-for-header {
-		list-style-type: none;
-		margin: 0;
-		padding: 0;
-	}
+.modal-game-title {
+	width: 100%;
+	font-size: 4em;
+	text-align: center;
+	color: #7a00cc;
+	padding-left: 0.2em auto;
+}
 
-	.li-for-header-left {
-		display: inline-block;
-		margin: 0;
-		padding-left: 0.5em;
-		float: left;
-		overflow: hidden;
-		cursor: default;
-	}
 
-	.li-for-header-middle {
-		display: inline-block;
-		margin: 0;
-		text-align: center;
-		overflow: hidden;
-	}
+.ul-for-header {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+}
 
-	.li-for-header-right {
-		display: inline-block;
-		margin: 0;
-		padding-right: 0.5em;
-		float: right;
-		overflow: hidden;
-		cursor: default;
-	}
-	
-	.hidden-opt-right {
-		position: absolute; 
-		width: 10em;
-		height: 10em;
-		top: 0;
-		left: 100%;
-		margin-left: -10em;
-		z-index: 106;
-	}
+.li-for-header-left {
+	display: inline-block;
+	margin: 0;
+	padding-left: 0.5em;
+	float: left;
+	overflow: hidden;
+	cursor: default;
+}
 
-	.hidden-opt-left {
-		position: absolute; 
-		width: 10em;
-		height: 10em;
-		top: 0;
-		left: 0;
-		margin-left: 0;
-		z-index: 106;
-	}
+.li-for-header-middle {
+	display: inline-block;
+	margin: 0;
+	text-align: center;
+	overflow: hidden;
+}
+
+.li-for-header-right {
+	display: inline-block;
+	margin: 0;
+	padding-right: 0.5em;
+	float: right;
+	overflow: hidden;
+	cursor: default;
+}
+
+.hidden-opt-right {
+	position: absolute; 
+	width: 10em;
+	height: 10em;
+	top: 0;
+	left: 100%;
+	margin-left: -10em;
+	z-index: 106;
+}
+
+.hidden-opt-left {
+	position: absolute; 
+	width: 10em;
+	height: 10em;
+	top: 0;
+	left: 0;
+	margin-left: 0;
+	z-index: 106;
+}
 
 /* individual modal classes */
 
@@ -465,23 +474,23 @@
 	margin: 0;
 	padding: 0.6em 0 0 0.5em;
 	text-align: left;
-	font-size: 1em;
+	font-size: 2.5em;
 }
 
 .menu-div-item-description {
 	display: block;
-	margin: 0;
-	padding: 0 1em 0.3em 6em;
+	width: 100%;
+	margin: -3.5em 0 0 0;
+	padding: 0 1em 0.3em 5.7em;
 	text-align: left;
-	font-size: 0.5em;
+	font-size: 0.6em;
 	color: #9f9f9f;
 }
 
 .signup-form-div {
 	width: 80%;
-	margin: 2em auto;
+	margin: 0.5em auto;
 	padding: 1em 1em;
-	font-size: 2em;
 	color: #663399;
 	background-color: #efefef;
 	-webkit-box-shadow: 2px 2px 9px #999999;
@@ -579,8 +588,8 @@
 		<ul class="menu-div-ul">
 			<li id="instructionsChoice" class="menu-div-li li-odd" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('instructionsDiv'));">
 				<svg xmlns="http://www.w3.org/2000/svg" class="menu-div-svg-icon" viewbox="0 0 25 25"><circle cx="12" cy="12" r="12" fill="#d6facf"/><path d="M14.23 12.24A3.3 3.3 0 0 0 16 9.36C16 8.2 15.15 6 12.1 6A3.806 3.806 0 0 0 8 10h2.36c0-1.45.82-2.06 1.67-2.06a1.184 1.184 0 0 1 1.37 1.3c0 .96-.15 1.14-1.03 1.82A3.365 3.365 0 0 0 10.8 14H13a2.526 2.526 0 0 1 1.23-1.76zM12 18.5a1.5 1.5 0 1 0-1.5-1.5 1.5 1.5 0 0 0 1.5 1.5z" fill="#3ecf8e"/></svg>
-				<p class="menu-div-item">How To Play</p>
-				<p class="menu-div-item-description">Instructions on how to play this <span style="font-style: italic; font-weight: bold;">fun</span> color matching game that keeps you <span style="font-style: italic; font-weight: bold;">constantly entertained.</span></p>
+				<p class="menu-div-item"><span>How To Play</span><br/>
+				<span class="menu-div-item-description">Instructions on how to play this <span style="font-style: italic; font-weight: bold;">fun</span> color matching game that keeps you <span style="font-style: italic; font-weight: bold;">constantly entertained.</span></span></p>
 			</li>
 			<li id="signupChoice" class="menu-div-li li-even" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signupDiv'));">
 				<svg xmlns="http://www.w3.org/2000/svg" class="menu-div-svg-icon" viewbox="0 0 50 50"><g><path fill="#3ecf8e" d="M31.81 31H11a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h25a1 1 0 0 0 1-1v-1.806l5-2.446V39a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3V8a3 3 0 0 1 3-3h31a3 3 0 0 1 3 3v14.767L31.81 31zM10 25a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v3zm27-13a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h25a1 1 0 0 0 1-1v-3zm0 10a1 1 0 0 0-1-1H26a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3z"></path><path fill="#3e8ecf" d="M34.956 32.365L46.1 21.205a3.06 3.06 0 0 0 0-4.318 3.043 3.043 0 0 0-4.31 0l-11.143 11.16a2.445 2.445 0 0 0-.64 1.133l-.98 3.925a.728.728 0 0 0 .88.884l3.918-.984a2.4 2.4 0 0 0 1.13-.642z"></path></g></svg>
@@ -637,6 +646,7 @@
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('signupDiv'))">X</li>
 		</ul>
 	</div>
+	<p class="modal-game-title">KOJI</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signupForm") do %>
 			<p>Email and cell phone will be used for login and password recovery</p>
