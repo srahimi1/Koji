@@ -3,320 +3,335 @@
 <title></title>
 <head>
 <style>
-	html {
-		width: 100%;
-		height: 100%;
-		overflow: hidden;
-		margin: 0;
-		padding: 0;
-	}
+html {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
+}
 
-	body {
-		width: 100%;
-		height: 100%; 
-		overflow-x: hidden;
-		overflow-y: auto;
-		margin: 0;
-		padding: 0;
-		background-color: #bebebe;
-		font-family: Trebuchet MS, helvetica, tahoma;
-	}
+body {
+	width: 100%;
+	height: 100%; 
+	overflow-x: hidden;
+	overflow-y: auto;
+	margin: 0;
+	padding: 0;
+	background-color: #bebebe;
+	font-family: Trebuchet MS, helvetica, tahoma;
+}
 
-	/* main app sections */
-	.title-bar {
-		width:100%;
-		font-size:4em;
-		margin: 0 auto;
-		padding: .2em 0;
-		color:white;
-		text-align: center;
-		background-color: #7a00cc;
-		background: -moz-linear-gradient(#9900ff,#7a00cc);
-		background: -webkit-linear-gradient(#9900ff,#7a00cc);
-		background: -o-linear-gradient(#9900ff,#7a00cc);
-		background: linear-gradient(#9900ff,#7a00cc);
-		-webkit-box-shadow: 0px 6px 16px #666666;
-		-moz-box-shadow: 0px 6px 16px #666666;
-		box-shadow: 0px 6px 16px #666666;
-		z-index: 100;
-	}
+/* main app sections */
+.title-bar {
+	width:100%;
+	font-size:4em;
+	margin: 0 auto;
+	padding: .2em 0;
+	color:white;
+	text-align: center;
+	background-color: #7a00cc;
+	background: -moz-linear-gradient(#9900ff,#7a00cc);
+	background: -webkit-linear-gradient(#9900ff,#7a00cc);
+	background: -o-linear-gradient(#9900ff,#7a00cc);
+	background: linear-gradient(#9900ff,#7a00cc);
+	-webkit-box-shadow: 0px 6px 16px #666666;
+	-moz-box-shadow: 0px 6px 16px #666666;
+	box-shadow: 0px 6px 16px #666666;
+	z-index: 100;
+}
 
-	.show-menu-container {
-		width: 100%;
-		margin: 0;
-		padding: 0;
-	}
+.show-menu-container {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
 
-	.show-menu-paragraph {
-		width: 100%;
-		margin-top: 0;
-		padding: 0.2em 2em 0.2em 0;
-		float: right;
-		font-size: 2em;
-		text-align: right;
-		-moz-transition: background-color 1s, color 1s;
-		-webkit-transition: background-color 1s, color 1s;
-		-o-transition: background-color 1s, color 1s;
-		transition: background-color 1s, color 1s;
-		color: #663399;
-	}
+.show-menu-paragraph {
+	width: 100%;
+	margin-top: 0;
+	padding: 0.2em 2em 0.2em 0;
+	float: right;
+	font-size: 2em;
+	text-align: right;
+	-moz-transition: background-color 1s, color 1s;
+	-webkit-transition: background-color 1s, color 1s;
+	-o-transition: background-color 1s, color 1s;
+	transition: background-color 1s, color 1s;
+	color: #663399;
+}
 
-	.show-menu-letters {
-		padding-right: 0;
-		-moz-transition: padding-right 1s;
-		-webkit-transition: padding-right 1s;
-		-o-transition: padding-right 1s;
-		transition: padding-right 1s;
-	}
+.show-menu-letters {
+	padding-right: 0;
+	-moz-transition: padding-right 1s;
+	-webkit-transition: padding-right 1s;
+	-o-transition: padding-right 1s;
+	transition: padding-right 1s;
+}
 
-	.game-content {
-		width: 100%;
-		height: 100%;
-		margin: 1em auto;
-		padding: 4em 0;
-		text-align: center;
+.game-content {
+	width: 100%;
+	height: 100%;
+	margin: 1em auto;
+	padding: 4em 0;
+	text-align: center;
 
-	}
+}
 
-	.footer {
-		position: fixed; 
-		width: 100%;
-		top: 100%;
-		margin: -3em auto 0 auto;
-		padding: 0.1em 3em 1.35em 1em;
-		color: #fafffa;
-		font-size: 2em;
-		background-color: #7a00cc;
-		background: -moz-linear-gradient(#9900ff,#7a00cc);
-		background: -webkit-linear-gradient(#9900ff,#7a00cc);
-		background: -o-linear-gradient(#9900ff,#7a00cc);
-		background: linear-gradient(#9900ff,#7a00cc);
-		-webkit-box-shadow: 0px -6px 16px #666666;
-		-moz-box-shadow: 0px -6px 16px #666666;
-		box-shadow: 0px -6px 16px #666666;
-		overflow: hidden;
-		z-index: 100;
+.footer {
+	position: fixed; 
+	width: 100%;
+	top: 100%;
+	margin: -3em auto 0 auto;
+	padding: 0.1em 3em 1.35em 1em;
+	color: #fafffa;
+	font-size: 2em;
+	background-color: #7a00cc;
+	background: -moz-linear-gradient(#9900ff,#7a00cc);
+	background: -webkit-linear-gradient(#9900ff,#7a00cc);
+	background: -o-linear-gradient(#9900ff,#7a00cc);
+	background: linear-gradient(#9900ff,#7a00cc);
+	-webkit-box-shadow: 0px -6px 16px #666666;
+	-moz-box-shadow: 0px -6px 16px #666666;
+	box-shadow: 0px -6px 16px #666666;
+	overflow: hidden;
+	z-index: 100;
+
+}
+
+
+/* game sections */
+
+.goal-container {
+	position: relative;
+	width: 100%;
+	height: 11em;
+	padding: 0;
+	margin: 0 auto;
+	text-align: center;
+	overflow: hidden;
+	-webkit-box-shadow: 1px 3px 30px #888888;
+	-moz-box-shadow: 1px 3px 30px #888888;
+	box-shadow: 1px 3px 30px #888888;
+}
+
+.goal-title {
+	position: absolute;
+	width: 6em;
+	padding: 0.2em;
+	margin: 0 auto 0 -3em;
+	left: 50%;
+	font-size: 2em;
+	text-align: center;
+	color: #7a00cc;
+	z-index: 4;
+}
+
+.goal-title-backing {
+	position: absolute;
+	width: 6em;
+	padding: 0.2em;
+	margin: 0 auto 0 -3em;
+	left: 50%;
+	font-size: 2em;
+	background-color: #ffffff;
+	color: #ffffff;
+	opacity: 0.5;
+	z-index: 3;	
+}
+
+.goal-div {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	margin: 0 auto;
+	background-image: url('transparent_background.jpg');
+	z-index: 1;
+}
+
+.canvas-1 {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	margin: 0 auto;
+	text-align: center;
+	display: none;
+	z-index: 2;
+}
+
+.points-and-xs-container {
+	position: relative;
+	width: 100%;
+	height: 8em;
+	padding: 2.5em 0 0 0;
+	margin: 0 auto;
+	text-align: center;
+	overflow: hidden;
+	white-space: nowrap;
+	color: #fafffa;
+}
+
+.xs-p {
+	display: inline-block;
+	width: 25%;
+	padding: 0;
+	margin: 0 auto;
+	font-size: 2em;
+	font-weight: bold;
+	text-align: center;
+}
+
+.x {
+	padding: 0 1.5em;
+	margin: 0;
+}
+
+.points-title {
+	 display: inline-block;
+	 width: 45%;
+	 margin: 0 auto;
+	 font-size: 2em;
+	 text-align: center;
+	 border-bottom: 1px solid #fafffa;
+}
+
+.points-span {
+	width: 100%;
+	margin: 0;
+	text-align: center;
+
+}
+
+.game-letters-container {
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
+	color: #fafffa;
+}
+
+.game-letters-div {
+	width:100%;
+	margin: 0 auto;
+	text-align: center;
+	color: #fafffa;
+}
+.guess-outer {
+	position: relative;
+	width: 100%;
+	height: 18em;
+	padding: 4em 0;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.guess-container {
+	position: relative;
+	width: 100%;
+	height: 18em;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.guess {
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	background-color: #bebebe;
+	background-image: url('transparent_background.jpg');
+	overflow: hidden;
+}
+
+.guess-instruction {
+	position: absolute;
+	width: 20em;
+	top: 0;
+	padding: 0.2em;
+	margin: 0 auto 0 -10em;
+	left: 50%;
+	text-align: center;
+	font-size: 2em;
+	color: #7a00cc;
+	background-color: #ffffff;
+	opacity: 0.7;
+}
+
+.top-half-color-mix-div {
+
+}
+
+.lower-half-color-mix-div {
+
+}
+
+.yesno-button {		
+	display: inline-block;
+	font-size: 3em;
+	font-weight: bold;
+	margin: 0 1.5em;
+	border: none;
+	border-radius: 5px;
+	text-align: center;
+	-webkit-box-shadow: 1px 11px 16px #333333;
+	-moz-box-shadow: 1px 11px 16px #333333;
+	box-shadow: 1px 11px 16px #333333;
+}
+
+.yes-button {
+	padding: 0.5em 1.35em;
+	background-color: #ffffff; /*#dedede;*/
+	color: #3ecf8e;
+	opacity: 0.85;
+}
+
+.no-button {
+	padding: 0.5em 1.5em;
+	background-color: #ffffff;
+	color: #7a00cc;
+	opacity: 0.85;
+}
+
+.mix-div {
+
+}
+
+.points15-svg {
+
+}
+
+.points5-svg {
+
+}
+
+.you-got-it-svg {
+
+}
+
+.try-again-svg {
+
+}
+
+.missed-it-svg {
+
+}
+
+.dont-mix-svg {
 	
-	}
+}
 
-
-	/* game sections */
-
-	.goal-container {
-		position: relative;
-		width: 100%;
-		height: 11em;
-		padding: 0;
-		margin: 0 auto;
-		text-align: center;
-		overflow: hidden;
-		-webkit-box-shadow: 1px 3px 30px #888888;
-		-moz-box-shadow: 1px 3px 30px #888888;
-		box-shadow: 1px 3px 30px #888888;
-	}
-
-	.goal-title {
-		position: absolute; 
-		width: 6em;
-		padding: 0.2em;
-		margin: 0 auto 0 -3em;
-		left: 50%;
-		font-size:2em;
-		text-align:center;
-		color: #fafffa;
-		background-color: #7a00cc;
-		z-index: 3;
-	}
-
-	.goal-div {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		margin: 0 auto;
-		background-image: url('transparent_background.jpg');
-		z-index: 1;
-	}
-
-	.canvas-1 {
-		position: absolute;
-		width: 100%;
-		height: 100%;
-		top: 0;
-		left: 0;
-		margin: 0 auto;
-		text-align: center;
-		display: none;
-		z-index: 2;
-	}
-
-	.points-and-xs-container {
-		position: relative;
-		width: 100%;
-		height: 8em;
-		padding: 2.5em 0 0 0;
-		margin: 0 auto;
-		text-align: center;
-		overflow: hidden;
-		white-space: nowrap;
-		color: #7a00cc;
-	}
-
-	.xs-p {
-		display: inline-block;
-		width: 25%;
-		padding: 0;
-		margin: 0 auto;
-		font-size: 2em;
-		font-weight: bold;
-		text-align: center;
-	}
-
-	.x {
-		padding: 0 1.5em;
-		margin: 0;
-	}
-
-	.points-title {
-		 display: inline-block;
-		 width: 45%;
-		 margin: 0 auto;
-		 font-size: 2em;
-		 text-align: center;
-		 border-bottom: 1px solid #fafffa;
-	}
-
-	.points-span {
-		width: 100%;
-		margin: 0;
-		text-align: center;
-
-	}
-
-	.game-letters-container {
-		width: 100%;
-		margin: 0 auto;
-		text-align: center;
-		color: #fafffa;
-	}
-
-	.game-letters-div {
-		width:100%;
-		margin: 0 auto;
-		text-align: center;
-		color: #fafffa;
-	}
-	.guess-outer {
-		position: relative;
-		width: 100%;
-		height: 18em;
-		padding: 4em 0;
-		margin: 0 auto;
-		overflow: hidden;
-	}
-	
-	.guess-container {
-		position: relative;
-		width: 100%;
-		height: 18em;
-		margin: 0 auto;
-		overflow: hidden;
-	}
-
-	.guess {
-		width: 100%;
-		height: 100%;
-		margin: 0 auto;
-		background-color: #bebebe;
-		background-image: url('transparent_background.jpg');
-		overflow: hidden;
-	}
-
-	.guess-instruction {
-		position: absolute;
-		width: 20em;
-		top: 0;
-		padding: 0.2em;
-		margin: 0 auto 0 -10em;
-		left: 50%;
-		text-align: center;
-		font-size: 2em;
-		color: #fafffa;
-		background-color: #7a00cc;
-	}
-
-	.top-half-color-mix-div {
-
-	}
-
-	.lower-half-color-mix-div {
-
-	}
-
-	.yesno-button {		
-		display: inline-block;
-		font-size: 3em;
-		font-weight: bold;
-		margin: 0 1.5em;
-		border: none;
-		border-radius: 5px;
-		text-align: center;
-		-webkit-box-shadow: 1px 11px 16px #333333;
-		-moz-box-shadow: 1px 11px 16px #333333;
-		box-shadow: 1px 11px 16px #333333;
-	}
-
-	.yes-button {
-		background-color: #3ecf8e; /*#dedede;*/
-		color: #fafffa;
-		padding: 0.5em 1.35em;
-	}
-
-	.no-button {
-		background-color: #7a00cc;
-		color: #fafffa;
-		padding: 0.5em 1.5em;
-	}
-
-	.mix-div {
-
-	}
-
-	.points15-svg {
-
-	}
-
-	.points5-svg {
-
-	}
-
-	.you-got-it-svg {
-
-	}
-
-	.try-again-svg {
-
-	}
-
-	.missed-it-svg {
-
-	}
-
-	.dont-mix-svg {
-		
-	}
-
-	.letter-choices-container {
-		 position: absolute;
-		 width: 100%;
-		 height: 100%;
-		 top: 0;
-		 left: 0;
-		 text-align: center;
-		 background-color: white;
-		 display: none;
-	}
+.letter-choices-container {
+	 position: absolute;
+	 width: 100%;
+	 height: 100%;
+	 top: 0;
+	 left: 0;
+	 text-align: center;
+	 background-color: white;
+	 display: none;
+}
 
 	
 	/* modal classes */
@@ -484,10 +499,9 @@
 .menu-div-item-description {
 	width: 90%;
 	margin: 0;
-	padding: 0 0 0 1em;
+	padding: 0 0 0 0.5em;
 	text-align: left;
 	font-size: 2em;
-	color: #9f9f9f;
 }
 
 .signup-form-div {
@@ -535,9 +549,10 @@
 
 <div id="gameContent" class="game-content">
 	<div id="goalContainer" class="goal-container">
-		<div id="goalTitle" class="goal-title">Goal Color</div>
-		<canvas id="canvas1" class="canvas-1"></canvas>
 		<div id="goal" class="goal-div"></div>
+		<canvas id="canvas1" class="canvas-1"></canvas>
+		<div class="goal-title-backing">Goal Color</div>
+		<div id="goalTitle" class="goal-title">Goal Color</div>
 	</div><!--end goalContainer div -->
 
 	<div id="pointsandxsContainer" class="points-and-xs-container">
@@ -1262,10 +1277,10 @@
 		gameLD.innerHTML = "";
 		var box = document.getElementById("xbox1");
 		var first = box.firstChild;
-		while (first) {first.style.color = "#7a00cc"; first.style.textShadow = "none"; first = first.nextSibling;}
+		while (first) {first.style.color = "#fafffa"; first.style.textShadow = "none"; first = first.nextSibling;}
 		box = document.getElementById("xbox2");
 		first = box.firstChild;
-		while (first) {first.style.color = "#7a00cc"; first.style.textShadow = "none"; first = first.nextSibling;}
+		while (first) {first.style.color = "#fafffa"; first.style.textShadow = "none"; first = first.nextSibling;}
 		var goal = document.getElementById("goal");
 		goal.innerHTML = "";
 		goal.style.backgroundImage = "url('transparent_background.jpg')";
@@ -2118,7 +2133,7 @@
 			else par = document.getElementById("xbox2");
 			var first = par.firstChild;							
 			while (!!first) {
-				first.style.color = "#7a00cc";
+				first.style.color = "#fafffa";
 				first.style.textShadow = "none";
 				first = first.nextSibling;
 			}
