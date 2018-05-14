@@ -443,8 +443,8 @@
 
 .menu-div-li {
 	width: 100%;
-	overflow: hidden;
-	padding: 0.2em 0.5em 0.2em 0.5em;
+	height: 10em;
+	padding: 0.2em 0.5em 0.3em 0.5em;
 	margin: 0;
 	background-color: #f3f6f9;
 }
@@ -485,15 +485,16 @@
 	margin: 0;
 	padding: 0 0 0 1em;
 	text-align: left;
-	font-size: 1em;
+	font-size: 2em;
 	color: #9f9f9f;
 }
 
 .signup-form-div {
 	width: 80%;
+	height: 30em;
 	margin: 0.5em auto;
 	padding: 1em 1em;
-	font-size: 1em;
+	font-size: 2em;
 	color: #663399;
 	background-color: #efefef;
 	-webkit-box-shadow: 2px 2px 9px #999999;
@@ -511,7 +512,7 @@
 .signup-form-input {
 	margin: 0;
 	width: 85%;
-	font-size: 3em;
+	font-size: 2em;
 	color: #3ecf8e;
 	border: none;
 	-webkit-box-shadow: inset 1px 2px 7px #cccccc;
@@ -573,7 +574,8 @@
 
 <div id="gameMessageDiv" class="modal-div">
 	<div class="hidden-opt-right" onclick="closeMenu(document.getElementById('gameMessageDiv'))"></div>
-	<div style="width: 100%; height: 6em; text-align: right; color: gray; font-size: 4em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('gameMessageDiv'))">X</p></div>
+	<div style="width: 100%; height: 6em; text-align: right; color: gray; font-size: 4em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('gameMessageDiv'))">X</p>
+	</div>
 	<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><h2 id="gameMessage" style="font-size: 4em; text-align: center;"></h2>
 	</div>
 </div><!-- end gameMessageDiv -->
@@ -597,7 +599,7 @@
 			<li id="signupChoice" class="menu-div-li li-even" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signupDiv'));">
 				<svg class="menu-div-svg-icon" version="1.1" viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><path d="m32.004 34.206h-24.017a1.1541 1.2353 0 0 0-1.1541 1.2353v3.7059a1.1541 1.2353 0 0 0 1.1541 1.2353h28.852a1.1541 1.2353 0 0 0 1.1541-1.2353v-2.2309l5.7705-3.0215v10.194a3.4623 3.7059 0 0 1-3.4623 3.7059h-35.777a3.4623 3.7059 0 0 1-3.4623-3.7059v-38.294a3.4623 3.7059 0 0 1 3.4623-3.7059h35.777a3.4623 3.7059 0 0 1 3.4623 3.7059v18.242zm-25.171-7.4118a1.1541 1.2353 0 0 0 1.1541 1.2353h11.541a1.1541 1.2353 0 0 0 1.1541-1.2353v-3.7059a1.1541 1.2353 0 0 0-1.1541-1.2353h-11.541a1.1541 1.2353 0 0 0-1.1541 1.2353zm31.161-16.059a1.1541 1.2353 0 0 0-1.1541-1.2353h-28.852a1.1541 1.2353 0 0 0-1.1541 1.2353v3.7059a1.1541 1.2353 0 0 0 1.1541 1.2353h28.852a1.1541 1.2353 0 0 0 1.1541-1.2353zm0 12.353a1.1541 1.2353 0 0 0-1.1541-1.2353h-11.541a1.1541 1.2353 0 0 0-1.1541 1.2353v3.7059a1.1541 1.2353 0 0 0 1.1541 1.2353h11.541a1.1541 1.2353 0 0 0 1.1541-1.2353z" fill="#9900ff" stroke-width="1.194"/><path d="m35.635 35.892 12.861-13.786a3.5315 3.78 0 0 0 0-5.334 3.5119 3.759 0 0 0-4.9741 0l-12.86 13.786a2.8218 3.0203 0 0 0-0.73862 1.3996l-1.131 4.8485a0.84018 0.89929 0 0 0 1.0156 1.092l4.5217-1.2155a2.7698 2.9647 0 0 0 1.3041-0.79306z" fill="#663399" stroke-width="1.194"/></svg>
 				<h3 class="menu-div-item"> Sign Up</h3>
-				<p class="menu-div-item-description">Get the benefits of more challenges, recording of your high scores, and access to the upcoming multi-player version.</p>
+				<p class="menu-div-item-description">Get more challenges, recording of your high scores, and access to the upcoming multi-player version.</p>
 			</li>
 			<li id="signinChoice" class="menu-div-li li-odd" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signinDiv'));">
 				<svg class="menu-div-svg-icon" version="1.1" viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><g><path d="m35.525 24.087v-11.645c-0.065807-3.9622-4.7064-7.1501-10.408-7.1501-5.7018 0-10.342 3.1879-10.408 7.1501v4.5867h-6.9231v-4.3361c0-6.6516 7.7592-12.045 17.332-12.045s17.332 5.3932 17.332 12.045l0.25112 11.16z" fill="#663399" stroke-width="1.1559"/><path d="m20.265 33.558c0 1.5584 1.1162 2.9168 2.7731 3.6434v3.7276a2.7731 2.106 0 0 0 2.7731 2.106v6.318h-19.412a5.5462 4.212 0 0 1-5.5462-4.212v-17.901a5.5462 4.212 0 0 1 5.5462-4.212h19.412v6.318a5.5462 4.212 0 0 0-5.5462 4.212z" fill="#9966cc" stroke-width="1.2083"/><path d="m43.836 49.353h-18.025v-6.318a2.7731 2.106 0 0 0 2.7731-2.106v-3.7276a5.5324 4.2015 0 0 0 2.7731-3.6434 5.5462 4.212 0 0 0-5.5462-4.212v-6.318h18.025a5.5462 4.212 0 0 1 5.5462 4.212v17.901a5.5462 4.212 0 0 1-5.5462 4.212z" fill="#663399" stroke-width="1.2083"/></g></svg>
@@ -626,6 +628,7 @@
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('instructionsDiv'))">X</li>
 		</ul>
 	</div>
+	<p class="modal-game-title">KOJI</p>
 	<ul style="width: 100%; height: 80%; overflow-y: auto; list-style: none; font-size: 1em; color: #8E3ECF; padding: 0; text-align: left;">
 		<li style="padding: 0.1em 3em 0.1em 3em;"><h4>The goal of this fun, online game is two things. First, decide if two colors will mix to match the color of a rectangle located at the top of the screen. Second, determine what letters are hidden within that colorful rectangle. </h4></li>
 		<li style="padding: 0.1em 3em 0.1em 3em; margin: 0;"><p style="color: #8E3ECF; margin: 0;">Part 1: Determine if two colors, when mixed, will make a desired color.</p>
@@ -652,7 +655,7 @@
 	<p class="modal-game-title">KOJI</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signupForm") do %>
-			<p>Email and cell phone will be used for login and password recovery</p>
+			<p style="font-size: 1em;">Email and cell phone will be used for login and password recovery</p>
 			<p class="signup-form-paragraph"><span id="emailErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="emailInput" class="signup-form-input" type="text" name="email" placeholder=" Email" maxlength="70" onkeyup="validateEmail(this,1)" onblur="validateEmail(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph">- and/or -</p>
@@ -684,6 +687,7 @@
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('signinDiv'))">X</li>
 		</ul>
 	</div>
+	<p class="modal-game-title">KOJI</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signinForm") do %>
 			<p class="signup-form-paragraph"><span id="loginEmailErrorMessage" style="color:red"></span></p>
