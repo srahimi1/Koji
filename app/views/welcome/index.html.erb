@@ -646,9 +646,13 @@ padding: 0.1em 3em 0.1em 3em;
 
 .profile-option-div {
 	width:100%;
-	height: 10em;
+	height: 0;
 	border-bottom:1px solid gray;
-	display: none;
+	overflow: hidden;
+	-moz-transition: height 1s; 
+	-webkit-transition: height 1s; 
+	-o-transition: height 1s; 
+	transition: height 1s; 
 }
 </style>
 </head>
@@ -865,8 +869,8 @@ padding: 0.1em 3em 0.1em 3em;
 	<div id="changeLogin" class="profile-option-div">
 		<p id="changeLoginErrorMessage" class="profile-paragraph" style="color:red"></p>
 		<p class="profile-paragraph"><input id="changeEmailInput" class="profile-input" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onblur="validateEmail(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-		<p class="profile-paragraph">- and/ or -</p>
-		<p class="profile-paragraph"><input id="changeNumberInput" class="profile-input" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)"><input id="changeCellphoneInput" class="profile-input" style="margin: 0 -16.2em;" type="text" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 25em; visibility: hidden;" %><button id="changeLoginButton" class="profile-update-button" onclick="updateInfo(2)" disabled="disabled">Update</button></p>
+		<p class="profile-paragraph" style="padding: 0.1em 2em; font-size: 1.5em;">- and/ or -</p>
+		<p class="profile-paragraph"><input id="changeNumberInput" class="profile-input" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)"><input id="changeCellphoneInput" class="profile-input" style="margin: 0 -12.1em;" type="text" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 25em; visibility: hidden;" %><button id="changeLoginButton" class="profile-update-button" onclick="updateInfo(2)" disabled="disabled">Update</button></p>
 	</div>
 	<div id="cancelMembership" class="profile-option-div">
 		<p id="cancelMembershipErrorMessage" class="profile-paragraph" style="color:red"></p>
@@ -2475,19 +2479,27 @@ padding: 0.1em 3em 0.1em 3em;
 	} // end function updateInfo(sel)
 
 	function profileOption(opt) {
-		document.getElementById("placeHolderDiv").style.display = "none";
+/*		document.getElementById("placeHolderDiv").style.display = "none";
 		document.getElementById("changePassword").style.display = "none";
 		document.getElementById("changeLogin").style.display = "none";
-		document.getElementById("cancelMembership").style.display = "none";
+		document.getElementById("cancelMembership").style.display = "none";*/
+
+		document.getElementById("placeHolderDiv").style.height = "0";
+		document.getElementById("changePassword").style.height = "0";
+		document.getElementById("changeLogin").style.height = "0";
+		document.getElementById("cancelMembership").style.height = "0";
+
 		if (opt == 1) {
-			document.getElementById("changePassword").style.display = "block";
+			/*document.getElementById("changePassword").style.display = "block";*/
+			document.getElementById("changePassword").style.height = "17em";
 			document.getElementById("changePasswordInput1").value = '';
 			document.getElementById("changePasswordInput2").value = '';
 			document.getElementById("changePasswordInput1").nextSibling.style.visibility = "hidden";
 			document.getElementById("changePasswordInput2").nextSibling.style.visibility = "hidden";
 			document.getElementById("changePasswordButton").disabled = true;
 		} else if (opt == 2) {
-			document.getElementById("changeLogin").style.display = "block";
+			/*document.getElementById("changeLogin").style.display = "block";*/
+			document.getElementById("changeLogin").style.height = "17em";
 			document.getElementById("changeEmailInput").value = '';
 			document.getElementById("changeCellphoneInput").value = '';
 			document.getElementById("changeNumberInput").value = '';
@@ -2495,7 +2507,8 @@ padding: 0.1em 3em 0.1em 3em;
 			document.getElementById("changeCellphoneInput").nextSibling.style.visibility = "hidden";
 			document.getElementById("changeLoginButton").disabled = true;
 		} else if (opt == 3) {
-			document.getElementById("cancelMembership").style.display = "block";
+			/*document.getElementById("cancelMembership").style.display = "block";*/
+			document.getElementById("cancelMembership").style.height = "17em";
 			document.getElementById("cancelMembershipInput").value = '';
 			document.getElementById("cancelMembershipButton").disabled = true;
 		}
