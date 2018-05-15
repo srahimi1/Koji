@@ -338,22 +338,23 @@ body {
 
 .modal-div {
 	position: absolute;
-	height: 0;
 	width: 96%;
+	margin-top: -2em;
 	top: 0%; 
 	left: 2%; 
 	background-color: #fafffa;
 	-webkit-box-shadow: -3px 6px 16px #aaaaaa;
 	-moz-box-shadow: -3px 6px 16px #aaaaaa;
 	box-shadow: -3px 6px 16px #aaaaaa;
-	margin-top: -2em;
 	opacity: 0;
+	display: none;
 	border-radius: 0.5em; 
 	-moz-transition: margin-top 1s, opacity 1s; 
 	-webkit-transition: margin-top 1s, opacity 1s; 
 	-o-transition: margin-top 1s, opacity 1s; 
 	transition: margin-top 1s, opacity 1s; 
 	overflow-y: auto;
+	overflow-x: hidden;
 	z-index: 100;
 }
 
@@ -446,6 +447,28 @@ body {
 	z-index: 106;
 }
 
+.menu-div {
+
+}
+
+.instructions-div {
+
+}
+
+.signup-div {
+	height: 50em;
+	background-color: #d6d6d6;
+}
+
+.signin-div {
+	height: 20em;
+	background-color: #d6d6d6;
+}
+
+.profile-div {
+
+}
+
 /* individual modal classes */
 
 .menu-div-ul {
@@ -506,7 +529,7 @@ body {
 
 .signup-form-div {
 	width: 80%;
-	height: 30em;
+	height: 40em;
 	margin: 0.5em auto;
 	padding: 1em 1em;
 	font-size: 2em;
@@ -655,7 +678,7 @@ body {
 
 	
 
-<div id="menuDiv" class="modal-div">
+<div id="menuDiv" class="modal-div menu-div">
 		<div class="modal-div-header">
 			<ul class="ul-for-header">
 				<li class="li-for-header-left"></li>
@@ -693,7 +716,7 @@ body {
 
 
 
-<div id="instructionsDiv" class="modal-div">
+<div id="instructionsDiv" class="modal-div instructions-div">
 	<div class="modal-div-header">
 		<ul class="ul-for-header">
 			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
@@ -717,7 +740,7 @@ body {
 
 
 
-<div id="signupDiv" class="modal-div" style="background-color: #d6d6d6;">
+<div id="signupDiv" class="modal-div signup-div">
 	<div class="modal-div-header">
 		<ul class="ul-for-header">
 			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
@@ -752,7 +775,7 @@ body {
 
 
 
-<div id="signinDiv" class="modal-div" style="background-color: #d6d6d6;">
+<div id="signinDiv" class="modal-div signin-div">
 	<div class="modal-div-header">
 		<ul class="ul-for-header">
 			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
@@ -782,7 +805,7 @@ body {
 
 
 
-<div id="profileDiv" class="modal-div">
+<div id="profileDiv" class="modal-div profile-div">
 	<div class="modal-div-header">
 		<ul class="ul-for-header">
 			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
@@ -2761,9 +2784,8 @@ body {
 		} else if (id == "signinDiv") {
 			document.getElementById("signinForm").reset();
 		}
-		el.style.height = "70em";
-		el.style.marginTop="3em"; 
-		el.style.opacity="1";
+		el.style.display = "block";
+		setTimeout(function() {el.style.marginTop="3em"; el.style.opacity="1";}, 100);
 		return true;
 	} // end function showMenu(el)
 
@@ -2771,7 +2793,7 @@ body {
 		el.style.opacity = "0";
 		el.style.marginTop = "-2em";
 		if (el.id == "menuDiv") animateMenu(document.getElementById("menuParagraph"),1);
-		setTimeout(function() {el.style.height = "0";}, 600);
+		setTimeout(function() {el.style.display = "none";}, 800);
 		return true;
 	} // end function closeMenu(el)
 
