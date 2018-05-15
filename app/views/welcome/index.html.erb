@@ -622,16 +622,16 @@ padding: 0.1em 3em 0.1em 3em;
 
 .profile-paragraph {
 	width: 60em;
-	padding: 0.2em 2em;
+	padding: 0.5em 2em;
 	margin: 0.5em 0;
 }
 
 .profile-input {
 	width: 20em;
-	font-size: 1.5em;
+	font-size: 2em;
 }
 
-.profile-change-button {
+.profile-update-button {
 	font-size: 1.3em;
 	padding: 0.2em 0.7em;
 	border: none;
@@ -756,11 +756,11 @@ padding: 0.1em 3em 0.1em 3em;
 	</div>
 	<p class="modal-game-title">KOJI</p>
 	<ul class="instruction-ul">
-		<li class="instruction-top-li"><h4>Mix and match colors to uncover hidden letters. Figure out all the hidden letters and you win!</h4></li>
+		<li class="instruction-top-li"><h4>Mix and match colors to uncover hidden letters. Figure out all the hidden letters and You Win!</h4></li>
 		<li class="instruction-li"><p class="instruction-header-paragraph">First: Determine if two colors will mix to make a desired color.</p>
 			<p class="instruction-paragraph">Two colors are shown at the bottom of the screen, a rectangle with a desired 'goal' color is shown at the top. Hit 'yes' if you think the two bottom colors mix to make the desired goal color, hit 'no' if you think they don't.</p></li>
 		<li class="instruction-li"><p class="instruction-header-paragraph">Then: Behind the top, 'goal color' rectangle, there are hidden letters. Figure out the letters.</p>
-			<p class="instruction-paragraph">Every time you choose the correct color mixture, a small portion of the hidden letters in the top rectangle is revealed. After every 3rd correct color mixture guess, you will be shown a board with letters from which to choose. Correctly choose which are the hidden letters, and you win the game.</p></li>
+			<p class="instruction-paragraph">Every time you choose the correct color mixture, a small portion of the hidden letters in the top rectangle is revealed. After every 3rd correct color mixture guess, you will be shown a board with letters from which to choose. Correctly choose which are the hidden letters, and You Win The Game!</p></li>
 		<li class="instruction-li"><p class="instruction-header-paragraph">Xs:</p>
 			<p class="instruction-paragraph">For every 3 wrong color match guesses in a row, you get an X. For every incorrect hidden letter guess, you get an X. Four Xs and game is over.</p></li>
 		<li class="instruction-li"><p class="instruction-header-paragraph">Point values:</p>
@@ -856,17 +856,17 @@ padding: 0.1em 3em 0.1em 3em;
 	<div id="changePassword" class="profile-option-div">
 		<p id="changePasswordErrorMessage" class="profile-paragraph" style="color:red"></p>
 		<p class="profile-paragraph"><input id="changePasswordInput1" class="profile-input" type="password" placeholder="Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-		<p class="profile-paragraph"><input id="changePasswordInput2" class="profile-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %><button id="changePasswordButton" class="profile-change-button" onclick="updateInfo(1)" disabled="disabled">Change</button></p>
+		<p class="profile-paragraph"><input id="changePasswordInput2" class="profile-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button></p>
 	</div>
 	<div id="changeLogin" class="profile-option-div">
 		<p id="changeLoginErrorMessage" class="profile-paragraph" style="color:red"></p>
 		<p class="profile-paragraph"><input id="changeEmailInput" class="profile-input" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onblur="validateEmail(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 		<p class="profile-paragraph">- and/ or -</p>
-		<p class="profile-paragraph"><input id="changeNumberInput" class="profile-input" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)"><input id="changeCellphoneInput" class="profile-input" style="margin: 0 -16.2em;" type="text" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 25em; visibility: hidden;" %><button id="changeLoginButton" class="profile-change-button" onclick="updateInfo(2)" disabled="disabled">Change Login</button></p>
+		<p class="profile-paragraph"><input id="changeNumberInput" class="profile-input" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)"><input id="changeCellphoneInput" class="profile-input" style="margin: 0 -16.2em;" type="text" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 25em; visibility: hidden;" %><button id="changeLoginButton" class="profile-update-button" onclick="updateInfo(2)" disabled="disabled">Update</button></p>
 	</div>
 	<div id="cancelMembership" class="profile-option-div">
 		<p id="cancelMembershipErrorMessage" class="profile-paragraph" style="color:red"></p>
-		<p class="profile-paragraph"><input id="cancelMembershipInput" class="profile-input" type="text" placeholder="Type 'cancel'" onkeyup="validateCancelMembership(this)"><button id="cancelMembershipButton" class="profile-change-button" onclick="updateInfo(3)" disabled="disabled">Cancel Membership</button></p>
+		<p class="profile-paragraph"><input id="cancelMembershipInput" class="profile-input" type="text" placeholder="Type 'cancel'" onkeyup="validateCancelMembership(this)"><button id="cancelMembershipButton" class="profile-update-button" onclick="updateInfo(3)" disabled="disabled">Cancel Membership</button></p>
 	</div>
 	<p>Email: <span id="profileEmail"></span></p>
 	<p>Cellphone: <span id="profileCellphone"></span></p>
