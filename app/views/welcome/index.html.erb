@@ -459,7 +459,7 @@ body {
 .menu-div-li {
 	width: 100%;
 	height: 10em;
-	padding: 0.8em 0.5em 0.6em 0.8em;
+	padding: 1em 0.5em 0.6em 1em;
 	margin: 0;
 	background-color: #f3f6f9;
 }
@@ -535,7 +535,64 @@ body {
 	box-shadow: inset 1px 2px 7px #cccccc;
 }
 
+.profile-options-ul {
+	width: 100%;
+	margin: 0;
+	padding: 0 1em;
+	list-style: none;
+	font-size: 1em;
+}
 
+.profile-option {
+	width: 4em;
+	margin: 0;
+	padding: 0.5em 1em;
+	text-decoration: none;
+	border: none;
+	box-shadow: -1px 1px 9px #cfcfcf;
+}
+
+.change-password {
+	background-color: #3ecf8e;
+	color: #fafffa;
+}
+
+.change-account-info {
+	background-color: #7a00cc;
+	color: #fafffa;
+}
+
+.cancel-membership {
+	background-color: #666666;
+	color: #fafffa;
+}
+
+.profile-paragraph {
+	width: 60em;
+	padding: 0.2em 2em;
+	margin: 0.5em 0;
+}
+
+.profile-input {
+	width: 20em;
+	font-size: 1.5em;
+}
+
+.profile-change-button {
+	font-size: 1.3em;
+	padding: 0.2em 0.7em;
+	border: none;
+	background-color: #3311cc;
+	color: #fafffa;
+	box-shadow: -1px 1px 9px #cfcfcf;
+}
+
+.profile-option-div {
+	width:100%;
+	height: 10em;
+	border-bottom:1px solid gray;
+	display: none;
+}
 </style>
 </head>
 <body onload="checkForStartupMessage();">
@@ -733,31 +790,27 @@ body {
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('signinDiv'))">X</li>
 		</ul>
 	</div>
-	<ul style="width: 100%; list-style: none; font-size: 2em; color: #3ecf8e; margin: 0; padding: 0">
-		<li style="display: inline-block;"><a href="javascript:void(0);" onclick="profileOption(1);">Change Password</a></li>
-		<li style="display: inline-block;"><a href="javascript:void(0);" onclick="profileOption(2);">Change Account Info</a></li>
-		<li style="display: inline-block;"><a href="javascript:void(0);" onclick="profileOption(3);">Cancel Membership</a></li>
-		<li style="display: inline-block;"><a href="javascript:void(0);" onclick="updateInfo(4);">Logout</a></li>
+	<ul xlass="profile-options-ul">
+		<li style="display: inline-block;"><a href="javascript:void(0);" class="profile-option change-password" onclick="profileOption(1);">Change Password</a></li>
+		<li style="display: inline-block;"><a href="javascript:void(0);" class="profile-option change-account-info" onclick="profileOption(2);">Change Account Info</a></li>
+		<li style="display: inline-block;"><a href="javascript:void(0);" class="profile-option cancel-membership" onclick="profileOption(3);">Cancel Membership</a></li>
+		<li style="display: inline-block;"><a href="javascript:void(0);" class="profile-option logout" onclick="updateInfo(4);">Logout</a></li>
 	</ul>
-	<div id="placeHolderDiv" style="width:100%; height: 6em;"></div>
-	<div id="changePassword" style="width:100%; height: 6em; border-bottom:1px solid gray; display: none">
-		<span id="changePasswordErrorMessage" style="color:red"></span>
-		<input id="changePasswordInput1" type="password" placeholder="Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %>
-		<input id="changePasswordInput2" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %>
-		<button id="changePasswordButton" onclick="updateInfo(1)" disabled="disabled">Change Password</button>
+	<div id="placeHolderDiv" style="width:100%; height: 10em;"></div>
+	<div id="changePassword" class="profile-option-div">
+		<p id="changePasswordErrorMessage" class="profile-paragraph" style="color:red"></p>
+		<p class="profile-paragraph"><input id="changePasswordInput1" class="profile-input" type="password" placeholder="Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+		<p class="profile-paragraph"><input id="changePasswordInput2" class="profile-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %><button id="changePasswordButton" class="profile-change-button" onclick="updateInfo(1)" disabled="disabled">Change</button></p>
 	</div>
-	<div id="changeLogin" style="width:100%; height: 6em; display: none">
-		<span id="changeLoginErrorMessage" style="color:red"></span>
-		<input id="changeEmailInput" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onblur="validateEmail(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %>
-		<p>- and/ or -</p>
-		<input id="changeCellphoneInput" type="text" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %>
-		<input id="changeNumberInput" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)">
-		<button id="changeLoginButton" onclick="updateInfo(2)" disabled="disabled">Change Login</button>
+	<div id="changeLogin" class="profile-option-div">
+		<p id="changeLoginErrorMessage" class="profile-paragraph" style="color:red"></p>
+		<p class="profile-paragraph"><input id="changeEmailInput" class="profile-input" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onblur="validateEmail(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+		<p class="profile-paragraph">- and/ or -</p>
+		<p class="profile-paragraph"><input id="changeNumberInput" class="profile-input" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)"><input id="changeCellphoneInput" class="profile-input" style="margin: 0 -16.2em;" type="text" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 25em; visibility: hidden;" %><button id="changeLoginButton" class="profile-change-button" onclick="updateInfo(2)" disabled="disabled">Change Login</button></p>
 	</div>
-	<div id="cancelMembership" style="width:100%; height: 6em; display: none">
-		<span id="cancelMembershipErrorMessage" style="color:red"></span>
-		<input id="cancelMembershipInput" type="text" placeholder="Type 'cancel'" onkeyup="validateCancelMembership(this)">
-		<button id="cancelMembershipButton" onclick="updateInfo(3)" disabled="disabled">Cancel Membership</button>
+	<div id="cancelMembership" class="profile-option-div">
+		<p id="cancelMembershipErrorMessage" class="profile-paragraph" style="color:red"></p>
+		<p class="profile-paragraph"><input id="cancelMembershipInput" class="profile-input" type="text" placeholder="Type 'cancel'" onkeyup="validateCancelMembership(this)"><button id="cancelMembershipButton" class="profile-change-button" onclick="updateInfo(3)" disabled="disabled">Cancel Membership</button></p>
 	</div>
 	<p>Email: <span id="profileEmail"></span></p>
 	<p>Cellphone: <span id="profileCellphone"></span></p>
