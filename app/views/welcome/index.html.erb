@@ -559,7 +559,7 @@ body {
 
 .profile-options-ul {
 	width: 100%;
-	margin: 0;
+	margin: 0.5em;
 	padding: 0 0.5em;
 	list-style: none;
 	font-size: 2em;
@@ -568,7 +568,7 @@ body {
 .profile-option {
 	width: 4em;
 	margin: 0;
-	padding: 0.5em 0.2em;
+	padding: 0.3em 0.2em;
 	text-decoration: none;
 	border: none;
 	box-shadow: -1px 1px 9px #cfcfcf;
@@ -816,7 +816,6 @@ body {
 		<li style="display: inline-block;"><a href="javascript:void(0);" class="profile-option change-password" onclick="profileOption(1);">Change Password</a></li>
 		<li style="display: inline-block;"><a href="javascript:void(0);" class="profile-option change-account-info" onclick="profileOption(2);">Change Account Info</a></li>
 		<li style="display: inline-block;"><a href="javascript:void(0);" class="profile-option cancel-membership" onclick="profileOption(3);">Cancel Membership</a></li>
-		<li style="display: inline-block;"><a href="javascript:void(0);" class="profile-option logout" onclick="updateInfo(4);">Logout</a></li>
 	</ul>
 	<div id="placeHolderDiv" style="width:100%; height: 10em;"></div>
 	<div id="changePassword" class="profile-option-div">
@@ -836,6 +835,7 @@ body {
 	</div>
 	<p>Email: <span id="profileEmail"></span></p>
 	<p>Cellphone: <span id="profileCellphone"></span></p>
+	<p style="display: inline-block;"><a href="javascript:void(0);" class="profile-option logout" onclick="updateInfo(4);">Logout</a></p>
 	<div id="scoreHistory">
 		<table id="scoreHistoryTable">
 			<tbody id="tableBody">
