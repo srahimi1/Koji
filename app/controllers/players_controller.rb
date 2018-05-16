@@ -20,21 +20,23 @@ class PlayersController < ApplicationController
 			player = Player.new(email: @email, cellphone: @cell, display_name: params["display_name"], password: params["password1"], phone_country: "USA", game_version: params["game_version"], subscribed: 0, email_verified: 0, cellphone_verified: 0)
 			if (player.save! && !player.id.blank?)
 				player.create_player_gaming_history(current_total: 0, current_high_score: 0, history: "")
+				email_confirmation_code = ConfirmationCode.create(player.id, 0)
+				cellphone_confirmation_code = ConfirmationCode.create(player.id, 1)
 				Thread.new { 
 					if (!params["cellphone"].blank?)
-						PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "vtext.com").deliver_now
-						PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "tmomail.net").deliver_now
-						PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "txt.att.net").deliver_now
-						PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "messaging.sprintpcs.com").deliver_now
-						PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "vmobl.com").deliver_now
-						PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "myboostmobile.com").deliver_now
-						PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "mymetropcs.com").deliver_now
-						PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "page.nextel.com").deliver_now
-						PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "email.uscc.net").deliver_now
-						PlayerMailer.send_confirmation_text(player.cellphone, "1234zz", "sms.mycricket.com").deliver_now
+						PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "vtext.com").deliver_now
+						PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "tmomail.net").deliver_now
+						PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "txt.att.net").deliver_now
+						PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "messaging.sprintpcs.com").deliver_now
+						PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "vmobl.com").deliver_now
+						PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "myboostmobile.com").deliver_now
+						PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "mymetropcs.com").deliver_now
+						PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "page.nextel.com").deliver_now
+						PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "email.uscc.net").deliver_now
+						PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "sms.mycricket.com").deliver_now
 					end
 					if (!params["email"].blank?)
-						PlayerMailer.send_confirmation_email(player.email, "1234zz").deliver_now
+						PlayerMailer.send_confirmation_email(player.email, email_confirmation_code).deliver_now
 					end
 				}
 				output = "OK"
