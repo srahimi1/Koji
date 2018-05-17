@@ -2,12 +2,7 @@ class ConfirmationCode < ApplicationRecord
   belongs_to :player
 
 
-  def create(pid, type)
-  	puts pid
-    puts type
-    puts "  "
-    puts " "
-    puts " "
+  def self.make_code(pid, type)
     cc = ""
   	mthd = ""
   	case type
@@ -29,11 +24,12 @@ class ConfirmationCode < ApplicationRecord
   		end
   		cc = "#{cc}#{char}"
   	end
-  	player_cc = ConfirmationCode.find_by(player_id: pid)
+  	player_cc = ConfirmationCode.find_by(player_id: pid, method: mthd)
   	if (!player_cc) 
-  		player_cc = ConfirmationCode.create(player_id: pid, code: cc)
+  		player_cc = ConfirmationCode.create(player_id: pid, code: cc, method: mthd)
   	else 
   		player_cc.code = cc
+      player_cc["method"] = mthd
   	end
   	player_cc.save
   	return cc

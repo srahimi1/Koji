@@ -532,7 +532,7 @@ body {
 
 .instruction-ul {
 	width: 100%;
-	height: 65em;
+	height: 90em;
 	padding: 0;
 	margin: 0;
 	text-align: left;
@@ -565,6 +565,7 @@ padding: 0.1em 3em 0.1em 3em;
 	font-size: 2em;
 	color: #663399;
 	background-color: #efefef;
+	overflow-y: auto;
 	-webkit-box-shadow: 2px 2px 9px #999999;
 	-moz-box-shadow: 2px 2px 9px #999999;
 	box-shadow: 2px 2px 9px #999999;
@@ -579,7 +580,7 @@ padding: 0.1em 3em 0.1em 3em;
 
 .signup-form-input {
 	margin: 0;
-	width: 85%;
+	width: 80%;
 	font-size: 2em;
 	color: #3ecf8e;
 	border: none;
@@ -853,7 +854,7 @@ padding: 0.1em 3em 0.1em 3em;
 			<p class="signup-form-paragraph"><span id="password2ErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="password2Input" class="signup-form-input" type="password" name="password2" placeholder=" Re-enter Password" maxlength="70" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"></p>
-			<p style="width: 85%; margin: 0; padding: .2em 0; text-align: right;"><input id="signupSubmit" type="button" name="signupSubmit" value="Sign up" style="background-color: #e6eded; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="signupFormSubmit()"onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
+			<p style="width: 80%; margin: 0; padding: .2em 0; text-align: right;"><input id="signupSubmit" type="button" name="signupSubmit" value="Sign up" style="background-color: #e6eded; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="signupFormSubmit()"onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
 		<% end %>
 	</div>
 	<div class="modal-div-footer"></div>

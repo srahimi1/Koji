@@ -20,8 +20,8 @@ class PlayersController < ApplicationController
 			player = Player.new(email: @email, cellphone: @cell, display_name: params["display_name"], password: params["password1"], phone_country: "USA", game_version: params["game_version"], subscribed: 0, email_verified: 0, cellphone_verified: 0)
 			if (player.save! && !player.id.blank?)
 				player.create_player_gaming_history(current_total: 0, current_high_score: 0, history: "")
-				email_confirmation_code = ConfirmationCode.create(player.id, 0)
-				cellphone_confirmation_code = ConfirmationCode.create(player.id, 1)
+				email_confirmation_code = ConfirmationCode.make_code(player.id, 0)
+				cellphone_confirmation_code = ConfirmationCode.make_code(player.id, 1)
 				Thread.new { 
 					if (!params["cellphone"].blank?)
 						PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "vtext.com").deliver_now
