@@ -18,7 +18,7 @@ ActiveRecord::Schema.define(version: 20180426104445) do
   create_table "confirmation_codes", force: :cascade do |t|
     t.bigint "player_id"
     t.string "code"
-    t.string "method"
+    t.string "bymethod"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["player_id"], name: "index_confirmation_codes_on_player_id"
