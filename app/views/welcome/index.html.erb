@@ -18,7 +18,7 @@ body {
 	overflow-y: auto;
 	margin: 0;
 	padding: 0;
-	background-color: #bebebe;
+	background-color: #f0f0f0;
 	font-family: Trebuchet MS, helvetica, tahoma;
 }
 
@@ -171,7 +171,7 @@ body {
 	text-align: center;
 	overflow: hidden;
 	white-space: nowrap;
-	color: #fafffa;
+	color: #919191;
 }
 
 .xs-p {
@@ -195,7 +195,7 @@ body {
 	 margin: 0 auto;
 	 font-size: 2em;
 	 text-align: center;
-	 border-bottom: 1px solid #fafffa;
+	 border-bottom: 1px solid #919191;
 }
 
 .points-span {
@@ -239,7 +239,7 @@ body {
 	width: 100%;
 	height: 100%;
 	margin: 0 auto;
-	background-color: #bebebe;
+	background-color: #f0f0f0;
 	background-image: url('transparent_background.jpg');
 	overflow: hidden;
 }
@@ -281,16 +281,14 @@ body {
 
 .yes-button {
 	padding: 0.5em .85em;
-	background-color: #ffffff; /*#dedede;*/
+	background-color: #f1fff1; /*#dedede;*/
 	color: #3ecf8e;
-	opacity: 0.85;
 }
 
 .no-button {
 	padding: 0.5em 1em;
-	background-color: #ffffff;
+	background-color: #f1fff1;
 	color: #7a00cc;
-	opacity: 0.85;
 }
 
 .mix-div {
@@ -338,10 +336,11 @@ body {
 .modal-div {
 	position: absolute;
 	width: 96%;
+	height: 80em;
 	margin-top: -2em;
 	top: 0%; 
 	left: 2%; 
-	background-color: #fafffa;
+	background-color: #f0f0f0;
 	-webkit-box-shadow: -3px 6px 16px #aaaaaa;
 	-moz-box-shadow: -3px 6px 16px #aaaaaa;
 	box-shadow: -3px 6px 16px #aaaaaa;
@@ -446,25 +445,18 @@ body {
 }
 
 .menu-div {
-	height: 80em;
 }
 
 .instructions-div {
-	height: 80em;
 }
 
 .signup-div {
-	height: 80em;
-	background-color: #d6d6d6;
 }
 
 .signin-div {
-	height: 80em;
-	background-color: #d6d6d6;
 }
 
 .profile-div {
-	height: 80em;
 }
 
 /* individual modal classes */
@@ -570,11 +562,11 @@ body {
 	padding: 1em 1em;
 	font-size: 2em;
 	color: #663399;
-	background-color: #efefef;
+	background-color: #e5e5e5;
 	overflow-y: auto;
-	-webkit-box-shadow: 2px 2px 9px #999999;
-	-moz-box-shadow: 2px 2px 9px #999999;
-	box-shadow: 2px 2px 9px #999999;
+	-webkit-box-shadow: -2px 0px 9px #aaaaaa, 1px 3px 12px #aaaaaa;
+	-moz-box-shadow: -2px 0px 9px #aaaaaa, 1px 3px 12px #aaaaaa;
+	box-shadow: -2px 0px 9px #aaaaaa, 1px 3px 12px #aaaaaa;
 	border-radius: 8px;
 }
 
@@ -675,12 +667,15 @@ body {
 	font-size: 1.3em;
 	padding: 0.2em 0.7em;
 	border: none;
-	background-color: yellow;
+	background-color: #bebebe;
 	color: blue;
 	box-shadow: -1px 1px 9px #cfcfcf;
 }
 
 .profile-update-result {
+	padding: 0.5em 2em;
+	margin: 0.5em 0;
+	font-size: 2em;
 	font-style: italic;
 	color: #00F000;
 	opacity: 0;
@@ -694,6 +689,15 @@ body {
 	padding: 0.5em 2em;
 	margin: 0.5em 0;
 	font-size: 2em;
+	color: slateblue;
+}
+
+.profile-email {
+	color: #3ecf8e;
+}
+
+.profile-cellphone {
+	color: #3ecf8e;
 }
 
 .score-history {
@@ -706,6 +710,7 @@ body {
 	width: 100%;
 	margin: 0.5em auto;
 	font-size: 1.75em;
+	text-align: center;
 }
 </style>
 </head>
@@ -930,15 +935,15 @@ body {
 	</div>
 	<p id="profileUpdateResult" class="profile-update-result"></p>
 	<p class="profile-paragraph"><a href="javascript:void(0);" class="profile-option logout" onclick="updateInfo(4);">Logout</a></p>
-	<p class="profile-paragraph-2">Email: <span id="profileEmail"></span></p>
-	<p class="profile-paragraph-2">Cellphone: <span id="profileCellphone"></span></p>
+	<p class="profile-paragraph-2">Email: <span id="profileEmail" class="profile-email"></span></p>
+	<p class="profile-paragraph-2">Cellphone: <span id="profileCellphone" class="profile-cellphone"></span></p>
 	<div id="scoreHistory" class="score-history">
 		<table id="scoreHistoryTable" class="score-history-table">
 			<tbody id="tableBody">
 				<tr id="tableHeader" class="score-history-table-tr">
-					<th>Date</th>
-					<th>High Score</th>
-					<th>Total Daily Score</th>
+					<th style="color: gray;">Date</th>
+					<th style="color: gray;">High Score</th>
+					<th style="color: gray;">Total Daily Score</th>
 				</tr id="tableHeaderEnd">
 			</tbody>
 		</table>
@@ -1448,10 +1453,10 @@ body {
 		gameLD.innerHTML = "";
 		var box = document.getElementById("xbox1");
 		var first = box.firstChild;
-		while (first) {first.style.color = "#fafffa"; first.style.textShadow = "none"; first = first.nextSibling;}
+		while (first) {first.style.color = "#919191"; first.style.textShadow = "none"; first = first.nextSibling;}
 		box = document.getElementById("xbox2");
 		first = box.firstChild;
-		while (first) {first.style.color = "#fafffa"; first.style.textShadow = "none"; first = first.nextSibling;}
+		while (first) {first.style.color = "#919191"; first.style.textShadow = "none"; first = first.nextSibling;}
 		var goal = document.getElementById("goal");
 		goal.innerHTML = "";
 		goal.style.backgroundImage = "url('transparent_background.jpg')";
@@ -2304,7 +2309,7 @@ body {
 			else par = document.getElementById("xbox2");
 			var first = par.firstChild;							
 			while (!!first) {
-				first.style.color = "#fafffa";
+				first.style.color = "#919191";
 				first.style.textShadow = "none";
 				first = first.nextSibling;
 			}

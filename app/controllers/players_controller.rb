@@ -93,7 +93,11 @@ class PlayersController < ApplicationController
 		response = {}
 		response["email"] = player.email
 		response["cellphone"] = player.cellphone
-		response["history"] = JSON.parse(history)
+		if (!history.blank?)
+			response["history"] = JSON.parse(history)
+		else
+			response["history"] = ""
+		end
 		res = JSON.generate(response)
 		output = "OK_?*#{res}"
 		render plain: output
