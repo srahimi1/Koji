@@ -25,7 +25,7 @@ class ConfirmationCode < ApplicationRecord
   		cc = "#{cc}#{char}"
   	end
   	player_cc = ConfirmationCode.find_by(player_id: pid, bymethod: mthd)
-  	if (!player_cc.blank?) 
+  	if (player_cc.blank?) 
   		player_cc = ConfirmationCode.create(player_id: pid, code: cc, bymethod: mthd)
   	else 
   		player_cc.code = cc
