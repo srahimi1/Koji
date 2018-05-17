@@ -1,6 +1,9 @@
 class Player < ApplicationRecord
-	has_many :games
-	has_one :player_gaming_history
+	has_many :games, dependent: :destroy
+	has_one :player_gaming_history, dependent: :destroy
+	has_many :confirmation_codes, dependent: :destroy
+	has_one :pp_customer_info, dependent: :destroy
+	has_one :subscription, dependent: :destroy
 
 	validates :email, uniqueness: true, allow_nil: true
 	validates :cellphone, uniqueness: true, allow_nil: true
