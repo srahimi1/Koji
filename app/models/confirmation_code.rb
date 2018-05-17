@@ -3,7 +3,12 @@ class ConfirmationCode < ApplicationRecord
 
 
   def create(pid, type)
-  	cc = ""
+  	puts pid
+    puts type
+    puts "  "
+    puts " "
+    puts " "
+    cc = ""
   	mthd = ""
   	case type
   	when 0
