@@ -26,10 +26,9 @@ class ConfirmationCode < ApplicationRecord
   	end
   	player_cc = ConfirmationCode.find_by(player_id: pid)
   	if (!player_cc) 
-  		player_cc = ConfirmationCode.create(player_id: pid, code: cc, method: mthd)
+  		player_cc = ConfirmationCode.create(player_id: pid, code: cc)
   	else 
   		player_cc.code = cc
-  		player_cc["method"] = mthd
   	end
   	player_cc.save
   	return cc
