@@ -514,7 +514,7 @@ body {
 	padding: 0 0.2em;
 	text-align: left;
 	font-size: 4.5em;
-	color: #9f9f9f;
+	color: #3ecf8e;
 }
 
 .menu-div-item-description {
@@ -523,6 +523,7 @@ body {
 	padding: 0 0 0 0.5em;
 	text-align: left;
 	font-size: 2em;
+	color: #9f9f9f;
 }
 
 .instruction-top-li {
@@ -1470,7 +1471,7 @@ body {
 				inputData = JSON.parse(this.responseText);
 				localStorage.setItem("gameID", inputData.gameID);
 				topData = inputData["colors"];
-				cycleTopDataAt = Math.floor(Math.random() * 8) + 15;
+				cycleTopDataAt = Math.floor(Math.random() * 4) + 4;
 				gameData = topData[0];
 				colorGoalDiv();
 				createColorDivs();
@@ -1499,7 +1500,7 @@ body {
 	function cycleThroughTopData() {
 		var prev = gameData.goalColor;
 		gameData = topData[Math.floor(Math.random() * topData.length)];
-		cycleTopDataAt = Math.floor(Math.random() * 15) + 15;
+		cycleTopDataAt = Math.floor(Math.random() * 4) + 4;
 		cycleTopDataCounter = 0;
 		colorGoalDiv();
 		createColorDivs();
