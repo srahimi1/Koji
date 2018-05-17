@@ -11,7 +11,7 @@ class ConfirmationCode < ApplicationRecord
   	when 1
   		mthd = "cellphone"
   	end
-  	8.times do 
+  	5.times do 
   		sel = rand(3)
   		char = ""
   		case sel
