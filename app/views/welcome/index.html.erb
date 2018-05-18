@@ -2834,6 +2834,7 @@ body {
 	} // end function checkIfExist(route, method, data, success, fail)
 
 	function signupFormSubmit(token) {
+		console.log(token);
 		var cont = false;
 		if ((formcheck[0] || formcheck[1]) && formcheck[2] && formcheck[3]) cont = true;
 		if (cont) {
