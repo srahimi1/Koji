@@ -866,7 +866,7 @@ body {
 			<p class="signup-form-paragraph"><span id="password2ErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="password2Input" class="signup-form-input" type="password" name="password2" placeholder=" Re-enter Password" maxlength="70" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"></p>
-			<p style="width: 80%; margin: 0; padding: .2em 0; text-align: right;"><input id="signupSubmit" type="button" name="signupSubmit" value="Sign up" style="background-color: #e6eded; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="signupFormSubmit()" onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
+			<p style="width: 80%; margin: 0; padding: .2em 0; text-align: right;"><input id="signupSubmit" type="button" name="signupSubmit" value="Enter Payment Info >" style="background-color: #e6eded; border: none; color: white; font-size: 1.5em; padding:0.5em 1em 0.5em 1em; border-radius: 0.2em" onclick="stripePopup()" onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece'"></p>
 		<% end %>
 	</div>
 	<div class="modal-div-footer"></div>
@@ -1402,22 +1402,6 @@ body {
 	similarLettersLowerCase = {"a": "egqd", "b": "hdgopq", "c": "eouvhy", "d": "bpqgh", "e": "agqd", "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z":"snum"};
 	similarLettersUpperCase = {"A": "VYUH", "B": "KEPRFX", "C": "GOQD", "D": "CGOQ", "E": "KBPRFX", "F" : "KBEPRX", "G":"COQD", "H":"ITLJA", "I":"HTLJ", "J":"HITL", "K":"BEPRFX", "L":"HITJ", "M":"NWUHE", "N": "MWUHE", "O": "CGQD", "P": "KBERFX", "Q":"GCDO", "R": "KBEPFX", "S" : "ZCBE", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNE", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
 	allLetters = {"a": 1, "b": 1, "c": 1, "d": 1, "e": 1, "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z": 1, "A": 1, "B": 1, "C": 1, "D": 1, "E": 1, "F" : 1, "G": 1, "H": 1, "I": 1, "J": 1, "K": 1, "L": 1, "M": 1, "N": 1, "O": 1, "P": 1, "Q": 1, "R": 1, "S" : 1, "T": 1, "U": 1, "V" : 1, "W" : 1, "X" : 1, "Y": 1, "Z" : 1};
-
-
-	var handler = StripeCheckout.configure({
-	  key: 'pk_test_ZMMqCmUQPkC2QjqkA6ZknBg7',
-	  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
-	  locale: 'auto',
-	  zipCode: true,
-	  token: function(token) {
-	    // You can access the token ID with `token.id`.
-	    // Get the token ID to your server-side code for use.
-	  }
-	}); // end var handler = StripeCheckout.configure({
-
-	window.addEventListener('popstate', function() {
-	  handler.close();
-	});
 
 	function setupNewGame() {
 		inputData = null;
@@ -2849,7 +2833,7 @@ body {
   		xhttptemp.send();
 	} // end function checkIfExist(route, method, data, success, fail)
 
-	function signupFormSubmit() {
+	function signupFormSubmit(token) {
 		var cont = false;
 		if ((formcheck[0] || formcheck[1]) && formcheck[2] && formcheck[3]) cont = true;
 		if (cont) {
@@ -2861,16 +2845,8 @@ body {
 			var password2 = encodeURIComponent(document.getElementById("password2Input").value);
 			var auth_token = document.getElementsByName("authenticity_token")[0].value;
 			var version = document.getElementById("gameVersion").value;
-
-			handler.open({
-    			image: '/square-image.png',
-    			name: 'KOJI',
-    			description: 'Koji monthly membership',
-    			amount: 175,
-    			email: document.getElementById("emailInput").value
-  			});
 			xhttp.abort();
-	  		/*xhttp.onreadystatechange = function() {
+	  		xhttp.onreadystatechange = function() {
 	    		if (this.readyState == 4 && this.status == 200) {
 	      			var res = this.responseText + "";
 	    			if (res.toUpperCase() == "OK") {
@@ -2887,7 +2863,7 @@ body {
 	  		xhttp.open("POST", "/players", true);
 	  		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	  		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
-	  		xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version);*/
+	  		xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version);
 		} // end if (cont)
 		return false;
 	} // end function signupFormSubmit()
@@ -3031,6 +3007,40 @@ body {
 		} // end else
 		return true;
 	} // end function updateTimer(time)
+
+
+
+// Stripe.com functions
+
+	var handler = StripeCheckout.configure({
+	  key: 'pk_test_ZMMqCmUQPkC2QjqkA6ZknBg7',
+	  image: 'https://stripe.com/img/documentation/checkout/marketplace.png',
+	  locale: 'auto',
+	  zipCode: true,
+	  token: function(token) {
+	    signupFormSubmit(token);
+	    // You can access the token ID with `token.id`.
+	    // Get the token ID to your server-side code for use.
+	  }
+	}); // end var handler = StripeCheckout.configure({
+
+	window.addEventListener('popstate', function() {
+	  handler.close();
+	});
+
+	function stripePopup() {
+		var cont = false;
+		if ((formcheck[0] || formcheck[1]) && formcheck[2] && formcheck[3]) cont = true;
+		if (cont) { 			
+			handler.open({
+    			image: '/square-image.png',
+    			name: 'KOJI',
+    			description: 'Koji monthly membership',
+    			amount: 175,
+    			email: document.getElementById("emailInput").value
+  			});	
+		} // end if (cont) {	
+	} // end function stripePopup()
 
 	</script>
 
