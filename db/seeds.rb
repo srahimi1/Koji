@@ -7,4 +7,4 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 	Player.create(id: 0, email: "", cellphone: "")
-	PaymentProvider.create(id: 0, name: "Stripe", main_url: "https://stripe.com", current_active: 1)
+	PaymentProvider.create(id: 1, name: "Stripe", main_url: "https://stripe.com", current_active: 1)

@@ -24,8 +24,8 @@ class PlayersController < ApplicationController
 					player.create_player_gaming_history(current_total: 0, current_high_score: 0, history: "")
 					player.subscribed = 1
 					player.date_first_subscribed = DateTime.now
-					player.create_subscription(date_first_subscribed: DateTime.now, pp_subscription_id: subscription_result[1], status: 1, status_description: "active", date_last_charged: DateTime.now, payment_provider_id: 0)
-					player.create_pp_customer_info(payment_provider_id: 0, pp_customer_id: subscription_result[2])
+					player.create_subscription(date_first_subscribed: DateTime.now, pp_subscription_id: subscription_result[1], status: 1, status_description: "active", date_last_charged: DateTime.now, payment_provider_id: 1)
+					player.create_pp_customer_info(payment_provider_id: 1, pp_customer_id: subscription_result[2])
 					player.save
 					email_confirmation_code = ConfirmationCode.make_code(player.id, 0)
 					cellphone_confirmation_code = ConfirmationCode.make_code(player.id, 1)
