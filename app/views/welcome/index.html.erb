@@ -2833,7 +2833,7 @@ body {
   		xhttptemp.send();
 	} // end function checkIfExist(route, method, data, success, fail)
 
-	function signupFormSubmit(token) {
+	function signupFormSubmit(stripeToken) {
 		console.log(token);
 		var cont = false;
 		if ((formcheck[0] || formcheck[1]) && formcheck[2] && formcheck[3]) cont = true;
@@ -2864,7 +2864,7 @@ body {
 	  		xhttp.open("POST", "/players", true);
 	  		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	  		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
-	  		xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version);
+	  		xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version+"&stripeToken="+stripeToken.id+"&stripeEmail="+stripeToken.email);
 		} // end if (cont)
 		return false;
 	} // end function signupFormSubmit()
@@ -3037,8 +3037,8 @@ body {
     			image: '/square-image.png',
     			name: 'KOJI',
     			description: 'Koji monthly membership',
-    			panelLabel: 'Pay Membership Fee {{amount}}',
     			amount: 175,
+    			panelLabel: 'Pay {{amount}} Membership Fee',
     			email: document.getElementById("emailInput").value
   			});	
 		} // end if (cont) {	
