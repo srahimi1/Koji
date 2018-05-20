@@ -58,6 +58,7 @@ class PlayersController < ApplicationController
 
 	def update
 		player = Player.find(session["player_id"])
+		result = 2
 		if (params["code"].to_i == 1)
 			player.password = params["password"]
 		elsif (params["code"].to_i == 2)
@@ -68,12 +69,15 @@ class PlayersController < ApplicationController
 				player.cellphone = params["cellphone"]
 			end
 		elsif (params["code"].to_i == 3)
-			Player.cancel_membership
+			result = Player.cancel_membership
+			if (result == 1)
+				player.subscribed = 3
+			end
 		elsif (params["code"].to_i == 4)
 			session[:player_id] = nil
 		end 
 		output = "BAD"
-		if player.save!
+		if ((player.save!) && (result != 0))
 			output = "OK"
 		end
 		render plain: output

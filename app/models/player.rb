@@ -39,4 +39,16 @@ class Player < ApplicationRecord
     		return true
     end
 
+    def self.cancel_membership
+    	subscription = Subscription.find_by(player_id: session["player_id"])
+    	result = Subscription.cancel_subscription(subscription.pp_subscription_id)
+    	if (result == 1)
+    		subscription.status = 3
+    		subscription.status_description = "cancelled"
+    		subscription.save
+    	end
+    	return result
+    end
+
+
 end

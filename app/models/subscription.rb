@@ -26,5 +26,15 @@ class Subscription < ApplicationRecord
   	return result
   end
 
+  def self.cancel_subscription(subscription_id)
+    subs = Stripe::Subscription.retrieve(subscription_id)
+    subs.delete
+    result = 0
+    if (subs.id == subscription_id)
+      result = 1
+    end
+    return result
+  end
+
 
 end

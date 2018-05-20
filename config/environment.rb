@@ -13,6 +13,3 @@ ActionMailer::Base.smtp_settings = {
   :authentication => :plain,
   :enable_starttls_auto => true
 }
-
-ENV['STRIPE_PUBLISHABLE_KEY'] = 'pk_test_ZMMqCmUQPkC2QjqkA6ZknBg7'
-ENV['STRIPE_SECRET_KEY'] = 'sk_test_IKTtVCpDqEbM7GV8WVY56ADM'
