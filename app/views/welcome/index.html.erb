@@ -2560,7 +2560,8 @@ body {
 
 		if (opt == 1) {
 			/*document.getElementById("changePassword").style.display = "block";*/
-			setTimeout(function() {document.getElementById("changePassword").style.height = "17em";},600);
+			if (document.getElementById("changePassword").offsetHeight < 5) document.getElementById("changePassword").style.height = "17em";
+			else setTimeout(function() {document.getElementById("changePassword").style.height = "17em";},600);
 			document.getElementById("changePasswordInput1").value = '';
 			document.getElementById("changePasswordInput2").value = '';
 			document.getElementById("changePasswordInput1").nextSibling.style.visibility = "hidden";
@@ -2568,7 +2569,8 @@ body {
 			document.getElementById("changePasswordButton").disabled = true;
 		} else if (opt == 2) {
 			/*document.getElementById("changeLogin").style.display = "block";*/
-			setTimeout(function() {document.getElementById("changeLogin").style.height = "17em";},600);
+			if (document.getElementById("changeLogin").offsetHeight < 5) document.getElementById("changeLogin").style.height = "17em";
+			else setTimeout(function() {document.getElementById("changeLogin").style.height = "17em";},600);
 			document.getElementById("changeEmailInput").value = '';
 			document.getElementById("changeCellphoneInput").value = '';
 			document.getElementById("changeNumberInput").value = '';
@@ -2577,7 +2579,8 @@ body {
 			document.getElementById("changeLoginButton").disabled = true;
 		} else if (opt == 3) {
 			/*document.getElementById("cancelMembership").style.display = "block";*/
-			setTimeout(function() {document.getElementById("cancelMembership").style.height = "17em";},600);
+			if (document.getElementById("cancelMembership").offsetHeight < 5) document.getElementById("cancelMembership").style.height = "17em";
+			else setTimeout(function() {document.getElementById("cancelMembership").style.height = "17em";},600);
 			document.getElementById("cancelMembershipInput").value = '';
 			document.getElementById("cancelMembershipButton").disabled = true;
 		} else if (opt == 4) {
