@@ -38,30 +38,47 @@ class PlayersController < ApplicationController
 	end
 
 	def update
-		player = Player.find(session["player_id"])
+		if (!session["player_id"].blank?)
+			player = Player.find(session["player_id"])
+		end
+		output = "BAD"
 		destroyed = 0
 		if (params["code"].to_i == 1)
-			player.password = params["password"]
+			if (!params[:email].blank?)
+				player = Player.find_by(email: params[:email])
+			elsif (!params[:cellphone].blank?)
+				player = Player.find_by(cellphone: params[:cellphone])
+			end
+			if (!player.blank?)
+				cc = ConfirmationCode.find_by(player_id: player.id)
+				if (!cc.blank? && (cc.to_s == params[:cc].to_s))
+					player.password = params["password"]
+					output = "OK"
+				end
+			end
 		elsif (params["code"].to_i == 2)
 			if (!params["email"].blank? && !Player.find_by(email: params[:email]))
 				player.email = params["email"].to_s.downcase
+				output = "OK"
 			end
 			if (!params["cellphone"].blank? && !Player.find_by(cellphone: params[:cellphone]))
 				player.cellphone = params["cellphone"]
+				output = "OK"
 			end
 		elsif ((params["code"].to_i == 3) && (params["cancel"].to_s.downcase == "cancel"))
 			result = Player.cancel_membership(session["player_id"])
 			if (result == 1)
 				player.destroy
+				session[:player_id] = nil
 				destroyed = 1
+				output = "OK"
 			end
-			session[:player_id] = nil
 		elsif (params["code"].to_i == 4)
 			session[:player_id] = nil
+			output = "OK"
 		end 
-		output = "BAD"
-		if ((destroyed == 1) || player.save!)
-			output = "OK"			
+		if ( (destroyed == 0) && (!player.save!) )
+			output = "BAD"			
 		end
 		render plain: output
 	end
@@ -80,7 +97,7 @@ class PlayersController < ApplicationController
 				session["player_id"] = @player.id
 				output = "OK"
 			end
-		elsif (params[:reset].to_s == "1")
+		elsif (!@player.blank? && (params[:reset].to_s == "1"))
 			Player.send_password_reset_confirmation_code(@player.id, params["cellphone"], params["email"])
 			output = "RESET SENT"
 		end

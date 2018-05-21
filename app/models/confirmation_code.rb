@@ -7,9 +7,9 @@ class ConfirmationCode < ApplicationRecord
   	mthd = ""
   	case type
   	when 0
-  		mthd = "email"
+  		mthd = "both" #"email"
   	when 1
-  		mthd = "cellphone"
+  		mthd = "both" #"cellphone"
   	end
   	5.times do 
   		sel = rand(3)

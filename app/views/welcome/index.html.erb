@@ -649,7 +649,7 @@ body {
 
 .profile-input {
 	width: 13em;
-	font-size: 2em;
+	font-size: 3em;
 	border: 1px solid gray;
 }
 
@@ -926,13 +926,13 @@ body {
 		<div id="changePassword" class="profile-option-div" style="position: relative; background-color: gray;">
 			<p id="changePasswordErrorMessage" class="profile-paragraph" style="color:red"></p>
 			<p class="profile-paragraph">Please enter reset password confirmation code below</p>
-			<p class="profile-paragraph"><input id="passwordResetConfirmationCode" class="profile-input" type="text" placeholder="Reset Confirmation Code"></p>
+			<p class="profile-paragraph"><input id="passwordChangeConfirmationCode" class="profile-input" type="text" placeholder="Reset Confirmation Code"></p>
 			<p class="profile-paragraph"><input id="changePasswordInput1" class="profile-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="profile-paragraph"><input id="changePasswordInput2" class="profile-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(4)">Cancel</button></p>
 		</div>
 
 
-		<p style="width: 80%; margin: 0; padding: .2em 0; text-align: right;"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: darkmagenta; margin-top: 1em; font-size: 1.2em;" onclick="profileOption(1)"></p>
+		<p style="width: 80%; margin: 0; padding: .2em 0; text-align: right;"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: darkmagenta; margin-top: 1em; font-size: 1.2em;" onclick="signinFormSubmit(1);profileOption(1);"></p>
 
 	</div>
 	<div class="modal-div-footer"></div>
@@ -2532,9 +2532,12 @@ body {
 		var route = "";
 		var data = "";
 		if (sel == 1) {
+			var email = encodeURIComponent(document.getElementById("loginEmailInput").value);
+			var cellphone = encodeURIComponent(document.getElementById("loginNumberInput").value);
 			var password = encodeURIComponent(document.getElementById("changePasswordInput1").value);
+			var cc = encodeURIComponent(document.getElementById("passwordChangeConfirmationCode").value);
 			route = "/players/0";
-			data = "code=1&password="+password;
+			data = "code=1&password="+password+"&email="+email+"&cellphone="+cellphone+"&cc="+cc;
 		} else if (sel == 2) {
 			var email = encodeURIComponent(document.getElementById("changeEmailInput").value);
 			var cellphone = encodeURIComponent(document.getElementById("changeNumberInput").value);
@@ -2582,6 +2585,7 @@ body {
 		document.getElementById("cancelMembership").style.display = "none";*/
 		document.getElementById("changePasswordInput1").value = "";
 		document.getElementById("changePasswordInput2").value = "";
+		document.getElementById("passwordChangeConfirmationCode").value = "";
 		document.getElementById("changeEmailInput").value = "";
 		document.getElementById("changeNumberInput").value = "";
 		document.getElementById("changeCellphoneInput").value = "";
@@ -2599,6 +2603,7 @@ body {
 			} else setTimeout(function() {document.getElementById("changePassword").style.height = "45em"; document.getElementById("changePassword").style.marginTop = "-45em";},600);
 			document.getElementById("changePasswordInput1").value = '';
 			document.getElementById("changePasswordInput2").value = '';
+			document.getElementById("passwordChangeConfirmationCode").value = "";
 			document.getElementById("changePasswordInput1").nextSibling.style.visibility = "hidden";
 			document.getElementById("changePasswordInput2").nextSibling.style.visibility = "hidden";
 			document.getElementById("changePasswordButton").disabled = true;
@@ -2621,6 +2626,7 @@ body {
 		} else if (opt == 4) {
 			document.getElementById("changePasswordInput1").value = "";
 			document.getElementById("changePasswordInput2").value = "";
+			document.getElementById("passwordChangeConfirmationCode").value = "";
 			document.getElementById("changeEmailInput").value = "";
 			document.getElementById("changeNumberInput").value = "";
 			document.getElementById("changeCellphoneInput").value = "";
@@ -2932,7 +2938,7 @@ body {
   		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
   		xhttp.send("email="+email+"&cellphone="+cellphone+"&password="+password+"&reset="+code);
-		return false;
+		return true;
 	} // end function signinFormSubmit()
 
 
