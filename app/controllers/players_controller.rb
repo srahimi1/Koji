@@ -3,7 +3,7 @@ class PlayersController < ApplicationController
 	def create
 		if (params["email"].blank?)
 			@email = nil 
-			emailValid = true
+			emailValid = false
 		else
 			@email = params["email"].to_s.downcase
 			emailValid = Player.validate_email(params["email"])

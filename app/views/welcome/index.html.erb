@@ -2755,7 +2755,7 @@ body {
 			el2.nextSibling.style.visibility = "hidden";
 		}
 
-		if ((formcheck[0] || formcheck[1]) && formcheck[2] && formcheck[3]) {
+		if (formcheck[0] && formcheck[2] && formcheck[3]) {
       		document.getElementById("signupSubmit").style.backgroundColor = "#8e3ecf";
 			document.getElementById("signupSubmit").style.boxShadow = "-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece";
 			document.getElementById("signupSubmit").disabled = false;
@@ -2815,7 +2815,7 @@ body {
       				else if (route == "/checkcellphone") formcheck[1] = true;
       				else if (route == "/checkdisplayname") formcheck[2] = true;
       				eval(success);
-      				if ((formcheck[0] || formcheck[1]) && formcheck[2] && formcheck[3]) {
+      				if (formcheck[0] && formcheck[2] && formcheck[3]) {
       					document.getElementById("signupSubmit").style.backgroundColor = "#8e3ecf";
 						document.getElementById("signupSubmit").style.boxShadow = "-3px 6px 11px gray, 3px 0px 11px gray, 0px 3px 3px #cecece";
 						document.getElementById("signupSubmit").disabled = false;
@@ -2838,7 +2838,7 @@ body {
 
 	function signupFormSubmit(stripeToken) {
 		var cont = false;
-		if ((formcheck[0] || formcheck[1]) && formcheck[2] && formcheck[3]) cont = true;
+		if (formcheck[0] && formcheck[2] && formcheck[3]) cont = true;
 		if (cont) {
 			var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 			var email = encodeURIComponent(document.getElementById("emailInput").value);
@@ -3033,7 +3033,7 @@ body {
 
 	function stripePopup() {
 		var cont = false;
-		if ((formcheck[0] || formcheck[1]) && formcheck[2] && formcheck[3]) cont = true;
+		if (formcheck[0] && formcheck[2] && formcheck[3]) cont = true;
 		if (cont) { 			
 			handler.open({
     			image: '/square-image.png',
