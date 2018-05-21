@@ -401,15 +401,17 @@ body {
 
 .li-for-header-left {
 	display: inline-block;
+	width: 30%;
 	margin: 0;
 	padding-left: 0.5em;
-	float: left;
+	text-align: left;
 	overflow: hidden;
 	cursor: default;
 }
 
 .li-for-header-middle {
 	display: inline-block;
+	width: 30%;
 	margin: 0;
 	text-align: center;
 	overflow: hidden;
@@ -417,9 +419,10 @@ body {
 
 .li-for-header-right {
 	display: inline-block;
+	width: 30%;
 	margin: 0;
 	padding-right: 0.5em;
-	float: right;
+	text-align: right;
 	overflow: hidden;
 	cursor: default;
 }
@@ -831,7 +834,7 @@ body {
 <div id="instructionsDiv" class="modal-div instructions-div">
 	<div class="modal-div-header">
 		<ul class="ul-for-header">
-			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
+			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('instructionsDiv')); showMenu(document.getElementById('menuDiv'));">&lt; menu</li>
 			<li class="li-for-header-middle">How To Play</li>
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('instructionsDiv'))">X</li>
 		</ul>
@@ -859,7 +862,7 @@ body {
 <div id="signupDiv" class="modal-div signup-div">
 	<div class="modal-div-header">
 		<ul class="ul-for-header">
-			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
+			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));">&lt; menu</li>
 			<li class="li-for-header-middle">Sign Up</li>
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('signupDiv'))">X</li>
 		</ul>
@@ -894,7 +897,7 @@ body {
 <div id="signinDiv" class="modal-div signin-div">
 	<div class="modal-div-header">
 		<ul class="ul-for-header">
-			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
+			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&lt; menu</li>
 			<li class="li-for-header-middle">Sign In</li>
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('signinDiv'))">X</li>
 		</ul>
@@ -914,8 +917,8 @@ body {
 			<p class="signup-form-paragraph"><span id="loginPasswordErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder=" Password" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"></p>
-			<p style="width: 80%; margin: 0; padding: .2em 0; text-align: right;"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit()"></p>
-			<p style="width: 80%; margin: 0; padding: .2em 0; text-align: right;"><input type="button" name="signinSubmit" value="Reset Password" class="signup-form-submit-button" style="background-color: darkmagenta; margin-top: 1em; font-size: 1.2em;" onclick="signinFormSubmit()"></p>
+			<p style="width: 80%; margin: 0; padding: .2em 0; text-align: right;"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit(0)"></p>
+			<p style="width: 80%; margin: 0; padding: .2em 0; text-align: right;"><input type="button" name="signinSubmit" value="Reset Password" class="signup-form-submit-button" style="background-color: darkmagenta; margin-top: 1em; font-size: 1.2em;" onclick="signinFormSubmit(1)"></p>
 		<% end %>
 	</div>
 	<div class="modal-div-footer"></div>
@@ -928,7 +931,7 @@ body {
 <div id="profileDiv" class="modal-div profile-div">
 	<div class="modal-div-header">
 		<ul class="ul-for-header">
-			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&larr;</li>
+			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));">&lt; menu</li>
 			<li class="li-for-header-middle">Sign In</li>
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('signinDiv'))">X</li>
 		</ul>
@@ -2891,7 +2894,7 @@ body {
 		return false;
 	} // end function signupFormSubmit()
 
-	function signinFormSubmit() {
+	function signinFormSubmit(code) {
 		var email = encodeURIComponent(document.getElementById("loginEmailInput").value);
 		var cellphone = encodeURIComponent(document.getElementById("loginNumberInput").value);
 		var password = encodeURIComponent(document.getElementById("loginPasswordInput").value);
@@ -2915,9 +2918,10 @@ body {
   		xhttp.open("POST", "/players/login", true);
   		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
-  		xhttp.send("email="+email+"&cellphone="+cellphone+"&password="+password);
+  		xhttp.send("email="+email+"&cellphone="+cellphone+"&password="+password+"&reset="+code);
 		return false;
 	} // end function signinFormSubmit()
+
 
 
 // general purpose app functions ...
