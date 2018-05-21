@@ -80,7 +80,7 @@ class PlayersController < ApplicationController
 				session["player_id"] = @player.id
 				output = "OK"
 			end
-		elsif (params[:reset].to_s == "0")
+		elsif (params[:reset].to_s == "1")
 			Player.send_password_reset_confirmation_code(@player.id, params["cellphone"], params["email"])
 			output = "RESET SENT"
 		end
