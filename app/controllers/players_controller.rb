@@ -68,7 +68,7 @@ class PlayersController < ApplicationController
 			if (!params["cellphone"].blank? && !Player.find_by(cellphone: params[:cellphone]))
 				player.cellphone = params["cellphone"]
 			end
-		elsif (params["code"].to_i == 3)
+		elsif ((params["code"].to_i == 3) && (params["cancel"].to_s.downcase == "cancel"))
 			result = Player.cancel_membership(session["player_id"])
 			if (result == 1)
 				player.destroy
