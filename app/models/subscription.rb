@@ -13,7 +13,7 @@ class Subscription < ApplicationRecord
 
   	subscription = Stripe::Subscription.create(
   		:customer => customer.id,
-  		:items => [{plan: 'plan_CscHlXCt8cGalL'}]
+  		:items => [{plan: 'plan_CtqBQe82TEB78i'}]
   	)
 
   	result = []
