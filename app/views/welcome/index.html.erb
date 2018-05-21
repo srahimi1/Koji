@@ -673,10 +673,10 @@ body {
 	height: 0;
 	border-bottom: 1px solid gray;
 	overflow: hidden;
-	-moz-transition: height .5s; 
-	-webkit-transition: height .5s; 
-	-o-transition: height .5s; 
-	transition: height .5s; 
+	-moz-transition: height .5s, margin .5s; 
+	-webkit-transition: height .5s, margin .5s; 
+	-o-transition: height .5s, margin .5s; 
+	transition: height .5s, margin .5s; 
 }
 
 .logout {
@@ -918,8 +918,18 @@ body {
 			<p class="signup-form-paragraph"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder=" Password" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"></p>
 			<p style="width: 80%; margin: 0; padding: .2em 0; text-align: right;"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit(0)"></p>
-			<p style="width: 80%; margin: 0; padding: .2em 0; text-align: right;"><input type="button" name="signinSubmit" value="Reset Password" class="signup-form-submit-button" style="background-color: darkmagenta; margin-top: 1em; font-size: 1.2em;" onclick="signinFormSubmit(1)"></p>
 		<% end %>
+				<div id="resetPassword" class="profile-option-div" style="position: relative; background-color: gray;">
+				<p id="resetPasswordErrorMessage" class="profile-paragraph" style="color:red"></p>
+				<p class="profile-paragraph">Please enter reset password confirmation code below</p>
+				<p class="profile-paragraph"><input id="passwordResetConfirmationCode" class="profile-input" type="text" placeholder="Reset Confirmation Code"></p>
+				<p class="profile-paragraph"><input id="changePasswordInput3" class="profile-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+				<p class="profile-paragraph"><input id="changePasswordInput4" class="profile-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(4)">Cancel</button></p>
+			</div>
+
+
+			<p style="width: 80%; margin: 0; padding: .2em 0; text-align: right;"><input type="button" name="signinSubmit" value="Reset Password" class="signup-form-submit-button" style="background-color: darkmagenta; margin-top: 1em; font-size: 1.2em;" onclick="profileOption(5)"></p>
+
 	</div>
 	<div class="modal-div-footer"></div>
 	<div class="hidden-opt-left" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));"></div>
@@ -943,8 +953,6 @@ body {
 	</ul>
 	<div id="changePassword" class="profile-option-div">
 		<p id="changePasswordErrorMessage" class="profile-paragraph" style="color:red"></p>
-		<p class="profile-paragraph">If you forgotten your password and received a reset password confirmation code, please enter it below, otherwise leave blank</p>
-		<p class="profile-paragraph"><input id="passwordResetConfirmationCode" class="profile-input" type="text" placeholder="Reset Confirmation Code"></p>
 		<p class="profile-paragraph"><input id="changePasswordInput1" class="profile-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 		<p class="profile-paragraph"><input id="changePasswordInput2" class="profile-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(4)">Cancel</button></p>
 	</div>
@@ -2618,6 +2626,17 @@ body {
 			document.getElementById("changePassword").style.height = "0";
 			document.getElementById("changeLogin").style.height = "0";
 			document.getElementById("cancelMembership").style.height = "0";			
+		} else if (opt == 5) {
+			/*document.getElementById("changePassword").style.display = "block";*/
+			if (document.getElementById("resetPassword").offsetHeight < 5) {
+				document.getElementById("resetPassword").style.height = "20em";
+				document.getElementById("resetPassword").style.marginTop = "-20em";
+			} else setTimeout(function() {document.getElementById("resetPassword").style.height = "25em"; document.getElementById("resetPassword").style.marginTop = "-25em";},600);
+			document.getElementById("changePasswordInput3").value = '';
+			document.getElementById("changePasswordInput4").value = '';
+			document.getElementById("changePasswordInput3").nextSibling.style.visibility = "hidden";
+			document.getElementById("changePasswordInput4").nextSibling.style.visibility = "hidden";
+			//document.getElementById("rrrPasswordButton").disabled = true;
 		}
 		return false;
 	} // function profileOption(opt)
