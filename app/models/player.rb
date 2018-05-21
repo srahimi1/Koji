@@ -50,5 +50,27 @@ class Player < ApplicationRecord
     	return result
     end
 
+    def self.send_password_reset_confirmation_code(player_id, cellphone, email)
+    	player = Player.find(player_id)
+    	email_confirmation_code = ConfirmationCode.make_code(player_id, 0)
+		cellphone_confirmation_code = ConfirmationCode.make_code(player_id, 1)
+		Thread.new { 
+			if (!cellphone.blank?)
+				PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "vtext.com").deliver_now
+				PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "tmomail.net").deliver_now
+				PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "txt.att.net").deliver_now
+				PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "messaging.sprintpcs.com").deliver_now
+				PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "vmobl.com").deliver_now
+				PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "myboostmobile.com").deliver_now
+				PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "mymetropcs.com").deliver_now
+				PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "page.nextel.com").deliver_now
+				PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "email.uscc.net").deliver_now
+				PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "sms.mycricket.com").deliver_now
+			end
+			if (!email.blank?)
+				PlayerMailer.send_confirmation_email(player.email, email_confirmation_code).deliver_now
+			end
+		}
 
+    end
 end

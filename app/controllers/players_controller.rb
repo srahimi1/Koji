@@ -27,25 +27,6 @@ class PlayersController < ApplicationController
 					player.create_subscription(date_first_subscribed: DateTime.now, pp_subscription_id: subscription_result[1], status: 1, status_description: "active", date_last_charged: DateTime.now, payment_provider_id: 1)
 					player.create_pp_customer_info(payment_provider_id: 1, pp_customer_id: subscription_result[2])
 					player.save
-					email_confirmation_code = ConfirmationCode.make_code(player.id, 0)
-					cellphone_confirmation_code = ConfirmationCode.make_code(player.id, 1)
-					Thread.new { 
-						if (!params["cellphone"].blank?)
-							PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "vtext.com").deliver_now
-							PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "tmomail.net").deliver_now
-							PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "txt.att.net").deliver_now
-							PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "messaging.sprintpcs.com").deliver_now
-							PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "vmobl.com").deliver_now
-							PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "myboostmobile.com").deliver_now
-							PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "mymetropcs.com").deliver_now
-							PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "page.nextel.com").deliver_now
-							PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "email.uscc.net").deliver_now
-							PlayerMailer.send_confirmation_text(player.cellphone, cellphone_confirmation_code, "sms.mycricket.com").deliver_now
-						end
-						if (!params["email"].blank?)
-							PlayerMailer.send_confirmation_email(player.email, email_confirmation_code).deliver_now
-						end
-					}
 					output = "OK"
 				else
 					player.destroy
@@ -94,11 +75,14 @@ class PlayersController < ApplicationController
 			@player = Player.find_by(cellphone: params["cellphone"].to_s)
 		end
 
-		if(!@player.blank?)
+		if(!@player.blank? && (params[:reset].to_s == "0"))
 			if (params[:password] == @player.password)
 				session["player_id"] = @player.id
 				output = "OK"
 			end
+		elsif (params[:reset].to_s == "0")
+			Player.send_password_reset_confirmation_code(@player.id, params["cellphone"], params["email"])
+			output = "RESET SENT"
 		end
 		render plain: output
 	end
