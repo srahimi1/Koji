@@ -74,6 +74,7 @@ class PlayersController < ApplicationController
 				player.destroy
 				destroyed = 1
 			end
+			session[:player_id] = nil
 		elsif (params["code"].to_i == 4)
 			session[:player_id] = nil
 		end 
