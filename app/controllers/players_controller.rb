@@ -69,7 +69,7 @@ class PlayersController < ApplicationController
 				player.cellphone = params["cellphone"]
 			end
 		elsif (params["code"].to_i == 3)
-			result = Player.cancel_membership
+			result = Player.cancel_membership(session["player_id"])
 			if (result == 1)
 				player.subscribed = 3
 			end
