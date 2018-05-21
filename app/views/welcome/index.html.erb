@@ -923,16 +923,16 @@ body {
 			<p class="signup-form-paragraph"></p>
 			<p style="width: 80%; margin: 0; padding: .2em 0; text-align: right;"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit(0)"></p>
 		<% end %>
-		<div id="resetPassword" class="profile-option-div" style="position: relative; background-color: gray;">
-			<p id="resetPasswordErrorMessage" class="profile-paragraph" style="color:red"></p>
+		<div id="changePassword" class="profile-option-div" style="position: relative; background-color: gray;">
+			<p id="changePasswordErrorMessage" class="profile-paragraph" style="color:red"></p>
 			<p class="profile-paragraph">Please enter reset password confirmation code below</p>
 			<p class="profile-paragraph"><input id="passwordResetConfirmationCode" class="profile-input" type="text" placeholder="Reset Confirmation Code"></p>
-			<p class="profile-paragraph"><input id="changePasswordInput3" class="profile-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-			<p class="profile-paragraph"><input id="changePasswordInput4" class="profile-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(6)">Cancel</button></p>
+			<p class="profile-paragraph"><input id="changePasswordInput1" class="profile-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p class="profile-paragraph"><input id="changePasswordInput2" class="profile-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(4)">Cancel</button></p>
 		</div>
 
 
-		<p style="width: 80%; margin: 0; padding: .2em 0; text-align: right;"><input type="button" name="signinSubmit" value="Reset Password" class="signup-form-submit-button" style="background-color: darkmagenta; margin-top: 1em; font-size: 1.2em;" onclick="profileOption(5)"></p>
+		<p style="width: 80%; margin: 0; padding: .2em 0; text-align: right;"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: darkmagenta; margin-top: 1em; font-size: 1.2em;" onclick="profileOption(1)"></p>
 
 	</div>
 	<div class="modal-div-footer"></div>
@@ -951,15 +951,9 @@ body {
 		</ul>
 	</div>
 	<ul class="profile-options-ul">
-		<li style="display: inline-block;"><a href="javascript:void(0);" class="profile-option change-password" onclick="profileOption(1);">Change<br>Password</a></li>
 		<li style="display: inline-block;"><a href="javascript:void(0);" class="profile-option change-account-info" onclick="profileOption(2);">Change<br>Account Info</a></li>
 		<li style="display: inline-block;"><a href="javascript:void(0);" class="profile-option cancel-membership" onclick="profileOption(3);">Cancel<br>Membership</a></li>
 	</ul>
-	<div id="changePassword" class="profile-option-div">
-		<p id="changePasswordErrorMessage" class="profile-paragraph" style="color:red"></p>
-		<p class="profile-paragraph"><input id="changePasswordInput1" class="profile-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-		<p class="profile-paragraph"><input id="changePasswordInput2" class="profile-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(4)">Cancel</button></p>
-	</div>
 	<div id="changeLogin" class="profile-option-div">
 		<p id="changeLoginErrorMessage" class="profile-paragraph" style="color:red"></p>
 		<p class="profile-paragraph"><input id="changeEmailInput" class="profile-input" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onblur="validateEmail(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
@@ -2562,6 +2556,7 @@ body {
 	      			var res = this.responseText + "";
 	    			if (res.toUpperCase() == "OK") {
 							document.getElementById("changePassword").style.height = "0";
+							document.getElementById("changePassword").style.marginTop = "0";
 							document.getElementById("changeLogin").style.height = "0";
 							document.getElementById("cancelMembership").style.height = "0";
     						getProfileData();
@@ -2592,13 +2587,16 @@ body {
 		document.getElementById("changeCellphoneInput").value = "";
 		document.getElementById("cancelMembershipInput").value = "";
 		document.getElementById("changePassword").style.height = "0";
+		document.getElementById("changePassword").style.marginTop = "0";
 		document.getElementById("changeLogin").style.height = "0";
 		document.getElementById("cancelMembership").style.height = "0";
 
 		if (opt == 1) {
 			/*document.getElementById("changePassword").style.display = "block";*/
-			if (document.getElementById("changePassword").offsetHeight < 5) document.getElementById("changePassword").style.height = "17em";
-			else setTimeout(function() {document.getElementById("changePassword").style.height = "17em";},600);
+			if (document.getElementById("changePassword").offsetHeight < 5) {
+				document.getElementById("changePassword").style.height = "45em";
+				document.getElementById("changePassword").style.marginTop = "-45em";
+			} else setTimeout(function() {document.getElementById("changePassword").style.height = "45em"; document.getElementById("changePassword").style.marginTop = "-45em";},600);
 			document.getElementById("changePasswordInput1").value = '';
 			document.getElementById("changePasswordInput2").value = '';
 			document.getElementById("changePasswordInput1").nextSibling.style.visibility = "hidden";
@@ -2628,19 +2626,9 @@ body {
 			document.getElementById("changeCellphoneInput").value = "";
 			document.getElementById("cancelMembershipInput").value = "";
 			document.getElementById("changePassword").style.height = "0";
+			document.getElementById("changePassword").style.marginTop = "0";
 			document.getElementById("changeLogin").style.height = "0";
 			document.getElementById("cancelMembership").style.height = "0";			
-		} else if (opt == 5) {
-			/*document.getElementById("changePassword").style.display = "block";*/
-			if (document.getElementById("resetPassword").offsetHeight < 5) {
-				document.getElementById("resetPassword").style.height = "45em";
-				document.getElementById("resetPassword").style.marginTop = "-45em";
-			} else setTimeout(function() {document.getElementById("resetPassword").style.height = "25em"; document.getElementById("resetPassword").style.marginTop = "-25em";},600);
-			document.getElementById("changePasswordInput3").value = '';
-			document.getElementById("changePasswordInput4").value = '';
-			document.getElementById("changePasswordInput3").nextSibling.style.visibility = "hidden";
-			document.getElementById("changePasswordInput4").nextSibling.style.visibility = "hidden";
-			//document.getElementById("rrrPasswordButton").disabled = true;
 		}
 		return false;
 	} // function profileOption(opt)
