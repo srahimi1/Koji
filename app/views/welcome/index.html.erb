@@ -905,7 +905,7 @@ body {
 	<p class="modal-game-title">KOJI</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signinForm", class: "signup-form-form") do %>
-			<p class="signup-form-paragraph" style="font-size: 0.5em;">If you forgot your password, you can reset it by entering in your login info, without the password, and pressing 'Reset Password'. You will be emailed a password reset link.</p>
+			<p class="signup-form-paragraph" style="font-size: 0.5em;">If you forgot your password, you can reset it by entering in your login info, without the password, and pressing 'Reset Password'. You will be emailed a confirmation code with instructions.</p>
 			<p class="signup-form-paragraph"><span id="loginEmailErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="loginEmailInput" type="text" name="loginEmail" placeholder=" Email" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph">- or -</p>
@@ -943,7 +943,9 @@ body {
 	</ul>
 	<div id="changePassword" class="profile-option-div">
 		<p id="changePasswordErrorMessage" class="profile-paragraph" style="color:red"></p>
-		<p class="profile-paragraph"><input id="changePasswordInput1" class="profile-input" type="password" placeholder="Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+		<p class="profile-paragraph">If you forgotten your password and received a reset password confirmation code, please enter it below, otherwise leave blank</p>
+		<p class="profile-paragraph"><input id="passwordResetConfirmationCode" class="profile-input" type="text" placeholder="Reset Confirmation Code"></p>
+		<p class="profile-paragraph"><input id="changePasswordInput1" class="profile-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 		<p class="profile-paragraph"><input id="changePasswordInput2" class="profile-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(4)">Cancel</button></p>
 	</div>
 	<div id="changeLogin" class="profile-option-div">
