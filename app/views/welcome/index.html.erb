@@ -462,6 +462,11 @@ body {
 .profile-div {
 }
 
+.game-message-div {
+	z-index: 500;
+}
+
+
 /* individual modal classes */
 
 .menu-div-ul {
@@ -787,7 +792,7 @@ body {
 
 
 
-<div id="gameMessageDiv" class="modal-div">
+<div id="gameMessageDiv" class="modal-div game-message-div">
 	<div class="hidden-opt-right" onclick="closeMenu(document.getElementById('gameMessageDiv'))"></div>
 	<div style="width: 100%; height: 6em; text-align: right; color: gray; font-size: 4em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('gameMessageDiv'))">X</p>
 	</div>
