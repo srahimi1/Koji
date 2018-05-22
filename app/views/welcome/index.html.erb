@@ -2559,15 +2559,21 @@ body {
 	    		if (this.readyState == 4 && this.status == 200) {
 	      			var res = this.responseText + "";
 	    			if (res.toUpperCase() == "OK") {
-							document.getElementById("changePassword").style.height = "0";
-							document.getElementById("changePassword").style.marginTop = "0";
-							document.getElementById("changeLogin").style.height = "0";
-							document.getElementById("cancelMembership").style.height = "0";
-    						getProfileData();
-    						var result = document.getElementById("profileUpdateResult");
-    						result.innerHTML = "profile succesfully updated!";
-    						result.style.opacity = "1";
-    						setTimeout(function() {result.style.opacity = "0";},5000);
+						document.getElementById("changeLogin").style.height = "0";
+						document.getElementById("cancelMembership").style.height = "0";
+						getProfileData();
+						var result = document.getElementById("profileUpdateResult");
+						result.innerHTML = "profile succesfully updated!";
+						result.style.opacity = "1";
+						setTimeout(function() {result.style.opacity = "0";},3500);
+    				} else if (res.toUpperCase() == "RESET") {
+    					var el = document.getElementById("gameMessage"); 
+						el.style.color = "#3ecf8e"; 
+						el.innerHTML = "Password change succesful."; 
+						showMenu(document.getElementById('gameMessageDiv')); 
+						setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000);
+    					document.getElementById("changePassword").style.height = "0";
+						document.getElementById("changePassword").style.marginTop = "0";
     				}
 					return false;
 	    		} // if (this.readyState == 4 && this.status == 200)
@@ -2898,10 +2904,10 @@ body {
 	    			if (res.toUpperCase() == "OK") {
 	    				var el = document.getElementById("gameMessage"); 
 	    				el.style.color = "#3ecf8e"; 
-	    				el.innerHTML = "Thank you for signing up to Koji!<br/>Please check your email or text messages shortly for a confirmation code."; 
+	    				el.innerHTML = "Thank you for signing up to Koji!<br/>Enjoy!"; 
 	    				closeMenu(document.getElementById('signupDiv'));
 	    				showMenu(document.getElementById('gameMessageDiv')); 
-	    				setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},4000);
+	    				setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},3500);
 	    				return true;
 	    			} // if (res.toUpperCase() == "OK")
 	    		} // if (this.readyState == 4 && this.status == 200)
@@ -2930,7 +2936,13 @@ body {
 					el.innerHTML = "Sign in succesful."; 
 					closeMenu(document.getElementById('signinDiv'));
 					showMenu(document.getElementById('gameMessageDiv')); 
-					setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},4000);
+					setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},3000);
+				} else if (res.toUpperCase() == "RESET SENT") {
+					var el = document.getElementById("gameMessage"); 
+					el.style.color = "#3ecf8e"; 
+					el.innerHTML = "Password reset confirmation code sent. Please wait up to 2 minutes to receive code."; 
+					showMenu(document.getElementById('gameMessageDiv')); 
+					setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},3500);
 				}
 				return false;
     		} // if (this.readyState == 4 && this.status == 200)

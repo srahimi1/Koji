@@ -38,7 +38,7 @@ class PlayersController < ApplicationController
 	end
 
 	def update
-		if (!session["player_id"].blank?)
+		if ((!session["player_id"].blank?) && (params["code"].to_i != 1))
 			player = Player.find(session["player_id"])
 		end
 		output = "BAD"
@@ -60,7 +60,7 @@ class PlayersController < ApplicationController
 					puts " "
 					puts "in code"
 					player.password = params["password"]
-					output = "OK"
+					output = "RESET"
 				end
 			end
 		elsif (params["code"].to_i == 2)
