@@ -2567,6 +2567,7 @@ body {
 						result.style.opacity = "1";
 						setTimeout(function() {result.style.opacity = "0";},3500);
     				} else if (res.toUpperCase() == "RESET") {
+    					alert(res.toUpperCase());
     					var el = document.getElementById("gameMessage"); 
 						el.style.color = "#3ecf8e"; 
 						el.innerHTML = "Password change succesful."; 
@@ -2938,6 +2939,7 @@ body {
 					showMenu(document.getElementById('gameMessageDiv')); 
 					setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},3000);
 				} else if (res.toUpperCase() == "RESET SENT") {
+					alert(res.toUpperCase());
 					var el = document.getElementById("gameMessage"); 
 					el.style.color = "#3ecf8e"; 
 					el.innerHTML = "Password reset confirmation code sent. Please wait up to 2 minutes to receive code."; 
