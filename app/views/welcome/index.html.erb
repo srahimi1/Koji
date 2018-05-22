@@ -1533,7 +1533,7 @@ body {
 		goalDiv.style.backgroundColor = gameData.goalColor;
 		v.style.backgroundColor = gameData.goalColor;
 		gt.style.color = gameData.goalColor;
-		i1.style.color = gameData.goalColor;
+		if (!!i1) i1.style.color = gameData.goalColor;
 		goalDiv.style.display = "block";
 		return true;
 	} // end function colorGoalDiv()
@@ -1734,6 +1734,7 @@ body {
 		instruct.id = "instruction1";
 		instruct.setAttribute("class","guess-instruction");
 		instruct.innerHTML = "Do the two colors below mix to match goal?";
+		instruct.style.color = gameData.goalColor;
 		document.getElementById("guessOuter").appendChild(instruct);
 		return par;
 	} // end function attachYesNoButtons(par)
