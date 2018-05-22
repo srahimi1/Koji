@@ -109,9 +109,6 @@ body {
 	margin: 0 auto;
 	text-align: center;
 	overflow: hidden;
-	-webkit-box-shadow: 1px 3px 30px #888888;
-	-moz-box-shadow: 1px 3px 30px #888888;
-	box-shadow: 1px 3px 30px #888888;
 }
 
 .goal-title {
@@ -171,6 +168,7 @@ body {
 	text-align: center;
 	overflow: hidden;
 	white-space: nowrap;
+	background-color: gainsboro;
 	color: #919191;
 }
 
@@ -218,6 +216,8 @@ body {
 	margin: 0 auto;
 	text-align: center;
 	color: #fafffa;
+	background-color: gainsboro;
+	line-height: 10em;
 }
 .guess-outer {
 	position: relative;
@@ -783,18 +783,18 @@ body {
 </div><!--end menuOptionContainer div -->	
 
 <div id="gameContent" class="game-content">
+	<div id="pointsandxsContainer" class="points-and-xs-container">
+		<p id="xbox1" class="xs-p"><span class="x">X</span><span class="x">X</span></p><strong class="points-title">Points</strong><p id="xbox2" class="xs-p"><span class="x">X</span><span class="x">X</span></p>
+		<p id="pointsSpan" class="points-span"></p>
+	</div><!--end pointsandxsContainer div -->
+
 	<div id="goalContainer" class="goal-container">
 		<div id="goal" class="goal-div"></div>
 		<canvas id="canvas1" class="canvas-1"></canvas>
 		<div class="goal-title-backing">Goal Color</div>
 		<div id="goalTitle" class="goal-title">Goal Color</div>
 	</div><!--end goalContainer div -->
-
-	<div id="pointsandxsContainer" class="points-and-xs-container">
-		<p id="xbox1" class="xs-p"><span class="x">X</span><span class="x">X</span></p><strong class="points-title">Points</strong><p id="xbox2" class="xs-p"><span class="x">X</span><span class="x">X</span></p>
-		<p id="pointsSpan" class="points-span"></p>
-	</div><!--end pointsandxsContainer div -->
-
+	
 	<div id="gameLettersContainer" class="game-letters-container">
 		<div id="gameLettersDiv" class="game-letters-div"></div>
 	</div><!--end gameLettersContainer div -->
