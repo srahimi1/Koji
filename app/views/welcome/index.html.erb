@@ -2538,6 +2538,7 @@ body {
 			var cc = encodeURIComponent(document.getElementById("passwordChangeConfirmationCode").value);
 			route = "/players/0";
 			data = "code=1&password="+password+"&email="+email+"&cellphone="+cellphone+"&cc="+cc;
+			console.log(data);
 		} else if (sel == 2) {
 			var email = encodeURIComponent(document.getElementById("changeEmailInput").value);
 			var cellphone = encodeURIComponent(document.getElementById("changeNumberInput").value);
