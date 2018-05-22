@@ -52,13 +52,6 @@ class PlayersController < ApplicationController
 			if (!player.blank?)
 				cc = ConfirmationCode.find_by(player_id: player.id)
 				if (!cc.blank? && (cc.code.to_s == params[:cc].to_s))
-					puts " "
-					puts " "
-					puts " "
-					puts cc.code
-					puts " "
-					puts " "
-					puts "in code"
 					player.password = params["password"]
 					output = "RESET"
 				end
