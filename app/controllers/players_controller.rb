@@ -45,7 +45,7 @@ class PlayersController < ApplicationController
 		destroyed = 0
 		if (params["code"].to_i == 1)
 			if (!params[:email].blank?)
-				player = Player.find_by(email: params[:email])
+				player = Player.find_by(email: params[:email].to_s.downcase)
 			elsif (!params[:cellphone].blank?)
 				player = Player.find_by(cellphone: params[:cellphone])
 			end
