@@ -18,7 +18,7 @@ body {
 	overflow-y: auto;
 	margin: 0;
 	padding: 0;
-	background-color: #f0f0f0;
+	background-color: #363636; /*#f0f0f0;*/
 	font-family: Trebuchet MS, helvetica, tahoma;
 }
 
@@ -35,9 +35,9 @@ body {
 	background: -webkit-linear-gradient(#9900ff,#7a00cc);
 	background: -o-linear-gradient(#9900ff,#7a00cc);
 	background: linear-gradient(#9900ff,#7a00cc);
-	-webkit-box-shadow: 0px 6px 16px #666666;
+/*	-webkit-box-shadow: 0px 6px 16px #666666;
 	-moz-box-shadow: 0px 6px 16px #666666;
-	box-shadow: 0px 6px 16px #666666;
+	box-shadow: 0px 6px 16px #666666;*/
 	z-index: 100;
 }
 
@@ -72,10 +72,7 @@ body {
 .game-content {
 	width: 100%;
 	height: 100%;
-	margin: 1em auto;
-	padding: 4em 0;
 	text-align: center;
-
 }
 
 .footer {
@@ -156,8 +153,7 @@ body {
 	text-align: center;
 	overflow: hidden;
 	white-space: nowrap;
-	background-color: gainsboro;
-	color: #919191;
+	color: white;
 }
 
 .xs-p {
@@ -179,8 +175,8 @@ body {
 	 margin: 0 auto;
 	 font-size: 2em;
 	 text-align: center;
-	 color: #7a00cc;
-	 border-bottom: 1px solid #919191;
+	 color: white;
+	 border-bottom: 1px solid white;
 }
 
 .points-span {
@@ -763,10 +759,7 @@ body {
 
 <h1 id="KOJITitle" class="title-bar">KOJI</h1>
 
-<div style="position: absolute; width: 15em; height: 6em; left: 100%; margin-left: -15em; z-index: 4" onclick="closeMenu(document.getElementById('instructionsDiv')); closeMenu(document.getElementById('signupDiv')); closeMenu(document.getElementById('signinDiv')); closeMenu(document.getElementById('profileDiv')); showMenu(document.getElementById('menuDiv'));" onmouseover="animateMenu(document.getElementById('menuParagraph'), 0);" onmouseout="animateMenu(document.getElementById('menuParagraph'), 1);"></div>
-
-<div class="show-menu-container"><p id="menuParagraph" class="show-menu-paragraph"><span class="show-menu-letters">m</span><span class="show-menu-letters">e</span><span class="show-menu-letters">n</span><span class="show-menu-letters">u</span></p>
-</div><!--end menuOptionContainer div -->	
+<div style="position: absolute; width: 15em; height: 6em; left: 100%; margin-left: -15em; z-index: 4" onclick="closeMenu(document.getElementById('instructionsDiv')); closeMenu(document.getElementById('signupDiv')); closeMenu(document.getElementById('signinDiv')); closeMenu(document.getElementById('profileDiv')); showMenu(document.getElementById('menuDiv'));" onmouseover="animateMenu(document.getElementById('menuParagraph'), 0);" onmouseout="animateMenu(document.getElementById('menuParagraph'), 1);"></div>	
 
 <div id="gameContent" class="game-content">
 	<div id="pointsandxsContainer" class="points-and-xs-container">
@@ -801,6 +794,11 @@ body {
 	</div><!--end guessOuter div -->
 </div><!--end gameContent div -->
 	
+
+<div class="show-menu-container"><p id="menuParagraph" class="show-menu-paragraph"><span class="show-menu-letters">m</span><span class="show-menu-letters">e</span><span class="show-menu-letters">n</span><span class="show-menu-letters">u</span></p>
+</div><!--end show-menu-container div -->
+
+
 <div id="footer" class="footer"><p>a First Flight Ingenuities<span style="font-size: 1em">&trade;</span> production</p></div>
 
 <input type="hidden" id="gameVersion" name="gameVersion" value="1.0">
@@ -1493,10 +1491,10 @@ body {
 		gameLD.innerHTML = "";
 		var box = document.getElementById("xbox1");
 		var first = box.firstChild;
-		while (first) {first.style.color = "#919191"; first.style.textShadow = "none"; first = first.nextSibling;}
+		while (first) {first.style.color = "white"; first.style.textShadow = "none"; first = first.nextSibling;}
 		box = document.getElementById("xbox2");
 		first = box.firstChild;
-		while (first) {first.style.color = "#919191"; first.style.textShadow = "none"; first = first.nextSibling;}
+		while (first) {first.style.color = "white"; first.style.textShadow = "none"; first = first.nextSibling;}
 		var goal = document.getElementById("goal");
 		goal.innerHTML = "";
 		goal.style.backgroundImage = "url('transparent_background.jpg')";
@@ -2322,7 +2320,7 @@ body {
 			else par = document.getElementById("xbox2");
 			var first = par.firstChild;							
 			while (!!first) {
-				first.style.color = "#919191";
+				first.style.color = "white";
 				first.style.textShadow = "none";
 				first = first.nextSibling;
 			}
