@@ -2439,7 +2439,7 @@ body {
 	} // end function animatePoints(add, code)
 
 	function animateSmallLargeMedium(origVal, endVal, step, max, forWhat) {
-		var divisor = 25;
+		var divisor = 15;
 		if (!!forWhat && (forWhat == "letterBorder")) {
 			divisor = 10;
 		}
@@ -2451,7 +2451,7 @@ body {
 	} // end animateSmallLargeMedium(origVal, endVal, step, max, intvlID)
 
 	function animateOriginalSmallOriginal(origVal, endVal, step) {
-		var sinVal = (-Math.PI/2) + (2 * Math.PI * (step/25));
+		var sinVal = (-Math.PI/2) + (2 * Math.PI * (step/15));
 		var currVal = (endVal - origVal)  * (0.5 * (Math.sin(sinVal) + 1));
 		if (sinVal < (3 * Math.PI/2)) return [currVal, step];
 		else if (sinVal >= (3 * Math.PI/2)) return [endVal, -1]; // || (currVal >= endVal)
