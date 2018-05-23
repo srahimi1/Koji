@@ -18,7 +18,7 @@ body {
 	overflow-y: auto;
 	margin: 0;
 	padding: 0;
-	background-color: #3a3a3a; /*#f0f0f0;*/
+	background-color: #4a0077; /*#f0f0f0;*/
 	font-family: Trebuchet MS, helvetica, tahoma;
 }
 
@@ -106,18 +106,19 @@ body {
 	margin: 0 auto;
 	text-align: center;
 	overflow: hidden;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
 }
 
 .goal-title {
-	position: absolute;
-	width: 6em;
-	padding: 0.2em;
-	margin: 0 auto 0 -3em;
-	left: 50%;
+	position: relative;
+	width: 100%;
+	padding: 0.2em 0 0.1em 0;
+	margin: 0;
 	font-size: 2em;
 	text-align: center;
-	background-color: #f0f0f0;
-	color: #7a00cc;
+	background-color: #4a4a4a;
+	color: white;
 	z-index: 4;
 }
 
@@ -153,6 +154,7 @@ body {
 	text-align: center;
 	overflow: hidden;
 	white-space: nowrap;
+	background-color: #3a3a3a;
 	color: white;
 }
 
@@ -192,7 +194,6 @@ body {
 	padding-top: 1.2em;
 	text-align: center;
 	color: #fafffa;
-	background-color: #3a3a3a;
 }
 
 .game-letters-div {
@@ -209,6 +210,8 @@ body {
 	padding: 4em 0;
 	margin: 0 auto;
 	overflow: hidden;
+	border-top: 1px solid white;
+	border-bottom: 1px solid white;
 }
 
 .guess-container {
@@ -776,16 +779,17 @@ body {
 		<p>
 	</div><!--end pointsandxsContainer div -->
 
+	<div id="goalTitle" class="goal-title">Goal Color</div>
 	<div id="goalContainer" class="goal-container">
 		<div id="goal" class="goal-div"></div>
 		<canvas id="canvas1" class="canvas-1"></canvas>
-		<div id="goalTitle" class="goal-title">Goal Color</div>
 	</div><!--end goalContainer div -->
 	
 	<div id="gameLettersContainer" class="game-letters-container">
 		<div id="gameLettersDiv" class="game-letters-div"></div>
 	</div><!--end gameLettersContainer div -->
 
+	<div class="goal-title">Do the two colors below mix to match goal?</div>
 	<div id="guessOuter" class="guess-outer"> 
 	<div id="guessContainer" class="guess-container">	
 		<div id="guess" class="guess"></div>
@@ -1531,14 +1535,10 @@ body {
 	function colorGoalDiv() {
 		var goalDiv = document.getElementById("goal");
 		var v = document.getElementById("guessOuter");
-		var gt = document.getElementById("goalTitle");
-		var i1 = document.getElementById("instruction1");
 		goalDiv.style.display = "none";
 		goalDiv.style.backgroundImage = "none";
 		goalDiv.style.backgroundColor = gameData.goalColor;
 		v.style.backgroundColor = gameData.goalColor;
-		gt.style.color = gameData.goalColor;
-		if (!!i1) i1.style.color = gameData.goalColor;
 		goalDiv.style.display = "block";
 		return true;
 	} // end function colorGoalDiv()
@@ -1735,12 +1735,6 @@ body {
 		buttonDiv.style.position = "absolute";
 		buttonDiv.style.top = "50%";
 		buttonDiv.style.marginTop = "-5em";
-		var instruct = document.createElement("div");
-		instruct.id = "instruction1";
-		instruct.setAttribute("class","guess-instruction");
-		instruct.innerHTML = "Do the two colors below mix to match goal?";
-		instruct.style.color = gameData.goalColor;
-		document.getElementById("guessOuter").appendChild(instruct);
 		return par;
 	} // end function attachYesNoButtons(par)
 
