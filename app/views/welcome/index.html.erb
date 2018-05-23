@@ -161,17 +161,15 @@ body {
 }
 
 .xs-p {
-	display: inline-block;
-	width: 25%;
 	padding: 0;
 	margin: 0 auto;
-	font-size: 2em;
+	font-size: 3em;
 	font-weight: bold;
 	text-align: center;
 }
 
 .x {
-	padding: 0 1.5em;
+	padding: 0 .2em;
 	margin: 0;
 }
 
@@ -195,6 +193,7 @@ body {
 .game-letters-container {
 	width: 100%;
 	margin: 0 auto;
+	padding-top: 1.2em;
 	text-align: center;
 	color: #fafffa;
 	background-color: gainsboro;
@@ -206,7 +205,6 @@ body {
 	margin: 0 auto;
 	text-align: center;
 	color: #fafffa;
-	line-height: 10em;
 }
 .guess-outer {
 	position: relative;
@@ -772,19 +770,16 @@ body {
 
 <div id="gameContent" class="game-content">
 	<div id="pointsandxsContainer" class="points-and-xs-container">
-		<p style="display: inline-block; width: 30%; float: left; clear: left; margin-top:-1em;">
+		<p style="display: inline-block; width: 50%; float: left; clear: left; margin-top:-1em;">
 		<strong class="points-title">Points</strong>
 		<br>
 		<span id="pointsSpan" class="points-span"></span>
 		</p>
-		<p style="border-left: 1px dashed gray;">
-		</p>
-		<p style="display: inline-block; width: 30%; float: right; clear: right; margin-top:-1em;">
+		<p style="display: inline-block; width: 50%; float: right; clear: right; margin-top:-1.3em;">
 		<strong class="points-title">Strikes</strong>
 		<br>
-		<span id="xbox1" class="xs-p" style="margin-right: 5em;"><span class="x">X</span><span class="x">X</span></span>
-		<br>
-		<span id="xbox2" class="xs-p" style="margin-right: 5em;"><span class="x">X</span><span class="x">X</span></span>
+		<span id="xbox1" class="xs-p"><span class="x">X</span><span class="x">X</span></span>
+		<span id="xbox2" class="xs-p"><span class="x">X</span><span class="x">X</span></span>
 		<p>
 	</div><!--end pointsandxsContainer div -->
 
@@ -2314,7 +2309,7 @@ body {
 			el.style.fontSize = "3em";
 			if (points < 0) el.style.color = "#F00000";
 			else if (points == 0) el.style.color = "gray";
-			else if (points > 0) el.style.color = "#7a00cc";
+			else if (points > 0) el.style.color = "#3ecf8e";
 			el.innerHTML = points;
 		}
 		return true;
