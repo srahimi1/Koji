@@ -106,8 +106,6 @@ body {
 	margin: 0 auto;
 	text-align: center;
 	overflow: hidden;
-	border-top: 1px solid white;
-	border-bottom: 1px solid white;
 }
 
 .goal-title {
@@ -190,7 +188,7 @@ body {
 
 .game-letters-container {
 	width: 100%;
-	margin: 0 auto;
+	margin: 3em auto;
 	padding-top: 1.2em;
 	text-align: center;
 	color: #fafffa;
@@ -206,12 +204,10 @@ body {
 .guess-outer {
 	position: relative;
 	width: 100%;
-	height: 18em;
+	height: 17em;
 	padding: 4em 0;
 	margin: 0 auto;
 	overflow: hidden;
-	border-top: 1px solid white;
-	border-bottom: 1px solid white;
 }
 
 .guess-container {
@@ -784,18 +780,19 @@ body {
 		<div id="goal" class="goal-div"></div>
 		<canvas id="canvas1" class="canvas-1"></canvas>
 	</div><!--end goalContainer div -->
-	
+
+	<div id="guessOuter" class="guess-outer"> 
+	<div id="instruction1" class="goal-title">Do the two colors below mix to match goal?</div>
+	<div id="guessContainer" class="guess-container">	
+		<div id="guess" class="guess"></div>
+	</div><!--end guessContainer div -->
+	<div id="letterChoicesCont" class="letter-choices-container"></div>
+	</div><!--end guessOuter div -->
+
 	<div id="gameLettersContainer" class="game-letters-container">
 		<div id="gameLettersDiv" class="game-letters-div"></div>
 	</div><!--end gameLettersContainer div -->
 
-	<div class="goal-title">Do the two colors below mix to match goal?</div>
-	<div id="guessOuter" class="guess-outer"> 
-	<div id="guessContainer" class="guess-container">	
-		<div id="guess" class="guess"></div>
-		<div id="letterChoicesCont" class="letter-choices-container"></div>
-	</div><!--end guessContainer div -->
-	</div><!--end guessOuter div -->
 </div><!--end gameContent div -->
 	
 
@@ -1495,10 +1492,10 @@ body {
 		gameLD.innerHTML = "";
 		var box = document.getElementById("xbox1");
 		var first = box.firstChild;
-		while (first) {first.style.color = "white"; first.style.textShadow = "none"; first = first.nextSibling;}
+		while (first) {first.style.color = "#3a3a3a"; first.style.textShadow = "none"; first = first.nextSibling;}
 		box = document.getElementById("xbox2");
 		first = box.firstChild;
-		while (first) {first.style.color = "white"; first.style.textShadow = "none"; first = first.nextSibling;}
+		while (first) {first.style.color = "#3a3a3a"; first.style.textShadow = "none"; first = first.nextSibling;}
 		var goal = document.getElementById("goal");
 		goal.innerHTML = "";
 		goal.style.backgroundImage = "url('transparent_background.jpg')";
@@ -1968,6 +1965,7 @@ body {
 						letter.style.padding = "0";
 						letter.style.width = (width * ((100 - values[0])/100)) + "px";
 						letter.style.height = (height * ((100 - values[0])/100)) + "px";				
+						letter.style.top = -(height - (height * ((100 - values[0])/100)))/2 + "px";
 					}
 					if (((100 - values[0]) < 10) && (moved == 0)) {					
 						letter.style.visibility = "hidden";
@@ -2314,7 +2312,7 @@ body {
 			else par = document.getElementById("xbox2");
 			var first = par.firstChild;							
 			while (!!first) {
-				first.style.color = "white";
+				first.style.color = "#3a3a3a";
 				first.style.textShadow = "none";
 				first = first.nextSibling;
 			}
