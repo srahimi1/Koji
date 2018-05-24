@@ -108,16 +108,19 @@ body {
 	overflow: hidden;
 }
 
-.goal-title {
+.small-title {
 	position: relative;
 	width: 100%;
 	padding: 0.2em 0 0.1em 0;
 	margin: 0;
-	font-size: 2em;
 	text-align: center;
+	z-index: 4;
+}
+
+.goal-title {
 	background-color: #4a4a4a;
 	color: white;
-	z-index: 4;
+	font-size: 2em;
 }
 
 .goal-div {
@@ -213,7 +216,7 @@ body {
 .guess-container {
 	position: relative;
 	width: 100%;
-	height: 18em;
+	height: 18.7em;
 	margin: 0 auto;
 	overflow: hidden;
 }
@@ -330,6 +333,17 @@ body {
 	border: 3px solid #fafffa;
 	box-shadow: -2px 1px 2px lightgray;
 	border-radius: 0.4em;
+}
+
+.letter-instructions {
+	font-size: 2em;
+	margin-top: 2em;
+	color: white;
+	opacity: 0;
+	-moz-transition: opacity 0.5s; 
+	-webkit-transition: opacity 0.5s; 
+	-o-transition: opacity 0.5s; 
+	transition: opacity 0.5s; 	
 }
 
 .underscores {
@@ -775,7 +789,7 @@ body {
 		<p>
 	</div><!--end pointsandxsContainer div -->
 
-	<div id="goalTitle" class="goal-title">Goal Color</div>
+	<div id="goalTitle" class="small-title goal-title">Goal Color</div>
 	<div id="goalContainer" class="goal-container">
 		<div id="goal" class="goal-div"></div>
 		<canvas id="canvas1" class="canvas-1"></canvas>
@@ -789,6 +803,7 @@ body {
 	<div id="letterChoicesCont" class="letter-choices-container"></div>
 	</div><!--end guessOuter div -->
 
+	<div id="instruction2" class="small-title letter-instructions">Select a spot below to see the available letters for it.</div>
 	<div id="gameLettersContainer" class="game-letters-container">
 		<div id="gameLettersDiv" class="game-letters-div"></div>
 	</div><!--end gameLettersContainer div -->
@@ -1955,13 +1970,14 @@ body {
 					var par = document.getElementById("guess").firstChild;
 					var cn = par.childNodes;
 					var sendID = cn[0].id + "";
+					document.getElementById("instruction1").style.visibility = "visible";
+					document.getElementById("instruction2").style.opacity = "0";
 					getNextColors(par, sendID);
 				} else {					
 					values[1]++;
 					values = animateOriginalSmallOriginal(0, 100, values[1]);  
 					values[0] = Math.floor(values[0]);
 					if (((100 - values[0]) > 5)  && ((100 - values[0]) < 90)) {
-						console.log((height * ((100 - values[0])/100)));
 						letter.style.padding = "0";
 						letter.style.width = (width * ((100 - values[0])/100)) + "px";
 						letter.style.height = (height * ((100 - values[0])/100)) + "px";				
@@ -2189,6 +2205,8 @@ body {
 				var par = document.getElementById("guess").firstChild;
 				var cn = par.childNodes;
 				var sendID = cn[0].id + "";
+				document.getElementById("instruction1").style.visibility = "visible";
+				document.getElementById("instruction2").style.opacity = "0";
 				getNextColors(par, sendID);
 			} // if (letter != -1)
 		} // if (!gameOver && (numberCorrect == 4) ) {
@@ -2403,7 +2421,7 @@ body {
 					document.getElementById("guess").style.overflow = "hidden";
 					if (numberCorrect == 4) {
 						clearTimeout(getNextColorsTimeoutID);
-						setTimeout(function() {selectUnderscore(document.getElementById("letterBox:0"), inputData.letters);},500);
+						setTimeout(function() {document.getElementById("instruction2").style.opacity = "1"; selectUnderscore(document.getElementById("letterBox:0"), inputData.letters);},500);
 					}
 				}
 				else {
