@@ -207,7 +207,7 @@ body {
 .guess-outer {
 	position: relative;
 	width: 100%;
-	height: 17em;
+	height: 16em;
 	padding: 4em 0;
 	margin: 0 auto;
 	overflow: hidden;
@@ -216,7 +216,7 @@ body {
 .guess-container {
 	position: relative;
 	width: 100%;
-	height: 18.7em;
+	height: 20em;
 	margin: 0 auto;
 	overflow: hidden;
 }
@@ -249,6 +249,13 @@ body {
 
 .lower-half-color-mix-div {
 
+}
+
+.buttons-div {
+	width: 100%;
+	height: 10em;
+	padding-top: 2em;	
+	text-align: center;
 }
 
 .yesno-button {		
@@ -796,17 +803,27 @@ body {
 	</div><!--end goalContainer div -->
 
 	<div id="guessOuter" class="guess-outer"> 
-	<div id="instruction1" class="goal-title">Do the two colors below mix to match goal?</div>
 	<div id="guessContainer" class="guess-container">	
 		<div id="guess" class="guess"></div>
 	</div><!--end guessContainer div -->
 	<div id="letterChoicesCont" class="letter-choices-container"></div>
 	</div><!--end guessOuter div -->
+	<div id="instruction1" class="goal-title">Do the two colors directly above mix to match goal?</div>
+
+	<div class="buttons-div">
+		<button class="yesno-button yes-button" onclick="this.style.boxShadow = 'none'; showUnderneathDiv(0);" onmousedown="this.style.boxShadow = 'none';" onmouseup="this.style.boxShadow = '1px 11px 16px #333333';" onmouseout="this.style.boxShadow='1px 11px 16px #333333';">Yes</button>
+		<button class="yesno-button no-button" onclick="this.style.boxShadow = 'none'; showUnderneathDiv(1);" onmousedown="this.style.boxShadow = 'none';" onmouseup="this.style.boxShadow = '1px 11px 16px #333333';" onmouseout="this.style.boxShadow='1px 11px 16px #333333';">No</button>
+	</div><!--end guessOuter div -->
+
 
 	<div id="instruction2" class="small-title letter-instructions">Select a spot below to see the available letters for it.</div>
 	<div id="gameLettersContainer" class="game-letters-container">
 		<div id="gameLettersDiv" class="game-letters-div"></div>
-	</div><!--end gameLettersContainer div -->
+	</div><!--end buttons-div div -->
+
+
+
+
 
 </div><!--end gameContent div -->
 	
@@ -1592,10 +1609,6 @@ body {
 				divTemp.style.backgroundColor = divColors["div"+j];
 				divTempOuter.appendChild(divTemp);
 			} // end (var j = 0; j < 2; j++)
-			
-			divTempOuter.style.display = "none";
-			divTempOuter = attachYesNoButtons(divTempOuter);
-			divTempOuter.style.display = "inline-block";
 			frag.appendChild(divTempOuter);
 		} // end for (var i = 0; i < 2; i++)
 		guess.style.display = "none";
@@ -1721,41 +1734,11 @@ body {
 		return divTemp;
 	} // function createMixColorDivs()
 
-	// this creates and attaches the buttons to the larger div
-	function attachYesNoButtons(par) {
-		var buttonDiv = document.createElement("div");
-		buttonDiv.style.width = "100%";
-		buttonDiv.style.height = "10em";
-		buttonDiv.style.textAlign = "center";
-		var button1 = document.createElement("button");
-		button1.setAttribute("class","yesno-button yes-button");
-		button1.innerHTML = "Yes";
-		button1.onclick = function() {this.style.boxShadow = "none"; showUnderneathDiv(this,this.parentNode.parentNode, 0);}
-		button1.onmousedown = function() {this.style.boxShadow = "none";}
-		button1.onmouseup = function() {this.style.boxShadow = "1px 11px 16px #333333";}
-		button1.onmouseout = function() {this.style.boxShadow = "1px 11px 16px #333333";}
-		var button2 = document.createElement("button");
-		button2.setAttribute("class","yesno-button no-button");
-		button2.innerHTML = "No";
-		button2.onclick = function() {this.style.boxShadow = "none"; showUnderneathDiv(this,this.parentNode.parentNode, 1);}				
-		button2.onmousedown = function() {this.style.boxShadow = "none";}
-		button2.onmouseup = function() {this.style.boxShadow = "1px 11px 16px #333333";}
-		button2.onmouseout = function() {this.style.boxShadow = "1px 11px 16px #333333";}
-		buttonDiv.appendChild(button1);
-		buttonDiv.appendChild(button2);
-		par.appendChild(buttonDiv);
-		buttonDiv.style.position = "absolute";
-		buttonDiv.style.top = "50%";
-		buttonDiv.style.marginTop = "-5em";
-		return par;
-	} // end function attachYesNoButtons(par)
-
-	function showUnderneathDiv(but, par, opt) {
-		but.style.display = "none";
+	function showUnderneathDiv(opt) {
 		document.getElementById("instruction1").style.visibility = "hidden";
-		if (opt == 0) but.nextSibling.style.display = "none";
-		else if (opt == 1) but.previousSibling.style.display = "none";
+		var par = document.getElementById("guess").firstChild;
 		var cn = par.childNodes;
+		console.log(cn);
 		cn[1].style.marginTop = "-50%";
 		cn[1].style.marginBottom = "100%";
 		cn[1].style.opacity = "0";
