@@ -267,10 +267,10 @@ body {
 	font-size: 5em;
 	line-height: 4em;
 	opacity: 1;
-	-moz-transition: width 5s, margin-right 5s, opacity 0.5s;
-	-webkit-transition: width 5s, margin-right 5s, opacity 0.5s;
-	-o-transition: width 5s, margin-right 5s, opacity 0.5s;
-	transition: width 5s, margin-right 5s, opacity 0.5s;
+	-moz-transition: width 0.5s, margin-left 0.5s, opacity 0.5s;
+	-webkit-transition: width 0.5s, margin-left 0.5s, opacity 0.5s;
+	-o-transition: width 0.5s, margin-left 0.5s, opacity 0.5s;
+	transition: width 0.5s, margin-left 0.5s, opacity 0.5s;
 }
 
 .guess-instruction {
@@ -866,8 +866,8 @@ body {
 	</div><!--end guessOuter div -->
 
 
-	<div id="instruction2" class="small-title letter-instructions">Select a spot below to see the available letters for it.</div>
-	<div id="gameLettersContainer" class="game-letters-container">
+	<div id="instruction2" class="small-title letter-instructions" style="display: none;">Select a spot below to see the available letters for it.</div>
+	<div id="gameLettersContainer" class="game-letters-container" style="display: none;">
 		<div id="gameLettersDiv" class="game-letters-div"></div>
 	</div><!--end buttons-div div -->
 
@@ -1758,12 +1758,17 @@ body {
 		var par = document.getElementById("guess").firstChild;
 		var cn = par.childNodes;
 		console.log(cn);
+		cn[0].innerHTML = "";
+		cn[1].innerHTML = "";
+		cn[0].style.zIndex = "100";
+		cn[1].style.zIndex = "101";
 		cn[0].style.width = "100%";
 		cn[1].style.width = "100%";
+		cn[1].style.marginLeft = "-100%";
 		cn[0].style.opacity = "0";
 		cn[1].style.opacity = "0";
 		var sendID = par.id + "";
-		determineResultOfChoice(sendID, opt);
+		setTimeout(function() {determineResultOfChoice(sendID, opt);}, 500);
 		if (numberCorrect != 4) 
 			getNextColorsTimeoutID = setTimeout(function() {document.getElementById("instruction1").style.visibility = "visible"; getNextColors(par, sendID);},1300);
 		return true;
