@@ -159,6 +159,21 @@ body {/**/
 	color: white;
 }
 
+.pointsandxs-div {
+	display: inline-block;
+	width: 30%;
+}
+
+.points {
+	float: left;
+	clear: left;
+}
+
+.xs {
+	float: right;
+	clear: right;
+}
+
 .xs-p {
 	padding: 0;
 	margin: 0 auto;
@@ -230,6 +245,34 @@ body {/**/
 	overflow: hidden;
 }
 
+.guess-middle {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px; 
+	top: 0px;
+	left: 0px;
+	white-space: nowrap;
+}
+
+.color-divs {
+	display: inline-block;
+	position: relative;
+	width: 50%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	color: white;
+	font-size: 5em;
+	line-height: 4em;
+	opacity: 1;
+	-moz-transition: width 0.5s, margin-left 0.5s, opacity 0.5s;
+	-webkit-transition: width 0.5s, margin-left 0.5s, opacity 0.5s;
+	-o-transition: width 0.5s, margin-left 0.5s, opacity 0.5s;
+	transition: width 0.5s, margin-left 0.5s, opacity 0.5s;
+}
+
 .guess-instruction {
 	position: absolute;
 	width: 20em;
@@ -257,6 +300,13 @@ body {/**/
 	padding-top: 2em;	
 	text-align: center;
 }
+
+.buttons-instructions {
+	font-size: 2em;
+	margin: 2em auto;
+	color: white;
+}
+
 
 .yesno-button {		
 	display: inline-block;
@@ -783,17 +833,18 @@ body {/**/
 
 <div id="gameContent" class="game-content">
 	<div id="pointsandxsContainer" class="points-and-xs-container">
-		<p style="display: inline-block; width: 50%; float: left; clear: left; margin-top:-1em;">
+		<div class="pointsandxs-div points">
 		<strong class="points-title">Points</strong>
 		<br>
 		<span id="pointsSpan" class="points-span"></span>
-		</p>
-		<p style="display: inline-block; width: 50%; float: right; clear: right; margin-top:-1.3em;">
+		</div>
+		<div class="divider"></div>
+		<div class="pointsandxs-div xs">
 		<strong class="points-title">Strikes</strong>
 		<br>
 		<span id="xbox1" class="xs-p"><span class="x">X</span><span class="x">X</span></span>
 		<span id="xbox2" class="xs-p"><span class="x">X</span><span class="x">X</span></span>
-		<p>
+		</div>
 	</div><!--end pointsandxsContainer div -->
 
 	<div id="goalTitle" class="small-title goal-title">Goal Color</div>
@@ -808,16 +859,15 @@ body {/**/
 	</div><!--end guessContainer div -->
 	<div id="letterChoicesCont" class="letter-choices-container"></div>
 	</div><!--end guessOuter div -->
-	<div id="instruction1" class="goal-title">Do the two colors directly above mix to match goal?</div>
-
 	<div class="buttons-div">
+		<div id="instruction1" class="small-title buttons-instructions">Do the two colors directly above mix to match goal?</div>
 		<button class="yesno-button yes-button" onclick="this.style.boxShadow = 'none'; showUnderneathDiv(0);" onmousedown="this.style.boxShadow = 'none';" onmouseup="this.style.boxShadow = '1px 11px 16px #333333';" onmouseout="this.style.boxShadow='1px 11px 16px #333333';">Yes</button>
 		<button class="yesno-button no-button" onclick="this.style.boxShadow = 'none'; showUnderneathDiv(1);" onmousedown="this.style.boxShadow = 'none';" onmouseup="this.style.boxShadow = '1px 11px 16px #333333';" onmouseout="this.style.boxShadow='1px 11px 16px #333333';">No</button>
 	</div><!--end guessOuter div -->
 
 
-	<div id="instruction2" class="small-title letter-instructions">Select a spot below to see the available letters for it.</div>
-	<div id="gameLettersContainer" class="game-letters-container">
+	<div id="instruction2" class="small-title letter-instructions" style="display: none;">Select a spot below to see the available letters for it.</div>
+	<div id="gameLettersContainer" class="game-letters-container" style="display: none;">
 		<div id="gameLettersDiv" class="game-letters-div"></div>
 	</div><!--end buttons-div div -->
 
@@ -1588,28 +1638,17 @@ body {/**/
 		getColorsForHalfDivs();
 		var frag = document.createDocumentFragment();
 		for (var i = 0; i < 1; i++) {
-			var divTempOuter = document.createElement('div');
-			divTempOuter.style.display = "inline-block";
-			divTempOuter.style.position = "relative";
-			divTempOuter.style.height = "100%";
-			divTempOuter.style.width = "100%";
-			divTempOuter.style.margin = "0px";
-			divTempOuter.style.padding = "0px";
 			var divTempA = document.createElement("div");
-			divTempA.style.position = "absolute";
-			divTempA.style.width = "100%";
-			divTempA.style.height = "100%";
-			divTempA.style.top = "0px";
-			divTempA.style.left = "0px"; 
+			divTempA.setAttribute("class","guess-middle");
 			divTempA.id = "bkcolor:div"+i;
 			divTempA.style.backgroundColor = divColors["answer"];
-			divTempOuter.appendChild(divTempA);
 			for (var j = 0; j < 2; j++) {
 				var divTemp = createMixColorDivs();
 				divTemp.style.backgroundColor = divColors["div"+j];
-				divTempOuter.appendChild(divTemp);
+				divTemp.innerHTML = j+1;
+				divTempA.appendChild(divTemp);
 			} // end (var j = 0; j < 2; j++)
-			frag.appendChild(divTempOuter);
+			frag.appendChild(divTempA);
 		} // end for (var i = 0; i < 2; i++)
 		guess.style.display = "none";
 		while(!!guess.firstChild) guess.removeChild(guess.firstChild);
@@ -1710,27 +1749,7 @@ body {/**/
 	// this creates the mini-half divs that combine
 	function createMixColorDivs() {
 		var divTemp = document.createElement('div');
-		divTemp.style.position = "relative";
-		divTemp.style.width = "100%";
-		divTemp.style.height = "50%";
-		divTemp.style.display = "block";
-		divTemp.style.margin = "0";
-		divTemp.style.padding = "0";
-		divTemp.style.opacity = "1";
-		divTemp.style.MozTransition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
-		divTemp.style.mozTransition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
-		divTemp.style.WebkitTransition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
-		divTemp.style.webkitTransition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
-		divTemp.style.OTransition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
-		divTemp.style.oTransition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
-		divTemp.style.transition = "margin-top 0.5s, margin-bottom 0.5s, opacity 0.5s";
-		divTemp.style.MozTransitionTimingFunction = "ease";
-		divTemp.style.mozTransitionTimingFunction = "ease";
-		divTemp.style.WebkitTransitionTimingFunction = "ease";
-		divTemp.style.webkitTransitionTimingFunction = "ease";
-		divTemp.style.OTransitionTimingFunction = "ease";
-		divTemp.style.oTransitionTimingFunction = "ease";
-		divTemp.style.transitionTimingFunction = "ease";
+		divTemp.setAttribute("class","color-divs");
 		return divTemp;
 	} // function createMixColorDivs()
 
@@ -1739,18 +1758,24 @@ body {/**/
 		var par = document.getElementById("guess").firstChild;
 		var cn = par.childNodes;
 		console.log(cn);
-		cn[1].style.marginTop = "-50%";
-		cn[1].style.marginBottom = "100%";
+		cn[0].innerHTML = "";
+		cn[1].innerHTML = "";
+		cn[0].style.zIndex = "100";
+		cn[1].style.zIndex = "101";
+		cn[0].style.width = "100%";
+		cn[1].style.width = "100%";
+		cn[1].style.marginLeft = "-100%";
+		cn[0].style.opacity = "0";
 		cn[1].style.opacity = "0";
-		cn[2].style.opacity = "0";
-		var sendID = cn[0].id + "";
-		determineResultOfChoice(sendID, opt);
+		var sendID = par.id + "";
+		setTimeout(function() {determineResultOfChoice(sendID, opt);}, 500);
 		if (numberCorrect != 4) 
 			getNextColorsTimeoutID = setTimeout(function() {document.getElementById("instruction1").style.visibility = "visible"; getNextColors(par, sendID);},1300);
 		return true;
 	} // end function showUnderneathDiv(but, par, opt)
 
 	function determineResultOfChoice(sendID, opt) {
+		console.log(sendID);
 		var points = 0;
 		code = null;
 		if (divColors["answer"].toUpperCase() == gameData.goalColor.toUpperCase()) {
