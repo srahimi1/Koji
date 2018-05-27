@@ -202,11 +202,13 @@ body {/**/
 }
 
 .game-letters-container {
+	position: relative;
 	width: 100%;
-	margin: 3em auto;
-	padding-top: 1.2em;
+	margin: 1em auto;
+	padding-top: 1em;
 	text-align: center;
 	color: #fafffa;
+	z-index: 1;
 }
 
 .game-letters-div {
@@ -279,10 +281,12 @@ body {/**/
 }
 
 .buttons-div {
+	position: relative;
 	width: 100%;
 	height: 10em;
-	padding-top: 2em;
+	padding-top: 1em;
 	white-space: nowrap;
+	z-index: 0;
 }
 
 .buttons-instructions {
@@ -352,7 +356,6 @@ body {/**/
 	 top: 0;
 	 left: 0;
 	 text-align: center;
-	 background-color: white;
 	 display: none;
 }
 
@@ -378,8 +381,8 @@ body {/**/
 
 .letter-instructions {
 	font-size: 2em;
-	margin-top: 2em;
-	color: white;
+	margin-bottom: 2em;
+	color: black;
 	opacity: 0;
 	-moz-transition: opacity 0.5s; 
 	-webkit-transition: opacity 0.5s; 
@@ -390,9 +393,8 @@ body {/**/
 .underscores {
 	display: inline-block;
 	position: relative;
-	width: 3em;
-	margin: 0.2em 0.2em;
-	padding: 0 .5em;
+	margin: 0.2em 0.5em;
+	padding: 0 1em;
 	font-size: 2em;
 	color: white;/*#7a00cc;*/
 }
@@ -840,14 +842,13 @@ body {/**/
 	</div><!--end guessContainer div -->
 	<div id="letterChoicesCont" class="letter-choices-container"></div>
 	</div><!--end guessOuter div -->
-	<div class="buttons-div">
+	<div id="buttonsDiv" class="buttons-div">
 		<div id="instruction1" class="small-title buttons-instructions">Do the two colors directly above mix to match goal?</div>
 		<div class="yesno-button yes-button" onclick="showUnderneathDiv(0);">Yes</div><div class="yesno-button no-button" onclick="showUnderneathDiv(1);">No</div>
 	</div><!--end guessOuter div -->
 
-
-	<div id="instruction2" class="small-title letter-instructions" style="display: none;">Select a spot below to see the available letters for it.</div>
 	<div id="gameLettersContainer" class="game-letters-container" style="display: none;">
+		<div id="instruction2" class="small-title letter-instructions">Select a spot below to see the available letters for it.</div>
 		<div id="gameLettersDiv" class="game-letters-div"></div>
 	</div><!--end buttons-div div -->
 
@@ -1734,7 +1735,6 @@ body {/**/
 	} // function createMixColorDivs()
 
 	function showUnderneathDiv(opt) {
-		document.getElementById("instruction1").style.visibility = "hidden";
 		var par = document.getElementById("guess").firstChild;
 		var cn = par.childNodes;
 		console.log(cn);
@@ -1750,7 +1750,7 @@ body {/**/
 		var sendID = par.id + "";
 		setTimeout(function() {determineResultOfChoice(sendID, opt);}, 500);
 		if (numberCorrect != 4) 
-			getNextColorsTimeoutID = setTimeout(function() {document.getElementById("instruction1").style.visibility = "visible"; getNextColors(par, sendID);},1300);
+			getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},1300);
 		return true;
 	} // end function showUnderneathDiv(but, par, opt)
 
@@ -1938,7 +1938,6 @@ body {/**/
 
 	function popUpALetter(letter) {
 		clearInterval(borderIntervalID);
-		letter.style.margin = "auto";
 		var values = [0,0];
 		var width = letter.clientWidth;
 		var height = letter.clientHeight;
@@ -1951,6 +1950,7 @@ body {/**/
 					letter.style.width = width + "px";
 					letter.style.height = height + "px";
 					letter.style.lineHeight = height + "px";					
+					letter.style.padding = "0";
 					var ind = selectedUnderscore.id.split(":")[1];
 					isChosenLetterCorrect(letter, ind);
 					document.getElementById("letterChoicesCont").style.display = "none";
@@ -1958,8 +1958,7 @@ body {/**/
 					var par = document.getElementById("guess").firstChild;
 					var cn = par.childNodes;
 					var sendID = cn[0].id + "";
-					document.getElementById("instruction1").style.visibility = "visible";
-					document.getElementById("instruction2").style.opacity = "0";
+					switchButtonsAndLetters(1);
 					getNextColors(par, sendID);
 				} else {					
 					values[1]++;
@@ -2003,7 +2002,7 @@ body {/**/
 			tempLetterChoicesDiv.id = "letterChoices" + i;
 			tempLetterChoicesDiv.style.width = "100%";
 			tempLetterChoicesDiv.style.height = "100%";
-			tempLetterChoicesDiv.style.background = "gray";
+			tempLetterChoicesDiv.style.background = "#363636";
 			tempLetterChoicesDiv.style.display = "none";
 			var container = document.getElementById("letterChoicesCont");
 			container.appendChild(tempLetterChoicesDiv);
@@ -2193,13 +2192,27 @@ body {/**/
 				var par = document.getElementById("guess").firstChild;
 				var cn = par.childNodes;
 				var sendID = cn[0].id + "";
-				document.getElementById("instruction1").style.visibility = "visible";
-				document.getElementById("instruction2").style.opacity = "0";
+				switchButtonsAndLetters(1);
 				getNextColors(par, sendID);
 			} // if (letter != -1)
 		} // if (!gameOver && (numberCorrect == 4) ) {
 		return true;
 	} // end function selectLetter(letter)
+
+	function switchButtonsAndLetters(code) {
+		switch(code) {
+			case 1:
+				document.getElementById("gameLettersContainer").style.display = "none";
+				document.getElementById("buttonsDiv").style.display = "block";
+				document.getElementById("instruction2").style.opacity = "0";
+				break;
+			case 2:
+				document.getElementById("gameLettersContainer").style.display = "block";
+				document.getElementById("buttonsDiv").style.display = "none";
+				document.getElementById("instruction2").style.opacity = "1";
+				break;
+		}// end switch(code)
+	}
 
 
 // end of game functions ...
@@ -2369,7 +2382,7 @@ body {/**/
 					values = animateSmallLargeMedium(1, 2, values[1], 2, "letterBorder");  
 					letter.style.borderWidth = (values[0]/6)+"em";
 					letter.style.marginLeft = -(letter.offsetWidth - width)/2 + "px";
-					letter.style.marginTop = -(letter.offsetHeight - height)/2 + "px";
+					//letter.style.marginTop = -(letter.offsetHeight - height)/2 + "px";
 				}
 			},22);
 		if (code == 0) {updatePoints(100,2); animatePoints(100,2);}
@@ -2408,7 +2421,7 @@ body {/**/
 					document.getElementById("guess").style.overflow = "hidden";
 					if (numberCorrect == 4) {
 						clearTimeout(getNextColorsTimeoutID);
-						setTimeout(function() {document.getElementById("instruction2").style.opacity = "1"; selectUnderscore(document.getElementById("letterBox:0"), inputData.letters);},500);
+						setTimeout(function() {switchButtonsAndLetters(2); selectUnderscore(document.getElementById("letterBox:0"), inputData.letters);},500);
 					}
 				}
 				else {
@@ -3071,7 +3084,7 @@ body {/**/
     			image: '/square-image.png',
     			name: 'KOJI',
     			description: 'Koji monthly membership',
-    			amount: 185,
+    			amount: 200,
     			panelLabel: 'Pay {{amount}} Membership Fee',
     			email: document.getElementById("emailInput").value
   			});	
