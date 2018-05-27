@@ -1958,7 +1958,7 @@ body {/**/
 					var par = document.getElementById("guess").firstChild;
 					var cn = par.childNodes;
 					var sendID = cn[0].id + "";
-					switchButtonsAndLetters(1);
+					setTimeout(function() {switchButtonsAndLetters(1);},3500);
 					getNextColors(par, sendID);
 				} else {					
 					values[1]++;
@@ -2192,7 +2192,7 @@ body {/**/
 				var par = document.getElementById("guess").firstChild;
 				var cn = par.childNodes;
 				var sendID = cn[0].id + "";
-				switchButtonsAndLetters(1);
+				setTimeout(function() {switchButtonsAndLetters(1);},3500);
 				getNextColors(par, sendID);
 			} // if (letter != -1)
 		} // if (!gameOver && (numberCorrect == 4) ) {
