@@ -18,7 +18,7 @@ body {/**/
 	overflow-y: auto;
 	margin: 0;
 	padding: 0;
-	background-color: #4a0077; /*#f0f0f0;*/
+	background-color: #dedede; /*#4a0077; #f0f0f0;*/
 	font-family: Trebuchet MS, helvetica, tahoma;
 }
 
@@ -30,11 +30,11 @@ body {/**/
 	padding: .2em 0;
 	color:white;
 	text-align: center;
-	background-color: #7a00cc;
-	background: -moz-linear-gradient(#9900ff,#7a00cc);
+	background-color: #2e2e2e; /*#7a00cc;*/
+/*	background: -moz-linear-gradient(#9900ff,#7a00cc);
 	background: -webkit-linear-gradient(#9900ff,#7a00cc);
 	background: -o-linear-gradient(#9900ff,#7a00cc);
-	background: linear-gradient(#9900ff,#7a00cc);
+	background: linear-gradient(#9900ff,#7a00cc);*/
 /*	-webkit-box-shadow: 0px 6px 16px #666666;
 	-moz-box-shadow: 0px 6px 16px #666666;
 	box-shadow: 0px 6px 16px #666666;*/
@@ -83,14 +83,14 @@ body {/**/
 	padding: 0.1em 3em 1.35em 1em;
 	color: #fafffa;
 	font-size: 2em;
-	background-color: #7a00cc;
-	background: -moz-linear-gradient(#9900ff,#7a00cc);
+	background-color: #2e2e2e;
+/*	background: -moz-linear-gradient(#9900ff,#7a00cc);
 	background: -webkit-linear-gradient(#9900ff,#7a00cc);
 	background: -o-linear-gradient(#9900ff,#7a00cc);
 	background: linear-gradient(#9900ff,#7a00cc);
 	-webkit-box-shadow: 0px -6px 16px #666666;
 	-moz-box-shadow: 0px -6px 16px #666666;
-	box-shadow: 0px -6px 16px #666666;
+	box-shadow: 0px -6px 16px #666666;*/
 	overflow: hidden;
 	z-index: 100;
 }
@@ -101,7 +101,7 @@ body {/**/
 .goal-container {
 	position: relative;
 	width: 100%;
-	height: 17em;
+	height: 22em;
 	padding: 0;
 	margin: 0 auto;
 	text-align: center;
@@ -150,9 +150,8 @@ body {/**/
 	position: relative;
 	width: 100%;
 	height: 8em;
-	padding: 2.5em 0 0 0;
+	padding: 1em 0 3em 0;
 	margin: 0 auto;
-	text-align: center;
 	overflow: hidden;
 	white-space: nowrap;
 	background-color: #3a3a3a;
@@ -161,7 +160,9 @@ body {/**/
 
 .pointsandxs-div {
 	display: inline-block;
-	width: 30%;
+	width: 45%;
+	font-size: 3em;
+	text-align: center;
 }
 
 .points {
@@ -177,7 +178,7 @@ body {/**/
 .xs-p {
 	padding: 0;
 	margin: 0 auto;
-	font-size: 3em;
+	font-size: 2em;
 	font-weight: bold;
 	text-align: center;
 }
@@ -191,17 +192,14 @@ body {/**/
 	 display: inline-block;
 	 width: 45%;
 	 margin: 0 auto;
-	 font-size: 2em;
 	 text-align: center;
 	 color: white;
 	 border-bottom: 1px solid white;
 }
 
 .points-span {
-	width: 100%;
 	margin: 0;
-	text-align: center;
-
+	font-size: 2em;
 }
 
 .game-letters-container {
@@ -222,7 +220,7 @@ body {/**/
 .guess-outer {
 	position: relative;
 	width: 100%;
-	height: 16em;
+	height: 18em;
 	padding: 4em 0;
 	margin: 0 auto;
 	overflow: hidden;
@@ -231,7 +229,7 @@ body {/**/
 .guess-container {
 	position: relative;
 	width: 100%;
-	height: 20em;
+	height: 22em;
 	margin: 0 auto;
 	overflow: hidden;
 }
@@ -267,10 +265,10 @@ body {/**/
 	font-size: 5em;
 	line-height: 4em;
 	opacity: 1;
-	-moz-transition: width 0.5s, margin-left 0.5s, opacity 0.5s;
-	-webkit-transition: width 0.5s, margin-left 0.5s, opacity 0.5s;
-	-o-transition: width 0.5s, margin-left 0.5s, opacity 0.5s;
-	transition: width 0.5s, margin-left 0.5s, opacity 0.5s;
+	-moz-transition: width 0.3s, margin-left 0.3s, opacity 0.3s;
+	-webkit-transition: width 0.3s, margin-left 0.3s, opacity 0.3s;
+	-o-transition: width 0.3s, margin-left 0.3s, opacity 0.3s;
+	transition: width 0.3s, margin-left 0.3s, opacity 0.3s;
 }
 
 .guess-instruction {
@@ -297,40 +295,40 @@ body {/**/
 .buttons-div {
 	width: 100%;
 	height: 10em;
-	padding-top: 2em;	
-	text-align: center;
+	padding-top: 2em;
+	white-space: nowrap;
 }
 
 .buttons-instructions {
 	font-size: 2em;
 	margin: 2em auto;
-	color: white;
+	color: black;
 }
 
 
 .yesno-button {		
 	display: inline-block;
-	font-size: 3em;
+	width: 48%;
+	font-size: 7em;
+	padding: 0.4em 0;
 	font-weight: bold;
-	margin: 0 1.5em;
 	border: none;
-	border-radius: 5px;
 	text-align: center;
-	-webkit-box-shadow: 1px 11px 16px #333333;
-	-moz-box-shadow: 1px 11px 16px #333333;
-	box-shadow: 1px 11px 16px #333333;
 }
 
 .yes-button {
-	padding: 0.5em .85em;
-	background-color: #f1fff1; /*#dedede;*/
+	background-color: #f1fff1;
 	color: #3ecf8e;
+	border-right: 1px solid gray;
+	box-shadow: -2px 5px 10px #cccccc;
 }
 
 .no-button {
-	padding: 0.5em 1em;
+	/*padding: 0.5em 1em;*/
 	background-color: #f1fff1;
 	color: #7a00cc;
+	border-left: 1px solid gray;
+	box-shadow: 2px 5px 10px #cccccc;
 }
 
 .mix-div {
@@ -834,16 +832,13 @@ body {/**/
 <div id="gameContent" class="game-content">
 	<div id="pointsandxsContainer" class="points-and-xs-container">
 		<div class="pointsandxs-div points">
-		<strong class="points-title">Points</strong>
-		<br>
-		<span id="pointsSpan" class="points-span"></span>
+		<p class="points-title"><strong >Points</strong></p>
+		<p class="points-span"><span id="pointsSpan"></span></p>
 		</div>
 		<div class="divider"></div>
 		<div class="pointsandxs-div xs">
-		<strong class="points-title">Strikes</strong>
-		<br>
-		<span id="xbox1" class="xs-p"><span class="x">X</span><span class="x">X</span></span>
-		<span id="xbox2" class="xs-p"><span class="x">X</span><span class="x">X</span></span>
+		<p class="points-title"><strong>Strikes</strong></p>
+		<p class="points-span"><span id="xbox1"><span class="x">X</span><span class="x">X</span></span><span id="xbox2"><span class="x">X</span><span class="x">X</span></span></p>
 		</div>
 	</div><!--end pointsandxsContainer div -->
 
@@ -861,8 +856,7 @@ body {/**/
 	</div><!--end guessOuter div -->
 	<div class="buttons-div">
 		<div id="instruction1" class="small-title buttons-instructions">Do the two colors directly above mix to match goal?</div>
-		<button class="yesno-button yes-button" onclick="this.style.boxShadow = 'none'; showUnderneathDiv(0);" onmousedown="this.style.boxShadow = 'none';" onmouseup="this.style.boxShadow = '1px 11px 16px #333333';" onmouseout="this.style.boxShadow='1px 11px 16px #333333';">Yes</button>
-		<button class="yesno-button no-button" onclick="this.style.boxShadow = 'none'; showUnderneathDiv(1);" onmousedown="this.style.boxShadow = 'none';" onmouseup="this.style.boxShadow = '1px 11px 16px #333333';" onmouseout="this.style.boxShadow='1px 11px 16px #333333';">No</button>
+		<div class="yesno-button yes-button" onclick="showUnderneathDiv(0);">Yes</div><div class="yesno-button no-button" onclick="showUnderneathDiv(1);">No</div>
 	</div><!--end guessOuter div -->
 
 
@@ -2322,7 +2316,6 @@ body {/**/
 			updateGameDataOnServer(0);
 			var el = document.getElementById("pointsSpan");
 			el.style.fontWeight = "bold";
-			el.style.fontSize = "3em";
 			if (points < 0) el.style.color = "#F00000";
 			else if (points == 0) el.style.color = "gray";
 			else if (points > 0) el.style.color = "#3ecf8e";
