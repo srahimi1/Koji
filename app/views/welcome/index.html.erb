@@ -101,7 +101,7 @@ body {/**/
 .goal-container {
 	position: relative;
 	width: 100%;
-	height: 16em;
+	height: 20em;
 	padding: 0;
 	margin: 0 auto;
 	text-align: center;
@@ -147,7 +147,6 @@ body {/**/
 }
 
 .points-and-xs-container {
-	position: relative;
 	width: 100%;
 	padding: 1em 0 1em 0;
 	margin: 0 auto;
@@ -160,8 +159,16 @@ body {/**/
 .pointsandxs-div {
 	display: inline-block;
 	width: 45%;
-	font-size: 2em;
+	font-size: 3em;
 	text-align: center;
+}
+
+.divider {
+	display: inline-block;
+	height: 7em;
+	width: 1px;
+	margin-top:	0.5em;
+	border: 1px solid white;
 }
 
 .points {
@@ -221,8 +228,8 @@ body {/**/
 .guess-outer {
 	position: relative;
 	width: 100%;
-	height: 12em;
-	padding: 4em 0;
+	height: 20em;
+	padding: 0;
 	margin: 0 auto;
 	overflow: hidden;
 }
@@ -230,7 +237,7 @@ body {/**/
 .guess-container {
 	position: relative;
 	width: 100%;
-	height: 16em;
+	height: 20em;
 	margin: 0 auto;
 	overflow: hidden;
 }
@@ -281,18 +288,20 @@ body {/**/
 }
 
 .buttons-div {
-	position: relative;
+	position: fixed;
 	width: 100%;
 	height: 10em;
 	padding-top: 1em;
+	top: 100%;
+	margin-top: -18em;
 	white-space: nowrap;
-	z-index: 0;
+	
 }
 
 .buttons-instructions {
-	font-size: 2em;
-	margin: 0 auto 1em auto;
-	color: black;
+	font-size: 3em;
+	margin: 2em auto 1em auto;
+	color: #363636;
 }
 
 
@@ -830,7 +839,6 @@ body {/**/
 		</div>
 	</div><!--end pointsandxsContainer div -->
 
-	<div id="goalTitle" class="small-title goal-title">Goal Color</div>
 	<div id="goalContainer" class="goal-container">
 		<div id="goal" class="goal-div"></div>
 		<canvas id="canvas1" class="canvas-1"></canvas>
@@ -842,19 +850,18 @@ body {/**/
 	</div><!--end guessContainer div -->
 	<div id="letterChoicesCont" class="letter-choices-container"></div>
 	</div><!--end guessOuter div -->
-	<div id="buttonsDiv" class="buttons-div">
-		<div id="instruction1" class="small-title buttons-instructions">Do the two colors directly above mix to match goal?</div>
-		<div class="yesno-button yes-button" onclick="showUnderneathDiv(0);">Yes</div><div class="yesno-button no-button" onclick="showUnderneathDiv(1);">No</div>
-	</div><!--end guessOuter div -->
+
+	<div id="instruction1" class="small-title buttons-instructions">Will mixing the colors in boxes 1 and 2 make the color shown above them?</div>
 
 	<div id="gameLettersContainer" class="game-letters-container" style="display: none;">
 		<div id="instruction2" class="small-title letter-instructions">Select a spot below to see the available letters for it.</div>
 		<div id="gameLettersDiv" class="game-letters-div"></div>
+	</div><!--end gameLettersContainer div -->
+
+	<div id="buttonsDiv" class="buttons-div">
+		<div class="yesno-button yes-button" onclick="showUnderneathDiv(0);">Yes</div>
+		<div class="yesno-button no-button" onclick="showUnderneathDiv(1);">No</div>
 	</div><!--end buttons-div div -->
-
-
-
-
 
 </div><!--end gameContent div -->
 	
@@ -2203,12 +2210,12 @@ body {/**/
 		switch(code) {
 			case 1:
 				document.getElementById("gameLettersContainer").style.display = "none";
-				document.getElementById("buttonsDiv").style.display = "block";
+				document.getElementById("instruction1").style.display = "block";
 				document.getElementById("instruction2").style.opacity = "0";
 				break;
 			case 2:
 				document.getElementById("gameLettersContainer").style.display = "block";
-				document.getElementById("buttonsDiv").style.display = "none";
+				document.getElementById("instruction1").style.display = "none";
 				document.getElementById("instruction2").style.opacity = "1";
 				break;
 		}// end switch(code)
