@@ -577,9 +577,9 @@ body {
 }
 
 .menu-div-item-description {
-	width: 90%;
+	width: 80%;
 	margin: 0;
-	padding: 0 0 0 0.5em;
+	padding: 0 0 0 3.5em;
 	text-align: left;
 	font-size: 2em;
 	color: #676767; /*#9f9f9f;*/
@@ -904,6 +904,11 @@ body {
 				<h3 class="menu-div-item"> Profile</h3>
 				<p class="menu-div-item-description">View your high score history, change your account info, and cancel your membership.</p>
 			</li>
+			<li id="contactusChoice" class="menu-div-li li-odd" style="margin-top: 0.2em;" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('contactusDiv'));">
+				<svg class="menu-div-svg-icon" version="1.1" viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><path d="m24.963 49.09c-9.4657 0-18.051-3.0153-24.463-7.9075 1.2543-7.9034 7.531-12.951 15.225-15.137a19.703 16.073 0 0 0 9.2084 1.8568 19.713 16.081 0 0 0 9.2207-1.8608c7.7066 2.1858 13.996 7.2414 15.24 15.163-6.4078 4.8801-14.978 7.8873-24.431 7.8873z" fill="#aa77ff" stroke-width="2.2345"/><path d="m38.57 11.7a13.617 11.108 0 0 1-13.602 11.114 13.612 11.104 0 0 1-13.597-11.11 13.607 11.1 0 0 1 13.597-11.114 13.612 11.104 0 0 1 13.602 11.11z" fill="#66339f" fill-opacity=".94118" stroke-width="2.2345"/></svg>
+				<h3 class="menu-div-item"> Contact Us</h3>
+				<p class="menu-div-item-description">Send us a message.</p>
+			</li>
 			<li style="width: 100%; text-align:center; background-color: white;"><button id="newGameButton" style="background-color: #3ecf8e; background: -moz-linear-gradient(#3eef8e,#3ecf8e); background: -webkit-linear-gradient(#3eef8e,#3ecf8e);background: -o-linear-gradient(#3eef8e,#3ecf8e); background: linear-gradient(#3eef8e,#3ecf8e); color: white; border-radius: 0.5em; box-shadow: -2px 4px 8px #aaaaaa; border: none; font-size:1.5em;padding:.5em; margin-top: 0.2em;" onclick="setupNewGame()">New Game</button>
 			</li>
 		</ul>
@@ -1064,7 +1069,36 @@ body {
 	<div class="hidden-opt-right" onclick="closeMenu(document.getElementById('profileDiv'))"></div>
 </div><!-- end profileDiv -->
 
-
+<div id="contactusDiv" class="modal-div signin-div">
+	<div class="modal-div-header">
+		<ul class="ul-for-header">
+			<li class="li-for-header-left" onclick="closeMenu(document.getElementById('contactusDiv')); showMenu(document.getElementById('menuDiv'));">&lt; menu</li>
+			<li class="li-for-header-middle">Contact Us</li>
+			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('contactusDiv'))">X</li>
+		</ul>
+	</div>
+	<p class="modal-game-title">KOJI</p>
+	<div class="signup-form-div">
+		<%= form_tag("/", method: "", id: "contactusForm", class: "signup-form-form signin-form-form") do %>
+			<p class="signup-form-paragraph" style="font-size: 0.5em;">If you forgot your password, you can reset it by entering in your login info, without the password, and pressing 'Reset Password'. You will be emailed a confirmation code with instructions.</p>
+			<p class="signup-form-paragraph"><span id="loginEmailErrorMessage" style="color:red"></span></p>
+			<p class="signup-form-paragraph"><input id="loginEmailInput" type="text" name="loginEmail" placeholder=" Email" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph">- or -</p>
+			<p class="signup-form-paragraph"><span id="loginCellphoneErrorMessage" style="color:red"></span></p>
+			<p class="signup-form-paragraph"><input id="loginNumberInput" class="signup-form-input" style="font-size: 1em; margin: 0;" type="number" name="none2" onkeyup="validateCellphone(document.getElementById('loginCellphoneInput'),2)"></p>
+			<p class="signup-form-paragraph" style="margin-top: -2em;"><input id="loginCellphoneInput" type="text" name="loginCell" placeholder=" Cellphone" maxlength="20" class="signup-form-input" onkeyup="validateCellphone(this,2)" onfocus="validateCellphone(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph">&nbsp;</p>
+			<p class="signup-form-paragraph">- and -</p>
+			<p class="signup-form-paragraph"><span id="loginPasswordErrorMessage" style="color:red"></span></p>
+			<p class="signup-form-paragraph"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder=" Password" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"></p>
+			<p style="width: 80%; margin: 0; padding: .2em 0; text-align: right;"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit(0)"></p>
+		<% end %>
+	</div>
+	<div class="modal-div-footer"></div>
+	<div class="hidden-opt-left" onclick="closeMenu(document.getElementById('signinDiv')); showMenu(document.getElementById('menuDiv'));"></div>
+	<div class="hidden-opt-right" onclick="closeMenu(document.getElementById('signinDiv'))"></div>
+</div><!-- end contactusDiv -->
 
 <div id="plus15svg" style="display:none"><svg id="plus15svg2" style="position: absolute; display: block; margin:auto; width: 25%; height: 25%;" viewBox="0 0 21 10" xmlns="http://www.w3.org/2000/svg">
  <g transform="translate(-2.7488 -1.6998)">
