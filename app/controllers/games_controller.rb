@@ -5,7 +5,7 @@ class GamesController < ApplicationController
       else 
         @player = Player.find(0)
       end
-      @game = @player.games.create(score: 0)
+      @game = @player.games.new(score: 0)
   		@response = @game.start_new_game
       @game.game_data = JSON.generate(@response)
       @game.save
