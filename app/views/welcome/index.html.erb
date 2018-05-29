@@ -2,6 +2,8 @@
 <html>
 <title></title>
 <head>
+<link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
+
 <style>
 html {
 	width: 100%;
@@ -11,7 +13,7 @@ html {
 	padding: 0;
 }
 
-body {/**/
+body {
 	width: 100%;
 	height: 100%; 
 	overflow-x: hidden;
@@ -19,7 +21,7 @@ body {/**/
 	margin: 0;
 	padding: 0;
 	background-color: #dedede; /*#4a0077; #f0f0f0;*/
-	font-family: Trebuchet MS, helvetica, tahoma;
+	font-family: 'Playfair Display', serif, Trebuchet MS, helvetica, tahoma;
 }
 
 /* main app sections */
@@ -31,13 +33,6 @@ body {/**/
 	color:white;
 	text-align: center;
 	background-color: #2e2e2e; /*#7a00cc;*/
-/*	background: -moz-linear-gradient(#9900ff,#7a00cc);
-	background: -webkit-linear-gradient(#9900ff,#7a00cc);
-	background: -o-linear-gradient(#9900ff,#7a00cc);
-	background: linear-gradient(#9900ff,#7a00cc);*/
-/*	-webkit-box-shadow: 0px 6px 16px #666666;
-	-moz-box-shadow: 0px 6px 16px #666666;
-	box-shadow: 0px 6px 16px #666666;*/
 	z-index: 100;
 }
 
@@ -84,13 +79,6 @@ body {/**/
 	color: #fafffa;
 	font-size: 2em;
 	background-color: #2e2e2e;
-/*	background: -moz-linear-gradient(#9900ff,#7a00cc);
-	background: -webkit-linear-gradient(#9900ff,#7a00cc);
-	background: -o-linear-gradient(#9900ff,#7a00cc);
-	background: linear-gradient(#9900ff,#7a00cc);
-	-webkit-box-shadow: 0px -6px 16px #666666;
-	-moz-box-shadow: 0px -6px 16px #666666;
-	box-shadow: 0px -6px 16px #666666;*/
 	overflow: hidden;
 	z-index: 100;
 }
@@ -439,11 +427,7 @@ body {/**/
 	text-align: center;
 	color: #fafffa;
 	font-size: 2.5em;
-	background-color: #7a00cc;
-	background: -moz-linear-gradient(#9900ff,#7a00cc);
-	background: -webkit-linear-gradient(#9900ff,#7a00cc);
-	background: -o-linear-gradient(#9900ff,#7a00cc);
-	background: linear-gradient(#9900ff,#7a00cc);
+	background-color: #2e2e2e;
 }
 
 .modal-div-footer {
@@ -452,11 +436,7 @@ body {/**/
 	top: 100%;
 	padding: 2.5em 0;
 	margin-top: -4.5em;
-	background-color: #7a00cc;
-	background: -moz-linear-gradient(#9900ff,#7a00cc);
-	background: -webkit-linear-gradient(#9900ff,#7a00cc);
-	background: -o-linear-gradient(#9900ff,#7a00cc);
-	background: linear-gradient(#9900ff,#7a00cc);
+	background-color: #2e2e2e;
 }
 
 .modal-game-title {
@@ -556,7 +536,7 @@ body {/**/
 
 .menu-div-li {
 	width: 100%;
-	height: 10em;
+	height: 11em;
 	padding: 1em 0.5em 1em 1em;
 	margin: 0;
 	background-color: #f3f6f9;
@@ -581,7 +561,7 @@ body {/**/
 	margin: 0;
 	width: 4em;
 	height: 5em;
-	padding: 0 0 0 1em;
+	padding: 0.7em 0 0 1em;
 	vertical-align: top;
 }
 
@@ -592,8 +572,8 @@ body {/**/
 	text-align: left;
 	font-size: 4.5em;
 	font-weight: 500;
-	font-family: "Helvetica", sans-serif;
-	color: #9966CC; /*#441177; #3ecf8e;*/
+	/*font-family: "Helvetica", sans-serif;*/
+	color: #663399; /*#441177; #3ecf8e;*/
 }
 
 .menu-div-item-description {
@@ -912,12 +892,12 @@ body {/**/
 			<li id="signupChoice" class="menu-div-li li-even" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signupDiv'));">
 				<svg class="menu-div-svg-icon" version="1.1" viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><path d="m32.004 34.206h-24.017a1.1541 1.2353 0 0 0-1.1541 1.2353v3.7059a1.1541 1.2353 0 0 0 1.1541 1.2353h28.852a1.1541 1.2353 0 0 0 1.1541-1.2353v-2.2309l5.7705-3.0215v10.194a3.4623 3.7059 0 0 1-3.4623 3.7059h-35.777a3.4623 3.7059 0 0 1-3.4623-3.7059v-38.294a3.4623 3.7059 0 0 1 3.4623-3.7059h35.777a3.4623 3.7059 0 0 1 3.4623 3.7059v18.242zm-25.171-7.4118a1.1541 1.2353 0 0 0 1.1541 1.2353h11.541a1.1541 1.2353 0 0 0 1.1541-1.2353v-3.7059a1.1541 1.2353 0 0 0-1.1541-1.2353h-11.541a1.1541 1.2353 0 0 0-1.1541 1.2353zm31.161-16.059a1.1541 1.2353 0 0 0-1.1541-1.2353h-28.852a1.1541 1.2353 0 0 0-1.1541 1.2353v3.7059a1.1541 1.2353 0 0 0 1.1541 1.2353h28.852a1.1541 1.2353 0 0 0 1.1541-1.2353zm0 12.353a1.1541 1.2353 0 0 0-1.1541-1.2353h-11.541a1.1541 1.2353 0 0 0-1.1541 1.2353v3.7059a1.1541 1.2353 0 0 0 1.1541 1.2353h11.541a1.1541 1.2353 0 0 0 1.1541-1.2353z" fill="#9900ff" stroke-width="1.194"/><path d="m35.635 35.892 12.861-13.786a3.5315 3.78 0 0 0 0-5.334 3.5119 3.759 0 0 0-4.9741 0l-12.86 13.786a2.8218 3.0203 0 0 0-0.73862 1.3996l-1.131 4.8485a0.84018 0.89929 0 0 0 1.0156 1.092l4.5217-1.2155a2.7698 2.9647 0 0 0 1.3041-0.79306z" fill="#663399" stroke-width="1.194"/></svg>
 				<h3 class="menu-div-item"> Sign Up</h3>
-				<p class="menu-div-item-description">Get more challenges, recording of your high scores, and access to the upcoming multi-player version.</p>
+				<p class="menu-div-item-description">Get new challenges, the ability to record your high scores, and access to the upcoming multi-player version.</p>
 			</li>
 			<li id="signinChoice" class="menu-div-li li-odd" style="margin-top: 0.1em;" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('signinDiv'));">
 				<svg class="menu-div-svg-icon" version="1.1" viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><g><path d="m35.525 24.087v-11.645c-0.065807-3.9622-4.7064-7.1501-10.408-7.1501-5.7018 0-10.342 3.1879-10.408 7.1501v4.5867h-6.9231v-4.3361c0-6.6516 7.7592-12.045 17.332-12.045s17.332 5.3932 17.332 12.045l0.25112 11.16z" fill="#663399" stroke-width="1.1559"/><path d="m20.265 33.558c0 1.5584 1.1162 2.9168 2.7731 3.6434v3.7276a2.7731 2.106 0 0 0 2.7731 2.106v6.318h-19.412a5.5462 4.212 0 0 1-5.5462-4.212v-17.901a5.5462 4.212 0 0 1 5.5462-4.212h19.412v6.318a5.5462 4.212 0 0 0-5.5462 4.212z" fill="#9966cc" stroke-width="1.2083"/><path d="m43.836 49.353h-18.025v-6.318a2.7731 2.106 0 0 0 2.7731-2.106v-3.7276a5.5324 4.2015 0 0 0 2.7731-3.6434 5.5462 4.212 0 0 0-5.5462-4.212v-6.318h18.025a5.5462 4.212 0 0 1 5.5462 4.212v17.901a5.5462 4.212 0 0 1-5.5462 4.212z" fill="#663399" stroke-width="1.2083"/></g></svg>
 				<h3 class="menu-div-item"> Sign In</h3>
-				<p class="menu-div-item-description">View your high score history or cancel your membership. Thank you for signing-up and enjoy!</p>
+				<p class="menu-div-item-description">Sign in or reset a forgotten password.</p>
 			</li>
 			<li id="profileChoice" class="menu-div-li li-even" style="margin-top: 0.2em;" onclick="closeMenu(document.getElementById('menuDiv'));showMenu(document.getElementById('profileDiv'));">
 				<svg class="menu-div-svg-icon" version="1.1" viewbox="0 0 50 50" xmlns="http://www.w3.org/2000/svg"><path d="m24.963 49.09c-9.4657 0-18.051-3.0153-24.463-7.9075 1.2543-7.9034 7.531-12.951 15.225-15.137a19.703 16.073 0 0 0 9.2084 1.8568 19.713 16.081 0 0 0 9.2207-1.8608c7.7066 2.1858 13.996 7.2414 15.24 15.163-6.4078 4.8801-14.978 7.8873-24.431 7.8873z" fill="#aa77ff" stroke-width="2.2345"/><path d="m38.57 11.7a13.617 11.108 0 0 1-13.602 11.114 13.612 11.104 0 0 1-13.597-11.11 13.607 11.1 0 0 1 13.597-11.114 13.612 11.104 0 0 1 13.602 11.11z" fill="#66339f" fill-opacity=".94118" stroke-width="2.2345"/></svg>
