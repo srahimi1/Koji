@@ -384,7 +384,6 @@ body {/**/
 	text-align: center;
 	background: lightblue;
 	border: 3px solid #fafffa;
-	box-shadow: -2px 1px 2px lightgray;
 	border-radius: 0.4em;
 }
 
@@ -1958,6 +1957,7 @@ body {/**/
 					letter.style.height = height + "px";
 					letter.style.lineHeight = height + "px";					
 					letter.style.padding = "0";
+					letter.style.margin = "0";
 					letter.parentNode.style.width = (width + 10) + "px";
 					letter.parentNode.style.padding = "0";
 					var ind = selectedUnderscore.id.split(":")[1];
@@ -1967,7 +1967,7 @@ body {/**/
 					var par = document.getElementById("guess").firstChild;
 					var cn = par.childNodes;
 					var sendID = cn[0].id + "";
-					setTimeout(function() {switchButtonsAndLetters(1);},3500);
+					if (!gameOver) setTimeout(function() {switchButtonsAndLetters(1);},3500);
 					getNextColors(par, sendID);
 				} else {					
 					values[1]++;
