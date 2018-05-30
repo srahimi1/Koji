@@ -105,18 +105,23 @@ class PlayersController < ApplicationController
 	end
 
 	def show
-		player = Player.find(session["player_id"])
-		history = PlayerGamingHistory.find_by(player_id: session["player_id"]).history
-		response = {}
-		response["email"] = player.email
-		response["cellphone"] = player.cellphone
-		if (!history.blank?)
-			response["history"] = JSON.parse(history)
+		output = ""
+		if (!session["player_id"].blank?)
+			player = Player.find(session["player_id"])
+			history = PlayerGamingHistory.find_by(player_id: session["player_id"]).history
+			response = {}
+			response["email"] = player.email
+			response["cellphone"] = player.cellphone
+			if (!history.blank?)
+				response["history"] = JSON.parse(history)
+			else
+				response["history"] = ""
+			end
+			res = JSON.generate(response)
+			output = "OK_?*#{res}"
 		else
-			response["history"] = ""
+			output = "BAD_?*"
 		end
-		res = JSON.generate(response)
-		output = "OK_?*#{res}"
 		render plain: output
 	end
 
