@@ -918,7 +918,7 @@ body {
 				<h3 class="menu-div-item"> Contact Us</h3>
 				<p class="menu-div-item-description">Send us a message.</p>
 			</li>
-			<li style="width: 100%; text-align:center;"><button id="newGameButton" style="background-color: #3ecf8e; color: white; border-radius: 0.5em; box-shadow: -2px 4px 8px #aaaaaa; border: none; font-size:4.5em;padding:.5em 4em; margin-top: 0.2em;" onclick="setupNewGame()">New Game</button>
+			<li style="width: 100%; text-align:center;"><button id="newGameButton" style="background-color: #3ecf8e; color: white; border-radius: 0.5em; box-shadow: -2px 4px 8px #aaaaaa; border: none; font-size:3.8em;padding:.3em 5em; margin-top: 0.2em;" onclick="setupNewGame()">New Game</button>
 			</li>
 		</ul>
 		<div class="modal-div-footer"></div>
@@ -1050,7 +1050,8 @@ body {
 		<p id="changeLoginErrorMessage" class="profile-paragraph" style="color:red"></p>
 		<p class="profile-paragraph"><input id="changeEmailInput" class="profile-input" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onblur="validateEmail(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 		<p class="profile-paragraph" style="padding: 0.1em 2em; font-size: 1.5em;">- and/ or -</p>
-		<p class="profile-paragraph"><input id="changeNumberInput" class="profile-input" type="number" name="none" style="display: block; height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)"><input id="changeCellphoneInput" class="profile-input" style="display: block; margin: -1em 0 0 0;" type="text" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 2em; visibility: hidden;" %></p>
+		<p class="profile-paragraph"><input id="changeNumberInput" class="profile-input" type="number" name="none" style="height: 1em; width: 40%; margin: 0; padding: 0;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)"></p>
+		<p class="profile-paragraph" style="margin-top: -5em;"><input id="changeCellphoneInput" class="profile-input" type="text" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 2em; visibility: hidden;" %></p>
 		<p class="buttons-paragraph"><button id="changeLoginButton" class="profile-update-button" onclick="updateInfo(2)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(4)">Cancel</button></p>
 	</div>
 	<div id="cancelMembership" class="profile-option-div">
