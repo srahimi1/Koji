@@ -704,19 +704,19 @@ body {
 }
 
 .profile-paragraph {
-	width: 60em;
-	padding: 0.5em 2em;
+	width: 95%;
+	padding: 0.5em 1em;
 	margin: 0.5em 0;
 }
 
 .profile-input {
-	width: 13em;
-	font-size: 3em;
+	width: 88%;
+	font-size: 1.9em;
 	border: 1px solid #aaaaaa;
 }
 
 .profile-update-button {
-	font-size: 2em;
+	font-size: 1.3em;
 	padding: 0.2em 0.7em;
 	margin-left: 1em;
 	border: none;
@@ -726,7 +726,7 @@ body {
 }
 
 .profile-cancel-button {
-	font-size: 2em;
+	font-size: 1.3em;
 	padding: 0.2em 0.7em;
 	margin-left: 1em;
 	border: none;
@@ -878,10 +878,7 @@ body {
 
 
 <div id="gameMessageDiv" class="modal-div game-message-div">
-	<div class="hidden-opt-right" onclick="closeMenu(document.getElementById('gameMessageDiv'))"></div>
-	<div style="width: 100%; height: 6em; text-align: right; color: gray; font-size: 4em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('gameMessageDiv'))">X</p>
-	</div>
-	<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><h2 id="gameMessage" style="font-size: 4em; text-align: center; width: 80%; margin: auto;"></h2>
+	<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><h2 id="gameMessage" style="font-size: 3em; text-align: center; width: 80%; margin: auto;"></h2>
 	</div>
 </div><!-- end gameMessageDiv -->
 
@@ -944,7 +941,7 @@ body {
 		<li class="instruction-li">
 			<p class="instruction-paragraph">If two colors, shown in the middle of the screen, will mix to produce the color shown directly above them, hit the bottom "Yes" button. If not, hit "No".</p></li>
 		<li class="instruction-li">
-			<p class="instruction-paragraph">Every time you guess correctly which colors produce the desired color, small portions of hidden letters are revealed. After every 3rd correct color mixture guess, you will be shown a board with letters from which to choose. Correctly choose all the hidden letters and you win!</p></li>
+			<p class="instruction-paragraph">Every time you correctly guess which colors produce the desired color, small portions of hidden letters are revealed. After every 3rd correct color mixture guess, you will be shown a board with letters from which to choose. Correctly choose all the hidden letters and you win!</p></li>
 		<li class="instruction-li"><p class="instruction-header-paragraph">Xs:</p>
 			<p class="instruction-paragraph">For every 3 wrong color match guesses in a row, you get an X. For every incorrect hidden letter guess, you get an X. Four Xs and game is over.</p></li>
 		<li class="instruction-li"><p class="instruction-header-paragraph">Point values:</p>
@@ -1022,12 +1019,12 @@ body {
 		<% end %>
 		<div id="changePassword" class="profile-option-div" style="position: relative; background-color: gray; border-bottom: none;">
 			<p id="changePasswordErrorMessage" class="profile-paragraph" style="font-size: 2em; padding: 0.5em 1em; color:red"></p>
-			<p class="profile-paragraph" style="font-size: 2em; padding: 0.5em 1em; color: white;">Please enter reset password confirmation code below</p>
+			<p class="profile-paragraph" style="padding: 0.5em 1em; color: white;">Please enter reset password confirmation code below</p>
 			<p class="profile-paragraph"><input id="passwordChangeConfirmationCode" class="profile-input" type="text" placeholder="Reset Confirmation Code"></p>
 			<p class="profile-paragraph"><input id="changePasswordInput1" class="profile-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="profile-paragraph"><input id="changePasswordInput2" class="profile-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 
-			<p class="buttons-paragraph" style="width: 83%;"><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(4)">Close</button></p>
+			<p class="buttons-paragraph" style="width: 87%;"><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(4)">Close</button></p>
 		</div>
 
 	</div>
@@ -2637,9 +2634,9 @@ body {
 		if (opt == 1) {
 			/*document.getElementById("changePassword").style.display = "block";*/
 			if (document.getElementById("changePassword").offsetHeight < 5) {
-				document.getElementById("changePassword").style.height = "89em";
-				document.getElementById("changePassword").style.marginTop = "-89em";
-			} else setTimeout(function() {document.getElementById("changePassword").style.height = "89em"; document.getElementById("changePassword").style.marginTop = "-89em";},600);
+				document.getElementById("changePassword").style.height = "53em";
+				document.getElementById("changePassword").style.marginTop = "-53em";
+			} else setTimeout(function() {document.getElementById("changePassword").style.height = "53em"; document.getElementById("changePassword").style.marginTop = "-53em";},600);
 			document.getElementById("changePasswordInput1").value = '';
 			document.getElementById("changePasswordInput2").value = '';
 			document.getElementById("passwordChangeConfirmationCode").value = "";
