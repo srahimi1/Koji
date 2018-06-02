@@ -521,7 +521,7 @@ body {
 }
 
 .buttons-paragraph {
-	width: 71%;
+	width: 84%;
 	margin: 0;
 	padding: .2em 0;
 	text-align: right;"
@@ -642,7 +642,7 @@ body {
 }
 
 .signup-form-paragraph {
-	width: 80%;
+	width: 95%;
 	margin: 0;
 	padding: .2em 0;
 }
@@ -969,11 +969,11 @@ body {
 	<p class="modal-game-title">KOJI</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signupForm", class: "signup-form-form") do %>
-			<p class="signup-form-paragraph">Email and cellphone will be used for login and password recovery. Sign-up requires a $2 recurring monthly membership fee,</p>
+			<p class="signup-form-paragraph" style="font-size: 0.7em">Email and cellphone will be used for login and password recovery. Sign-up requires a $2 recurring monthly membership fee,</p>
 			<p class="signup-form-paragraph">&nbsp;</p>
 			<p class="signup-form-paragraph"><span id="emailErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="emailInput" class="signup-form-input" type="text" name="email" placeholder=" Email" maxlength="70" onkeyup="validateEmail(this,1)" onblur="validateEmail(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
-			<p class="signup-form-paragraph" style="font-size: 0.6em;">- Cellphone optional -</p>
+			<p class="signup-form-paragraph">- Cellphone optional -</p>
 			<p class="signup-form-paragraph"><span id="cellphoneErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="numberInput" style="font-size: 1em; margin: 0;" type="number" name="none" onkeyup="validateCellphone(document.getElementById('cellphoneInput'),1)"></p>
 			<p class="signup-form-paragraph" style="margin-top: -2em;"><input id="cellphoneInput" class="signup-form-input" type="text" name="cell" placeholder=" Cellphone" maxlength="20" onkeyup="validateCellphone(this,1)" onfocus="validateCellphone(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
@@ -1018,7 +1018,7 @@ body {
 			<p class="signup-form-paragraph"><span id="loginPasswordErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder=" Password" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"></p>
-			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: dimgray; margin-right: 2.5em;" onclick="signinFormSubmit(1);profileOption(1);"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit(0)"></p>
+			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: dimgray; margin-right: 5.5em;" onclick="signinFormSubmit(1);profileOption(1);"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit(0)"></p>
 		<% end %>
 		<div id="changePassword" class="profile-option-div" style="position: relative; background-color: gray; border-bottom: none;">
 			<p id="changePasswordErrorMessage" class="profile-paragraph" style="font-size: 2em; padding: 0.5em 1em; color:red"></p>
@@ -1098,7 +1098,7 @@ body {
 		<%= form_tag("/", method: "", id: "contactusForm", class: "signup-form-form contactus-form-form") do %>
 			<p class="signup-form-paragraph" style="font-size: 0.7em;"><input id="contactusEmailInput" type="text" name="contactusEmail" placeholder=" Email" maxlength="70" class="signup-form-input"></p>
 			<p class="signup-form-paragraph"><textarea id="contactusMessage" class="contactus-message" placeholder="Your message"></textarea></p>
-			<p class="buttons-paragraph" style="width: 71%;"><input id="contactusSubmit" type="button" name="contactusSubmit" value="Send" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="submitMessage()"></p>
+			<p class="buttons-paragraph"><input id="contactusSubmit" type="button" name="contactusSubmit" value="Send" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="submitMessage()"></p>
 		<% end %>
 	</div>
 	<div class="modal-div-footer"></div>
