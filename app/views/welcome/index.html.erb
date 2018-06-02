@@ -627,10 +627,10 @@ body {
 
 .signup-form-form {
 	width: 100%;
-	height: 40em;
+	height: 50em;
 	margin: 0.5em auto;
 	padding: 1em 1em;
-	font-size: 1.5em;
+	font-size: 1.7em;
 	color: #663399;
 	background-color: #e5e5e5;
 	overflow-y: auto;
@@ -638,7 +638,7 @@ body {
 }
 
 .signin-form-form {
-	height: 24em;
+	height: 50em;
 }
 
 .signup-form-paragraph {
@@ -649,7 +649,7 @@ body {
 
 .signup-form-input {
 	margin: 0;
-	width: 90%;
+	width: 88%;
 	font-size: 2em;
 	color: #3ecf8e;
 	border: none;
@@ -799,12 +799,14 @@ body {
 }
 
 .contactus-form-form {
-	height: 24em;
+	height: 35em;
 }
 
 .contactus-message {
-	width: 80%;
-	height: 40em;
+	width: 87%;
+	height: 15em;
+	margin-left: 0.1em;
+	font-size: 1.5em;
 	border: none;
 }
 </style>
@@ -879,7 +881,7 @@ body {
 	<div class="hidden-opt-right" onclick="closeMenu(document.getElementById('gameMessageDiv'))"></div>
 	<div style="width: 100%; height: 6em; text-align: right; color: gray; font-size: 4em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('gameMessageDiv'))">X</p>
 	</div>
-	<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><h2 id="gameMessage" style="font-size: 4em; text-align: center;"></h2>
+	<div style="display: block;width: 100%; text-align:center; overflow: hidden;"><h2 id="gameMessage" style="font-size: 4em; text-align: center; width: 80%; margin: auto;"></h2>
 	</div>
 </div><!-- end gameMessageDiv -->
 
@@ -919,7 +921,7 @@ body {
 				<h3 class="menu-div-item"> Contact Us</h3>
 				<p class="menu-div-item-description">Send us a message.</p>
 			</li>
-			<li style="width: 100%; text-align:center;"><button id="newGameButton" style="background-color: #3ecf8e; color: white; border-radius: 0.5em; box-shadow: -2px 4px 8px #aaaaaa; border: none; font-size:3.8em;padding:.3em 5em; margin-top: 0.2em;" onclick="setupNewGame()">New Game</button>
+			<li style="width: 100%; text-align:center;"><button id="newGameButton" style="background-color: #3ecf8e; color: white; border-radius: 0.5em; box-shadow: -2px 1px 8px #aaaaaa; border: none; font-size:3.8em;padding:.3em 5em; margin-top: 0.2em;" onclick="setupNewGame()">New Game</button>
 			</li>
 		</ul>
 		<div class="modal-div-footer"></div>
@@ -938,7 +940,7 @@ body {
 	</div>
 	<p class="modal-game-title">KOJI</p>
 	<ul class="instruction-ul">
-		<li class="instruction-top-li"><h4>Mix to match colors to uncover hidden letters. Figure out all the hidden letters and You Win!</h4></li>
+		<li class="instruction-top-li"><h4>Mix to match colors and uncover hidden letters. Figure out all the hidden letters and you win!</h4></li>
 		<li class="instruction-li"><p class="instruction-header-paragraph">First: Determine if two colors will mix to make a desired color.</p>
 			<p class="instruction-paragraph">Two colors are shown at the bottom of the screen, a rectangle with a desired 'goal' color is shown at the top. Hit 'yes' if you think the two bottom colors mix to make the desired goal color, hit 'no' if you think they don't.</p></li>
 		<li class="instruction-li"><p class="instruction-header-paragraph">Then: Behind the top, 'goal color' rectangle, there are hidden letters. Figure out the letters.</p>
@@ -967,10 +969,11 @@ body {
 	<p class="modal-game-title">KOJI</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signupForm", class: "signup-form-form") do %>
-			<p class="signup-form-paragraph">Email and cellphone will be used for login and password recovery. Sign-up requires a $2 recurring monthly membership fee.</p>
+			<p class="signup-form-paragraph">Email and cellphone will be used for login and password recovery. Sign-up requires a $2 recurring monthly membership fee,</p>
+			<p class="signup-form-paragraph">&nbsp;</p>
 			<p class="signup-form-paragraph"><span id="emailErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="emailInput" class="signup-form-input" type="text" name="email" placeholder=" Email" maxlength="70" onkeyup="validateEmail(this,1)" onblur="validateEmail(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
-			<p class="signup-form-paragraph">- Cellphone optional -</p>
+			<p class="signup-form-paragraph" style="font-size: 0.6em;">- Cellphone optional -</p>
 			<p class="signup-form-paragraph"><span id="cellphoneErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="numberInput" style="font-size: 1em; margin: 0;" type="number" name="none" onkeyup="validateCellphone(document.getElementById('cellphoneInput'),1)"></p>
 			<p class="signup-form-paragraph" style="margin-top: -2em;"><input id="cellphoneInput" class="signup-form-input" type="text" name="cell" placeholder=" Cellphone" maxlength="20" onkeyup="validateCellphone(this,1)" onfocus="validateCellphone(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
@@ -1002,7 +1005,8 @@ body {
 	<p class="modal-game-title">KOJI</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signinForm", class: "signup-form-form signin-form-form") do %>
-			<p class="signup-form-paragraph" style="font-size: 0.5em;">If you forgot your password, you can reset it by entering in your login info, without the password, and pressing 'Reset Password'. You will be emailed a confirmation code with instructions.</p>
+			<p class="signup-form-paragraph" style="font-size: 0.6em;">If you forgot your password, you can reset it by entering in your login info, without the password, and pressing 'Reset Password'. You will be emailed or texted a confirmation code to reset your password.</p>
+			<p class="signup-form-paragraph">&nbsp;</p>
 			<p class="signup-form-paragraph"><span id="loginEmailErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="loginEmailInput" type="text" name="loginEmail" placeholder=" Email" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph">- or -</p>
@@ -1014,17 +1018,16 @@ body {
 			<p class="signup-form-paragraph"><span id="loginPasswordErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder=" Password" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"></p>
-			<p class="buttons-paragraph"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit(0)"></p>
-			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: darkmagenta; margin-top: 2em; font-size: 1.2em;" onclick="signinFormSubmit(1);profileOption(1);"></p>
+			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: dimgray; margin-right: 3.1em;" onclick="signinFormSubmit(1);profileOption(1);"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit(0)"></p>
 		<% end %>
 		<div id="changePassword" class="profile-option-div" style="position: relative; background-color: gray; border-bottom: none;">
-			<p id="changePasswordErrorMessage" class="profile-paragraph" style="color:red"></p>
-			<p class="profile-paragraph">Please enter reset password confirmation code below</p>
+			<p id="changePasswordErrorMessage" class="profile-paragraph" style="font-size: 2em; padding: 0.5em 1em; color:red"></p>
+			<p class="profile-paragraph" style="font-size: 2em; padding: 0.5em 1em; color: white;">Please enter reset password confirmation code below</p>
 			<p class="profile-paragraph"><input id="passwordChangeConfirmationCode" class="profile-input" type="text" placeholder="Reset Confirmation Code"></p>
 			<p class="profile-paragraph"><input id="changePasswordInput1" class="profile-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="profile-paragraph"><input id="changePasswordInput2" class="profile-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 
-			<p class="buttons-paragraph"><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(4)">Cancel</button></p>
+			<p class="buttons-paragraph" style="width: 83%;"><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(4)">Close</button></p>
 		</div>
 
 	</div>
@@ -1050,16 +1053,16 @@ body {
 	<div id="changeLogin" class="profile-option-div">
 		<p id="changeLoginErrorMessage" class="profile-paragraph" style="color:red"></p>
 		<p class="profile-paragraph"><input id="changeEmailInput" class="profile-input" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onblur="validateEmail(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-		<p class="profile-paragraph" style="padding: 0.1em 2em; font-size: 1.5em;">- and/ or -</p>
+		<p class="profile-paragraph" style="padding: 0.1em 1em; font-size: 2em;">- and/ or -</p>
 		<p class="profile-paragraph"><input id="changeNumberInput" type="number" name="none" style="font-size: 1em; margin: 0;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)"></p>
 		<p class="profile-paragraph" style="margin-top: -3.4em;"><input id="changeCellphoneInput" class="profile-input" type="text" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 2em; visibility: hidden;" %></p>
-		<p class="buttons-paragraph"><button id="changeLoginButton" class="profile-update-button" onclick="updateInfo(2)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(4)">Cancel</button></p>
+		<p class="buttons-paragraph" style="width: 83%;"><button id="changeLoginButton" class="profile-update-button" onclick="updateInfo(2)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(4)">Close</button></p>
 	</div>
 	<div id="cancelMembership" class="profile-option-div">
 		<p id="cancelMembershipErrorMessage" class="profile-paragraph" style="color:red"></p>
 		<p class="profile-paragraph"><input id="cancelMembershipInput" class="profile-input" type="text" placeholder="Type 'cancel'" onkeyup="validateCancelMembership(this)"></p>
-		<p class="buttons-paragraph"><button id="cancelMembershipButton" class="profile-update-button" onclick="updateInfo(3)" disabled="disabled">Cancel Membership</button><button class="profile-cancel-button" onclick="profileOption(4)">Cancel</button></p>
-		<p>By cancelling your membership, you are ending monthly membership payments, deleting all score history, and deleting your email and/or cellphone and login information. Cancelling membership deletes your entire account.</p>
+		<p class="buttons-paragraph" style="width: 83%;"><button id="cancelMembershipButton" class="profile-update-button" onclick="updateInfo(3)" disabled="disabled">Cancel Membership</button><button class="profile-cancel-button" onclick="profileOption(4)">Close</button></p>
+		<p style="font-size: 2em; width: 27em; padding: 0.1em 1em;">By cancelling your membership, you are ending monthly membership payments, deleting all score history, and deleting your email and/or cellphone login information. Cancelling membership deletes your entire account.</p>
 	</div>
 	<p class="profile-paragraph"><span id="profileUpdateResult" class="profile-update-result"></span><a href="javascript:void(0);" class="profile-option logout" onclick="updateInfo(4);">Logout</a></p>
 	<p class="profile-paragraph"></p>
@@ -1093,9 +1096,9 @@ body {
 	<p class="modal-game-title">KOJI</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "contactusForm", class: "signup-form-form contactus-form-form") do %>
-			<p class="signup-form-paragraph"><input id="contactusEmailInput" type="text" name="contactusEmail" placeholder=" Email" maxlength="70" class="signup-form-input"></p>
+			<p class="signup-form-paragraph" style="font-size: 0.7em;"><input id="contactusEmailInput" type="text" name="contactusEmail" placeholder=" Email" maxlength="70" class="signup-form-input"></p>
 			<p class="signup-form-paragraph"><textarea id="contactusMessage" class="contactus-message" placeholder="Your message"></textarea></p>
-			<p class="buttons-paragraph"><input id="contactusSubmit" type="button" name="contactusSubmit" value="Send" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="submitMessage()"></p>
+			<p class="buttons-paragraph" style="width: 71%;"><input id="contactusSubmit" type="button" name="contactusSubmit" value="Send" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="submitMessage()"></p>
 		<% end %>
 	</div>
 	<div class="modal-div-footer"></div>
@@ -2634,9 +2637,9 @@ body {
 		if (opt == 1) {
 			/*document.getElementById("changePassword").style.display = "block";*/
 			if (document.getElementById("changePassword").offsetHeight < 5) {
-				document.getElementById("changePassword").style.height = "54em";
-				document.getElementById("changePassword").style.marginTop = "-54em";
-			} else setTimeout(function() {document.getElementById("changePassword").style.height = "54em"; document.getElementById("changePassword").style.marginTop = "-54em";},600);
+				document.getElementById("changePassword").style.height = "89em";
+				document.getElementById("changePassword").style.marginTop = "-89em";
+			} else setTimeout(function() {document.getElementById("changePassword").style.height = "89em"; document.getElementById("changePassword").style.marginTop = "-89em";},600);
 			document.getElementById("changePasswordInput1").value = '';
 			document.getElementById("changePasswordInput2").value = '';
 			document.getElementById("passwordChangeConfirmationCode").value = "";
@@ -2645,8 +2648,8 @@ body {
 			document.getElementById("changePasswordButton").disabled = true;
 		} else if (opt == 2) {
 			/*document.getElementById("changeLogin").style.display = "block";*/
-			if (document.getElementById("changeLogin").offsetHeight < 5) document.getElementById("changeLogin").style.height = "22em";
-			else setTimeout(function() {document.getElementById("changeLogin").style.height = "22em";},600);
+			if (document.getElementById("changeLogin").offsetHeight < 5) document.getElementById("changeLogin").style.height = "27em";
+			else setTimeout(function() {document.getElementById("changeLogin").style.height = "27em";},600);
 			document.getElementById("changeEmailInput").value = '';
 			document.getElementById("changeCellphoneInput").value = '';
 			document.getElementById("changeNumberInput").value = '';
@@ -2655,8 +2658,8 @@ body {
 			document.getElementById("changeLoginButton").disabled = true;
 		} else if (opt == 3) {
 			/*document.getElementById("cancelMembership").style.display = "block";*/
-			if (document.getElementById("cancelMembership").offsetHeight < 5) document.getElementById("cancelMembership").style.height = "17em";
-			else setTimeout(function() {document.getElementById("cancelMembership").style.height = "17em";},600);
+			if (document.getElementById("cancelMembership").offsetHeight < 5) document.getElementById("cancelMembership").style.height = "27em";
+			else setTimeout(function() {document.getElementById("cancelMembership").style.height = "27em";},600);
 			document.getElementById("cancelMembershipInput").value = '';
 			document.getElementById("cancelMembershipButton").disabled = true;
 		} else if (opt == 4) {
@@ -2965,7 +2968,7 @@ body {
 	    			if (res.toUpperCase() == "OK") {
 	    				var el = document.getElementById("gameMessage"); 
 	    				el.style.color = "#3ecf8e"; 
-	    				el.innerHTML = "Thank you for signing up to Koji!<br/>Enjoy!"; 
+	    				el.innerHTML = "Thank you for signing up to play Koji!<br/>Enjoy!"; 
 	    				closeMenu(document.getElementById('signupDiv'));
 	    				showMenu(document.getElementById('gameMessageDiv')); 
 	    				setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},3500);
