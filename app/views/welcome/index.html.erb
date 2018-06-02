@@ -622,6 +622,7 @@ body {
 .signup-form-div {
 	width: 100%;
 	height: 180em;
+	font-size: 1.8em;
 	overflow-y: auto;
 }
 
@@ -630,7 +631,6 @@ body {
 	height: 50em;
 	margin: 0.5em auto;
 	padding: 1em 1em;
-	font-size: 28px;
 	color: #663399;
 	background-color: #e5e5e5;
 	overflow-y: auto;
@@ -969,11 +969,11 @@ body {
 	<p class="modal-game-title">KOJI</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signupForm", class: "signup-form-form") do %>
-			<h4 class="signup-form-paragraph" style="font-size: 22px;">Email and cellphone will be used for login and password recovery. Sign-up requires a $2 (two dollars) recurring monthly membership fee.</h4>
+			<p class="signup-form-paragraph" style="font-size: 0.8em;">Email and cellphone will be used for login and password recovery. Sign-up requires a $2 (two dollars) recurring monthly membership fee.</p>
 			<p class="signup-form-paragraph">&nbsp;</p>
 			<p class="signup-form-paragraph"><span id="emailErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="emailInput" class="signup-form-input" type="text" name="email" placeholder=" Email" maxlength="70" onkeyup="validateEmail(this,1)" onblur="validateEmail(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
-			<p class="signup-form-paragraph" style="font-size: 23px;">- Cellphone optional -</p>
+			<p class="signup-form-paragraph" style="font-size: 0.8em;">- Cellphone optional -</p>
 			<p class="signup-form-paragraph"><span id="cellphoneErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="numberInput" style="font-size: 1em; margin: 0;" type="number" name="none" onkeyup="validateCellphone(document.getElementById('cellphoneInput'),1)"></p>
 			<p class="signup-form-paragraph" style="margin-top: -2em;"><input id="cellphoneInput" class="signup-form-input" type="text" name="cell" placeholder=" Cellphone" maxlength="20" onkeyup="validateCellphone(this,1)" onfocus="validateCellphone(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
@@ -1005,20 +1005,20 @@ body {
 	<p class="modal-game-title">KOJI</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signinForm", class: "signup-form-form signin-form-form") do %>
-			<p class="signup-form-paragraph" style="font-size: 17px;">If you forgot your password, you can reset it by entering in your login info, without the password, and pressing 'Reset Password'. You will be emailed or texted a confirmation code to reset your password.</p>
+			<p class="signup-form-paragraph" style="font-size: 17px; ">If you forgot your password, you can reset it by entering in your login info, without the password, and pressing 'Reset Password'. You will be emailed or texted a confirmation code to reset your password.</p>
 			<p class="signup-form-paragraph">&nbsp;</p>
 			<p class="signup-form-paragraph"><span id="loginEmailErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="loginEmailInput" type="text" name="loginEmail" placeholder=" Email" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-			<p class="signup-form-paragraph">- or -</p>
+			<p class="signup-form-paragraph" style="font-size: 0.4em;">- or -</p>
 			<p class="signup-form-paragraph"><span id="loginCellphoneErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="loginNumberInput" style="font-size: 1em; margin: 0;" type="number" name="none2" onkeyup="validateCellphone(document.getElementById('loginCellphoneInput'),2)"></p>
 			<p class="signup-form-paragraph" style="margin-top: -2em;"><input id="loginCellphoneInput" type="text" name="loginCell" placeholder=" Cellphone" maxlength="20" class="signup-form-input" onkeyup="validateCellphone(this,2)" onfocus="validateCellphone(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph">&nbsp;</p>
-			<p class="signup-form-paragraph">- and -</p>
+			<p class="signup-form-paragraph" style="font-size: 0.4em;">- and -</p>
 			<p class="signup-form-paragraph"><span id="loginPasswordErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder=" Password" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"></p>
-			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: dimgray; margin-right: 5.5em;" onclick="signinFormSubmit(1);profileOption(1);"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit(0)"></p>
+			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: dimgray; margin-right: 4.9em;" onclick="signinFormSubmit(1);profileOption(1);"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit(0)"></p>
 		<% end %>
 		<div id="changePassword" class="profile-option-div" style="position: relative; background-color: gray; border-bottom: none;">
 			<p id="changePasswordErrorMessage" class="profile-paragraph" style="font-size: 2em; padding: 0.5em 1em; color:red"></p>
