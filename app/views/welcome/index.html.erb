@@ -969,11 +969,11 @@ body {
 	<p class="modal-game-title">KOJI</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signupForm", class: "signup-form-form") do %>
-			<p class="signup-form-paragraph" >Email and cellphone will be used for login and password recovery. Sign-up requires a $2 recurring monthly membership fee.</p>
+			<h4 class="signup-form-paragraph" style="font-size: 26px;">Email and cellphone will be used for login and password recovery. Sign-up requires a $2 recurring monthly membership fee.</h4>
 			<p class="signup-form-paragraph">&nbsp;</p>
 			<p class="signup-form-paragraph"><span id="emailErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="emailInput" class="signup-form-input" type="text" name="email" placeholder=" Email" maxlength="70" onkeyup="validateEmail(this,1)" onblur="validateEmail(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
-			<p class="signup-form-paragraph" style="font-size: 0.5em">- Cellphone optional -</p>
+			<p class="signup-form-paragraph" style="font-size: 20px;">- Cellphone optional -</p>
 			<p class="signup-form-paragraph"><span id="cellphoneErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="numberInput" style="font-size: 1em; margin: 0;" type="number" name="none" onkeyup="validateCellphone(document.getElementById('cellphoneInput'),1)"></p>
 			<p class="signup-form-paragraph" style="margin-top: -2em;"><input id="cellphoneInput" class="signup-form-input" type="text" name="cell" placeholder=" Cellphone" maxlength="20" onkeyup="validateCellphone(this,1)" onfocus="validateCellphone(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
