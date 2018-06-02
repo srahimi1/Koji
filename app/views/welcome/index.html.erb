@@ -710,8 +710,8 @@ body {
 }
 
 .profile-input {
-	width: 88%;
-	font-size: 1.9em;
+	width: 86%;
+	font-size: 3em;
 	border: 1px solid #aaaaaa;
 }
 
@@ -1017,14 +1017,14 @@ body {
 			<p class="signup-form-paragraph"></p>
 			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: dimgray; margin-right: 4.9em;" onclick="signinFormSubmit(1);profileOption(1);"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit(0)"></p>
 		<% end %>
-		<div id="changePassword" class="profile-option-div" style="position: relative; background-color: gray; border-bottom: none;">
-			<p id="changePasswordErrorMessage" class="profile-paragraph" style="font-size: 2em; padding: 0.5em 1em; color:red"></p>
-			<p class="profile-paragraph" style="padding: 0.5em 1em; color: white;">Please enter reset password confirmation code below</p>
-			<p class="profile-paragraph"><input id="passwordChangeConfirmationCode" class="profile-input" type="text" placeholder="Reset Confirmation Code"></p>
-			<p class="profile-paragraph"><input id="changePasswordInput1" class="profile-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-			<p class="profile-paragraph"><input id="changePasswordInput2" class="profile-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+		<div id="changePassword" class="profile-option-div" style="position: relative; background-color: gray; border-bottom: none; padding-left: 1em;">
+			<p id="changePasswordErrorMessage" class="signup-form-paragraph" style="font-size: 1.5em; padding: 0.5em 0; color:red"></p>
+			<p class="signup-form-paragraph" style="padding: 0.5em 0; color: white;">Please enter reset password confirmation code below</p>
+			<p class="signup-form-paragraph"><input id="passwordChangeConfirmationCode" class="signup-form-input" type="text" placeholder="Reset Confirmation Code"></p>
+			<p class="signup-form-paragraph"><input id="changePasswordInput1" class="signup-form-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><input id="changePasswordInput2" class="signup-form-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 
-			<p class="buttons-paragraph" style="width: 87%;"><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(4)">Close</button></p>
+			<p class="buttons-paragraph" style="width: 84%;"><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(4)">Close</button></p>
 		</div>
 
 	</div>
@@ -1050,7 +1050,7 @@ body {
 	<div id="changeLogin" class="profile-option-div">
 		<p id="changeLoginErrorMessage" class="profile-paragraph" style="color:red"></p>
 		<p class="profile-paragraph"><input id="changeEmailInput" class="profile-input" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onblur="validateEmail(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-		<p class="profile-paragraph" style="padding: 0.1em 1em; font-size: 2em;">- and/ or -</p>
+		<p class="profile-paragraph" style="padding: 0.1em 0.5em; font-size: 2em;">- and/ or -</p>
 		<p class="profile-paragraph"><input id="changeNumberInput" type="number" name="none" style="font-size: 1em; margin: 0;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)"></p>
 		<p class="profile-paragraph" style="margin-top: -3.4em;"><input id="changeCellphoneInput" class="profile-input" type="text" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 2em; visibility: hidden;" %></p>
 		<p class="buttons-paragraph" style="width: 83%;"><button id="changeLoginButton" class="profile-update-button" onclick="updateInfo(2)" disabled="disabled">Update</button><button class="profile-cancel-button" onclick="profileOption(4)">Close</button></p>
