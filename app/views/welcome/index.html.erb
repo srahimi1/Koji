@@ -521,7 +521,7 @@ body {
 }
 
 .buttons-paragraph {
-	width: 72%;
+	width: 71%;
 	margin: 0;
 	padding: .2em 0;
 	text-align: right;"
@@ -589,7 +589,7 @@ body {
 }
 
 .instruction-top-li {
-	padding: 0.1em 3em 0.1em 3em;
+	padding: 0.1em 0.75em 0.1em 0.75em;
 }
 
 .instruction-ul {
@@ -606,7 +606,7 @@ body {
 
 .instruction-li {
 	margin: 0;
-	padding: 0.1em 3em 0.1em 3em;
+	padding: 0.1em 0.75em 0.1em 0.75em;
 }
 
 .instruction-header-paragraph {
@@ -615,7 +615,7 @@ body {
 }
 
 .instruction-paragraph {
-	font-size: 0.9em;
+	font-size: 0.5em;
 	color: gray;
 }
 
@@ -630,7 +630,7 @@ body {
 	height: 50em;
 	margin: 0.5em auto;
 	padding: 1em 1em;
-	font-size: 26px;
+	font-size: 28px;
 	color: #663399;
 	background-color: #e5e5e5;
 	overflow-y: auto;
@@ -941,10 +941,10 @@ body {
 	<p class="modal-game-title">KOJI</p>
 	<ul class="instruction-ul">
 		<li class="instruction-top-li"><h4>Mix to match colors and uncover hidden letters. Figure out all the hidden letters and you win!</h4></li>
-		<li class="instruction-li"><p class="instruction-header-paragraph">First: Determine if two colors will mix to make a desired color.</p>
-			<p class="instruction-paragraph">Two colors are shown at the bottom of the screen, a rectangle with a desired 'goal' color is shown at the top. Hit 'yes' if you think the two bottom colors mix to make the desired goal color, hit 'no' if you think they don't.</p></li>
-		<li class="instruction-li"><p class="instruction-header-paragraph">Then: Behind the top, 'goal color' rectangle, there are hidden letters. Figure out the letters.</p>
-			<p class="instruction-paragraph">Every time you choose the correct color mixture, a small portion of the hidden letters in the top rectangle is revealed. After every 3rd correct color mixture guess, you will be shown a board with letters from which to choose. Correctly choose which are the hidden letters, and You Win The Game!</p></li>
+		<li class="instruction-li">
+			<p class="instruction-paragraph">If two colors, shown in the middle of the screen, will mix to produce the color shown directly above them, hit the bottom "Yes" button. If not, hit "No".</p></li>
+		<li class="instruction-li">
+			<p class="instruction-paragraph">Every time you guess correctly which colors produce the desired color, small portions of hidden letters are revealed. After every 3rd correct color mixture guess, you will be shown a board with letters from which to choose. Correctly choose all the hidden letters and you win!</p></li>
 		<li class="instruction-li"><p class="instruction-header-paragraph">Xs:</p>
 			<p class="instruction-paragraph">For every 3 wrong color match guesses in a row, you get an X. For every incorrect hidden letter guess, you get an X. Four Xs and game is over.</p></li>
 		<li class="instruction-li"><p class="instruction-header-paragraph">Point values:</p>
@@ -1018,7 +1018,7 @@ body {
 			<p class="signup-form-paragraph"><span id="loginPasswordErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder=" Password" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"></p>
-			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: dimgray; margin-right: 3.1em;" onclick="signinFormSubmit(1);profileOption(1);"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit(0)"></p>
+			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: dimgray; margin-right: 2.5em;" onclick="signinFormSubmit(1);profileOption(1);"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit(0)"></p>
 		<% end %>
 		<div id="changePassword" class="profile-option-div" style="position: relative; background-color: gray; border-bottom: none;">
 			<p id="changePasswordErrorMessage" class="profile-paragraph" style="font-size: 2em; padding: 0.5em 1em; color:red"></p>
