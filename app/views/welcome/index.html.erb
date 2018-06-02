@@ -969,11 +969,11 @@ body {
 	<p class="modal-game-title">KOJI</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signupForm", class: "signup-form-form") do %>
-			<h4 class="signup-form-paragraph" style="font-size: 26px;">Email and cellphone will be used for login and password recovery. Sign-up requires a $2 recurring monthly membership fee.</h4>
+			<h4 class="signup-form-paragraph" style="font-size: 24px;">Email and cellphone will be used for login and password recovery. Sign-up requires a $2 (two dollars) recurring monthly membership fee.</h4>
 			<p class="signup-form-paragraph">&nbsp;</p>
 			<p class="signup-form-paragraph"><span id="emailErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="emailInput" class="signup-form-input" type="text" name="email" placeholder=" Email" maxlength="70" onkeyup="validateEmail(this,1)" onblur="validateEmail(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
-			<p class="signup-form-paragraph" style="font-size: 20px;">- Cellphone optional -</p>
+			<p class="signup-form-paragraph" style="font-size: 23px;">- Cellphone optional -</p>
 			<p class="signup-form-paragraph"><span id="cellphoneErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="numberInput" style="font-size: 1em; margin: 0;" type="number" name="none" onkeyup="validateCellphone(document.getElementById('cellphoneInput'),1)"></p>
 			<p class="signup-form-paragraph" style="margin-top: -2em;"><input id="cellphoneInput" class="signup-form-input" type="text" name="cell" placeholder=" Cellphone" maxlength="20" onkeyup="validateCellphone(this,1)" onfocus="validateCellphone(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
@@ -1005,7 +1005,7 @@ body {
 	<p class="modal-game-title">KOJI</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signinForm", class: "signup-form-form signin-form-form") do %>
-			<p class="signup-form-paragraph" style="font-size: 0.6em;">If you forgot your password, you can reset it by entering in your login info, without the password, and pressing 'Reset Password'. You will be emailed or texted a confirmation code to reset your password.</p>
+			<p class="signup-form-paragraph" style="font-size: 17px;">If you forgot your password, you can reset it by entering in your login info, without the password, and pressing 'Reset Password'. You will be emailed or texted a confirmation code to reset your password.</p>
 			<p class="signup-form-paragraph">&nbsp;</p>
 			<p class="signup-form-paragraph"><span id="loginEmailErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="loginEmailInput" type="text" name="loginEmail" placeholder=" Email" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
