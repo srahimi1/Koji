@@ -521,7 +521,7 @@ body {
 }
 
 .buttons-paragraph {
-	width: 85%;
+	width: 72%;
 	margin: 0;
 	padding: .2em 0;
 	text-align: right;"
@@ -630,7 +630,7 @@ body {
 	height: 40em;
 	margin: 0.5em auto;
 	padding: 1em 1em;
-	font-size: 2em;
+	font-size: 1.5em;
 	color: #663399;
 	background-color: #e5e5e5;
 	overflow-y: auto;
@@ -642,14 +642,14 @@ body {
 }
 
 .signup-form-paragraph {
-	width: 100%;
+	width: 80%;
 	margin: 0;
 	padding: .2em 0;
 }
 
 .signup-form-input {
 	margin: 0;
-	width: 80%;
+	width: 90%;
 	font-size: 2em;
 	color: #3ecf8e;
 	border: none;
@@ -967,7 +967,7 @@ body {
 	<p class="modal-game-title">KOJI</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signupForm", class: "signup-form-form") do %>
-			<p class="signup-form-paragraph" style="width: 80%;">Email and cell phone will be used for login and password recovery. A $2 recurring monthly membership fee will be charged in order to sign-up.</p>
+			<p class="signup-form-paragraph">Email and cellphone will be used for login and password recovery. Sign-up requires a $2 recurring monthly membership fee.</p>
 			<p class="signup-form-paragraph"><span id="emailErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="emailInput" class="signup-form-input" type="text" name="email" placeholder=" Email" maxlength="70" onkeyup="validateEmail(this,1)" onblur="validateEmail(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph">- Cellphone optional -</p>
