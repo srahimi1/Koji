@@ -2312,7 +2312,7 @@ body {
 			var first = par.firstChild;
 			for (var i = 0; i < ind-1; i++) first = first.nextSibling;
 			first.style.color = "#F00000";
-			if (numXs >= 1) {
+			if (numXs == 4) {
 				updateGameDataOnServer(2); 
 				gameOver = true; 
 				document.getElementById("letterChoicesCont").style.display = "none"; 
@@ -2326,7 +2326,7 @@ body {
 				return true; 
 			} // if (numXs == 4)
 		} // if (!gameOver)
-		return true;
+		return false;
 	} // end function isGameLost()
 
 	function showLetters() {
