@@ -988,7 +988,7 @@ body {
 			<p class="signup-form-paragraph"><span id="password2ErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="password2Input" class="signup-form-input" type="password" name="password2" placeholder=" Re-enter Password" maxlength="70" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"></p>
-			<p class="buttons-paragraph"><input id="signupSubmit" class="signup-form-submit-button" type="button" name="signupSubmit" value="Enter Payment Info >" onclick="stripePopup()" onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-1px 3px 9px #777777'"></p>
+			<p class="buttons-paragraph"><input id="signupSubmit" class="signup-form-submit-button" type="button" name="signupSubmit" value="Enter Payment Info >" onclick="stripePopup()" onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-1px 3px 9px #777777'" disabled="disabled"></p>
 		<% end %>
 	</div>
 	<div class="modal-div-footer"></div>
@@ -1068,7 +1068,7 @@ body {
 		<p style="font-size: 2em; width: 27em; padding: 0.1em 1em;">By cancelling your membership, you are ending monthly membership payments and deleting your entire account.</p>
 	</div>
 	<p class="profile-paragraph"><span id="profileUpdateResult" class="profile-update-result"></span><a href="javascript:void(0);" class="profile-option logout" onclick="updateInfo(4);">Logout</a></p>
-	<p class="profile-paragraph"></p>
+	<p class="profile-paragraph">&nbsp;</p>
 	<p class="profile-paragraph-2">Email: <span id="profileEmail" class="profile-email"></span></p>
 	<p class="profile-paragraph-2">Cellphone: <span id="profileCellphone" class="profile-cellphone"></span></p>
 	<div id="scoreHistory" class="score-history">
@@ -1299,6 +1299,7 @@ body {
 <script>
 	formcheck = [];
 	for (var i = 0; i < 4; i++) formcheck.push(false);
+	letterBoardsEmpty = false;
 	inputData = null;
 	cycleTopDataAt = 0;
 	cycleTopDataCounter = 0;
@@ -1332,11 +1333,12 @@ body {
 	correctLetters = [];
 	canvas = null, ctx = null;
 	imageData = null;
-	similarLettersLowerCase = {"a": "egqdDQGB", "b": "hdgopqPFLK", "c": "eouvhyQEDO", "d": "bpqghPRBD", "e": "agqdEFKRP", "f": "ktjiFLKR", "g":"abdopqGQO", "h":"bdkrvHLRK", "i":"ljtILJT", "j":"iltTKRL", "k":"bdepxMWFE", "l": "ijtLPKH", "m": "nwuvWNRH", "n": "muwvWRMK", "o":"bqpcdQBP", "p": "bdgceBRDE", "q": "pbdeBPDR", "r":"nuhHJLK", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z":"snum"};
-	similarLettersUpperCase = {"A": "VYUHegqd", "B": "KEPRFXhdgopq", "C": "GOQDeouvhy", "D": "CGOQbpqgh", "E": "KBPRFXagqd", "F" : "KBEPRXktji", "G":"COQDabdopq", "H":"ITLJAbdkrv", "I":"HTLJljt", "J":"HITLilt", "K":"BEPRFXbdepx", "L":"HITJijt", "M":"NWUHEnwuv", "N": "MWUHEmuwv", "O": "CGQDbqpcd", "P": "KBERFXbdgce", "Q":"GCDOpbde", "R": "KBEPFXnuh", "S" : "ZCBE", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNE", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
+	similarLettersLowerCase = {"a": "egqdDQGB", "b": "hdgopqPFLK", "c": "eouvhyQEDO", "d": "bpqghPRBD", "e": "agqdEFKRP", "f": "ktjiFLKR", "g":"abdopqGQO", "h":"bdkrvHLRK", "i":"ljtILJT", "j":"iltTKRL", "k":"bdepxMWFE", "l": "ijtLPKH", "m": "nwuveWNRHE", "n": "muwvWRMK", "o":"bqpcdQBP", "p": "bdgceBRDE", "q": "pbdeBPDR", "r":"nuhHJLK", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuvEM", "x": "kwmyz", "y": "zvukh", "z":"snum"};
+	similarLettersUpperCase = {"A": "VYUHegqd", "B": "KEPRFXhdgopq", "C": "GOQDeouvhy", "D": "CGOQbpqgh", "E": "KBPRFXMagqd", "F" : "KBEPRXktji", "G":"COQDabdopq", "H":"ITLJAbdkrv", "I":"HTLJljt", "J":"HITLilt", "K":"BEPRFXbdepx", "L":"HITJijt", "M":"NWUHEnwuv", "N": "MWUHEmuwv", "O": "CGQDbqpcd", "P": "KBERFXbdgce", "Q":"GCDOpbde", "R": "KBEPFXnuh", "S" : "ZCBE", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNEm", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
 	allLetters = {"a": 1, "b": 1, "c": 1, "d": 1, "e": 1, "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z": 1, "A": 1, "B": 1, "C": 1, "D": 1, "E": 1, "F" : 1, "G": 1, "H": 1, "I": 1, "J": 1, "K": 1, "L": 1, "M": 1, "N": 1, "O": 1, "P": 1, "Q": 1, "R": 1, "S" : 1, "T": 1, "U": 1, "V" : 1, "W" : 1, "X" : 1, "Y": 1, "Z" : 1};
 
 	function setupNewGame() {
+		letterBoardsEmpty = false;
 		inputData = null;
 		cycleTopDataAt = 0;
 		cycleTopDataCounter = 0;
@@ -1394,6 +1396,7 @@ body {
 		var goal = document.getElementById("goal");
 		goal.innerHTML = "";
 		goal.style.backgroundImage = "url('transparent_background.jpg')";
+		switchButtonsAndLetters(1);
 		closeMenu(document.getElementById("menuDiv"));
 		getGame();
 		return true;
@@ -1819,6 +1822,7 @@ body {
 		if (correctLetters[ind].index == ind2) letterBorderAnimation(letter, 0);
 		else letterBorderAnimation(letter, 1);
 		if (isGameWon()) {document.getElementById("letterChoicesCont").style.display = "none"; var PandaThumbsUpSVG = document.getElementById("pandathumbsupsvg").innerHTML; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You" + PandaThumbsUpSVG + "Won!"; showMenu(document.getElementById('gameMessageDiv')); el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px"; setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); } // if
+		else if (isLetterBoardsEmpty()) {isGameLost();}
 	} // function isChosenLetterCorrect(letter, ind)
 
 	function putLettersOntoPanels(letters, fontSz) {
@@ -2090,7 +2094,8 @@ body {
 			var first = par.firstChild;
 			for (var i = 0; i < ind-1; i++) first = first.nextSibling;
 			first.style.color = "#F00000";
-			if (numXs == 4) {
+			if ((numXs == 4) || (letterBoardsEmpty)) {
+				if (letterBoardsEmpty) console.log("empty");
 				updateGameDataOnServer(2); 
 				gameOver = true; 
 				document.getElementById("letterChoicesCont").style.display = "none"; 
@@ -2112,6 +2117,23 @@ body {
 		if (numberOfLinesDrawnOnCanvas < canvas.width) showLettersTimeoutID = setTimeout(function() {showLetters()}, 100);
 		return true;
 	} // end function showLetters()
+
+	function isLetterBoardsEmpty() {
+		var letlen = inputData.letters.length;
+		var empty = 0;
+		for (var i = 0; i < letlen; i++) {
+			var test = document.getElementById("letterChoices"+i);
+			var clen = test.childNodes.length;
+			var pass = false;
+			for (var j = 0; j < clen; j++) {
+				if (test.childNodes[j].className == "letter-div") {pass = true; break;}
+			} // for (var j = 0; j < clen; j++) {
+			if (!pass) empty++;
+		} // for (var i = 0; i < letlen; i++) {
+		if (empty == letlen) {letterBoardsEmpty = true; return true;}
+		else {letterBoardsEmpty = false; return false;}
+	} // end function isLetterBoardsEmpty()
+
 
 
 // updating and saving points and Xs functions ...
@@ -2763,6 +2785,7 @@ body {
 	} // end function checkIfExist(route, method, data, success, fail)
 
 	function signupFormSubmit(stripeToken) {
+		document.getElementById("signupSubmit").disabled = true;
 		var cont = false;
 		if (formcheck[0] && formcheck[2] && formcheck[3]) cont = true;
 		if (cont) {
@@ -2787,6 +2810,7 @@ body {
 	    				var el = document.getElementById("gameMessage"); 
 	    				el.style.color = "#F00000"; 
 	    				el.innerHTML = "Sorry sign-up was not succesful<br/>Please check your information and try again."; 
+	    				document.getElementById("signupSubmit").disabled = false;
 	    			} // if (res.toUpperCase() == "OK")
 	    		    showMenu(document.getElementById('gameMessageDiv')); 
 	    			el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";
@@ -2977,6 +3001,7 @@ body {
 	});
 
 	function stripePopup() {
+		document.getElementById("signupSubmit").disabled = true;
 		var cont = false;
 		if (formcheck[0] && formcheck[2] && formcheck[3]) cont = true;
 		if (cont) { 			

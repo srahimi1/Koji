@@ -6,7 +6,21 @@ class GamesController < ApplicationController
         @player = Player.find(0)
       end
       @game = @player.games.new(score: 0)
-  		@response = @game.start_new_game
+  		if (!session["player_id"].blank? && !@player.blank?)
+        @response = @game.start_new_game
+        puts " "
+        puts " "
+        puts "started new, not demo, game"
+        puts " "
+        puts " "
+      else
+        @response = @game.start_new_demo_game
+        puts " "
+        puts " "
+        puts "started demo game"
+        puts " "
+        puts " "
+      end
       @game.game_data = JSON.generate(@response)
       @game.save
       session["game_id"] = @game.id

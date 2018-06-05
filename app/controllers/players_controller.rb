@@ -18,19 +18,15 @@ class PlayersController < ApplicationController
 		output = "BAD"
 		if (cellValid && emailValid && (params["password1"].to_s == params["password2"].to_s) && (!params["email"].blank? || !params["cellphone"].blank?))
 			player = Player.new(email: @email, cellphone: @cell, display_name: params["display_name"], password: params["password1"], phone_country: "USA", game_version: params["game_version"], subscribed: 0, email_verified: 0, cellphone_verified: 0)
-			if (player.save! && !player.id.blank?)
-				subscription_result = Subscription.subscription_enroll(params[:stripeToken], params[:stripeEmail])
-				if (subscription_result[0] == 1)
-					player.create_player_gaming_history(current_total: 0, current_high_score: 0, history: "")
-					player.subscribed = 1
-					player.date_first_subscribed = DateTime.now
-					player.create_subscription(date_first_subscribed: DateTime.now, pp_subscription_id: subscription_result[1], status: 1, status_description: "active", date_last_charged: DateTime.now, payment_provider_id: 1)
-					player.create_pp_customer_info(payment_provider_id: 1, pp_customer_id: subscription_result[2])
-					player.save
-					output = "OK"
-				else
-					player.destroy
-				end
+			subscription_result = Subscription.subscription_enroll(params[:stripeToken], params[:stripeEmail])
+			if ((subscription_result[0] == 1) && player.save! && !player.id.blank?)
+				player.create_player_gaming_history(current_total: 0, current_high_score: 0, history: "")
+				player.subscribed = 1
+				player.date_first_subscribed = DateTime.now
+				player.create_subscription(date_first_subscribed: DateTime.now, pp_subscription_id: subscription_result[1], status: 1, status_description: "active", date_last_charged: DateTime.now, payment_provider_id: 1)
+				player.create_pp_customer_info(payment_provider_id: 1, pp_customer_id: subscription_result[2])
+				player.save
+				output = "OK"
 			end
 		end
 		ActiveRecord::Base.connection.close

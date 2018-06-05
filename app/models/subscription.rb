@@ -6,7 +6,9 @@ class Subscription < ApplicationRecord
 
   def self.subscription_enroll(token_id, token_email)
 
-  	customer = Stripe::Customer.create(
+    Stripe.api_key = "sk_test_IKTtVCpDqEbM7GV8WVY56ADM"
+  	
+    customer = Stripe::Customer.create(
   		:email => token_email,
   		:source => token_id
   	)

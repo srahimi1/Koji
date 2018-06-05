@@ -1,12 +1,21 @@
 class Game < ApplicationRecord
 	belongs_to :player
 
+	def start_new_demo_game
+		output = {}
+		output["colors"] = [{"goalColor" => "#634478"},{"goalColor" => "#74553A"},{"goalColor" => "#A1AA64"},{"goalColor" => "#329844"},{"goalColor" => "#443298"},{"goalColor" => "#984432"}]
+		output["letters"] = ["w","I","n","D","s"]
+		output["numberOfX"] = 0
+		output["points"] = 0
+		return output
+	end
+
 	def start_new_game
 		@game_levels = { a1: {num_colors:3, shades_per_color:3, time_per_letter_segment: 240, min_letters_per_word: 3, max_letters_per_word: 9}, a2:{num_colors:5, shades_per_color:3, time_per_letter_segment: 210, min_letters_per_word: 5, max_letters_per_word: 10}}
 		@level = @game_levels[:a1]		
 		output = {}
 		responses = []
-		5.times do	
+		8.times do	
 			response = {}
 			goal_color = get_random_colors(1, 1, nil)
 			goal_color_rgb = goal_color[0]
@@ -23,7 +32,16 @@ class Game < ApplicationRecord
 	end
 
 	def get_letters
-		words = ["ANSWERS"]
+		letters_main = []
+		letters_main[0] = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+		letters_main[1] = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+		num = 3 + rand(5)
+		word = ""
+		num.times do
+			word = word + letters_main[rand(2)][rand(26)]
+		end
+		words = [word]
+		#words = ["ANSWERS"]
 		chosen_word = words[rand(words.length)]
 		letters = chosen_word.split("")
 		return letters
