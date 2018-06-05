@@ -711,6 +711,12 @@ body {
 	margin: 0.5em auto;
 }
 
+.profile-error-message {
+	padding: 0.1em 2em;
+	font-size: 2em;
+	color: red;
+}
+
 .profile-input {
 	width: 80%;
 	font-size: 3em;
@@ -759,11 +765,11 @@ body {
 }
 
 .profile-update-result {
-	padding: 0.5em 2em;
+	padding: 0.5em 0em;
 	margin: 0.5em 0;
-	font-size: 2em;
+	font-size: 2.5em;
 	font-style: italic;
-	color: #00F000;
+	color: #00C000;
 	opacity: 0;
 	-moz-transition: opacity 0.5s; 
 	-webkit-transition: opacity 0.5s; 
@@ -1005,15 +1011,15 @@ body {
 		<%= form_tag("/", method: "", id: "signinForm", class: "signup-form-form signin-form-form") do %>
 			<p class="signup-form-paragraph" style="font-size: 0.9em;">If you forgot your password, you can reset it by entering in your login info, without the password, and pressing 'Reset Password'. You will be emailed or texted a confirmation code to reset your password.</p>
 			<p class="signup-form-paragraph">&nbsp;</p>
-			<p class="signup-form-paragraph"><span id="loginEmailErrorMessage" style="color:red"></span></p>
+			<p class="signup-form-paragraph"><span id="loginEmailErrorMessage" style="color:red;"></span></p>
 			<p class="signup-form-paragraph"><input id="loginEmailInput" type="text" name="loginEmail" placeholder=" Email" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph" style="font-size: 0.9em;">- or -</p>
-			<p class="signup-form-paragraph"><span id="loginCellphoneErrorMessage" style="color:red"></span></p>
+			<p class="signup-form-paragraph"><span id="loginCellphoneErrorMessage" style="color:red;"></span></p>
 			<p class="signup-form-paragraph"><input id="loginNumberInput" style="font-size: 1em; margin: 0;" type="number" name="none2" onkeyup="validateCellphone(document.getElementById('loginCellphoneInput'),2)"></p>
 			<p class="signup-form-paragraph" style="margin-top: -2em;"><input id="loginCellphoneInput" type="text" name="loginCell" placeholder=" Cellphone" maxlength="20" class="signup-form-input" onkeyup="validateCellphone(this,2)" onfocus="validateCellphone(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph">&nbsp;</p>
 			<p class="signup-form-paragraph" style="font-size: 0.9em;">- and -</p>
-			<p class="signup-form-paragraph"><span id="loginPasswordErrorMessage" style="color:red"></span></p>
+			<p class="signup-form-paragraph"><span id="loginPasswordErrorMessage" style="color:red;"></span></p>
 			<p class="signup-form-paragraph"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder=" Password" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"></p>
 			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: dimgray; margin-right: 4.9em;" onclick="signinFormSubmit(1);profileOption(1);"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit(0)"></p>
@@ -1048,7 +1054,7 @@ body {
 		<li style="display: inline-block;"><a href="javascript:void(0);" class="profile-option cancel-membership" onclick="profileOption(3);">Cancel<br>Membership</a></li>
 	</ul>
 	<div id="changeLogin" class="profile-option-div">
-		<p id="changeLoginErrorMessage" class="profile-paragraph" style="color:red"></p>
+		<p id="changeLoginErrorMessage" class="profile-paragraph profile-error-message"></p>
 		<p class="profile-paragraph"><input id="changeEmailInput" class="profile-input" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onblur="validateEmail(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 		<p class="profile-paragraph" style="padding: 0.1em 1.9em; font-size: 2em;">- and/ or -</p>
 		<p class="profile-paragraph"><input id="changeNumberInput" type="number" name="none" style="font-size: 1em;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)"></p>
@@ -1056,7 +1062,7 @@ body {
 		<p class="buttons-paragraph" style="width: 80%;"><button class="profile-cancel-button" onclick="profileOption(4)">Close</button><button id="changeLoginButton" class="profile-update-button" onclick="updateInfo(2)" disabled="disabled">Update</button></p>
 	</div>
 	<div id="cancelMembership" class="profile-option-div">
-		<p id="cancelMembershipErrorMessage" class="profile-paragraph" style="color:red"></p>
+		<p id="cancelMembershipErrorMessage" class="profile-paragraph profile-error-message"></p>
 		<p class="profile-paragraph"><input id="cancelMembershipInput" class="profile-input" type="text" placeholder="Type 'cancel'" onkeyup="validateCancelMembership(this)"></p>
 		<p class="buttons-paragraph" style="width: 80%;"><button class="profile-cancel-button" onclick="profileOption(4)">Close</button><button id="cancelMembershipButton" class="profile-update-button" onclick="updateInfo(3)" disabled="disabled">Cancel Membership</button></p>
 		<p style="font-size: 2em; width: 27em; padding: 0.1em 1em;">By cancelling your membership, you are ending monthly membership payments and deleting your entire account.</p>
@@ -2318,9 +2324,9 @@ body {
 
 	function fillInProfileDiv(data) {
 		var history = data.history;
-		document.getElementById("profileEmail").innerHTML = data.email;
+		if (!!data.email) document.getElementById("profileEmail").innerHTML = data.email;
 		var cell = data.cellphone + "";
-		document.getElementById("profileCellphone").innerHTML = "(" + cell[0] + "" + cell[1] + "" + cell[2] + ")" + cell[3] + "" + cell[4] + "" + cell[5] + "-" + cell[6] + "" + cell[7] + "" + cell[8] + "" + cell[9];
+		if (!!cell) document.getElementById("profileCellphone").innerHTML = "(" + cell[0] + "" + cell[1] + "" + cell[2] + ")" + cell[3] + "" + cell[4] + "" + cell[5] + "-" + cell[6] + "" + cell[7] + "" + cell[8] + "" + cell[9];
 		var header = document.getElementById("tableHeader");
 		var tableBody = document.getElementById("tableBody");
 		while (!!header.nextSibling) {header.parentNode.removeChild(header.nextSibling); }
@@ -2350,6 +2356,9 @@ body {
 	} // end function clearProfile()
 
 	function updateInfo(sel) {
+		document.getElementById("changePasswordErrorMessage").innerHTML = "";	
+    	document.getElementById("changeLoginErrorMessage").innerHTML = "";
+    	document.getElementById("cancelMembershipErrorMessage").innerHTML = "";	
 		var route = "";
 		var data = "";
 		if (sel == 1) {
@@ -2395,7 +2404,22 @@ body {
 						setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000);
     					document.getElementById("changePassword").style.height = "0";
 						document.getElementById("changePassword").style.marginTop = "0";
-    				}
+    				} else if (res.toUpperCase() == "BAD") {
+    					var err;
+    					switch(sel) {
+    						case 1:
+    							err = document.getElementById("changePasswordErrorMessage");	
+    							break;
+    						case 2:
+    							err = document.getElementById("changeLoginErrorMessage");	
+    							break;
+    						case 3:
+    							err = document.getElementById("cancelMembershipErrorMessage");	
+    							break;
+    					} 
+						err.style.color = "#F00000"; 
+						err.innerHTML = "Please check the information and try again."; 
+    				} // else if (res.toUpperCase() == "BAD")
 					return false;
 	    		} // if (this.readyState == 4 && this.status == 200)
 	  		}; // xhttp.onreadystatechange = function()
@@ -2408,9 +2432,8 @@ body {
 	} // end function updateInfo(sel)
 
 	function profileOption(opt) {
-/*		document.getElementById("changePassword").style.display = "none";
-		document.getElementById("changeLogin").style.display = "none";
-		document.getElementById("cancelMembership").style.display = "none";*/
+		document.getElementById("changeLoginErrorMessage").innerHTML = "";
+		document.getElementById("cancelMembershipErrorMessage").innerHTML = "";
 		document.getElementById("changePasswordInput1").value = "";
 		document.getElementById("changePasswordInput2").value = "";
 		document.getElementById("passwordChangeConfirmationCode").value = "";
@@ -2437,8 +2460,8 @@ body {
 			document.getElementById("changePasswordButton").disabled = true;
 		} else if (opt == 2) {
 			/*document.getElementById("changeLogin").style.display = "block";*/
-			if (document.getElementById("changeLogin").offsetHeight < 5) document.getElementById("changeLogin").style.height = "27em";
-			else setTimeout(function() {document.getElementById("changeLogin").style.height = "27em";},600);
+			if (document.getElementById("changeLogin").offsetHeight < 5) document.getElementById("changeLogin").style.height = "30em";
+			else setTimeout(function() {document.getElementById("changeLogin").style.height = "30em";},600);
 			document.getElementById("changeEmailInput").value = '';
 			document.getElementById("changeCellphoneInput").value = '';
 			document.getElementById("changeNumberInput").value = '';
@@ -2447,8 +2470,8 @@ body {
 			document.getElementById("changeLoginButton").disabled = true;
 		} else if (opt == 3) {
 			/*document.getElementById("cancelMembership").style.display = "block";*/
-			if (document.getElementById("cancelMembership").offsetHeight < 5) document.getElementById("cancelMembership").style.height = "27em";
-			else setTimeout(function() {document.getElementById("cancelMembership").style.height = "27em";},600);
+			if (document.getElementById("cancelMembership").offsetHeight < 5) document.getElementById("cancelMembership").style.height = "30em";
+			else setTimeout(function() {document.getElementById("cancelMembership").style.height = "30em";},600);
 			document.getElementById("cancelMembershipInput").value = '';
 			document.getElementById("cancelMembershipButton").disabled = true;
 		} else if (opt == 4) {
@@ -2506,6 +2529,7 @@ body {
 		document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
 		document.getElementById("signupSubmit").style.boxShadow = "none";
 		document.getElementById("signupSubmit").disabled = true;
+		document.getElementById("changeLoginButton").disabled = true;
 		formcheck[0] = false;
 		var errorEl = null;
 		if (sel == 1) errorEl = document.getElementById("emailErrorMessage");
@@ -2783,7 +2807,7 @@ body {
 		var cellphone = encodeURIComponent(document.getElementById("loginNumberInput").value);
 		var password = encodeURIComponent(document.getElementById("loginPasswordInput").value);
 		var auth_token = document.getElementsByName("authenticity_token")[0].value;
-		if ((code == 1) && (((email === "") && (cellphone === "")) || ((email.trim() === "") && (cellphone.trim() === "")))) {
+		if (((email === "") && (cellphone === "")) || ((email.trim() === "") && (cellphone.trim() === ""))) {
 			return false;
 		} else {
 			xhttp.abort();

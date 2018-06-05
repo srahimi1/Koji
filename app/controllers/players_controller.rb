@@ -56,16 +56,16 @@ class PlayersController < ApplicationController
 					output = "RESET"
 				end
 			end
-		elsif (params["code"].to_i == 2)
-			if (!params["email"].blank? && !Player.find_by(email: params[:email]))
+		elsif (!player.blank? && (params["code"].to_i == 2))
+			if (!params["email"].blank? && Player.find_by(email: params[:email]).blank? && Player.validate_email(params["email"]))
 				player.email = params["email"].to_s.downcase
 				output = "OK"
 			end
-			if (!params["cellphone"].blank? && !Player.find_by(cellphone: params[:cellphone]))
+			if (!params["cellphone"].blank? && Player.find_by(cellphone: params[:cellphone]).blank? && Player.validate_cellphone(params["cellphone"]))
 				player.cellphone = params["cellphone"]
 				output = "OK"
 			end
-		elsif ((params["code"].to_i == 3) && (params["cancel"].to_s.downcase == "cancel"))
+		elsif (!player.blank? && (params["code"].to_i == 3) && (params["cancel"].to_s.downcase == "cancel"))
 			result = Player.cancel_membership(session["player_id"])
 			if (result == 1)
 				player.destroy
@@ -77,7 +77,7 @@ class PlayersController < ApplicationController
 			session[:player_id] = nil
 			output = "OK"
 		end 
-		if ( (destroyed == 0) && (!player.save!) )
+		if ( (destroyed == 0) && !player.blank? && (!player.save!) )
 			output = "BAD"			
 		end
 		render plain: output
@@ -108,10 +108,21 @@ class PlayersController < ApplicationController
 		output = ""
 		if (!session["player_id"].blank?)
 			player = Player.find(session["player_id"])
-			history = PlayerGamingHistory.find_by(player_id: session["player_id"]).history
+			pgh = PlayerGamingHistory.find_by(player_id: session["player_id"])
+			if !pgh.blank?
+				history = pgh.history
+			end
 			response = {}
-			response["email"] = player.email
-			response["cellphone"] = player.cellphone
+			if (!player.blank? && !player.email.blank?)
+				response["email"] = player.email
+			else
+				response["email"] = ""
+			end
+			if (!player.blank? && !player.cellphone.blank?)
+				response["cellphone"] = player.cellphone
+			else
+				response["cellphone"] = ""
+			end
 			if (!history.blank?)
 				response["history"] = JSON.parse(history)
 			else
