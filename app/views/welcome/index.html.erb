@@ -1581,9 +1581,9 @@ body {
 		var sendID = par.id + "";
 		setTimeout(function() {determineResultOfChoice(sendID, opt);}, 500);
 		if (numberCorrect != 4) 
-			getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},2300);
+			getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},2000);
 		return true;
-	} // end function showUnderneathDiv(but, par, opt)
+	} // end function showUnderneathDiv(opt)
 
 	function determineResultOfChoice(sendID, opt) {
 		var points = 0;

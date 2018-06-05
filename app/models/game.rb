@@ -23,7 +23,7 @@ class Game < ApplicationRecord
 	end
 
 	def get_letters
-		words = ["cat","pHone","yElloW","AnSweRs"]
+		words = ["ANSWERS"]
 		chosen_word = words[rand(words.length)]
 		letters = chosen_word.split("")
 		return letters
