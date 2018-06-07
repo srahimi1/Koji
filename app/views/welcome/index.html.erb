@@ -2672,7 +2672,7 @@ body {
 		}
 		inp.value = number;
 		hid.focus();
-		isSignupFormReady();
+		//isSignupFormReady();
 		return false;
 	} // end function validateCellphone()
 
@@ -2772,7 +2772,7 @@ body {
       				else if (route == "/checkdisplayname") formcheck[2] = true;
       				eval(success);
       				isSignupFormReady();
-					    return true;
+					return true;
       			} else if (res.toUpperCase() == "DUPLICATE") {
       				eval(fail);
       				return false;
@@ -2782,7 +2782,7 @@ body {
   		var routetotal = route + "?data=" + encodeURIComponent(data);
   		xhttptemp.open("GET", routetotal, true);
   		xhttptemp.send();
-		  return false;
+		return false;
 	} // end function checkIfExist(route, method, data, success, fail)
 
 	function signupFormSubmit(stripeToken) {
