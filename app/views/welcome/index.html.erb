@@ -2397,7 +2397,6 @@ body {
     	document.getElementById("cancelMembershipErrorMessage").innerHTML = "";	
 		var route = "";
 		var data = "";
-		console.log("in update");
 		if (sel == 1) {
 			var email = encodeURIComponent(document.getElementById("loginEmailInput").value);
 			var cellphone = encodeURIComponent(document.getElementById("loginNumberInput").value);
@@ -2674,7 +2673,6 @@ body {
 		hid.focus();
 		isSignupFormReady();
 		return false;
-		
 	} // end function validateCellphone()
 
 	function validateDisplayName(inp) {
