@@ -2397,6 +2397,7 @@ body {
     	document.getElementById("cancelMembershipErrorMessage").innerHTML = "";	
 		var route = "";
 		var data = "";
+		console.log("in update");
 		if (sel == 1) {
 			var email = encodeURIComponent(document.getElementById("loginEmailInput").value);
 			var cellphone = encodeURIComponent(document.getElementById("loginNumberInput").value);
@@ -2639,14 +2640,14 @@ body {
 			var errorEl = document.getElementById("changeLoginErrorMessage");
 			var hid = document.getElementById("changeNumberInput");
 		}
-		inp.blur();
-		hid.focus();
 		var hidValue = hid.value + "";
 		if (hidValue == "") {
 			errorEl.innerHTML = "";
 			isSignupFormReady();
 			return true;
 		} else {
+			inp.blur();
+			hid.focus();
 			var char = hidValue[hidValue.length - 1];
 			var test = "";
 			var temp = "";
