@@ -2406,6 +2406,7 @@ body {
 			data = "code=1&password="+password+"&email="+email+"&cellphone="+cellphone+"&cc="+cc;
 		} else if (sel == 2) {
 			if (!validateEmail(document.getElementById('changeEmailInput'),2) && !validateCellphone(document.getElementById('changeCellphoneInput'),3)) {
+				console.log("in here");
 				document.getElementById("changeLoginErrorMessage").innerHTML = "Please check information.";
 				proceed = false; 
 			} else {
