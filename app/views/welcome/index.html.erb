@@ -32,6 +32,7 @@ body {
 	color:white;
 	text-align: left;
 	background-color: #2e2e2e; /*#7a00cc;*/
+	font-weight: normal;
 	z-index: 100;
 }
 
@@ -630,18 +631,25 @@ body {
 
 .signup-form-form {
 	width: 100%;
-	height: 250em;
-	margin: 0.5em auto;
-	padding: 1em 1em;
+	margin: 0.5em auto 0 auto;
+	padding: 1em 1em 3.5em 1em;
 	color: #663399;
 	background-color: #e5e5e5;
-	overflow-y: auto;
+	overflow: hidden;
 	border-radius: 8px;
 }
 
 .signin-form-form {
-	height: 250em;
-	overflow-y: auto;
+	height: 28em;
+	overflow: hidden;
+	padding: 1em 1em;
+}
+
+.form-footer {
+	height: 100em;
+	width: 100%;
+	margin: 0;
+	background-color: #666666;
 }
 
 .signup-form-paragraph {
@@ -807,7 +815,8 @@ body {
 }
 
 .contactus-form-form {
-	height: 35em;
+	height: 28em;
+	padding: 1em 1em;
 }
 
 .contactus-message {
@@ -821,7 +830,7 @@ body {
 </head>
 <body onload="checkForStartupMessage();">
 
-<h1 id="KOJITitle" class="title-bar"><%= image_tag "testLogo4.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %><span>KOJI</span><p style="display:inline-block; float: right; height: 1em; padding: 0; margin: 0.2em 0.4em 0 0; overflow: hidden;"><span style="display: block; height: 1px; width: 1.5em; border-bottom: 3px solid white; margin: 0.2em 0;"></span><span style="display: block; height: 1px; width: 1.5em; border-bottom: 3px solid white; margin: 0.2em 0;"></span><span style="display: block; height: 1px; width: 1.5em; border-bottom: 3px solid white; margin: 0.2em 0;"></span></p></h1>
+<h1 id="KOJITitle" class="title-bar"><%= image_tag "testLogo4.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %><span>Koji</span><p style="display:inline-block; float: right; height: 1em; padding: 0; margin: 0.2em 0.4em 0 0; overflow: hidden;"><span style="display: block; height: 1px; width: 1.5em; border-bottom: 3px solid white; margin: 0.2em 0;"></span><span style="display: block; height: 1px; width: 1.5em; border-bottom: 3px solid white; margin: 0.2em 0;"></span><span style="display: block; height: 1px; width: 1.5em; border-bottom: 3px solid white; margin: 0.2em 0;"></span></p></h1>
 
 <div style="position: absolute; top: 0; width: 15em; height: 8em; left: 100%; margin-left: -15em; z-index: 4" onclick="closeMenu(document.getElementById('instructionsDiv')); closeMenu(document.getElementById('signupDiv')); closeMenu(document.getElementById('signinDiv')); closeMenu(document.getElementById('profileDiv')); showMenu(document.getElementById('menuDiv'));" onmouseover="animateMenu(document.getElementById('menuParagraph'), 0);" onmouseout="animateMenu(document.getElementById('menuParagraph'), 1);"></div>	
 
@@ -943,7 +952,7 @@ body {
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('instructionsDiv'))">X</li>
 		</ul>
 	</div>
-	<p class="modal-game-title">KOJI</p>
+	<p class="modal-game-title"><%= image_tag "testLogo4.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
 	<ul class="instruction-ul">
 		<li class="instruction-top-li"><h4>Mix to match colors and uncover hidden letters. Figure out all the hidden letters and you win!</h4></li>
 		<li class="instruction-li">
@@ -971,7 +980,7 @@ body {
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('signupDiv'))">X</li>
 		</ul>
 	</div>
-	<p class="modal-game-title">KOJI</p>
+	<p class="modal-game-title"><%= image_tag "testLogo4.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signupForm", class: "signup-form-form") do %>
 			<p class="signup-form-paragraph" style="font-size: 0.9em;">Email and cellphone will be used for login and password recovery. Sign-up requires a $2 (two dollars) recurring monthly membership fee.</p>
@@ -991,6 +1000,7 @@ body {
 			<p class="signup-form-paragraph"></p>
 			<p class="buttons-paragraph"><input id="signupSubmit" class="signup-form-submit-button" type="button" name="signupSubmit" value="Enter Payment Info >" onclick="stripePopup()" onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-1px 3px 9px #777777'" disabled="disabled"></p>
 		<% end %>
+		<div class="form-footer"></div>
 	</div>
 	<div class="modal-div-footer"></div>
 	<div class="hidden-opt-left" onclick="closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));"></div>
@@ -1007,7 +1017,7 @@ body {
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('signinDiv'))">X</li>
 		</ul>
 	</div>
-	<p class="modal-game-title">KOJI</p>
+	<p class="modal-game-title"><%= image_tag "testLogo4.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signinForm", class: "signup-form-form signin-form-form") do %>
 			<p class="signup-form-paragraph" style="font-size: 0.9em;">If you forgot your password, you can reset it by entering in your login info, without the password, and pressing 'Reset Password'. You will be emailed or texted a confirmation code to reset your password.</p>
@@ -1025,6 +1035,7 @@ body {
 			<p class="signup-form-paragraph"></p>
 			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: dimgray; margin-right: 4.9em;" onclick="signinFormSubmit(1);profileOption(1);"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit(0)"></p>
 		<% end %>
+		<div class="form-footer"></div>
 		<div id="changePassword" class="profile-option-div" style="position: relative; background-color: gray; border-bottom: none; padding-left: 1em;">
 			<p id="changePasswordErrorMessage" class="signup-form-paragraph" style="font-size: 1.5em; padding: 0.5em 0; color:red"></p>
 			<p class="signup-form-paragraph" style="padding: 0.5em 0; color: white;">Please enter reset password confirmation code below</p>
@@ -1097,13 +1108,14 @@ body {
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('contactusDiv'))">X</li>
 		</ul>
 	</div>
-	<p class="modal-game-title">KOJI</p>
+	<p class="modal-game-title"><%= image_tag "testLogo4.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "contactusForm", class: "signup-form-form contactus-form-form") do %>
 			<p class="signup-form-paragraph" style="font-size: 0.7em;"><input id="contactusEmailInput" type="text" name="contactusEmail" placeholder=" Email" maxlength="70" class="signup-form-input"></p>
 			<p class="signup-form-paragraph"><textarea id="contactusMessage" class="contactus-message" placeholder="Your message"></textarea></p>
 			<p class="buttons-paragraph"><input id="contactusSubmit" type="button" name="contactusSubmit" value="Send" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="submitMessage()"></p>
 		<% end %>
+		<div class="form-footer"></div>
 	</div>
 	<div class="modal-div-footer"></div>
 	<div class="hidden-opt-left" onclick="closeMenu(document.getElementById('contactusDiv')); showMenu(document.getElementById('menuDiv'));"></div>
@@ -2472,9 +2484,9 @@ body {
 		if (opt == 1) {
 			/*document.getElementById("changePassword").style.display = "block";*/
 			if (document.getElementById("changePassword").offsetHeight < 5) {
-				document.getElementById("changePassword").style.height = "53em";
-				document.getElementById("changePassword").style.marginTop = "-53em";
-			} else setTimeout(function() {document.getElementById("changePassword").style.height = "53em"; document.getElementById("changePassword").style.marginTop = "-53em";},600);
+				document.getElementById("changePassword").style.height = "130em";
+				document.getElementById("changePassword").style.marginTop = "-130em";
+			} else setTimeout(function() {document.getElementById("changePassword").style.height = "130em"; document.getElementById("changePassword").style.marginTop = "-130em";},600);
 			document.getElementById("changePasswordInput1").value = '';
 			document.getElementById("changePasswordInput2").value = '';
 			document.getElementById("passwordChangeConfirmationCode").value = "";
@@ -3008,7 +3020,7 @@ body {
 		if (cont) { 			
 			handler.open({
     			image: '/square-image.png',
-    			name: 'KOJI',
+    			name: 'Koji',
     			description: 'Koji recurring monthly membership fee',
     			amount: 200,
     			panelLabel: 'Pay {{amount}}',
