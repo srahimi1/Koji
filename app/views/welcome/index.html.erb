@@ -624,9 +624,10 @@ body {
 
 .signup-form-div {
 	width: 100%;
-	height: 40em;
+	height: 100%;
 	font-size: 1.8em;
 	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 .signup-form-form {
@@ -671,7 +672,7 @@ body {
 
 .signup-form-submit-button {
 	font-size: 1.5em;
-	padding:0.5em 1em 0.5em 1em;
+	padding:0.5em 2em 0.5em 2em;
 	border: none;
 	color: white;
 	background-color: #e6eded;
@@ -998,7 +999,7 @@ body {
 			<p class="signup-form-paragraph"><span id="password2ErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="password2Input" class="signup-form-input" type="password" name="password2" placeholder=" Re-enter Password" maxlength="70" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"></p>
-			<p class="buttons-paragraph"><input id="signupSubmit" class="signup-form-submit-button" type="button" name="signupSubmit" value="Enter Payment Info >" onclick="stripePopup()" onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-1px 3px 9px #777777'" disabled="disabled"></p>
+			<p class="buttons-paragraph"><input id="signupSubmit" class="signup-form-submit-button" type="button" name="signupSubmit" value="Payment Info >" onclick="stripePopup()" onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-1px 3px 9px #777777'" disabled="disabled"></p>
 		<% end %>
 		<div class="form-footer"></div>
 	</div>
@@ -1033,7 +1034,7 @@ body {
 			<p class="signup-form-paragraph"><span id="loginPasswordErrorMessage" style="color:red;"></span></p>
 			<p class="signup-form-paragraph"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder=" Password" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"></p>
-			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: dimgray; margin-right: 4.9em;" onclick="signinFormSubmit(1);profileOption(1);"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #8e3ecf;" onclick="signinFormSubmit(0)"></p>
+			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: #999999; float: left; clear: both;" onclick="signinFormSubmit(1);profileOption(1);"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #666666;" onclick="signinFormSubmit(0)"></p>
 		<% end %>
 		<div class="form-footer"></div>
 		<div id="changePassword" class="profile-option-div" style="position: relative; background-color: gray; border-bottom: none; padding-left: 1em;">
@@ -2717,7 +2718,7 @@ body {
 		}
 
 		if (formcheck[0] && formcheck[2] && formcheck[3]) {
-      		document.getElementById("signupSubmit").style.backgroundColor = "#8e3ecf";
+      		document.getElementById("signupSubmit").style.backgroundColor = "#666666";
 			document.getElementById("signupSubmit").style.boxShadow = "-1px 3px 9px #777777";
 			document.getElementById("signupSubmit").disabled = false;
 		} else {
@@ -2777,7 +2778,7 @@ body {
       				else if (route == "/checkdisplayname") formcheck[2] = true;
       				eval(success);
       				if (formcheck[0] && formcheck[2] && formcheck[3]) {
-      					document.getElementById("signupSubmit").style.backgroundColor = "#8e3ecf";
+      					document.getElementById("signupSubmit").style.backgroundColor = "#666666";
 						document.getElementById("signupSubmit").style.boxShadow = "-1px 3px 9px #777777";
 						document.getElementById("signupSubmit").disabled = false;
 					} else {
@@ -2861,10 +2862,15 @@ body {
 						var el = document.getElementById("gameMessage"); 
 						el.style.color = "#3ecf8e"; 
 						el.innerHTML = "Password reset confirmation code sent. Please wait up to 2 minutes to receive code."; 
-					} else if (res.toUpperCase() == "BAD") {
+					} else if ((res.toUpperCase() == "BAD") && (code == 0)) {
 						var el = document.getElementById("gameMessage"); 
 						el.style.color = "#F00000"; 
-						el.innerHTML = "Sorry sign-in was not succesful<br/>Please check your information and try again."; 
+						el.innerHTML = "Sorry sign-in was not succesful.<br/>Please check your information and try again."; 
+					} else if ((res.toUpperCase() == "BAD") && (code == 1)) {
+						profileOption(4);
+						var el = document.getElementById("gameMessage"); 
+						el.style.color = "#F00000"; 
+						el.innerHTML = "The login information was not found.<br/>Please check your information and try again."; 
 					}
 					showMenu(document.getElementById('gameMessageDiv')); 
 					el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";
