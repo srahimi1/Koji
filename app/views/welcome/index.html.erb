@@ -2391,6 +2391,7 @@ body {
 	} // end function clearProfile()
 
 	function updateInfo(sel) {
+		var proceed = true;
 		document.getElementById("changePasswordErrorMessage").innerHTML = "";	
     	document.getElementById("changeLoginErrorMessage").innerHTML = "";
     	document.getElementById("cancelMembershipErrorMessage").innerHTML = "";	
@@ -2404,10 +2405,15 @@ body {
 			route = "/players/0";
 			data = "code=1&password="+password+"&email="+email+"&cellphone="+cellphone+"&cc="+cc;
 		} else if (sel == 2) {
-			var email = encodeURIComponent(document.getElementById("changeEmailInput").value);
-			var cellphone = encodeURIComponent(document.getElementById("changeNumberInput").value);
-			route = "/players/change_login";
-			data = "code=2&email="+email+"&cellphone="+cellphone;
+			if (!validateEmail(document.getElementById('changeEmailInput'),2) && !validateCellphone(document.getElementById('changeCellphoneInput'),3)) {
+				document.getElementById("changeLoginErrorMessage").innerHTML = "Please check information.";
+				proceed = false; 
+			} else {
+				var email = encodeURIComponent(document.getElementById("changeEmailInput").value);
+				var cellphone = encodeURIComponent(document.getElementById("changeNumberInput").value);
+				route = "/players/change_login";
+				data = "code=2&email="+email+"&cellphone="+cellphone;
+			}
 		} else if (sel == 3) {
 			var cancel = document.getElementById("cancelMembershipInput").value + "";
 			route = "/players/cancel_membership";
@@ -2416,7 +2422,7 @@ body {
 			route = "/players/logout";
 			data = "code=4";
 		}
-		if ((sel == 1) || (sel == 2) || ((sel == 3) && (cancel.toUpperCase() == "CANCEL")) || (sel == 4)) {
+		if (proceed && ((sel == 1) || (sel == 2) || ((sel == 3) && (cancel.toUpperCase() == "CANCEL")) || (sel == 4))) {
 			var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 			xhttp.abort();
 	  		xhttp.onreadystatechange = function() {
@@ -2607,7 +2613,7 @@ body {
 		} else if ((isValid) && (sel == 2)) {
 			var success = "document.getElementById('changeEmailInput').nextSibling.style.visibility = 'visible'; document.getElementById('changeLoginErrorMessage').innerHTML = '';document.getElementById('changeLoginButton').disabled = false;";
 			var fail = "document.getElementById('changeEmailInput').nextSibling.style.visibility = 'hidden'; document.getElementById('changeLoginErrorMessage').innerHTML = 'email already exists';document.getElementById('changeLoginButton').disabled = true;";
-			checkIfExist("/checkemail",test,success,fail);
+			return checkIfExist("/checkemail",test,success,fail);
 		} else {
 			inp.nextSibling.style.visibility = "hidden"; 
 			errorEl.innerHTML = errorMessage;
@@ -2634,42 +2640,49 @@ body {
 		inp.blur();
 		hid.focus();
 		var hidValue = hid.value + "";
-		var char = hidValue[hidValue.length - 1];
-		var test = "";
-		var temp = "";
-		if ( isNaN(char) || (parseInt(char) == null) || (hidValue.length > 10) ) {
-			for (var i = 0; i < hidValue.length - 1; i++)
-				temp += hidValue[i];
-		} else {
-			for (var i = 0; i < hidValue.length; i++)
-				temp += hidValue[i];
-		}
-		hid.value = parseInt(temp);
-		test = temp + "";
-		
-		var len = test.length;
-		var number = "";
-		for (var i = 0; i < len; i++) {
-			if (i == 0) number = "(" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
-			else if (i == 3) number = number + ")" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
-			else if (i == 6) number = number + "-" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
-			else number = number + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
-		} // for (var i = 0; i < 10; i++)
-		
-		if ((len == 10) && (sel == 1)) {
-			var success = "document.getElementById('cellphoneInput').nextSibling.style.visibility = 'visible'; document.getElementById('cellphoneErrorMessage').innerHTML = ''";
-			var fail = "document.getElementById('cellphoneInput').nextSibling.style.visibility = 'hidden'; document.getElementById('cellphoneErrorMessage').innerHTML = 'cellphone number already exists'";
-			checkIfExist("/checkcellphone",test,success,fail);
-		} else if ((len == 10) && (sel == 3)) {
-			var success = "document.getElementById('changeCellphoneInput').nextSibling.style.visibility = 'visible'; document.getElementById('changeLoginErrorMessage').innerHTML = '';document.getElementById('changeLoginButton').disabled = false;";
-			var fail = "document.getElementById('changeCellphoneInput').nextSibling.style.visibility = 'hidden'; document.getElementById('changeLoginErrorMessage').innerHTML = 'cellphone number already exists';document.getElementById('changeLoginButton').disabled = true;";
-			checkIfExist("/checkcellphone",test,success,fail);
-		} else {
-			inp.nextSibling.style.visibility = "hidden"; 
+		if (hidValue == "") {
 			errorEl.innerHTML = "";
+			isSignupFormReady();
+			return true;
+		} else {
+			var char = hidValue[hidValue.length - 1];
+			var test = "";
+			var temp = "";
+			if ( isNaN(char) || (parseInt(char) == null) || (hidValue.length > 10) ) {
+				for (var i = 0; i < hidValue.length - 1; i++)
+					temp += hidValue[i];
+			} else {
+				for (var i = 0; i < hidValue.length; i++)
+					temp += hidValue[i];
+			}
+			hid.value = parseInt(temp);
+			test = temp + "";
+			
+			var len = test.length;
+			var number = "";
+			for (var i = 0; i < len; i++) {
+				if (i == 0) number = "(" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
+				else if (i == 3) number = number + ")" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
+				else if (i == 6) number = number + "-" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
+				else number = number + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
+			} // for (var i = 0; i < 10; i++)
+			
+			if ((len == 10) && (sel == 1)) {
+				var success = "document.getElementById('cellphoneInput').nextSibling.style.visibility = 'visible'; document.getElementById('cellphoneErrorMessage').innerHTML = ''";
+				var fail = "document.getElementById('cellphoneInput').nextSibling.style.visibility = 'hidden'; document.getElementById('cellphoneErrorMessage').innerHTML = 'cellphone number already exists'";
+				checkIfExist("/checkcellphone",test,success,fail);
+			} else if ((len == 10) && (sel == 3)) {
+				var success = "document.getElementById('changeCellphoneInput').nextSibling.style.visibility = 'visible'; document.getElementById('changeLoginErrorMessage').innerHTML = '';document.getElementById('changeLoginButton').disabled = false;";
+				var fail = "document.getElementById('changeCellphoneInput').nextSibling.style.visibility = 'hidden'; document.getElementById('changeLoginErrorMessage').innerHTML = 'cellphone number already exists';document.getElementById('changeLoginButton').disabled = true;";
+				return checkIfExist("/checkcellphone",test,success,fail);
+			} else {
+				inp.nextSibling.style.visibility = "hidden"; 
+				errorEl.innerHTML = "";
+			}
+			inp.value = number;
+			hid.focus();
 		}
-		inp.value = number;
-		hid.focus();
+		isSignupFormReady();
 		return false;
 	} // end function validateCellphone()
 
@@ -2715,16 +2728,7 @@ body {
 			el1.nextSibling.style.visibility = "hidden";
 			el2.nextSibling.style.visibility = "hidden";
 		}
-
-		if (formcheck[0] && formcheck[2] && formcheck[3]) {
-      		document.getElementById("signupSubmit").style.backgroundColor = "#666666";
-			document.getElementById("signupSubmit").style.boxShadow = "-1px 3px 9px #777777";
-			document.getElementById("signupSubmit").disabled = false;
-		} else {
-			document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
-			document.getElementById("signupSubmit").style.boxShadow = "none";
-			document.getElementById("signupSubmit").disabled = true;
-		}
+		isSignupFormReady();
 		return false;
 	} // end function validatePassword()
 
@@ -2776,16 +2780,8 @@ body {
       				else if (route == "/checkcellphone") formcheck[1] = true;
       				else if (route == "/checkdisplayname") formcheck[2] = true;
       				eval(success);
-      				if (formcheck[0] && formcheck[2] && formcheck[3]) {
-      					document.getElementById("signupSubmit").style.backgroundColor = "#666666";
-						document.getElementById("signupSubmit").style.boxShadow = "-1px 3px 9px #777777";
-						document.getElementById("signupSubmit").disabled = false;
-					} else {
-						document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
-						document.getElementById("signupSubmit").style.boxShadow = "none";
-						document.getElementById("signupSubmit").disabled = true;
-					}
-      				return false;
+      				isSignupFormReady();
+					return true;
       			} else if (res.toUpperCase() == "DUPLICATE") {
       				eval(fail);
       				return false;
@@ -2795,6 +2791,7 @@ body {
   		var routetotal = route + "?data=" + encodeURIComponent(data);
   		xhttptemp.open("GET", routetotal, true);
   		xhttptemp.send();
+  		return false;
 	} // end function checkIfExist(route, method, data, success, fail)
 
 	function signupFormSubmit(stripeToken) {
@@ -2885,7 +2882,17 @@ body {
 		}
 	} // end function signinFormSubmit()
 
-
+	function isSignupFormReady() {
+		if (formcheck[0] && formcheck[2] && formcheck[3]) {
+      		document.getElementById("signupSubmit").style.backgroundColor = "#666666";
+			document.getElementById("signupSubmit").style.boxShadow = "-1px 3px 9px #777777";
+			document.getElementById("signupSubmit").disabled = false;
+		} else {
+			document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
+			document.getElementById("signupSubmit").style.boxShadow = "none";
+			document.getElementById("signupSubmit").disabled = true;
+		}
+	} // end function isSignupFormReady()
 
 // general purpose app functions ...
 	
