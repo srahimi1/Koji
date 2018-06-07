@@ -831,7 +831,7 @@ body {
 </head>
 <body onload="checkForStartupMessage();">
 
-<h1 id="KOJITitle" class="title-bar"><%= image_tag "testLogo4.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %><span>Koji</span><p style="display:inline-block; float: right; height: 1em; padding: 0; margin: 0.2em 0.4em 0 0; overflow: hidden;"><span style="display: block; height: 1px; width: 1.5em; border-bottom: 3px solid white; margin: 0.2em 0;"></span><span style="display: block; height: 1px; width: 1.5em; border-bottom: 3px solid white; margin: 0.2em 0;"></span><span style="display: block; height: 1px; width: 1.5em; border-bottom: 3px solid white; margin: 0.2em 0;"></span></p></h1>
+<h1 id="KOJITitle" class="title-bar"><%= image_tag "testLogo6.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %><span>Koji</span><p style="display:inline-block; float: right; height: 1em; padding: 0; margin: 0.2em 0.4em 0 0; overflow: hidden;"><span style="display: block; height: 1px; width: 1.5em; border-bottom: 3px solid white; margin: 0.2em 0;"></span><span style="display: block; height: 1px; width: 1.5em; border-bottom: 3px solid white; margin: 0.2em 0;"></span><span style="display: block; height: 1px; width: 1.5em; border-bottom: 3px solid white; margin: 0.2em 0;"></span></p></h1>
 
 <div style="position: absolute; top: 0; width: 15em; height: 8em; left: 100%; margin-left: -15em; z-index: 4" onclick="closeMenu(document.getElementById('instructionsDiv')); closeMenu(document.getElementById('signupDiv')); closeMenu(document.getElementById('signinDiv')); closeMenu(document.getElementById('profileDiv')); showMenu(document.getElementById('menuDiv'));" onmouseover="animateMenu(document.getElementById('menuParagraph'), 0);" onmouseout="animateMenu(document.getElementById('menuParagraph'), 1);"></div>	
 
@@ -953,7 +953,7 @@ body {
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('instructionsDiv'))">X</li>
 		</ul>
 	</div>
-	<p class="modal-game-title"><%= image_tag "testLogo4.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
+	<p class="modal-game-title"><%= image_tag "testLogo6.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
 	<ul class="instruction-ul">
 		<li class="instruction-top-li"><h4>Mix to match colors and uncover hidden letters. Figure out all the hidden letters and you win!</h4></li>
 		<li class="instruction-li">
@@ -981,7 +981,7 @@ body {
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('signupDiv'))">X</li>
 		</ul>
 	</div>
-	<p class="modal-game-title"><%= image_tag "testLogo4.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
+	<p class="modal-game-title"><%= image_tag "testLogo6.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signupForm", class: "signup-form-form") do %>
 			<p class="signup-form-paragraph" style="font-size: 0.9em;">Email and cellphone will be used for login and password recovery. Sign-up requires a $2 (two dollars) recurring monthly membership fee.</p>
@@ -1018,7 +1018,7 @@ body {
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('signinDiv'))">X</li>
 		</ul>
 	</div>
-	<p class="modal-game-title"><%= image_tag "testLogo4.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
+	<p class="modal-game-title"><%= image_tag "testLogo6.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signinForm", class: "signup-form-form signin-form-form") do %>
 			<p class="signup-form-paragraph" style="font-size: 0.9em;">If you forgot your password, you can reset it by entering in your login info, without the password, and pressing 'Reset Password'. You will be emailed or texted a confirmation code to reset your password.</p>
@@ -1109,7 +1109,7 @@ body {
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('contactusDiv'))">X</li>
 		</ul>
 	</div>
-	<p class="modal-game-title"><%= image_tag "testLogo4.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
+	<p class="modal-game-title"><%= image_tag "testLogo6.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "contactusForm", class: "signup-form-form contactus-form-form") do %>
 			<p class="signup-form-paragraph" style="font-size: 0.7em;"><input id="contactusEmailInput" type="text" name="contactusEmail" placeholder=" Email" maxlength="70" class="signup-form-input"></p>
@@ -2670,6 +2670,7 @@ body {
 		}
 		inp.value = number;
 		hid.focus();
+		isSignupFormReady();
 		return false;
 	} // end function validateCellphone()
 
@@ -2716,15 +2717,7 @@ body {
 			el2.nextSibling.style.visibility = "hidden";
 		}
 
-		if (formcheck[0] && formcheck[2] && formcheck[3]) {
-      		document.getElementById("signupSubmit").style.backgroundColor = "#666666";
-			document.getElementById("signupSubmit").style.boxShadow = "-1px 3px 9px #777777";
-			document.getElementById("signupSubmit").disabled = false;
-		} else {
-			document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
-			document.getElementById("signupSubmit").style.boxShadow = "none";
-			document.getElementById("signupSubmit").disabled = true;
-		}
+		isSignupFormReady();
 		return false;
 	} // end function validatePassword()
 
@@ -2776,15 +2769,7 @@ body {
       				else if (route == "/checkcellphone") formcheck[1] = true;
       				else if (route == "/checkdisplayname") formcheck[2] = true;
       				eval(success);
-      				if (formcheck[0] && formcheck[2] && formcheck[3]) {
-      					document.getElementById("signupSubmit").style.backgroundColor = "#666666";
-						document.getElementById("signupSubmit").style.boxShadow = "-1px 3px 9px #777777";
-						document.getElementById("signupSubmit").disabled = false;
-					} else {
-						document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
-						document.getElementById("signupSubmit").style.boxShadow = "none";
-						document.getElementById("signupSubmit").disabled = true;
-					}
+      				isSignupFormReady();
       				return false;
       			} else if (res.toUpperCase() == "DUPLICATE") {
       				eval(fail);
@@ -2795,6 +2780,7 @@ body {
   		var routetotal = route + "?data=" + encodeURIComponent(data);
   		xhttptemp.open("GET", routetotal, true);
   		xhttptemp.send();
+		return false;
 	} // end function checkIfExist(route, method, data, success, fail)
 
 	function signupFormSubmit(stripeToken) {
@@ -2885,7 +2871,17 @@ body {
 		}
 	} // end function signinFormSubmit()
 
-
+	function isSignupFormReady() {
+		if (formcheck[0] && formcheck[2] && formcheck[3]) {
+			document.getElementById("signupSubmit").style.backgroundColor = "#666666";
+			document.getElementById("signupSubmit").style.boxShadow = "-1px 3px 9px #777777";
+			document.getElementById("signupSubmit").disabled = false;
+		} else {
+			document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
+			document.getElementById("signupSubmit").style.boxShadow = "none";
+			document.getElementById("signupSubmit").disabled = true;
+		} // if...else
+	} // end function isSignupFormReady()
 
 // general purpose app functions ...
 	

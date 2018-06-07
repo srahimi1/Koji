@@ -2,8 +2,8 @@ class Player < ApplicationRecord
 	has_many :games, dependent: :destroy
 	has_one :player_gaming_history, dependent: :destroy
 	has_many :confirmation_codes, dependent: :destroy
-	has_one :pp_customer_info, dependent: :destroy
-	has_one :subscription, dependent: :destroy
+	has_one :pp_customer_info
+	has_one :subscription
 
 	validates :email, uniqueness: true, allow_nil: true
 	validates :cellphone, uniqueness: true, allow_nil: true
@@ -72,6 +72,6 @@ class Player < ApplicationRecord
 				PlayerMailer.send_confirmation_email(player.email, confirmation_code).deliver_now #all these used to be email_confirmation_code, not confirmation_code
 			end
 		}
-	ActiveRecord::Base.connection.close
+		ActiveRecord::Base.connection.close
     end
 end
