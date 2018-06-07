@@ -2405,11 +2405,12 @@ body {
 			route = "/players/0";
 			data = "code=1&password="+password+"&email="+email+"&cellphone="+cellphone+"&cc="+cc;
 		} else if (sel == 2) {
-			if (!validateEmail(document.getElementById('changeEmailInput'),2) && !validateCellphone(document.getElementById('changeCellphoneInput'),3)) {
+			if (!validateEmail(document.getElementById('changeEmailInput'),2) || !validateCellphone(document.getElementById('changeCellphoneInput'),3)) {
 				console.log("in here");
 				document.getElementById("changeLoginErrorMessage").innerHTML = "Please check information.";
 				proceed = false; 
 			} else {
+				console.log("in 2");
 				var email = encodeURIComponent(document.getElementById("changeEmailInput").value);
 				var cellphone = encodeURIComponent(document.getElementById("changeNumberInput").value);
 				route = "/players/change_login";
