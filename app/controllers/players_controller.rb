@@ -27,9 +27,10 @@ class PlayersController < ApplicationController
 				player.create_pp_customer_info(payment_provider_id: 1, pp_customer_id: subscription_result[2])
 				player.save
 				output = "OK"
+			else
+				output = "BAD"
 			end
 		end
-		ActiveRecord::Base.connection.close
 		render plain: output
 	end
 
@@ -73,7 +74,7 @@ class PlayersController < ApplicationController
 			session[:player_id] = nil
 			output = "OK"
 		end 
-		if ( (destroyed == 0) && !player.blank? && (!player.save!) )
+		if ( (destroyed == 0) && !player.blank? && (!player.save) )
 			output = "BAD"			
 		end
 		render plain: output

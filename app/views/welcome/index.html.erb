@@ -2815,6 +2815,7 @@ body {
 	  		xhttp.onreadystatechange = function() {
 	    		if (this.readyState == 4 && this.status == 200) {
 	      			var res = this.responseText + "";
+	    			console.log(res);
 	    			if (res.toUpperCase() == "OK") {
 	    				var el = document.getElementById("gameMessage"); 
 	    				el.style.color = "#3ecf8e"; 
@@ -2823,7 +2824,7 @@ body {
 	    			} else if (res.toUpperCase() == "BAD") {
 	    				var el = document.getElementById("gameMessage"); 
 	    				el.style.color = "#F00000"; 
-	    				el.innerHTML = "Sorry sign-up was not succesful<br/>Please check your information and try again."; 
+	    				el.innerHTML = "Sorry, sign-up was not succesful<br/>Please check your information and try again."; 
 	    				document.getElementById("signupSubmit").disabled = false;
 	    			} // if (res.toUpperCase() == "OK")
 	    		    showMenu(document.getElementById('gameMessageDiv')); 
@@ -2865,7 +2866,7 @@ body {
 					} else if ((res.toUpperCase() == "BAD") && (code == 0)) {
 						var el = document.getElementById("gameMessage"); 
 						el.style.color = "#F00000"; 
-						el.innerHTML = "Sorry sign-in was not succesful.<br/>Please check your information and try again."; 
+						el.innerHTML = "Sorry, sign-in was not succesful.<br/>Please check your information and try again."; 
 					} else if ((res.toUpperCase() == "BAD") && (code == 1)) {
 						profileOption(4);
 						var el = document.getElementById("gameMessage"); 
