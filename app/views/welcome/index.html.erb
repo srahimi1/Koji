@@ -1114,7 +1114,7 @@ body {
 		<%= form_tag("/", method: "", id: "contactusForm", class: "signup-form-form contactus-form-form") do %>
 			<p class="signup-form-paragraph" style="font-size: 0.7em;"><input id="contactusEmailInput" type="text" name="contactusEmail" placeholder=" Email" maxlength="70" class="signup-form-input"></p>
 			<p class="signup-form-paragraph"><textarea id="contactusMessage" class="contactus-message" placeholder="Your message"></textarea></p>
-			<p class="buttons-paragraph"><input id="contactusSubmit" type="button" name="contactusSubmit" value="Send" class="signup-form-submit-button" style="background-color: dimgray;" onclick="submitMessage()"></p>
+			<p class="buttons-paragraph"><input id="contactusSubmit" type="button" name="contactusSubmit" value="Send" class="signup-form-submit-button" style="margin-right: 0.2em; background-color: dimgray;" onclick="submitMessage()"></p>
 		<% end %>
 		<div class="form-footer"></div>
 	</div>
@@ -2109,7 +2109,6 @@ body {
 			for (var i = 0; i < ind-1; i++) first = first.nextSibling;
 			first.style.color = "#F00000";
 			if ((numXs == 4) || (letterBoardsEmpty)) {
-				if (letterBoardsEmpty) console.log("empty");
 				updateGameDataOnServer(2); 
 				gameOver = true; 
 				document.getElementById("letterChoicesCont").style.display = "none"; 
@@ -2815,7 +2814,6 @@ body {
 	  		xhttp.onreadystatechange = function() {
 	    		if (this.readyState == 4 && this.status == 200) {
 	      			var res = this.responseText + "";
-	    			console.log(res);
 	    			if (res.toUpperCase() == "OK") {
 	    				var el = document.getElementById("gameMessage"); 
 	    				el.style.color = "#3ecf8e"; 
