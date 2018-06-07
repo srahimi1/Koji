@@ -2665,14 +2665,14 @@ body {
 		} else if ((len == 10) && (sel == 3)) {
 			var success = "document.getElementById('changeCellphoneInput').nextSibling.style.visibility = 'visible'; document.getElementById('changeLoginErrorMessage').innerHTML = '';document.getElementById('changeLoginButton').disabled = false;";
 			var fail = "document.getElementById('changeCellphoneInput').nextSibling.style.visibility = 'hidden'; document.getElementById('changeLoginErrorMessage').innerHTML = 'cellphone number already exists';document.getElementById('changeLoginButton').disabled = true;";
-			return checkIfExist("/checkcellphone",test,success,fail);
+			checkIfExist("/checkcellphone",test,success,fail);
 		} else {
 			inp.nextSibling.style.visibility = "hidden"; 
 			errorEl.innerHTML = "";
 		}
 		inp.value = number;
 		hid.focus();
-		//isSignupFormReady();
+		isSignupFormReady();
 		return false;
 	} // end function validateCellphone()
 
