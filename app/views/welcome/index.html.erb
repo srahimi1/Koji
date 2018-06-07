@@ -2391,11 +2391,13 @@ body {
 	} // end function clearProfile()
 
 	function updateInfo(sel) {
+		var proceed = true;
 		document.getElementById("changePasswordErrorMessage").innerHTML = "";	
     	document.getElementById("changeLoginErrorMessage").innerHTML = "";
     	document.getElementById("cancelMembershipErrorMessage").innerHTML = "";	
 		var route = "";
 		var data = "";
+		console.log("in update");
 		if (sel == 1) {
 			var email = encodeURIComponent(document.getElementById("loginEmailInput").value);
 			var cellphone = encodeURIComponent(document.getElementById("loginNumberInput").value);
@@ -2416,7 +2418,7 @@ body {
 			route = "/players/logout";
 			data = "code=4";
 		}
-		if ((sel == 1) || (sel == 2) || ((sel == 3) && (cancel.toUpperCase() == "CANCEL")) || (sel == 4)) {
+		if (proceed && ((sel == 1) || (sel == 2) || ((sel == 3) && (cancel.toUpperCase() == "CANCEL")) || (sel == 4))) {
 			var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 			xhttp.abort();
 	  		xhttp.onreadystatechange = function() {
@@ -2607,7 +2609,7 @@ body {
 		} else if ((isValid) && (sel == 2)) {
 			var success = "document.getElementById('changeEmailInput').nextSibling.style.visibility = 'visible'; document.getElementById('changeLoginErrorMessage').innerHTML = '';document.getElementById('changeLoginButton').disabled = false;";
 			var fail = "document.getElementById('changeEmailInput').nextSibling.style.visibility = 'hidden'; document.getElementById('changeLoginErrorMessage').innerHTML = 'email already exists';document.getElementById('changeLoginButton').disabled = true;";
-			checkIfExist("/checkemail",test,success,fail);
+			return checkIfExist("/checkemail",test,success,fail);
 		} else {
 			inp.nextSibling.style.visibility = "hidden"; 
 			errorEl.innerHTML = errorMessage;
@@ -2663,7 +2665,7 @@ body {
 		} else if ((len == 10) && (sel == 3)) {
 			var success = "document.getElementById('changeCellphoneInput').nextSibling.style.visibility = 'visible'; document.getElementById('changeLoginErrorMessage').innerHTML = '';document.getElementById('changeLoginButton').disabled = false;";
 			var fail = "document.getElementById('changeCellphoneInput').nextSibling.style.visibility = 'hidden'; document.getElementById('changeLoginErrorMessage').innerHTML = 'cellphone number already exists';document.getElementById('changeLoginButton').disabled = true;";
-			checkIfExist("/checkcellphone",test,success,fail);
+			return checkIfExist("/checkcellphone",test,success,fail);
 		} else {
 			inp.nextSibling.style.visibility = "hidden"; 
 			errorEl.innerHTML = "";
@@ -2716,7 +2718,7 @@ body {
 			el1.nextSibling.style.visibility = "hidden";
 			el2.nextSibling.style.visibility = "hidden";
 		}
-
+    
 		isSignupFormReady();
 		return false;
 	} // end function validatePassword()
@@ -2770,7 +2772,7 @@ body {
       				else if (route == "/checkdisplayname") formcheck[2] = true;
       				eval(success);
       				isSignupFormReady();
-      				return false;
+					    return true;
       			} else if (res.toUpperCase() == "DUPLICATE") {
       				eval(fail);
       				return false;
@@ -2780,7 +2782,7 @@ body {
   		var routetotal = route + "?data=" + encodeURIComponent(data);
   		xhttptemp.open("GET", routetotal, true);
   		xhttptemp.send();
-		return false;
+		  return false;
 	} // end function checkIfExist(route, method, data, success, fail)
 
 	function signupFormSubmit(stripeToken) {
