@@ -72,6 +72,6 @@ class Player < ApplicationRecord
 				PlayerMailer.send_confirmation_email(player.email, confirmation_code).deliver_now #all these used to be email_confirmation_code, not confirmation_code
 			end
 		}
-	ActiveRecord::Base.connection.close
+		ActiveRecord::Base.connection.close
     end
 end
