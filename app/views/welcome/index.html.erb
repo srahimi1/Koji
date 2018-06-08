@@ -644,7 +644,7 @@ body {
 .signup-form-form {
 	width: 100%;
 	margin: 0.5em auto 0 auto;
-	padding: 1em 1em 3.5em 1em;
+	padding: 1em 1em 15em 1em;
 	color: #663399;
 	background-color: #e5e5e5;
 	overflow: hidden;
@@ -654,7 +654,7 @@ body {
 .signin-form-form {
 	height: 28em;
 	overflow: hidden;
-	padding: 1em 1em;
+	padding-bottom: 12.5em;
 }
 
 .form-footer {
@@ -828,7 +828,7 @@ body {
 
 .contactus-form-form {
 	height: 28em;
-	padding: 1em 1em;
+	padding-bottom: 12.5em;
 }
 
 .contactus-message {
@@ -1854,7 +1854,7 @@ body {
 						letter.firstChild.style.fontSize = "2em";
 						letter.style.padding = "0";
 						if (!!selectedUnderscore.childNodes[0]) selectedUnderscore.removeChild(selectedUnderscore.childNodes[0]);
-						selectedUnderscore.style.backgroundColor = "#dedede";
+						selectedUnderscore.style.backgroundColor = "white";
 						selectedUnderscore.appendChild(letter);	
 						moved = 1;
 					} else if (((100 - values[0]) > 1) && (moved == 1)) {					
@@ -2086,8 +2086,8 @@ body {
 		switch(code) {
 			case 1:
 				document.getElementById("gameLettersContainer").style.display = "none";
-				// document.getElementById("instruction1").style.display = "block";
-				// document.getElementById("buttonsDiv").style.display = "block";
+				document.getElementById("instruction1").style.display = "flex";
+				document.getElementById("buttonsDiv").style.display = "flex";
 				document.getElementById("instruction2").style.opacity = "0";
 				break;
 			case 2:

@@ -1,0 +1,2 @@
+class DeletedPlayer < ApplicationRecord
+end
