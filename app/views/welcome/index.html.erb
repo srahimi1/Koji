@@ -9,16 +9,16 @@ html {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	margin: 0;
-	padding: 0;
+	/* margin: 0;
+	padding: 0; */
 }
 
 body {
-	width: 100%;
-	height: 100%; 
+	/* width: 100%;
+	height: 100%;  */
 	overflow: hidden;
-	margin: 0;
-	padding: 0;
+	margin: auto;
+	/* padding: 0; */
 	# background-color: #dedede; /*#4a0077; #f0f0f0;*/
 	font-family: 'Playfair Display', serif, Trebuchet MS, helvetica, tahoma;
 }
@@ -66,7 +66,7 @@ body {
 
 .game-content {
 	width: 100%;
-	height: 100%;
+	height: 100vh;
 	text-align: center;
 }
 
@@ -76,11 +76,11 @@ body {
 }
 
 .footer {
-	position: fixed;
+	/* position: fixed;
 	width: 100%;
 	top: 100%;
 	margin: -3em auto 0 auto;
-	padding: 0.1em 3em 1.35em 1em;
+	padding: 0.1em 3em 1.35em 1em; */
 	color: #fafffa;
 	font-size: 2em;
 	background-color: #2e2e2e;
@@ -281,6 +281,7 @@ body {
 }
 
 .buttons-div {
+	display:flex;
 	# position: fixed;
 	width: 100%;
 	# height: 10em;
@@ -288,37 +289,43 @@ body {
 	# top: 100%;
 	# margin-top: -18em;
 	# white-space: nowrap;
-	
+	align-items: flex-end;
 }
 
 .buttons-instructions {
 	font-size: 2.3em;
-	margin: 1em auto 1em auto;
+	margin-top: 1em;
+	font-size: 3em;
 	color: #363636;
 }
 
 
 .yesno-button {		
 	display: inline-block;
-	width: 48%;
+	width: 50%;
 	font-size: 5em;
 	padding: 0.4em 0;
 	font-weight: bold;
 	border: none;
 	text-align: center;
+	border-radius: 0.3em;
 }
 
 .yes-button {
-	background-color: #f1f1f1;
-	color: #3ecf8e;
-	margin-right: 0.3em;
+	border-color: rgb(26, 0, 0);
+	border-width: 0.01em;
+	border:solid;
+	color: black;
+	# margin-right: 0.3em;
 	border-radius: 6px;
 	box-shadow: 1px -1px 10px #bababa;
 }
 
 .no-button {
-	background-color: #f1f1f1;
-	color: #7a00cc;
+	border-color: rgb(26, 0, 0);
+	border-width: 0.01em;
+	border:solid;
+	color: black;
 	border-radius: 6px;
 	box-shadow: -1px -1px 10px #bababa;
 }
@@ -837,13 +844,23 @@ body {
 .flex-grow-1{
 	flex-grow: 1;
 }
+
+.flex-grow-half{
+	flex-grow: 0.5;
+}
+
+.flex-grow-quarter{
+	flex-grow: 0.25;
+}
 </style>
 </head>
 <body onload="checkForStartupMessage();">
 
 <h1 id="KOJITitle" class="title-bar"><%= image_tag "testLogo6.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %><span>Koji</span><p style="display:inline-block; float: right; height: 1em; padding: 0; margin: 0.2em 0.4em 0 0; overflow: hidden;"><span style="display: block; height: 1px; width: 1.5em; border-bottom: 3px solid white; margin: 0.2em 0;"></span><span style="display: block; height: 1px; width: 1.5em; border-bottom: 3px solid white; margin: 0.2em 0;"></span><span style="display: block; height: 1px; width: 1.5em; border-bottom: 3px solid white; margin: 0.2em 0;"></span></p></h1>
 
-<div style="position: absolute; top: 0; width: 15em; height: 8em; left: 100%; margin-left: -15em; z-index: 4" onclick="closeMenu(document.getElementById('instructionsDiv')); closeMenu(document.getElementById('signupDiv')); closeMenu(document.getElementById('signinDiv')); closeMenu(document.getElementById('profileDiv')); showMenu(document.getElementById('menuDiv'));" onmouseover="animateMenu(document.getElementById('menuParagraph'), 0);" onmouseout="animateMenu(document.getElementById('menuParagraph'), 1);"></div>	
+<div style="position: absolute; top: 0; width: 15em; height: 8em; left: 100%; margin-left: -15em; z-index: 4" onclick="closeMenu(document.getElementById('instructionsDiv')); closeMenu(document.getElementById('signupDiv')); closeMenu(document.getElementById('signinDiv')); closeMenu(document.getElementById('profileDiv')); showMenu(document.getElementById('menuDiv'));" onmouseover="animateMenu(document.getElementById('menuParagraph'), 0);" onmouseout="animateMenu(document.getElementById('menuParagraph'), 1);">
+	
+</div>	
 
 <div id="gameContent" class="game-content flex-col">
 	<div id="pointsandxsContainer" class="points-and-xs-container">
@@ -870,18 +887,19 @@ body {
 		<div id="letterChoicesCont" class="letter-choices-container"></div>
 	</div><!--end guessOuter div -->
 
-	<div id="instruction1" class="small-title buttons-instructions">Will mixing the colors in boxes 1 and 2 make the color shown above them?</div>
+	<div id="instruction1" class="small-title buttons-instructions flex-grow-quarter">Will mixing the colors in boxes 1 and 2 make the color shown above them?</div>
 
 	<div id="gameLettersContainer" class="game-letters-container" style="display: none;">
 		<div id="instruction2" class="small-title letter-instructions">Can you figure out what letters are being revealed in the top panel? Select a spot below to see the available letters for it.</div>
 		<div id="gameLettersDiv" class="game-letters-div"></div>
 	</div><!--end gameLettersContainer div -->
 
-	<div id="buttonsDiv" class="buttons-div flex-grow-1">
+	<div id="buttonsDiv" class="buttons-div flex-grow-quarter">
 		<div class="yesno-button yes-button" onclick="showUnderneathDiv(0);">Yes</div>
 		<div class="yesno-button no-button" onclick="showUnderneathDiv(1);">No</div>
 	</div><!--end buttons-div div -->
 
+	<div id="footer" class="footer flex-grow-half"><p>a First Flight Ingenuities<span style="font-size: 1em">&trade;</span> production</p></div>
 </div><!--end gameContent div -->
 	
 
@@ -889,7 +907,6 @@ body {
 </div><!--end show-menu-container div -->
 
 
-<div id="footer" class="footer"><p>a First Flight Ingenuities<span style="font-size: 1em">&trade;</span> production</p></div>
 
 <input type="hidden" id="gameVersion" name="gameVersion" value="1.0">
 
@@ -2061,8 +2078,8 @@ body {
 		switch(code) {
 			case 1:
 				document.getElementById("gameLettersContainer").style.display = "none";
-				document.getElementById("instruction1").style.display = "block";
-				document.getElementById("buttonsDiv").style.display = "block";
+				// document.getElementById("instruction1").style.display = "block";
+				// document.getElementById("buttonsDiv").style.display = "block";
 				document.getElementById("instruction2").style.opacity = "0";
 				break;
 			case 2:
