@@ -1,0 +1,2 @@
+class PaymentFailure < ApplicationRecord
+end

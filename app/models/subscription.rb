@@ -32,6 +32,33 @@ class Subscription < ApplicationRecord
       puts "Decline code is #{err[:decline_code]}" if err[:decline_code]
       puts "Param is: #{err[:param]}" if err[:param]
       puts "Message is: #{err[:message]}" if err[:message]
+    
+       if err[:charge]
+        charge_id = err[:charge]
+      else
+        charge_id = ""
+      end
+
+      if err[:code]
+        code = err[:code]
+      else
+        code = ""
+      end
+
+      if err[:decline_code]
+        decline_code = err[:decline_code]
+      else
+        decline_code = ""
+      end
+
+      if err[:message]
+        message = err[:message]
+      else
+        message = ""
+      end
+
+      PaymentFailure.create(email: token_email, status: e.http_status, type: err[:type], charge_id: charge_id, code: code, decline_code: decline_code, message: message)
+
     rescue Stripe::RateLimitError => e
       puts "Too many requests made to the API too quickly"
     rescue Stripe::InvalidRequestError => e
