@@ -3,6 +3,7 @@ class Subscription < ApplicationRecord
   has_one :payment_provider
 
   require "stripe"
+  require "json"
 
   def self.subscription_enroll(token_id, token_email)
 
@@ -22,7 +23,7 @@ class Subscription < ApplicationRecord
     	)
 
     rescue Stripe::CardError => e
-      err = e.json_body.error
+      err = e.json_body.to_json.error
 
       puts "Status is #{e.http_status}"
       puts "Type is #{err.type}"
