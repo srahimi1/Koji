@@ -1070,7 +1070,7 @@ body {
 			<p class="signup-form-paragraph"><span id="loginPasswordErrorMessage" style="color:red;"></span></p>
 			<p class="signup-form-paragraph"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder=" Password" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"></p>
-			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: #999999; float: left; clear: both;" onclick="signinFormSubmit(1);profileOption(1);"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #666666;" onclick="signinFormSubmit(0)"></p>
+			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: #999999; float: left; clear: both;" onclick="signinFormSubmit(1);"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #666666;" onclick="signinFormSubmit(0)"></p>
 		<% end %>
 		<div class="form-footer"></div>
 		<div id="changePassword" class="profile-option-div" style="position: relative; background-color: gray; border-bottom: none; padding-left: 1em;">
@@ -2889,6 +2889,7 @@ body {
 						var el = document.getElementById("gameMessage"); 
 						el.style.color = "#3ecf8e"; 
 						el.innerHTML = "Password reset confirmation code sent. Please wait up to 2 minutes to receive code."; 
+						profileOption(1);
 					} else if ((res.toUpperCase() == "BAD") && (code == 0)) {
 						var el = document.getElementById("gameMessage"); 
 						el.style.color = "#F00000"; 
