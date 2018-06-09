@@ -27,6 +27,8 @@ class PlayersController < ApplicationController
 				player.create_pp_customer_info(payment_provider_id: 1, pp_customer_id: subscription_result[2])
 				player.save
 				output = "OK"
+			elsif (subscription_result[0] != 1)
+				output = "BAD2"
 			else
 				output = "BAD"
 			end

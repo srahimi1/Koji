@@ -2842,6 +2842,11 @@ body {
 	    				el.style.color = "#3ecf8e"; 
 	    				el.innerHTML = "Thank you for signing up to play Koji!<br/>Enjoy!"; 
 	    				closeMenu(document.getElementById('signupDiv'));
+	    			} else if (res.toUpperCase() == "BAD2") {
+	    				var el = document.getElementById("gameMessage"); 
+	    				el.style.color = "#F00000"; 
+	    				el.innerHTML = "Sorry, payment processing was not succesful<br/>Please check your information and try again."; 
+	    				document.getElementById("signupSubmit").disabled = false;
 	    			} else if (res.toUpperCase() == "BAD") {
 	    				var el = document.getElementById("gameMessage"); 
 	    				el.style.color = "#F00000"; 
