@@ -57,7 +57,7 @@ class Subscription < ApplicationRecord
         message = ""
       end
 
-      PaymentFailure.create(email: token_email, status: e.http_status, type: err[:type], charge_id: charge_id, code: code, decline_code: decline_code, message: message)
+      PaymentFailure.create(email: token_email, stripe_status: e.http_status, stripe_type: err[:type], charge_id: charge_id, stripe_code: code, decline_code: decline_code, message: message)
 
     rescue Stripe::RateLimitError => e
       puts "Too many requests made to the API too quickly"
