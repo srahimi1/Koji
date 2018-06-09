@@ -280,13 +280,13 @@ body {
 
 .buttons-div {
 	display:flex;
-	# position: fixed;
+	/*position: fixed;*/
 	width: 100%;
-	# height: 10em;
-	# padding-top: 1em;
-	# top: 100%;
-	# margin-top: -18em;
-	# white-space: nowrap;
+/*	height: 10em;
+	padding-top: 1em;
+	top: 100%;
+	margin-top: -18em;
+	white-space: nowrap;*/
 	align-items: flex-end;
 }
 
@@ -314,7 +314,7 @@ body {
 	border-width: 0.01em;
 	border:solid;
 	color: black;
-	# margin-right: 0.3em;
+	/*margin-right: 0.3em;*/
 	border-radius: 6px;
 	box-shadow: 1px -1px 10px #bababa;
 }
@@ -357,13 +357,13 @@ body {
 }
 
 .letter-choices-container {
-	 position: absolute;
-	 width: 100%;
-	 height: 100%;
-	 top: 0;
-	 left: 0;
-	 text-align: center;
-	 display: none;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	text-align: center;
+	display: none;
 }
 
 .letter-p {
@@ -1347,6 +1347,7 @@ body {
 
 
 <script>
+	paymentRequestSent = false;
 	formcheck = [];
 	for (var i = 0; i < 4; i++) formcheck.push(false);
 	letterBoardsEmpty = false;
@@ -2840,13 +2841,13 @@ body {
 	      			var res = this.responseText + "";
 	    			if (res.toUpperCase() == "OK") {
 	    				var el = document.getElementById("gameMessage"); 
-	    				el.style.color = "#3ecf8e"; 
+	    				el.style.color = "#3ecf8e";
 	    				el.innerHTML = "Thank you for signing up to play Koji!<br/>Enjoy!"; 
 	    				closeMenu(document.getElementById('signupDiv'));
 	    			} else if (res.toUpperCase() == "BAD2") {
 	    				var el = document.getElementById("gameMessage"); 
 	    				el.style.color = "#F00000"; 
-	    				el.innerHTML = "Sorry, payment processing was not succesful<br/>Please check your information and try again."; 
+	    				el.innerHTML = "Payment processing was not succesful, we apologize.<br/>Please check your information and try again."; 
 	    				button.disabled = false;
 	    			} else if (res.toUpperCase() == "BAD") {
 	    				var el = document.getElementById("gameMessage"); 
@@ -2919,7 +2920,7 @@ body {
 		if (formcheck[0] && formcheck[2] && formcheck[3]) {
 			document.getElementById("signupSubmit").style.backgroundColor = "#666666";
 			document.getElementById("signupSubmit").style.boxShadow = "-1px 3px 9px #777777";
-			document.getElementById("signupSubmit").disabled = false;
+			if (!paymentRequestSent) document.getElementById("signupSubmit").disabled = false;
 		} else {
 			document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
 			document.getElementById("signupSubmit").style.boxShadow = "none";
@@ -2934,6 +2935,7 @@ body {
 		if (id == "signupDiv") {
 			document.getElementById("signupForm").reset();
 			document.getElementById("signupSubmit").disabled = true;
+			paymentRequestSent = false;
 			document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
 			document.getElementById("signupSubmit").style.boxShadow = "none";
 			document.getElementById("emailInput").nextSibling.style.visibility = "hidden";
@@ -3062,7 +3064,8 @@ body {
 		document.getElementById("signupSubmit").disabled = true;
 		var cont = false;
 		if (formcheck[0] && formcheck[2] && formcheck[3]) cont = true;
-		if (cont) { 			
+		if (cont) {
+			paymentRequestSent = true; 			
 			handler.open({
     			image: '/square-image.png',
     			name: 'Koji',
