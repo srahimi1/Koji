@@ -65,6 +65,7 @@ class PlayersController < ApplicationController
 		elsif (!player.blank? && (params["code"].to_i == 3) && (params["cancel"].to_s.downcase == "cancel"))
 			result = Player.cancel_membership(session["player_id"])
 			if (result == 1)
+				DeletedPlayer.create(player_id: player.id, email: player.email, cellphone: player.cellphone) 
 				player.destroy
 				session[:player_id] = nil
 				destroyed = 1

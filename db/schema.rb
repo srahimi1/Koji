@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20180608050529) do
     t.bigint "player_id"
     t.string "email"
     t.string "cellphone"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "games", force: :cascade do |t|
@@ -120,8 +122,4 @@ ActiveRecord::Schema.define(version: 20180608050529) do
   add_foreign_key "confirmation_codes", "players"
   add_foreign_key "games", "players"
   add_foreign_key "player_gaming_histories", "players"
-  add_foreign_key "pp_customer_infos", "payment_providers"
-  add_foreign_key "pp_customer_infos", "players"
-  add_foreign_key "subscriptions", "payment_providers"
-  add_foreign_key "subscriptions", "players"
 end

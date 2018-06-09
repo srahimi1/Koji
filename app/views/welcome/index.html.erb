@@ -19,7 +19,7 @@ body {
 	overflow: hidden;
 	margin: auto;
 	/* padding: 0; */
-	# background-color: #dedede; /*#4a0077; #f0f0f0;*/
+	/*background-color: #dedede; #4a0077; #f0f0f0;*/
 	font-family: 'Playfair Display', serif, Trebuchet MS, helvetica, tahoma;
 }
 
@@ -407,7 +407,7 @@ body {
 }
 
 	
-	/* modal classes */
+/* modal classes */
 
 .modal-div {
 	position: absolute;
@@ -839,15 +839,15 @@ body {
 	border: none;
 }
 
-.flex-grow-1{
+.flex-grow-1 {
 	flex-grow: 1;
 }
 
-.flex-grow-half{
+.flex-grow-half {
 	flex-grow: 0.5;
 }
 
-.flex-grow-quarter{
+.flex-grow-quarter {
 	flex-grow: 0.25;
 }
 
@@ -857,8 +857,8 @@ body {
 
 .flex-center {
 	display: flex;
-  align-items: center;
-  justify-content: center;
+ 	align-items: center;
+ 	justify-content: center;
 }
 </style>
 </head>
@@ -1023,17 +1023,17 @@ body {
 			<p class="signup-form-paragraph" style="font-size: 0.9em;">Email and cellphone will be used for login and password recovery. Sign-up requires a $2 (two dollars) recurring monthly membership fee.</p>
 			<p class="signup-form-paragraph">&nbsp;</p>
 			<p class="signup-form-paragraph"><span id="emailErrorMessage" style="color:red"></span></p>
-			<p class="signup-form-paragraph"><input id="emailInput" class="signup-form-input" type="text" name="email" placeholder=" Email" maxlength="70" onkeyup="validateEmail(this,1)" onblur="validateEmail(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><input id="emailInput" class="signup-form-input" type="text" name="email" placeholder=" Email" maxlength="70" onkeyup="validateEmail(this,1)" onfocus="validateEmail(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph" style="font-size: 0.8em;">- Cellphone optional -</p>
 			<p class="signup-form-paragraph"><span id="cellphoneErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="numberInput" style="font-size: 1em; margin: 0;" type="number" name="none" onkeyup="validateCellphone(document.getElementById('cellphoneInput'),1)"></p>
 			<p class="signup-form-paragraph" style="margin-top: -2em;"><input id="cellphoneInput" class="signup-form-input" type="text" name="cell" placeholder=" Cellphone" maxlength="20" onkeyup="validateCellphone(this,1)" onfocus="validateCellphone(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"><span id="displaynameErrorMessage" style="color:red"></span></p>
-			<p class="signup-form-paragraph"><input id="displaynameInput" class="signup-form-input" type="text" name="displayname" placeholder=" Display Name" maxlength="70" onkeyup="validateDisplayName(this)" onblur="validateDisplayName(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><input id="displaynameInput" class="signup-form-input" type="text" name="displayname" placeholder=" Display Name" maxlength="70" onkeyup="validateDisplayName(this)" onfocus="validateDisplayName(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"><span id="password1ErrorMessage" style="color:red"></span></p>
-			<p class="signup-form-paragraph"><input id="password1Input" class="signup-form-input" type="password" name="password1" placeholder=" Password" maxlength="70" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><input id="password1Input" class="signup-form-input" type="password" name="password1" placeholder=" Password" maxlength="70" onkeyup="validatePassword()" onfocus="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"><span id="password2ErrorMessage" style="color:red"></span></p>
-			<p class="signup-form-paragraph"><input id="password2Input" class="signup-form-input" type="password" name="password2" placeholder=" Re-enter Password" maxlength="70" onkeyup="validatePassword()" onblur="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><input id="password2Input" class="signup-form-input" type="password" name="password2" placeholder=" Re-enter Password" maxlength="70" onkeyup="validatePassword()" onfocus="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"></p>
 			<p class="buttons-paragraph"><input id="signupSubmit" class="signup-form-submit-button" type="button" name="signupSubmit" value="Payment Info >" onclick="stripePopup()" onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-1px 3px 9px #777777'" disabled="disabled"></p>
 		<% end %>
@@ -1077,8 +1077,8 @@ body {
 			<p id="changePasswordErrorMessage" class="signup-form-paragraph" style="font-size: 1.5em; padding: 0.5em 0; color:red"></p>
 			<p class="signup-form-paragraph" style="padding: 0.5em 0; color: white;">Please enter reset password confirmation code below</p>
 			<p class="signup-form-paragraph"><input id="passwordChangeConfirmationCode" class="signup-form-input" type="text" placeholder="Reset Confirmation Code"></p>
-			<p class="signup-form-paragraph"><input id="changePasswordInput1" class="signup-form-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
-			<p class="signup-form-paragraph"><input id="changePasswordInput2" class="signup-form-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onblur="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><input id="changePasswordInput1" class="signup-form-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onfocus="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><input id="changePasswordInput2" class="signup-form-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onfocus="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 
 			<p class="buttons-paragraph" style="width: 84%;"><button class="profile-cancel-button" onclick="profileOption(4)">Close</button><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button></p>
 		</div>
@@ -1104,7 +1104,7 @@ body {
 	</ul>
 	<div id="changeLogin" class="profile-option-div">
 		<p id="changeLoginErrorMessage" class="profile-paragraph profile-error-message"></p>
-		<p class="profile-paragraph"><input id="changeEmailInput" class="profile-input" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onblur="validateEmail(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+		<p class="profile-paragraph"><input id="changeEmailInput" class="profile-input" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onfocus="validateEmail(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 		<p class="profile-paragraph" style="padding: 0.1em 1.9em; font-size: 2em;">- and/ or -</p>
 		<p class="profile-paragraph"><input id="changeNumberInput" type="number" name="none" style="font-size: 1em;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)"></p>
 		<p class="profile-paragraph" style="margin-top: -3.4em;"><input id="changeCellphoneInput" class="profile-input" type="text" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 2em; visibility: hidden;" %></p>
@@ -2521,9 +2521,9 @@ body {
 		if (opt == 1) {
 			/*document.getElementById("changePassword").style.display = "block";*/
 			if (document.getElementById("changePassword").offsetHeight < 5) {
-				document.getElementById("changePassword").style.height = "130em";
-				document.getElementById("changePassword").style.marginTop = "-130em";
-			} else setTimeout(function() {document.getElementById("changePassword").style.height = "130em"; document.getElementById("changePassword").style.marginTop = "-130em";},600);
+				document.getElementById("changePassword").style.height = "142em";
+				document.getElementById("changePassword").style.marginTop = "-142em";
+			} else setTimeout(function() {document.getElementById("changePassword").style.height = "142em"; document.getElementById("changePassword").style.marginTop = "-142em";},600);
 			document.getElementById("changePasswordInput1").value = '';
 			document.getElementById("changePasswordInput2").value = '';
 			document.getElementById("passwordChangeConfirmationCode").value = "";

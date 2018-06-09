@@ -4,6 +4,8 @@ class CreateDeletedPlayers < ActiveRecord::Migration[5.1]
       t.bigint :player_id
       t.string :email
       t.string :cellphone
+    
+      t.timestamps
     end
   end
 end
