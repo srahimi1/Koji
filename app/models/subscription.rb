@@ -3,7 +3,6 @@ class Subscription < ApplicationRecord
   has_one :payment_provider
 
   require "stripe"
-  require "json"
 
   def self.subscription_enroll(token_id, token_email)
 
@@ -23,15 +22,16 @@ class Subscription < ApplicationRecord
     	)
 
     rescue Stripe::CardError => e
-      err = e.json_body.to_json.error
+      body = e.json_body
+      err = body[:error]
 
       puts "Status is #{e.http_status}"
-      puts "Type is #{err.type}"
-      puts "Charge ID is: #{err.charge}"
-      puts "#{err.code}" if err.code
-      puts "Decline code is #{err.decline_code}" if err.decline_code
-      puts "Param is: #{err.param}" if err.param
-      puts "Message is: #{err.message}" if err.message
+      puts "Type is #{err[:type]}"
+      puts "Charge ID is: #{err[:charge]}"
+      puts "#{err[:code]}" if err[:code]
+      puts "Decline code is #{err[:decline_code]}" if err[:decline_code]
+      puts "Param is: #{err[:param]}" if err[:param]
+      puts "Message is: #{err[:message]}" if err[:message]
     rescue Stripe::RateLimitError => e
       puts "Too many requests made to the API too quickly"
     rescue Stripe::InvalidRequestError => e
