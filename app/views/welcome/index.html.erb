@@ -2912,7 +2912,7 @@ body {
 	  		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
 	  		xhttp.send("email="+email+"&cellphone="+cellphone+"&password="+password+"&reset="+code);
 			return true; 
-		}
+		} // if .. else
 	} // end function signinFormSubmit()
 
 	function isSignupFormReady() {
