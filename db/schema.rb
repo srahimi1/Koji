@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180608050529) do
+ActiveRecord::Schema.define(version: 20180609171806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,18 @@ ActiveRecord::Schema.define(version: 20180608050529) do
     t.text "message"
     t.boolean "read"
     t.boolean "replied"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "payment_failures", force: :cascade do |t|
+    t.string "email"
+    t.string "stripe_status"
+    t.string "stripe_type"
+    t.string "charge_id"
+    t.string "stripe_code"
+    t.string "decline_code"
+    t.string "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -122,4 +134,8 @@ ActiveRecord::Schema.define(version: 20180608050529) do
   add_foreign_key "confirmation_codes", "players"
   add_foreign_key "games", "players"
   add_foreign_key "player_gaming_histories", "players"
+  add_foreign_key "pp_customer_infos", "payment_providers"
+  add_foreign_key "pp_customer_infos", "players"
+  add_foreign_key "subscriptions", "payment_providers"
+  add_foreign_key "subscriptions", "players"
 end
