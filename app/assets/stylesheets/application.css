@@ -565,7 +565,7 @@ body {
 }
 
 .menu-li-pad {
-	margin-top: 1.7em;
+	margin-top: 0.8em;
 }
 
 .hidden-opt-right {
@@ -650,6 +650,10 @@ body {
 	background: linear-gradient(to right, #e6e9ec, #ffffff);
 }
 
+#profileChoice{
+	padding-right: 3em;
+}
+
 .menu-div-svg-icon {
 	display: inline-block;
 	/* margin: 0;
@@ -657,7 +661,7 @@ body {
 	width: 1.2em;
 	margin-left: 1em;
 	margin-right: 1em;
-	height: 7em;
+	height: 5em;
 	/* vertical-align: top; */
 }
 
