@@ -69,13 +69,10 @@ function setGameContentHeight() {
 	}
 } // end function setGameContentHeight()
 
-function setCanvasHeight() {
+function setCanvasBottomMargin() {
 	var c = document.getElementById("canvas1");
-	var rect = c.parentNode.getBoundingClientRect();
-	console.log(c.parentNode.id);
-	console.log(rect);
-	c.width = rect.width;
-	c.height = rect.height;
+	var par = c.parentNode.getBoundingClientRect();
+	c.style.marginBottom = -(par.height - c.getBoundingClientRect().height) + "px";
 } // end function setCanvasHeight()
 
 function setButtonColorOnTouch(element) {
@@ -172,7 +169,7 @@ function getGame() {
 			colorGoalDiv();
 			createColorDivs();
 			createCanvasWithLetters();
-			//setCanvasHeight();
+			setCanvasBottomMargin();
 			return true;
 		} // end if
 	} // end onreadystatechange
@@ -672,7 +669,7 @@ function drawLine() {
 		numberOfLinesDrawnOnCanvas++;				
 	}
 	canvas.style.display = "none";
-	ctx.globalCompositeOperation = "exclusion";
+	ctx.globalCompositeOperation = "xor";
 	ctx.fillStyle = "white";
 	ctx.setTransform(1,0,0,1,0,0);
 	end = Math.floor(canvas.height);
