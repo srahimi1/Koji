@@ -56,7 +56,7 @@ allLetters = {"a": 1, "b": 1, "c": 1, "d": 1, "e": 1, "f": "ktji", "g":"abdopq",
 
 function getTitleBarHeight() {
 	if (document && document.getElementById('KOJITitle')) {
-		return document.getElementById('KOJITitle').getBoundingClientRect().height;
+		return document.getElementById('KOJITitle').offsetHeight;
 	} else {
 		return 0;
 	}
@@ -69,11 +69,11 @@ function setGameContentHeight() {
 	}
 } // end function setGameContentHeight()
 
-function setCanvasBottomMargin() {
+function setCanvasParentHeight() {
 	var c = document.getElementById("canvas1");
-	var par = c.parentNode.getBoundingClientRect();
-	c.style.marginBottom = -(par.height - c.getBoundingClientRect().height) + "px";
-} // end function setCanvasHeight()
+	c.parentNode.style.height = c.offsetHeight + "px";
+	console.log("set");
+} // end function setCanvasParentHeight()
 
 function setButtonColorOnTouch(element) {
 	if (document && document.getElementById(element)){
@@ -169,7 +169,7 @@ function getGame() {
 			colorGoalDiv();
 			createColorDivs();
 			createCanvasWithLetters();
-			setCanvasBottomMargin();
+			setCanvasParentHeight();
 			return true;
 		} // end if
 	} // end onreadystatechange
@@ -788,15 +788,13 @@ function switchButtonsAndLetters(code) {
 	switch(code) {
 		case 1:
 			document.getElementById("gameLettersContainer").style.display = "none";
-			document.getElementById("instruction1").style.display = "flex";
+			document.getElementById("instruction1").innerHTML = "Will mixing the colors in boxes 1 and 2 make the color shown above them?";
 			document.getElementById("buttonsDiv").style.display = "flex";
-			document.getElementById("instruction2").style.opacity = "0";
 			break;
 		case 2:
 			document.getElementById("gameLettersContainer").style.display = "block";
-			document.getElementById("instruction1").style.display = "none";
+			document.getElementById("instruction1").innerHTML = "Can you figure out what letters are being revealed in the top panel? Select a spot below to see the available letters for it.";
 			document.getElementById("buttonsDiv").style.display = "none";
-			document.getElementById("instruction2").style.opacity = "1";
 			break;
 	}// end switch(code)
 }
