@@ -37,6 +37,7 @@ body {
 }
 
 .game-content {
+	position: absolute;
 	width: 100%;
 	text-align: center;
 }
@@ -61,8 +62,11 @@ body {
 	width: 100%;
 	padding: 0;
 	margin: 0 auto;
+	background-color: white;
 	text-align: center;
 	overflow: hidden;
+	transition: margin-top 1.5s, height 1.5s;
+	z-index: 100;
 }
 
 .small-title {

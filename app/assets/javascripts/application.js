@@ -48,7 +48,7 @@ previousMinute = 0;
 xhttp = new XMLHttpRequest();
 counterU = 0;
 correctLetters = [];
-canvas = null, ctx = null;
+canvas = null, ctx = null, gc = null;
 imageData = null;
 similarLettersLowerCase = {"a": "egqdDQGB", "b": "hdgopqPFLK", "c": "eouvhyQEDO", "d": "bpqghPRBD", "e": "agqdEFKRP", "f": "ktjiFLKR", "g":"abdopqGQO", "h":"bdkrvHLRK", "i":"ljtILJT", "j":"iltTKRL", "k":"bdepxMWFE", "l": "ijtLPKH", "m": "nwuveWNRHE", "n": "muwvWRMK", "o":"bqpcdQBP", "p": "bdgceBRDE", "q": "pbdeBPDR", "r":"nuhHJLK", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuvEM", "x": "kwmyz", "y": "zvukh", "z":"snum"};
 similarLettersUpperCase = {"A": "VYUHegqd", "B": "KEPRFXhdgopq", "C": "GOQDeouvhy", "D": "CGOQbpqgh", "E": "KBPRFXMagqd", "F" : "KBEPRXktji", "G":"COQDabdopq", "H":"ITLJAbdkrv", "I":"HTLJljt", "J":"HITLilt", "K":"BEPRFXbdepx", "L":"HITJijt", "M":"NWUHEnwuv", "N": "MWUHEmuwv", "O": "CGQDbqpcd", "P": "KBERFXbdgce", "Q":"GCDOpbde", "R": "KBEPFXnuh", "S" : "ZCBE", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNEm", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
@@ -86,6 +86,29 @@ function removeButtonColorOnTouchEnd(element) {
 		document.getElementById(element).classList.remove('touched');
 	}
 } // end function removeButtonColorOnTouchEnd(element)
+
+function expandGoalContainer() {
+	var body = document.getElementsByTagName("body")[0];
+	gc.parentNode.removeChild(gc);
+	gc.style.position = "absolute";
+	var pandx = document.getElementById("pointsandxsContainer");
+	var totalht = document.getElementById("KOJITitle").offsetHeight + pandx.offsetHeight;
+	gc.style.top = totalht + "px";
+	body.appendChild(gc);
+	canvas.style.height = canvas.offsetHeight + "px";
+	document.getElementById("goal").style.height = canvas.offsetHeight + "px";
+	gc.style.marginTop = (0 - pandx.offsetHeight) + "px";
+	gc.style.height = document.getElementById('gameContent').offsetHeight + "px";
+	gc.onclick = function() {shrinkGoalContainer();};
+} // end function expandGoalContainer()
+
+function shrinkGoalContainer() {
+	var body = document.getElementsByTagName("body")[0];
+	var go = document.getElementById("guessOuter");
+	gc.style.marginTop = "0px";
+	gc.style.height = canvas.offsetHeight + "px";
+	setTimeout(function() {gc.parentNode.removeChild(gc); gc.style.position = "relative"; gc.style.top = "0px"; gc.style.height = (gc.offsetHeight - (gc.offsetHeight - canvas.offsetHeight)) + "px"; go.parentNode.insertBefore(gc,go.previousSibling.previousSibling);}, 1650);
+} // end function shrinkGoalContainer()
 
 function setupNewGame() {
 	letterBoardsEmpty = false;
@@ -131,6 +154,7 @@ function setupNewGame() {
 	canvas = null;
 	ctx = null;
 	imageData = null;
+	gc = document.getElementById("goalContainer");
 	document.getElementById("letterChoicesCont").style.display = "none";
 	document.getElementById("pointsSpan").innerHTML = points;
 	document.getElementById("gameMessage").innerHTML = "";
@@ -792,9 +816,10 @@ function switchButtonsAndLetters(code) {
 			document.getElementById("buttonsDiv").style.display = "flex";
 			break;
 		case 2:
-			document.getElementById("gameLettersContainer").style.display = "block";
+			expandGoalContainer();
+			/*document.getElementById("gameLettersContainer").style.display = "block";
 			document.getElementById("instruction1").innerHTML = "Can you figure out what letters are being revealed in the top panel? Select a spot below to see the available letters for it.";
-			document.getElementById("buttonsDiv").style.display = "none";
+			document.getElementById("buttonsDiv").style.display = "none";*/
 			break;
 	}// end switch(code)
 }
