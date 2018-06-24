@@ -65,7 +65,7 @@ body {
 	background-color: white;
 	text-align: center;
 	overflow: hidden;
-	transition: margin-top 1.5s, height 1.5s;
+	transition: margin-top 0.5s, height 0.5s;
 	z-index: 100;
 }
 
