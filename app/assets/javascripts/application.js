@@ -72,7 +72,6 @@ function setGameContentHeight() {
 function setCanvasParentHeight() {
 	var c = document.getElementById("canvas1");
 	c.parentNode.style.height = c.offsetHeight + "px";
-	console.log("set");
 } // end function setCanvasParentHeight()
 
 function setButtonColorOnTouch(element) {
@@ -105,9 +104,10 @@ function expandGoalContainer() {
 function shrinkGoalContainer() {
 	var body = document.getElementsByTagName("body")[0];
 	var go = document.getElementById("guessOuter");
+	go.style.height = canvas.offsetHeight + "px";
 	gc.style.marginTop = "0px";
 	gc.style.height = canvas.offsetHeight + "px";
-	setTimeout(function() {gc.parentNode.removeChild(gc); gc.style.position = "relative"; gc.style.top = "0px"; gc.style.height = (gc.offsetHeight - (gc.offsetHeight - canvas.offsetHeight)) + "px"; go.parentNode.insertBefore(gc,go.previousSibling.previousSibling);}, 1650);
+	setTimeout(function() {gc.parentNode.removeChild(gc); gc.style.position = "relative"; gc.style.top = "0px"; go.parentNode.insertBefore(gc,go.previousSibling.previousSibling);}, 1650);
 } // end function shrinkGoalContainer()
 
 function setupNewGame() {
