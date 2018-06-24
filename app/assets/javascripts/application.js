@@ -173,8 +173,6 @@ function setupNewGame() {
 	switchButtonsAndLetters(1);
 	closeMenu(document.getElementById("menuDiv"));
 	getGame();
-	setGameContentHeight();
-	gcheight = gc.offsetHeight;
 	return true;
 }// function setupNewGame()
 
@@ -194,7 +192,9 @@ function getGame() {
 			colorGoalDiv();
 			createColorDivs();
 			createCanvasWithLetters();
+			setGameContentHeight();
 			setCanvasParentHeight();
+			gcheight = gc.offsetHeight;
 			return true;
 		} // end if
 	} // end onreadystatechange
