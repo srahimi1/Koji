@@ -88,7 +88,6 @@ function removeButtonColorOnTouchEnd(element) {
 
 function expandGoalContainer() {
 	var body = document.getElementsByTagName("body")[0];
-	gcheight = gc.offsetHeight;
 	gc.parentNode.removeChild(gc);
 	gc.style.position = "absolute";
 	var pandx = document.getElementById("pointsandxsContainer");
@@ -175,6 +174,7 @@ function setupNewGame() {
 	closeMenu(document.getElementById("menuDiv"));
 	getGame();
 	setGameContentHeight();
+	gcheight = gc.offsetHeight;
 	return true;
 }// function setupNewGame()
 
