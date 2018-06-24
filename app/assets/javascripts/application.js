@@ -48,7 +48,7 @@ previousMinute = 0;
 xhttp = new XMLHttpRequest();
 counterU = 0;
 correctLetters = [];
-canvas = null, ctx = null, gc = null, gcheight = 0;
+canvas = null, ctx = null, gc = null, gcheight = 0, gsheight = 0;
 imageData = null;
 similarLettersLowerCase = {"a": "egqdDQGB", "b": "hdgopqPFLK", "c": "eouvhyQEDO", "d": "bpqghPRBD", "e": "agqdEFKRP", "f": "ktjiFLKR", "g":"abdopqGQO", "h":"bdkrvHLRK", "i":"ljtILJT", "j":"iltTKRL", "k":"bdepxMWFE", "l": "ijtLPKH", "m": "nwuveWNRHE", "n": "muwvWRMK", "o":"bqpcdQBP", "p": "bdgceBRDE", "q": "pbdeBPDR", "r":"nuhHJLK", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuvEM", "x": "kwmyz", "y": "zvukh", "z":"snum"};
 similarLettersUpperCase = {"A": "VYUHegqd", "B": "KEPRFXhdgopq", "C": "GOQDeouvhy", "D": "CGOQbpqgh", "E": "KBPRFXMagqd", "F" : "KBEPRXktji", "G":"COQDabdopq", "H":"ITLJAbdkrv", "I":"HTLJljt", "J":"HITLilt", "K":"BEPRFXbdepx", "L":"HITJijt", "M":"NWUHEnwuv", "N": "MWUHEmuwv", "O": "CGQDbqpcd", "P": "KBERFXbdgce", "Q":"GCDOpbde", "R": "KBEPFXnuh", "S" : "ZCBE", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNEm", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
@@ -104,7 +104,7 @@ function expandGoalContainer() {
 function shrinkGoalContainer() {
 	var body = document.getElementsByTagName("body")[0];
 	var go = document.getElementById("guessOuter");
-	go.style.height = gcheight + "px";
+	go.style.height = gsheight + "px";
 	gc.style.marginTop = "0px";
 	gc.style.height = gcheight + "px";
 	setTimeout(function() {gc.parentNode.removeChild(gc); gc.style.position = "relative"; gc.style.top = "0px"; go.parentNode.insertBefore(gc,go.previousSibling.previousSibling);}, 1650);
@@ -195,6 +195,7 @@ function getGame() {
 			setGameContentHeight();
 			setCanvasParentHeight();
 			gcheight = gc.offsetHeight;
+			gsheight = document.getElementById("guessOuter").offsetHeight;
 			return true;
 		} // end if
 	} // end onreadystatechange
