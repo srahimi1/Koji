@@ -48,7 +48,7 @@ previousMinute = 0;
 xhttp = new XMLHttpRequest();
 counterU = 0;
 correctLetters = [];
-canvas = null, ctx = null, gc = null, gcheight = 0, gsheight = 0;
+canvas = null, ctx = null, canvas2 = null, ctx2 = null, gc = null, gcheight = 0, gsheight = 0;
 imageData = null;
 similarLettersLowerCase = {"a": "egqdDQGB", "b": "hdgopqPFLK", "c": "eouvhyQEDO", "d": "bpqghPRBD", "e": "agqdEFKRP", "f": "ktjiFLKR", "g":"abdopqGQO", "h":"bdkrvHLRK", "i":"ljtILJT", "j":"iltTKRL", "k":"bdepxMWFE", "l": "ijtLPKH", "m": "nwuveWNRHE", "n": "muwvWRMK", "o":"bqpcdQBP", "p": "bdgceBRDE", "q": "pbdeBPDR", "r":"nuhHJLK", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuvEM", "x": "kwmyz", "y": "zvukh", "z":"snum"};
 similarLettersUpperCase = {"A": "VYUHegqd", "B": "KEPRFXhdgopq", "C": "GOQDeouvhy", "D": "CGOQbpqgh", "E": "KBPRFXMagqd", "F" : "KBEPRXktji", "G":"COQDabdopq", "H":"ITLJAbdkrv", "I":"HTLJljt", "J":"HITLilt", "K":"BEPRFXbdepx", "L":"HITJijt", "M":"NWUHEnwuv", "N": "MWUHEmuwv", "O": "CGQDbqpcd", "P": "KBERFXbdgce", "Q":"GCDOpbde", "R": "KBEPFXnuh", "S" : "ZCBE", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNEm", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
@@ -95,7 +95,7 @@ function expandGoalContainer() {
 	gc.style.top = totalht + "px";
 	body.appendChild(gc);
 	canvas.style.height = gcheight + "px";
-	document.getElementById("goal").style.height = gcheight + "px";
+	canvas2.style.height = gcheight + "px";
 	gc.style.marginTop = (0 - pandx.offsetHeight) + "px";
 	gc.style.height = document.getElementById('gameContent').offsetHeight + "px";
 	gc.onclick = function() {shrinkGoalContainer();};
@@ -154,6 +154,9 @@ function setupNewGame() {
 	canvas = null;
 	ctx = null;
 	imageData = null;
+	if (!!ctx2) ctx2.clearRect(0,0,canvas2.width,canvas2.height);
+	canvas2 = null;
+	ctx2 = null;	
 	gc = document.getElementById("goalContainer");
 	document.getElementById("letterChoicesCont").style.display = "none";
 	document.getElementById("pointsSpan").innerHTML = points;
@@ -167,9 +170,6 @@ function setupNewGame() {
 	box = document.getElementById("xbox2");
 	first = box.firstChild;
 	while (first) {first.style.color = "#3a3a3a"; first.style.textShadow = "none"; first = first.nextSibling;}
-	var goal = document.getElementById("goal");
-	goal.innerHTML = "";
-	goal.style.backgroundImage = "<%= asset_path 'transparent_background.jpg' %>";
 	switchButtonsAndLetters(1);
 	closeMenu(document.getElementById("menuDiv"));
 	getGame();
@@ -189,9 +189,9 @@ function getGame() {
 			topData = inputData["colors"];
 			cycleTopDataAt = Math.floor(Math.random() * 4) + 4;
 			gameData = topData[0];
-			colorGoalDiv();
 			createColorDivs();
 			createCanvasWithLetters();
+			colorGoalDiv();
 			setGameContentHeight();
 			setCanvasParentHeight();
 			gcheight = gc.offsetHeight;
@@ -206,15 +206,22 @@ function getGame() {
 // color mixing part of game functions ...
 
 function colorGoalDiv() {
-	var goalDiv = document.getElementById("goal");
-	var v = document.getElementById("guessOuter");
-	goalDiv.style.display = "none";
-	goalDiv.style.backgroundImage = "none";
-	goalDiv.style.backgroundColor = gameData.goalColor;
-	goalDiv.style.display = "block";
-	v.style.backgroundColor = gameData.goalColor;
+	test1A(3);
 	return true;
 } // end function colorGoalDiv()
+
+function test1A(num) {
+	canvas2 = document.getElementById("canvas2");
+	ctx2 = canvas2.getContext('2d');
+	canvas2.style.display = "none";
+	for (var i = 0; i < num; i++) {
+		ctx2.fillStyle = (i == 0) ? gameData.goalColor : "yellow";
+		ctx2.fillRect(i*(canvas2.width/num), 0, canvas2.width/num, canvas2.height);
+	}
+	canvas2.style.display = "block";
+	return true;
+} // end function test1A()
+
 
 
 function cycleThroughTopData() {
@@ -680,7 +687,7 @@ function selectUnderscore(el, letters) {
 } // end function selectUnderscore(el, letters)
 
 function drawLine() {
-	var width = canvas.width;
+	var width = canvas2.width;
 	if (numberOfLinesDrawnOnCanvas < Math.floor(width * .75)) {
 		var ind = Math.floor(Math.random() * (width+1));
 		while (!!linesDrawnSoFar[ind]) ind = Math.floor(Math.random() * (width+1));
@@ -694,13 +701,10 @@ function drawLine() {
 		linesDrawnSoFar[ind] = 1;
 		numberOfLinesDrawnOnCanvas++;				
 	}
-	canvas.style.display = "none";
-	ctx.globalCompositeOperation = "xor";
-	ctx.fillStyle = "white";
-	ctx.setTransform(1,0,0,1,0,0);
-	end = Math.floor(canvas.height);
-	ctx.fillRect(ind,0,1,end);
-	canvas.style.display = "block";
+	canvas2.style.display = "none";
+	end = Math.floor(canvas2.height);
+	ctx2.clearRect(ind,0,1,end);
+	canvas2.style.display = "block";
 	return true;
 } // end function drawLine()
 

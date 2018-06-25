@@ -81,19 +81,8 @@ body {
 	color: white;
 }
 
-.goal-div {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0;
-	left: 0;
-	margin: 0 auto;
-	background-image: url('transparent_background.jpg');
-	z-index: -1;
-}
-
 .canvas-1 {
-	position: relative;
+	position: absolute;
 	flex-grow: 1;
 	width: 100%;
 	height: 100%;
