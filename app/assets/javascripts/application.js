@@ -820,7 +820,7 @@ function switchButtonsAndLetters(code) {
 	switch(code) {
 		case 1:
 			document.getElementById("gameLettersContainer").style.display = "none";
-			document.getElementById("instruction1").innerHTML = "Will mixing the colors in boxes 1 and 2 make the color shown above them?";
+/*			document.getElementById("instruction1").innerHTML = "Will mixing the colors in boxes 1 and 2 make the color shown above them?";*/
 			document.getElementById("buttonsDiv").style.display = "flex";
 			break;
 		case 2:
