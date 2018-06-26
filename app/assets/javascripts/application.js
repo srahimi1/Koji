@@ -70,8 +70,12 @@ function setGameContentHeight() {
 } // end function setGameContentHeight()
 
 function setCanvasParentHeight() {
-	var c = document.getElementById("canvas1");
-	c.parentNode.style.height = c.offsetHeight + "px";
+	var c = document.getElementById("goalContainer");
+	var c2 = document.getElementById("guessContainer");
+	var ht = document.getElementById('gameContent').offsetHeight;
+	c.style.height =  Math.floor(ht*.3) + "px";
+	c2.style.height =  Math.floor(ht*.3) + "px";
+	console.log(Math.floor(ht*.3));
 } // end function setCanvasParentHeight()
 
 function setButtonColorOnTouch(element) {
@@ -103,7 +107,7 @@ function expandGoalContainer() {
 
 function shrinkGoalContainer() {
 	var body = document.getElementsByTagName("body")[0];
-	var go = document.getElementById("guessOuter");
+	var go = document.getElementById("guessContainer");
 	go.style.height = gsheight + "px";
 	gc.style.marginTop = "0px";
 	gc.style.height = gcheight + "px";
@@ -195,7 +199,7 @@ function getGame() {
 			setGameContentHeight();
 			setCanvasParentHeight();
 			gcheight = gc.offsetHeight;
-			gsheight = document.getElementById("guessOuter").offsetHeight;
+			gsheight = document.getElementById("guessContainer").offsetHeight;
 			return true;
 		} // end if
 	} // end onreadystatechange
@@ -206,7 +210,7 @@ function getGame() {
 // color mixing part of game functions ...
 
 function colorGoalDiv() {
-	test1A(3);
+	test1A(1);
 	return true;
 } // end function colorGoalDiv()
 
@@ -221,7 +225,6 @@ function test1A(num) {
 	canvas2.style.display = "block";
 	return true;
 } // end function test1A()
-
 
 
 function cycleThroughTopData() {
