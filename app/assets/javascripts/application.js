@@ -73,9 +73,9 @@ function setCanvasParentHeight() {
 	var c = document.getElementById("goalContainer");
 	var c2 = document.getElementById("guessContainer");
 	var ht = document.getElementById('gameContent').offsetHeight;
-	c.style.height =  Math.floor(ht*.3) + "px";
-	c2.style.height =  Math.floor(ht*.3) + "px";
-	console.log(Math.floor(ht*.3));
+	c.style.height =  Math.floor(ht*.35) + "px";
+	c2.style.height =  Math.floor(ht*.35) + "px";
+	console.log(Math.floor(ht*.35));
 } // end function setCanvasParentHeight()
 
 function setButtonColorOnTouch(element) {
@@ -232,6 +232,7 @@ function cycleThroughTopData() {
 	cycleTopDataAt = Math.floor(Math.random() * 4) + 4;
 	cycleTopDataCounter = 0;
 	colorGoalDiv();
+	redrawLines();
 	createColorDivs();
 	changeColorOfSelectCanvasPixels(prev);
 	return true;
@@ -619,7 +620,7 @@ function putLettersOntoPanels(letters, fontSz) {
 		tempLetterChoicesDiv.id = "letterChoices" + i;
 		tempLetterChoicesDiv.style.width = "100%";
 		tempLetterChoicesDiv.style.height = "100%";
-		tempLetterChoicesDiv.style.background = "#363636";
+		tempLetterChoicesDiv.style.backgroundColor = "gray";
 		tempLetterChoicesDiv.style.display = "none";
 		var container = document.getElementById("letterChoicesCont");
 		container.appendChild(tempLetterChoicesDiv);
@@ -690,25 +691,74 @@ function selectUnderscore(el, letters) {
 
 function drawLine() {
 	var width = canvas2.width;
-	if (numberOfLinesDrawnOnCanvas < Math.floor(width * .75)) {
-		var ind = Math.floor(Math.random() * (width+1));
-		while (!!linesDrawnSoFar[ind]) ind = Math.floor(Math.random() * (width+1));
-		linesDrawnSoFar[ind] = 1;
-		numberOfLinesDrawnOnCanvas++;
+	var ind = 0; 
+	var vpos = Math.floor(Math.random() * 4);
+	var combinedIndex;
+	if (numberOfLinesDrawnOnCanvas < Math.floor((width * 4) * .75)) {
+		ind = Math.floor(Math.random() * (width+1));
+		combinedIndex = ind + "," + vpos;
+		while (linesDrawnSoFar[combinedIndex]) {
+			ind = Math.floor(Math.random() * (width+1));
+			vpos = Math.floor(Math.random() * 4);
+			combinedIndex = ind + "," + vpos;
+		} // while (linesDrawnSoFar[combinedIndex])
 	} else {
-		var ind;
 		for (var i = 0; i < Math.floor(width); i++) {
-			if (!linesDrawnSoFar[i]) {ind = i; break;}
-		}
-		linesDrawnSoFar[ind] = 1;
-		numberOfLinesDrawnOnCanvas++;				
-	}
+			if (!linesDrawnSoFar[i + ",0"]) {combinedIndex = i + ",0"; break;}
+			else if (!linesDrawnSoFar[i + ",1"]) {combinedIndex = i + ",1"; break;}
+			else if (!linesDrawnSoFar[i + ",2"]) {combinedIndex = i + ",2"; break;}
+			else if (!linesDrawnSoFar[i + ",3"]) {combinedIndex = i + ",3"; break;}
+		} // end for (var i = 0; i < Math.floor(width); i++)				
+	} // end if...else
 	canvas2.style.display = "none";
-	end = Math.floor(canvas2.height);
-	ctx2.clearRect(ind,0,1,end);
+	var len = Math.floor(canvas2.height/4);
+	switch(vpos) {
+		case 0:
+			ctx2.clearRect(ind,0,1,len);
+			break;
+		case 1:
+			ctx2.clearRect(ind,len,1,len);
+			break;
+		case 2:
+			ctx2.clearRect(ind,2*len,1,len);
+			break;
+		case 3:
+			ctx2.clearRect(ind,3*len,1,len);
+			break;
+	}
 	canvas2.style.display = "block";
+	linesDrawnSoFar[combinedIndex] = true;
+	numberOfLinesDrawnOnCanvas++;
 	return true;
 } // end function drawLine()
+
+
+function redrawLines() {
+	canvas2.style.display = "none";
+	var vpos, ind, len = Math.floor(canvas2.height/4);
+	for (var index in linesDrawnSoFar) {
+		if (linesDrawnSoFar.hasOwnProperty(index)) {
+			vpos = parseInt(index.split(",")[1]);
+			ind = parseInt(index.split(",")[0]);
+			switch(vpos) {
+				case 0:
+					ctx2.clearRect(ind,0,1,len);
+					break;
+				case 1:
+					ctx2.clearRect(ind,len,1,len);
+					break;
+				case 2:
+					ctx2.clearRect(ind,2*len,1,len);
+					break;
+				case 3:
+					ctx2.clearRect(ind,3*len,1,len);
+					break;
+			} // end switch(vpos)
+		} // end if (linesDrawnSoFar.hasOwnProperty(index))
+	} // end for (var index in linesDrawnSoFar)
+	canvas2.style.display = "block";
+} // end function redrawLines()
+
 
 function showLetterChoices(ind,len) {
 	for (var i = 0; i < len; i++) document.getElementById("letterChoices"+i).style.display = "none";
@@ -897,7 +947,7 @@ function isGameLost() {
 
 function showLetters() {
 	drawLine();
-	if (numberOfLinesDrawnOnCanvas < canvas.width) showLettersTimeoutID = setTimeout(function() {showLetters()}, 100);
+	if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 4)) showLettersTimeoutID = setTimeout(function() {showLetters()}, 100);
 	return true;
 } // end function showLetters()
 

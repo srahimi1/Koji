@@ -311,6 +311,7 @@ body {
 
 .letter-choices-container {
 	position: relative;
+	height: 30%;
 	text-align: center;
 	display: none;
 }
@@ -325,8 +326,8 @@ body {
 .letter-div {
 	position: relative;
 	display: inline-block;
-	margin: 2em 1em 0em 1em;
-	padding: .5em 2em;
+	margin: 0.5em;
+	padding: 1em;
 	text-align: center;
 	background: lightblue;
 	border: 3px solid #fafffa;
