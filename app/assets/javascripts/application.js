@@ -109,9 +109,7 @@ function shrinkGoalContainer() {
 	var body = document.getElementsByTagName("body")[0];
     var go = document.getElementById("guessContainer");
     setCanvasParentHeight();
-	/* go.style.height = gsheight + "px";
 	gc.style.marginTop = "0px";
-	gc.style.height = gcheight + "px";*/
 	setTimeout(function() {gc.parentNode.removeChild(gc); gc.style.position = "relative"; gc.style.top = "0px"; go.parentNode.insertBefore(gc,go.previousSibling.previousSibling);}, 1650);
 } // end function shrinkGoalContainer()
 
