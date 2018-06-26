@@ -310,9 +310,7 @@ body {
 }
 
 .letter-choices-container {
-	position: absolute;
-	top: 0;
-	left: 0;
+	position: relative;
 	text-align: center;
 	display: none;
 }

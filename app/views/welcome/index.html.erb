@@ -27,18 +27,17 @@
 		<div id="goalContainer" class="goal-container flex-grow-1">
 			<canvas id="canvas1" class="canvas-1"></canvas>
 			<canvas id="canvas2" class="canvas-1"></canvas>
+			<div id="letterChoicesCont" class="letter-choices-container"></div>
+			<div id="gameLettersContainer" class="game-letters-container" style="display: none;">
+				<div id="gameLettersDiv" class="game-letters-div"></div>
+			</div><!--end gameLettersContainer div -->
 		</div><!--end goalContainer div -->
 
 		<div id="guessContainer" class="guess-container flex-grow-1">	
 			<div id="guess" class="guess"></div>
 		</div><!--end guessContainer div -->
-		<div id="letterChoicesCont" class="letter-choices-container"></div>
 
 <!-- 		<div id="instruction1" class="small-title buttons-instructions">Will mixing the colors in boxes 1 and 2 make the color shown above them?</div> -->
-
-		<div id="gameLettersContainer" class="game-letters-container" style="display: none;">
-			<div id="gameLettersDiv" class="game-letters-div"></div>
-		</div><!--end gameLettersContainer div -->
 
 		<div id="buttonsDiv" class="buttons-div">
 			<div id="yes-button"class="yesno-button yes-button flex-center" onclick="showUnderneathDiv(0);" ontouchstart="setButtonColorOnTouch('yes-button')" ontouchend="removeButtonColorOnTouchEnd('yes-button')">Yes</div>
