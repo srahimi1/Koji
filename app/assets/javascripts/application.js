@@ -370,14 +370,12 @@ function showUnderneathDiv(opt) {
 	cn[1].style.opacity = "0";
 	var sendID = par.id + "";
 	setTimeout(function() {determineResultOfChoice(sendID, opt);}, 200);
-	if (numberCorrect != 4) 
-		getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},1000);
 	return true;
 } // end function showUnderneathDiv(opt)
 
 function determineResultOfChoice(sendID, opt) {
-	var points = 0;
-	code = null;
+	var points = 0, time = 0;
+	code = null;	
 	if (divColors["answer"].toUpperCase() == gameData.goalColor.toUpperCase()) {
 		var inner = "";
 		if (opt == 0) {
@@ -388,12 +386,14 @@ function determineResultOfChoice(sendID, opt) {
 			missedCorrect = 0; 
 			points = 15;
 			numberCorrect++;
+			time = 1350;
 			drawLine();
 		}
 		else if (opt == 1) {
 			inner = document.getElementById("youmissedthisonesvg").innerHTML;
 			points = -15;
 			code = 1;
+			time = 600;
 			missedCorrect++; 
 		}
 		var main = document.getElementById(sendID);
@@ -411,6 +411,7 @@ function determineResultOfChoice(sendID, opt) {
 		var inner = document.getElementById("nodoesntmatchsvg").innerHTML;
 		points = -15;
 		code = 1;
+		time = 600;
 		missedCorrect++; 
 		var main = document.getElementById(sendID);
 		main.style.display = "none";
@@ -420,6 +421,7 @@ function determineResultOfChoice(sendID, opt) {
 	else if (opt == 1) {
 		points = 5;
 		code = 2;
+		time = 1350;
 		var inner1 = document.getElementById("goodcallsvg");
 		var inner2 = document.getElementById("plus5svg");
 		inner = inner1.innerHTML + "<br/>" + inner2.innerHTML;
@@ -442,8 +444,12 @@ function determineResultOfChoice(sendID, opt) {
 	if ((points != 0) && (!gameOver)) {
 		updatePoints(points, code);  
 		if ((code == 0) || (code == 2))
-			setTimeout(function() {animatePoints(points, code);},300);
+			setTimeout(function() {animatePoints(points, code);},100);
 	}
+	var par = document.getElementById("guess").firstChild;
+	var sendID = par.id + "";
+	if (numberCorrect != 4) 
+		getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},time);
 	return true;
 } // function determineResultOfChoice(sendID, opt)
 
