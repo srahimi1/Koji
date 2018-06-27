@@ -326,8 +326,6 @@ body {
 .letter-div {
 	position: relative;
 	display: inline-block;
-	margin: 0.5em;
-	padding: 1em;
 	text-align: center;
 	background: lightblue;
 	border: 3px solid #fafffa;

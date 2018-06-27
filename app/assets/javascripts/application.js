@@ -75,7 +75,6 @@ function setCanvasParentHeight() {
 	var ht = document.getElementById('gameContent').offsetHeight;
 	c.style.height =  Math.floor(ht*.35) + "px";
 	c2.style.height =  Math.floor(ht*.35) + "px";
-	console.log(Math.floor(ht*.35));
 } // end function setCanvasParentHeight()
 
 function setButtonColorOnTouch(element) {
@@ -192,11 +191,11 @@ function getGame() {
 			topData = inputData["colors"];
 			cycleTopDataAt = Math.floor(Math.random() * 4) + 4;
 			gameData = topData[0];
+			setGameContentHeight();
+			setCanvasParentHeight();
 			createColorDivs();
 			createCanvasWithLetters();
 			colorGoalDiv();
-			setGameContentHeight();
-			setCanvasParentHeight();
 			gcheight = gc.offsetHeight;
 			gsheight = document.getElementById("guessContainer").offsetHeight;
 			return true;
@@ -370,9 +369,9 @@ function showUnderneathDiv(opt) {
 	cn[0].style.opacity = "0";
 	cn[1].style.opacity = "0";
 	var sendID = par.id + "";
-	setTimeout(function() {determineResultOfChoice(sendID, opt);}, 500);
+	setTimeout(function() {determineResultOfChoice(sendID, opt);}, 200);
 	if (numberCorrect != 4) 
-		getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},2000);
+		getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},1000);
 	return true;
 } // end function showUnderneathDiv(opt)
 
@@ -575,7 +574,7 @@ function popUpALetter(letter) {
 				var par = document.getElementById("guess").firstChild;
 				var cn = par.childNodes;
 				var sendID = cn[0].id + "";
-				if (!gameOver) setTimeout(function() {switchButtonsAndLetters(1); getNextColors(par, sendID); shrinkGoalContainer();},3500);
+				if (!gameOver) setTimeout(function() {switchButtonsAndLetters(1); getNextColors(par, sendID); shrinkGoalContainer();},2000);
 			} else {					
 				values[1] += 0.05;
 				values = animateOriginalSmallOriginal(0, 100, values[1]);  
@@ -663,7 +662,6 @@ function changeColorOfSelectCanvasPixels(hexC) {
 	canvas2.style.display = "none";
 	ctx2.putImageData(imageData, 0, 0);
 	canvas2.style.display = "block";
-	console.log("done");
 } // end function changeColorOfSelectCanvasPixels(hexColor)
 
 function selectUnderscore(el, letters) {
@@ -694,7 +692,7 @@ function drawLine() {
 	var ind = 0; 
 	var vpos = Math.floor(Math.random() * 4);
 	var combinedIndex;
-	if (numberOfLinesDrawnOnCanvas < Math.floor((width * 4) * .75)) {
+	if (numberOfLinesDrawnOnCanvas < Math.floor((width * 4) * .70)) {
 		ind = Math.floor(Math.random() * (width+1));
 		combinedIndex = ind + "," + vpos;
 		while (linesDrawnSoFar[combinedIndex]) {
@@ -704,10 +702,14 @@ function drawLine() {
 		} // while (linesDrawnSoFar[combinedIndex])
 	} else {
 		for (var i = 0; i < Math.floor(width); i++) {
-			if (!linesDrawnSoFar[i + ",0"]) {combinedIndex = i + ",0"; break;}
-			else if (!linesDrawnSoFar[i + ",1"]) {combinedIndex = i + ",1"; break;}
-			else if (!linesDrawnSoFar[i + ",2"]) {combinedIndex = i + ",2"; break;}
-			else if (!linesDrawnSoFar[i + ",3"]) {combinedIndex = i + ",3"; break;}
+			var a = i + ",0";
+			var b = i + ",1";
+			var c = i + ",2";
+			var d = i + ",3";
+			if (!linesDrawnSoFar[a]) {combinedIndex = a; ind = i; vpos = 0; break;}
+			else if (!linesDrawnSoFar[b]) {combinedIndex = b; ind = i; vpos = 1;  break;}
+			else if (!linesDrawnSoFar[c]) {combinedIndex = c; ind = i; vpos = 2;  break;}
+			else if (!linesDrawnSoFar[d]) {combinedIndex = d; ind = i; vpos = 3;  break;}
 		} // end for (var i = 0; i < Math.floor(width); i++)				
 	} // end if...else
 	canvas2.style.display = "none";
@@ -796,6 +798,8 @@ function makeLetterDivs(ind) {
 		useTheseLetters[newInd] = orderedLetters[i];
 		if (i == 0) correctLetters[ind].index = newInd + "";
 	}
+	var el = document.getElementById("letterChoices"+ind);
+	var pad = Math.floor((document.getElementById("gameContent").offsetHeight * .3)/16);
 	for (var i = 0; i  < useTheseLetters.length; i++) {
 		angle = useTheseLetters[i].rotation * (180/Math.PI);
 		var elP = document.createElement("p"); 
@@ -815,29 +819,15 @@ function makeLetterDivs(ind) {
 		var div = document.createElement("div");
 		div.id = "hoopla"+i+":"+i;
 		div.setAttribute("class","letter-div");
+		div.style.padding = pad + "px";
+		div.style.margin = pad + "px";
 		div.onclick = function(){selectLetter(this);}
 		div.appendChild(elP);
 		div.style.overflow = "hidden"; 
 		frag.appendChild(div);
 	}
-	var el = document.getElementById("letterChoices"+ind);
 	while (!!el.lastChild) el.removeChild(el.lastChild);
-
 	el.appendChild(frag);
-/*	var p = document.createElement("p");
-	p.style.fontSize = "1.5em";
-	p.style.color = "white";
-	p.innerHTML = "- or -";
-	el.appendChild(p);
-	p = document.createElement("p");
-	var a = document.createElement("a");
-	a.href = "javascript:void(0);";
-	a.innerHTML = "Not Yet";
-	a.setAttribute("onclick", "selectLetter(-1)");
-	a.style.color = "wheat";
-	p.style.fontSize = "2em";
-	p.appendChild(a);
-	el.appendChild(p);*/
 	return true;
 } // end function makeLetterDivs(ind) 
 
@@ -869,8 +859,8 @@ function selectLetter(letter){
 function switchButtonsAndLetters(code) {
 	switch(code) {
 		case 1:
-/*			document.getElementById("gameLettersContainer").style.display = "none";
-			document.getElementById("instruction1").innerHTML = "Will mixing the colors in boxes 1 and 2 make the color shown above them?";
+			document.getElementById("gameLettersContainer").style.display = "none";
+/*			document.getElementById("instruction1").innerHTML = "Will mixing the colors in boxes 1 and 2 make the color shown above them?";
 			document.getElementById("buttonsDiv").style.display = "flex";*/
 			break;
 		case 2:
@@ -947,7 +937,7 @@ function isGameLost() {
 
 function showLetters() {
 	drawLine();
-	if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 4)) showLettersTimeoutID = setTimeout(function() {showLetters()}, 100);
+	if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 4)) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
 	return true;
 } // end function showLetters()
 
