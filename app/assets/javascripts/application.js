@@ -425,7 +425,7 @@ function determineResultOfChoice(sendID, opt) {
 		main.innerHTML = inner;
 		main.style.display = "block";
 		inner = main.childNodes[1];
-		inner.style.height = Math.floor(inner.parentNode.offsetHeight/1.5) + "px"
+		inner.style.height = Math.floor(inner.parentNode.offsetHeight/1.8) + "px"
 		inner.style.marginTop = Math.floor(inner.parentNode.offsetHeight/8) + "px"
 	} // else if (opt == 0)
 	else if (opt == 1) {
@@ -440,8 +440,6 @@ function determineResultOfChoice(sendID, opt) {
 		main.innerHTML = inner;
 		main.style.display = "block";
 		inner = main.childNodes[1];
-		console.log(inner);
-		console.log(inner.parentNode);
 		inner.style.height = Math.floor(inner.parentNode.offsetHeight/4) + "px"
 		inner.style.marginTop = Math.floor(inner.parentNode.offsetHeight/8) + "px"
 		var svg = document.getElementById("plus5svg2");
