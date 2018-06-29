@@ -270,7 +270,7 @@ body {
 }
 
 .plus-15-svg {
-	position: absolute; display: block; margin:auto; width: 25%; height: 25%;
+	position: relative; display: block; margin:auto; width: 25%; height: 25%;
 }
 
 .plus-5-svg {

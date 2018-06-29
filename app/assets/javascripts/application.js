@@ -374,13 +374,11 @@ function showUnderneathDiv(opt) {
 } // end function showUnderneathDiv(opt)
 
 function determineResultOfChoice(sendID, opt) {
-	var points = 0, time = 0;
-	code = null;	
+	var points = 0, time = 0, code = null, inner = "", inner1 = null, inner2 = null;
 	if (divColors["answer"].toUpperCase() == gameData.goalColor.toUpperCase()) {
-		var inner = "";
 		if (opt == 0) {
-			var inner1 = document.getElementById("itmatchessvg");
-			var inner2 = document.getElementById("plus15svg");
+			inner1 = document.getElementById("itmatchessvg");
+			inner2 = document.getElementById("plus15svg");
 			inner = inner1.innerHTML + "<br/>" + inner2.innerHTML;
 			code = 0;
 			missedCorrect = 0; 
@@ -400,6 +398,11 @@ function determineResultOfChoice(sendID, opt) {
 		main.style.display = "none";
 		main.innerHTML = inner;
 		main.style.display = "block";
+		if (!!inner1) {
+			inner1 = main.childNodes[1];
+			inner1.style.height = Math.floor(inner1.parentNode.offsetHeight/3.5) + "px"
+			inner1.style.marginTop = Math.floor(inner1.parentNode.offsetHeight/8) + "px"
+		}
 		var svg = null;
 		if (points == 15) {
 			svg = document.getElementById("plus15svg2");
@@ -417,6 +420,9 @@ function determineResultOfChoice(sendID, opt) {
 		main.style.display = "none";
 		main.innerHTML = inner;
 		main.style.display = "block";
+		inner = main.childNodes[1];
+		inner.style.height = Math.floor(inner.parentNode.offsetHeight/2.2) + "px"
+		inner.style.marginTop = Math.floor(inner.parentNode.offsetHeight/8) + "px"
 	} // else if (opt == 0)
 	else if (opt == 1) {
 		points = 5;
@@ -429,8 +435,12 @@ function determineResultOfChoice(sendID, opt) {
 		main.style.display = "none";
 		main.innerHTML = inner;
 		main.style.display = "block";
-		var svg = main.firstChild;
-		svg = document.getElementById("plus5svg2");
+		inner = main.childNodes[1];
+		console.log(inner);
+		console.log(inner.parentNode);
+		inner.style.height = Math.floor(inner.parentNode.offsetHeight/4) + "px"
+		inner.style.marginTop = Math.floor(inner.parentNode.offsetHeight/8) + "px"
+		var svg = document.getElementById("plus5svg2");
 		svg.style.left = "50%";
 		svg.style.marginLeft = -(svg.getBoundingClientRect().width/2) + "px";
 		missedCorrect = 0;		
