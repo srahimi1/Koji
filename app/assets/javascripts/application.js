@@ -425,7 +425,7 @@ function determineResultOfChoice(sendID, opt) {
 		main.innerHTML = inner;
 		main.style.display = "block";
 		inner = main.childNodes[1];
-		inner.style.height = Math.floor(inner.parentNode.offsetHeight/2.2) + "px"
+		inner.style.height = Math.floor(inner.parentNode.offsetHeight/2) + "px"
 		inner.style.marginTop = Math.floor(inner.parentNode.offsetHeight/8) + "px"
 	} // else if (opt == 0)
 	else if (opt == 1) {
@@ -434,7 +434,7 @@ function determineResultOfChoice(sendID, opt) {
 		time = 1350;
 		var inner1 = document.getElementById("goodcallsvg");
 		var inner2 = document.getElementById("plus5svg");
-		inner = inner1.innerHTML + "<br/><br/>" + inner2.innerHTML;
+		inner = inner1.innerHTML + "<p>&nbsp;<br/></p>" + inner2.innerHTML;
 		var main = document.getElementById(sendID);
 		main.style.display = "none";
 		main.innerHTML = inner;
@@ -463,7 +463,7 @@ function determineResultOfChoice(sendID, opt) {
 	var par = document.getElementById("guess").firstChild;
 	var sendID = par.id + "";
 	if (numberCorrect != 4) 
-		//getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},time);
+		getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},time);
 	return true;
 } // function determineResultOfChoice(sendID, opt)
 
