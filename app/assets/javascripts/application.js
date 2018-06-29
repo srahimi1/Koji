@@ -402,6 +402,10 @@ function determineResultOfChoice(sendID, opt) {
 			inner1 = main.childNodes[1];
 			inner1.style.height = Math.floor(inner1.parentNode.offsetHeight/3.5) + "px"
 			inner1.style.marginTop = Math.floor(inner1.parentNode.offsetHeight/8) + "px"
+		} else {
+			inner1 = main.childNodes[1];
+			inner1.style.height = Math.floor(inner1.parentNode.offsetHeight/2.2) + "px"
+			inner1.style.marginTop = Math.floor(inner1.parentNode.offsetHeight/8) + "px"
 		}
 		var svg = null;
 		if (points == 15) {
@@ -430,7 +434,7 @@ function determineResultOfChoice(sendID, opt) {
 		time = 1350;
 		var inner1 = document.getElementById("goodcallsvg");
 		var inner2 = document.getElementById("plus5svg");
-		inner = inner1.innerHTML + "<br/>" + inner2.innerHTML;
+		inner = inner1.innerHTML + "<br/><br/>" + inner2.innerHTML;
 		var main = document.getElementById(sendID);
 		main.style.display = "none";
 		main.innerHTML = inner;
@@ -459,7 +463,7 @@ function determineResultOfChoice(sendID, opt) {
 	var par = document.getElementById("guess").firstChild;
 	var sendID = par.id + "";
 	if (numberCorrect != 4) 
-		getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},time);
+		//getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},time);
 	return true;
 } // function determineResultOfChoice(sendID, opt)
 
@@ -1103,14 +1107,14 @@ function animatePoints(add, code) {
 	if (code == 0) el2 = document.getElementById("plus15svg2");
 	else if (code == 2) el2 = document.getElementById("plus5svg2");
 	var height = el2.getBoundingClientRect().height;
-	document.getElementById("guessContainer").style.overflow = "visible";
-	document.getElementById("guess").style.overflow = "visible";
+	/*document.getElementById("guessContainer").style.overflow = "visible";
+	document.getElementById("guess").style.overflow = "visible";*/
 	pointsIntervalID = setInterval(
 		function() {
 			if (values[1] == -1) {
 				clearInterval(pointsIntervalID);
-				document.getElementById("guessContainer").style.overflow = "hidden";
-				document.getElementById("guess").style.overflow = "hidden";
+/*				document.getElementById("guessContainer").style.overflow = "hidden";
+				document.getElementById("guess").style.overflow = "hidden";*/
 				if (numberCorrect == 4) {
 					clearTimeout(getNextColorsTimeoutID);
 					setTimeout(function() {switchButtonsAndLetters(2); selectUnderscore(document.getElementById("letterBox:0"), inputData.letters);},500);
