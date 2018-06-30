@@ -442,7 +442,7 @@ function determineResultOfChoice(sendID, opt) {
 		time = 1350;
 		var inner1 = document.getElementById("goodcallsvg");
 		var inner2 = document.getElementById("plus5svg");
-		inner = inner1.innerHTML + "<p></p>" + inner2.innerHTML;
+		inner = inner1.innerHTML + "" + inner2.innerHTML;
 		var main = document.getElementById(sendID);
 		main.style.display = "none";
 		main.innerHTML = inner;
