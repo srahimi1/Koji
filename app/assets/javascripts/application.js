@@ -586,7 +586,7 @@ function popUpALetter(letter) {
 			if (values[1] == -1) {
 				clearInterval(borderIntervalID);
 				numberCorrect = 0;
-				letter.style.width = (width + 4) + "px";
+				letter.style.width = (width + 2) + "px";
 				letter.style.height = height + "px";
 				letter.style.lineHeight = height + "px";					
 				letter.style.padding = "0";
