@@ -591,7 +591,7 @@ function popUpALetter(letter) {
 				letter.style.lineHeight = height + "px";					
 				letter.style.padding = "0";
 				letter.style.margin = "0";
-				letter.parentNode.style.width = (width + 10) + "px";
+				letter.parentNode.style.width = (width + 6) + "px";
 				letter.parentNode.style.padding = "0";
 				letter.childNodes[0].style.fontSize = "1.5em";
 				var ind = selectedUnderscore.id.split(":")[1];
@@ -601,7 +601,7 @@ function popUpALetter(letter) {
 				var par = document.getElementById("guess").firstChild;
 				var cn = par.childNodes;
 				var sendID = cn[0].id + "";
-				//if (!gameOver) setTimeout(function() {switchButtonsAndLetters(1); getNextColors(par, sendID); shrinkGoalContainer();},2000);
+				if (!gameOver) setTimeout(function() {switchButtonsAndLetters(1); getNextColors(par, sendID); shrinkGoalContainer();},2000);
 			} else {					
 				values[1] += 0.05;
 				values = animateOriginalSmallOriginal(0, 100, values[1]);  
