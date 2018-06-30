@@ -404,7 +404,7 @@ function determineResultOfChoice(sendID, opt) {
 			inner1.style.marginTop = Math.floor(inner1.parentNode.offsetHeight/8) + "px"
 		} else {
 			inner1 = main.childNodes[1];
-			inner1.style.height = Math.floor(inner1.parentNode.offsetHeight/2.2) + "px"
+			inner1.style.height = Math.floor(inner1.parentNode.offsetHeight/1.8) + "px"
 			inner1.style.marginTop = Math.floor(inner1.parentNode.offsetHeight/8) + "px"
 		}
 		var svg = null;
@@ -425,7 +425,7 @@ function determineResultOfChoice(sendID, opt) {
 		main.innerHTML = inner;
 		main.style.display = "block";
 		inner = main.childNodes[1];
-		inner.style.height = Math.floor(inner.parentNode.offsetHeight/1.8) + "px"
+		inner.style.height = Math.floor(inner.parentNode.offsetHeight/2.2) + "px"
 		inner.style.marginTop = Math.floor(inner.parentNode.offsetHeight/8) + "px"
 	} // else if (opt == 0)
 	else if (opt == 1) {
