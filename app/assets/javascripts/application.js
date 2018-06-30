@@ -578,8 +578,8 @@ function createCanvasWithLetters() {
 function popUpALetter(letter) {
 	clearInterval(borderIntervalID);
 	var values = [0,0];
-	var width = letter.clientWidth;
-	var height = letter.clientHeight;
+	var width = letter.offsetWidth;
+	var height = letter.offsetHeight;
 	var moved = 0;
 	borderIntervalID = setInterval(
 		function() {
