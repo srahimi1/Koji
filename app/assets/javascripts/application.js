@@ -601,7 +601,7 @@ function popUpALetter(letter) {
 				var par = document.getElementById("guess").firstChild;
 				var cn = par.childNodes;
 				var sendID = cn[0].id + "";
-				if (!gameOver) setTimeout(function() {switchButtonsAndLetters(1); getNextColors(par, sendID); shrinkGoalContainer();},2000);
+				//if (!gameOver) setTimeout(function() {switchButtonsAndLetters(1); getNextColors(par, sendID); shrinkGoalContainer();},2000);
 			} else {					
 				values[1] += 0.05;
 				values = animateOriginalSmallOriginal(0, 100, values[1]);  
@@ -717,14 +717,14 @@ function selectUnderscore(el, letters) {
 function drawLine() {
 	var width = canvas2.width;
 	var ind = 0; 
-	var vpos = Math.floor(Math.random() * 4);
+	var vpos = Math.floor(Math.random() * 3);
 	var combinedIndex;
-	if (numberOfLinesDrawnOnCanvas < Math.floor((width * 4) * .70)) {
+	if (numberOfLinesDrawnOnCanvas < Math.floor((width * 3) * .70)) {
 		ind = Math.floor(Math.random() * (width+1));
 		combinedIndex = ind + "," + vpos;
 		while (linesDrawnSoFar[combinedIndex]) {
 			ind = Math.floor(Math.random() * (width+1));
-			vpos = Math.floor(Math.random() * 4);
+			vpos = Math.floor(Math.random() * 3);
 			combinedIndex = ind + "," + vpos;
 		} // while (linesDrawnSoFar[combinedIndex])
 	} else {
@@ -732,15 +732,13 @@ function drawLine() {
 			var a = i + ",0";
 			var b = i + ",1";
 			var c = i + ",2";
-			var d = i + ",3";
 			if (!linesDrawnSoFar[a]) {combinedIndex = a; ind = i; vpos = 0; break;}
 			else if (!linesDrawnSoFar[b]) {combinedIndex = b; ind = i; vpos = 1;  break;}
 			else if (!linesDrawnSoFar[c]) {combinedIndex = c; ind = i; vpos = 2;  break;}
-			else if (!linesDrawnSoFar[d]) {combinedIndex = d; ind = i; vpos = 3;  break;}
 		} // end for (var i = 0; i < Math.floor(width); i++)				
 	} // end if...else
 	canvas2.style.display = "none";
-	var len = Math.floor(canvas2.height/4);
+	var len = Math.floor(canvas2.height/3);
 	switch(vpos) {
 		case 0:
 			ctx2.clearRect(ind,0,1,len);
@@ -750,9 +748,6 @@ function drawLine() {
 			break;
 		case 2:
 			ctx2.clearRect(ind,2*len,1,len);
-			break;
-		case 3:
-			ctx2.clearRect(ind,3*len,1,len);
 			break;
 	}
 	canvas2.style.display = "block";
@@ -764,7 +759,7 @@ function drawLine() {
 
 function redrawLines() {
 	canvas2.style.display = "none";
-	var vpos, ind, len = Math.floor(canvas2.height/4);
+	var vpos, ind, len = Math.floor(canvas2.height/3);
 	for (var index in linesDrawnSoFar) {
 		if (linesDrawnSoFar.hasOwnProperty(index)) {
 			vpos = parseInt(index.split(",")[1]);
@@ -778,9 +773,6 @@ function redrawLines() {
 					break;
 				case 2:
 					ctx2.clearRect(ind,2*len,1,len);
-					break;
-				case 3:
-					ctx2.clearRect(ind,3*len,1,len);
 					break;
 			} // end switch(vpos)
 		} // end if (linesDrawnSoFar.hasOwnProperty(index))
@@ -878,6 +870,7 @@ function selectLetter(letter){
 			var sendID = cn[0].id + "";
 			switchButtonsAndLetters(1);
 			getNextColors(par, sendID);
+			shrinkGoalContainer();
 		} // if (letter != -1)
 	} // if (!gameOver && (numberCorrect == 4) ) {
 	return true;
@@ -893,7 +886,7 @@ function switchButtonsAndLetters(code) {
 		case 2:
 			expandGoalContainer();
 			document.getElementById("gameLettersContainer").style.display = "block";
-			document.getElementById("letterChoicesCont").style.marginTop = (gcheight + 5) + "px";
+			document.getElementById("letterChoicesCont").style.marginTop = (gcheight + 1) + "px";
 			/*document.getElementById("instruction1").innerHTML = "Can you figure out what letters are being revealed in the top panel? Select a spot below to see the available letters for it.";*/
 			/*document.getElementById("buttonsDiv").style.display = "none";*/
 			break;
@@ -964,7 +957,7 @@ function isGameLost() {
 
 function showLetters() {
 	drawLine();
-	if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 4)) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
+	if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3)) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
 	return true;
 } // end function showLetters()
 

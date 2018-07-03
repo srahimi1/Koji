@@ -250,6 +250,12 @@ body {
 	box-shadow: 1px -1px 1px #bababa;
 }
 
+.notyet-button {
+	border: 2px solid #555555;
+	width: 50%;
+	margin-top: 1em;
+}
+
 .touched{
 	background-color: #3a3a3a;
 	color: white;
@@ -311,8 +317,10 @@ body {
 
 .letter-choices-container {
 	position: relative;
-	height: 30%;
+	height: 25%;
 	text-align: center;
+	overflow-y: auto;
+	overflow-x: hidden;
 	display: none;
 }
 
