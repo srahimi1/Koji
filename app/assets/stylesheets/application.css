@@ -155,8 +155,11 @@ body {
 .game-letters-container {
 	position: relative;
 	width: 95%;
+	height: 20%;
 	margin: 1em auto;
-	padding-top: 1em;
+	padding-top: 0.2em;
+	overflow-y: auto;
+	overflow-x: hidden;
 	text-align: center;
 	color: #fafffa;
 	z-index: 1;

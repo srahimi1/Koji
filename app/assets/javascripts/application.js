@@ -601,7 +601,7 @@ function popUpALetter(letter) {
 				var par = document.getElementById("guess").firstChild;
 				var cn = par.childNodes;
 				var sendID = cn[0].id + "";
-				//if (!gameOver) setTimeout(function() {switchButtonsAndLetters(1); getNextColors(par, sendID); shrinkGoalContainer();},2000);
+				if (!gameOver) setTimeout(function() {switchButtonsAndLetters(1); getNextColors(par, sendID); shrinkGoalContainer();},2000);
 			} else {					
 				values[1] += 0.05;
 				values = animateOriginalSmallOriginal(0, 100, values[1]);  
