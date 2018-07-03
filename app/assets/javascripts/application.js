@@ -180,11 +180,11 @@ function setupNewGame() {
 	while (first) {first.style.color = "#3a3a3a"; first.style.textShadow = "none"; first = first.nextSibling;}
 	switchButtonsAndLetters(1);
 	closeMenu(document.getElementById("menuDiv"));
-	getGame();
+	getGameData();
 	return true;
 }// function setupNewGame()
 
-function getGame() {
+function getGameData() {
 	var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 	xhttp.abort();
 	xhttp.open("POST", "/games");
@@ -197,20 +197,25 @@ function getGame() {
 			topData = inputData["colors"];
 			cycleTopDataAt = Math.floor(Math.random() * 4) + 4;
 			gameData = topData[0];
-			setGameContentHeight();
-			setCanvasParentHeight();
-			positionYesNoButtons();
-			createColorDivs();
-			createCanvasWithLetters();
-			colorGoalDiv();
-			gcheight = gc.offsetHeight;
-			gsheight = document.getElementById("guessContainer").offsetHeight;
+			finishSettingUpGame();
 			return true;
 		} // end if
 	} // end onreadystatechange
 	xhttp.send();
 	return true;
-} // function getGame()
+} // function getGameData()
+
+function finishSettingUpGame() {
+	setGameContentHeight();
+	setCanvasParentHeight();
+	positionYesNoButtons();
+	createColorDivs();
+	createCanvasWithLetters();
+	colorGoalDiv();
+	gcheight = gc.offsetHeight;
+	gsheight = document.getElementById("guessContainer").offsetHeight;
+	setupTimer();
+} // end function finishSettingUpGame()
 
 // color mixing part of game functions ...
 
@@ -393,6 +398,7 @@ function determineResultOfChoice(sendID, opt) {
 			numberCorrect++;
 			time = 1350;
 			drawLine();
+			startTime = null;
 		}
 		else if (opt == 1) {
 			inner = document.getElementById("youmissedthisonesvg").innerHTML;
@@ -454,6 +460,7 @@ function determineResultOfChoice(sendID, opt) {
 		svg.style.left = "50%";
 		svg.style.marginLeft = -(svg.getBoundingClientRect().width/2) + "px";
 		missedCorrect = 0;		
+		startTime = null;
 	}
 	
 	if (missedCorrect == 3) {
@@ -947,8 +954,7 @@ function isGameLost() {
 			el.innerHTML = "Game Over"; 
 			showMenu(document.getElementById('gameMessageDiv')); 
 			el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";
-			setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); 
-			showLetters(); 
+			setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); switchButtonsAndLetters(2); showLetters();},2000);  
 			return true; 
 		} // if (numXs == 4)
 	} // if (!gameOver)
@@ -1798,7 +1804,7 @@ function checkForStartupMessage() {
 } // end function checkForStartupMessage()
 
 
-// legacy functions ...
+// timer functions ...
 
 function setupTimer() {
 	if (!!window.Worker) {
@@ -1806,31 +1812,40 @@ function setupTimer() {
 	} // end if (!!window.Worker)
 	else {
 		clearInterval(intervalID);
-		intervalID = setInterval(function() {updateTimer(null)},333);
+		intervalID = setInterval(function() {updateTimer(null)},100);
 	} // end else
 	return true;
 } // end function setupTimer()
 
 function updateTimer(time) {
-	timerEl = document.getElementById("timer");
-	var time = time;
-	if (!time) {
-		var d = new Date();
-		time = d.getTime();
-	} // end if (!time)
-	if (!startTime) startTime = time;
-	if (time < lastTime) alert("Don't cheat!");
+	if (!gameOver) {
+		timerEl = document.getElementById("timer");
+		var time = time;
+		if (!time) {
+			var d = new Date();
+			time = d.getTime();
+		} // end if (!time)
+		if (!startTime) startTime = time;
+		if (time < lastTime) alert("Don't cheat!");
+		else {
+			lastTime = time;
+			var timeDiff = time - startTime;
+			var timeDiffInSec = Math.floor(timeDiff / 1000);
+			var minutes = Math.floor(timeDiffInSec / 60);
+			var seconds = timeDiffInSec % 60;
+			var displayTime = 10 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
+			//if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
+			if (displayTime < 0) {displayTime = 10; startTime = null;}
+			else if ((displayTime < 1) && (startTime != -1)) { startTime = -1; isGameLost(); }
+			timerEl.style.display = "none";
+			timerEl.innerHTML = displayTime;
+			timerEl.style.display = "inline-block";
+		} // end else
+	} // end if (!gameOver)
 	else {
-		var timeDiff = time - startTime;
-		var timeDiffInSec = Math.floor(timeDiff / 1000);
-		var minutes = Math.floor(timeDiffInSec / 60);
-		var seconds = timeDiffInSec % 60;
-		var displayTime = minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
-		if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
-		timerEl.style.display = "none";
-		timerEl.innerHTML = displayTime;
-		timerEl.style.display = "block";
-	} // end else
+		webWorker.terminate();
+		clearInterval(intervalID);
+	}
 	return true;
 } // end function updateTimer(time)
 

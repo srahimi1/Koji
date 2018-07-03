@@ -7,4 +7,4 @@ function getDateTime() {
 } // end function getDateTime()
 
 clearInterval(intervalID);
-intervalID = setInterval(function(){getDateTime()},333);
+intervalID = setInterval(function(){getDateTime()},100);
