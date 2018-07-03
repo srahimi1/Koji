@@ -13,15 +13,19 @@
  *= require_self
  */
 
-html {
-
-}
-
 body {
 	margin: 0;
   	padding: 0;
 	margin: auto;
 	font-family: 'Playfair Display', serif, Trebuchet MS, helvetica, tahoma;
+}
+
+#signupForm input {
+	height: 3em;
+}
+
+#contactusForm input{
+	height: 3em;
 }
 
 /* main app sections */
@@ -508,10 +512,9 @@ body {
 .modal-game-title {
 	width: 100%;
 	margin: 0;
-	padding: .1em 0;
+	font-size: 2em;
 	text-align: center;
 	color: #7a00cc;
-	padding-left: 0.2em auto;
 }
 
 
@@ -650,21 +653,26 @@ body {
 }
 
 .instruction-top-li {
-	padding: 0.1em 0.75em 0.1em 0.75em;
+	padding-left: 0.8em;
+	padding-right: 0.8em;
+	text-align: justify;
 }
 
 .instruction-ul {
 	padding: 0;
 	margin: 0;
+	font-size: 1.2em;
 	text-align: left;
 	overflow-y: auto;
-	list-style: none;
+	list-style: none;;
 	color: #8E3ECF;
 }
 
 .instruction-li {
 	margin: 0;
-	padding: 0.1em 0.75em 0.1em 0.75em;
+	padding-left: 0.8em;
+	padding-right: 0.8em;
+	text-align: justify;
 }
 
 .instruction-header-paragraph {

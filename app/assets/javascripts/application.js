@@ -1554,6 +1554,7 @@ function validateEmail(inp, sel) {
 } // end function validateEmail()
 
 function validateCellphone(inp, sel) {
+	console.log(sel)
 	document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
 	document.getElementById("signupSubmit").style.boxShadow = "none";
 	document.getElementById("signupSubmit").disabled = true;
@@ -1569,22 +1570,22 @@ function validateCellphone(inp, sel) {
 		var errorEl = document.getElementById("changeLoginErrorMessage");
 		var hid = document.getElementById("changeNumberInput");
 	}
-	inp.blur();
-	hid.focus();
+	// inp.blur();
+	// hid.focus();
 	var hidValue = hid.value + "";
 	var char = hidValue[hidValue.length - 1];
 	var test = "";
 	var temp = "";
-	if ( isNaN(char) || (parseInt(char) == null) || (hidValue.length > 10) ) {
-		for (var i = 0; i < hidValue.length - 1; i++)
-			temp += hidValue[i];
-	} else {
-		for (var i = 0; i < hidValue.length; i++)
-			temp += hidValue[i];
-	}
-	hid.value = parseInt(temp);
-	test = temp + "";
-	
+	// if ( isNaN(char) || (parseInt(char) == null) || (hidValue.length > 10) ) {
+	// 	for (var i = 0; i < hidValue.length - 1; i++)
+	// 		temp += hidValue[i];
+	// } else {
+	// 	for (var i = 0; i < hidValue.length; i++)
+	// 		temp += hidValue[i];
+	// }
+	// hid.value = parseInt(temp);
+	// test = temp + "";
+
 	var len = test.length;
 	var number = "";
 	for (var i = 0; i < len; i++) {
@@ -1593,7 +1594,7 @@ function validateCellphone(inp, sel) {
 		else if (i == 6) number = number + "-" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
 		else number = number + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
 	} // for (var i = 0; i < 10; i++)
-	
+
 	if ((len == 10) && (sel == 1)) {
 		var success = "document.getElementById('cellphoneInput').nextSibling.style.visibility = 'visible'; document.getElementById('cellphoneErrorMessage').innerHTML = ''";
 		var fail = "document.getElementById('cellphoneInput').nextSibling.style.visibility = 'hidden'; document.getElementById('cellphoneErrorMessage').innerHTML = 'cellphone number already exists'";
@@ -1606,8 +1607,8 @@ function validateCellphone(inp, sel) {
 		inp.nextSibling.style.visibility = "hidden"; 
 		errorEl.innerHTML = "";
 	}
-	inp.value = number;
-	hid.focus();
+	// inp.value = number;
+	// hid.focus();
 	isSignupFormReady();
 	return false;
 } // end function validateCellphone()
@@ -1839,7 +1840,7 @@ function showMenu(el) {
 		document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
 		document.getElementById("signupSubmit").style.boxShadow = "none";
 		document.getElementById("emailInput").nextSibling.style.visibility = "hidden";
-		document.getElementById("cellphoneInput").nextSibling.style.visibility = "hidden";
+		// document.getElementById("cellphoneInput").nextSibling.style.visibility = "hidden";
 		document.getElementById("displaynameInput").nextSibling.style.visibility = "hidden";
 		document.getElementById("password1Input").nextSibling.style.visibility = "hidden";
 		document.getElementById("password2Input").nextSibling.style.visibility = "hidden";
