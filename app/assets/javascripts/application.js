@@ -13,6 +13,7 @@
 //= require rails-ujs
 //= require_tree .
 
+guessTop = null;
 paymentRequestSent = false;
 formcheck = [];
 for (var i = 0; i < 4; i++) formcheck.push(false);
@@ -119,6 +120,7 @@ function shrinkGoalContainer() {
 } // end function shrinkGoalContainer()
 
 function setupNewGame() {
+	guessTop = document.getElementById("guess");
 	letterBoardsEmpty = false;
 	inputData = null;
 	cycleTopDataAt = 0;
@@ -369,7 +371,7 @@ function createMixColorDivs() {
 } // function createMixColorDivs()
 
 function showUnderneathDiv(opt) {
-	var par = document.getElementById("guess").firstChild;
+	var par = guessTop.firstChild;
 	var cn = par.childNodes;
 	cn[0].innerHTML = "";
 	cn[1].innerHTML = "";
@@ -476,7 +478,7 @@ function determineResultOfChoice(sendID, opt) {
 		if ((code == 0) || (code == 2))
 			setTimeout(function() {animatePoints(points, code);},100);
 	}
-	var par = document.getElementById("guess").firstChild;
+	var par = guessTop.firstChild;
 	var sendID = par.id + "";
 	if (numberCorrect != 4) 
 		getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},time);
@@ -608,7 +610,7 @@ function popUpALetter(letter) {
 				isChosenLetterCorrect(letter, ind);
 				//document.getElementById("letterChoicesCont").style.display = "none";
 				selectedUnderscore = null;
-				var par = document.getElementById("guess").firstChild;
+				var par = guessTop.firstChild;
 				var cn = par.childNodes;
 				var sendID = cn[0].id + "";
 				if (!gameOver) setTimeout(function() {switchButtonsAndLetters(1); getNextColors(par, sendID); shrinkGoalContainer();},2000);
@@ -875,7 +877,7 @@ function selectLetter(letter){
 			numberCorrect = 4;
 			selectUnderscore(selectedUnderscore, inputData.letters);
 			numberCorrect = 0;
-			var par = document.getElementById("guess").firstChild;
+			var par = guessTop.firstChild;
 			var cn = par.childNodes;
 			var sendID = cn[0].id + "";
 			switchButtonsAndLetters(1);
@@ -1826,7 +1828,7 @@ function updateTimer(time) {
 			var d = new Date();
 			time = d.getTime();
 		} // end if (!time)
-		if (!startTime) startTime = time;
+		if (!startTime) {startTime = time; var a = guessTop; var b = document.createElement("div"); b.setAttribute("class", "guess-middle-cover-pre"); b.style.top = a.offsetHeight + "px"; a.appendChild(b); console.log(b); b.setAttribute("class", "guess-middle-cover-post"); b.style.marginTop = (0 - a.offsetHeight) + "px";}
 		if (time < lastTime) alert("Don't cheat!");
 		else {
 			lastTime = time;
@@ -1837,7 +1839,7 @@ function updateTimer(time) {
 			var displayTime = 5 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
 			//if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
 			if (displayTime < 0) {displayTime = 5; startTime = null;}
-			else if ((displayTime < 1) && (startTime != -1)) { startTime = -1; isGameLost(); }
+			else if ((displayTime < 1) && (startTime != -1)) { startTime = -1; var a = guessTop; a.removeChild(a.lastChild); isGameLost(); }
 			timerEl.style.display = "none";
 			timerEl.innerHTML = displayTime;
 			timerEl.style.display = "inline-block";
