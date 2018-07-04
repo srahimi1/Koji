@@ -479,7 +479,7 @@ function determineResultOfChoice(sendID, opt) {
 	var par = document.getElementById("guess").firstChild;
 	var sendID = par.id + "";
 	if (numberCorrect != 4) 
-		//getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},time);
+		getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},time);
 	return true;
 } // function determineResultOfChoice(sendID, opt)
 
