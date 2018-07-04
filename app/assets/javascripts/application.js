@@ -413,6 +413,7 @@ function determineResultOfChoice(sendID, opt) {
 		main.style.display = "block";
 		if (!!inner1) {
 			inner1 = main.childNodes[1];
+			console.log(inner1);
 			inner1.style.height = Math.floor(inner1.parentNode.offsetHeight/3.5) + "px"
 			inner1.style.width = Math.floor(inner1.parentNode.offsetWidth) + "px"
 			inner1.style.marginTop = Math.floor(inner1.parentNode.offsetHeight/8) + "px"
@@ -478,7 +479,7 @@ function determineResultOfChoice(sendID, opt) {
 	var par = document.getElementById("guess").firstChild;
 	var sendID = par.id + "";
 	if (numberCorrect != 4) 
-		getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},time);
+		//getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},time);
 	return true;
 } // function determineResultOfChoice(sendID, opt)
 
@@ -1833,9 +1834,9 @@ function updateTimer(time) {
 			var timeDiffInSec = Math.floor(timeDiff / 1000);
 			var minutes = Math.floor(timeDiffInSec / 60);
 			var seconds = timeDiffInSec % 60;
-			var displayTime = 10 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
+			var displayTime = 8 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
 			//if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
-			if (displayTime < 0) {displayTime = 10; startTime = null;}
+			if (displayTime < 0) {displayTime = 8; startTime = null;}
 			else if ((displayTime < 1) && (startTime != -1)) { startTime = -1; isGameLost(); }
 			timerEl.style.display = "none";
 			timerEl.innerHTML = displayTime;
