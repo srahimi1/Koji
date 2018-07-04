@@ -278,16 +278,18 @@ body {
 	height: 8em;
 }
 
-.plus-15-svg {
-	position: relative; display: block; margin:auto; width: 25%; height: 25%;
-}
-
 .plus-5-svg {
-	position: relative; display: block; margin:auto; width: 15%; height: 15%;
+	position: relative; 
+	display: block; 
+	margin:auto; 
+	width: 15%; 
+	height: 15%;
 }
 
 .good-call-svg {
-	margin-top: 3em; width: 25em; height: 8.5em;
+	margin-top: 3em; 
+	width: 25em; 
+	height: 8.5em;
 }
 
 .panda-svg {

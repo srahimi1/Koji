@@ -390,19 +390,19 @@ function determineResultOfChoice(sendID, opt) {
 	if (divColors["answer"].toUpperCase() == gameData.goalColor.toUpperCase()) {
 		if (opt == 0) {
 			inner1 = document.getElementById("itmatchessvg");
-			inner2 = document.getElementById("plus15svg");
-			inner = inner1.innerHTML + "<br/>" + inner2.innerHTML;
+			inner2 = document.getElementById("plus5svg");
+			inner = inner1.innerHTML + "" + inner2.innerHTML;
 			code = 0;
 			missedCorrect = 0; 
-			points = 15;
+			points = 5;
 			numberCorrect++;
 			time = 1350;
 			drawLine();
 			startTime = null;
 		}
 		else if (opt == 1) {
-			inner = document.getElementById("youmissedthisonesvg").innerHTML;
-			points = -15;
+			inner = document.getElementById("missedthisonesvg").innerHTML;
+			points = 0;
 			code = 1;
 			time = 600;
 			missedCorrect++; 
@@ -414,6 +414,7 @@ function determineResultOfChoice(sendID, opt) {
 		if (!!inner1) {
 			inner1 = main.childNodes[1];
 			inner1.style.height = Math.floor(inner1.parentNode.offsetHeight/3.5) + "px"
+			inner1.style.width = Math.floor(inner1.parentNode.offsetWidth) + "px"
 			inner1.style.marginTop = Math.floor(inner1.parentNode.offsetHeight/8) + "px"
 		} else {
 			inner1 = main.childNodes[1];
@@ -422,15 +423,15 @@ function determineResultOfChoice(sendID, opt) {
 			inner1.style.marginTop = Math.floor(inner1.parentNode.offsetHeight/8) + "px"
 		}
 		var svg = null;
-		if (points == 15) {
-			svg = document.getElementById("plus15svg2");
+		if (points == 5) {
+			svg = document.getElementById("plus5svg2");
 			svg.style.left = "50%";
 			svg.style.marginLeft = -(svg.getBoundingClientRect().width/2) + "px";
 		}
 	} // if (bkDivColors[key].toUpperCase() == gameData.goalColor.toUpperCase()) 
 	else if (opt == 0) {
 		var inner = document.getElementById("nodoesntmatchsvg").innerHTML;
-		points = -15;
+		points = 0;
 		code = 1;
 		time = 600;
 		missedCorrect++; 
@@ -439,7 +440,8 @@ function determineResultOfChoice(sendID, opt) {
 		main.innerHTML = inner;
 		main.style.display = "block";
 		inner = main.childNodes[1];
-		inner.style.height = Math.floor(inner.parentNode.offsetHeight/2.2) + "px"
+		inner.style.height = Math.floor(inner.parentNode.offsetHeight/1.8) + "px"
+		inner.style.width = Math.floor(inner.parentNode.offsetWidth/1.5) + "px"
 		inner.style.marginTop = Math.floor(inner.parentNode.offsetHeight/8) + "px"
 	} // else if (opt == 0)
 	else if (opt == 1) {
@@ -465,7 +467,7 @@ function determineResultOfChoice(sendID, opt) {
 	
 	if (missedCorrect == 3) {
 		missedCorrect = 0; 
-		isGameLost();
+		//isGameLost();
 	}
 	
 	if ((points != 0) && (!gameOver)) {
@@ -990,29 +992,27 @@ function isLetterBoardsEmpty() {
 function updatePoints(add, code) {
 	if (!gameOver) {
 		if (code == 2) {
-			if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .05))
+			if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3 * .25))
 				add = add;
-			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .10))
+			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3 * .35))
 				add = Math.floor(add * .90);
-			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .15))
+			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3 * .45))
 				add = Math.floor(add * .85);
-			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .20))
+			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3 * .50))
 				add = Math.floor(add * .70);
-			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .25))
+			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3 * .55))
 				add = Math.floor(add * .65);
-			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .30))
+			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3 * .60))
 				add = Math.floor(add * .50);
-			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .40))
+			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3 * .65))
 				add = Math.floor(add * .40);
-			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .50))
+			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3 * .70))
 				add = Math.floor(add * .30);
-			else if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * .60))
-				add = Math.floor(add * .20);
 			else add = Math.floor(add * .10);
 		}
 		points += add;
 		if (numberCorrect == 4) {
-			redoXs();
+			//redoXs();
 		} // if (numberCorrect == 4)
 		updateGameDataOnServer(0);
 		var el = document.getElementById("pointsSpan");
@@ -1086,9 +1086,9 @@ function letterBorderAnimation(letter, code) {
 				//letter.style.marginTop = -(letter.offsetHeight - height)/2 + "px";
 			}
 		},22);
-	if (code == 0) {updatePoints(100,2); animatePoints(100,2);}
+	if (code == 0) {updatePoints(50,2);}
 	else if (code == 1) {
-		updatePoints(-150,3);
+		updatePoints(0,3);
 		isGameLost();
 	}
 	return true;
@@ -1110,7 +1110,7 @@ function animatePoints(add, code) {
 		time=22;
 	else if (code == 3) 
 		time=500;
-	if (code == 0) el2 = document.getElementById("plus15svg2");
+	if (code == 0) el2 = document.getElementById("plus5svg2");
 	else if (code == 2) el2 = document.getElementById("plus5svg2");
 	var height = el2.getBoundingClientRect().height;
 	/*document.getElementById("guessContainer").style.overflow = "visible";
