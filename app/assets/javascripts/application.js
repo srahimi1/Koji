@@ -1834,9 +1834,9 @@ function updateTimer(time) {
 			var timeDiffInSec = Math.floor(timeDiff / 1000);
 			var minutes = Math.floor(timeDiffInSec / 60);
 			var seconds = timeDiffInSec % 60;
-			var displayTime = 8 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
+			var displayTime = 5 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
 			//if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
-			if (displayTime < 0) {displayTime = 8; startTime = null;}
+			if (displayTime < 0) {displayTime = 5; startTime = null;}
 			else if ((displayTime < 1) && (startTime != -1)) { startTime = -1; isGameLost(); }
 			timerEl.style.display = "none";
 			timerEl.innerHTML = displayTime;
