@@ -1826,7 +1826,9 @@ function setupTimer() {
 		if (!webWorker) {webWorker = new window.Worker("timer.js"); webWorker.onmessage = function(evt) {alert("ww"); updateTimer(evt.data);} }
 	} // end if (!!window.Worker)
 	else {
-		dateStart = new Date().getTime(), timeAdd = 0;
+		dateStart = new Date();
+		dateStart = dateStart.getTime();
+		timeAdd = 0;
 		clearTimeout(timeoutID);
 		timeoutID = setTimeout(function() {updateTimer(null)},100);
 	} // end else
@@ -1857,7 +1859,7 @@ function updateTimer(time) {
 			timerEl.innerHTML = displayTime;
 			timerEl.style.display = "inline-block";
 		} // end else
-		if (timeoutID != null) { timeAdd += 100; var diff = (new Date().getTime()) - dateStart - timeAdd; clearTimeout(timeoutID); timeoutID = setTimeout(function() {updateTimer(null)},100 - diff);}
+		if (timeoutID != null) { timeAdd += 100; var dt = new Date(); var diff = (dt.getTime()) - dateStart - timeAdd; clearTimeout(timeoutID); timeoutID = setTimeout(function() {updateTimer(null)},100 - diff);}
 	} // end if (!gameOver)
 	else {
 		webWorker.terminate();
