@@ -1823,7 +1823,7 @@ function showBeginningModal() {
 
 function setupTimer() {
 	if (!!window.Worker) {
-		if (!webWorker) {webWorker = new window.Worker("timer.js"); webWorker.onmessage = function(evt) {updateTimer(evt.data);} }
+		if (!webWorker) {webWorker = new window.Worker("timer.js"); webWorker.onmessage = function(evt) {alert("ww"); updateTimer(evt.data);} }
 	} // end if (!!window.Worker)
 	else {
 		dateStart = new Date().getTime(), timeAdd = 0;
