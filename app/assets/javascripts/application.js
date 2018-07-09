@@ -13,6 +13,8 @@
 //= require rails-ujs
 //= require_tree .
 
+dateStart = null;
+timeAdd = null;
 guessTop = null;
 paymentRequestSent = false;
 formcheck = [];
@@ -120,6 +122,8 @@ function shrinkGoalContainer() {
 } // end function shrinkGoalContainer()
 
 function setupNewGame() {
+	dateStart = null;
+	timeAdd = null;
 	guessTop = document.getElementById("guess");
 	letterBoardsEmpty = false;
 	inputData = null;
@@ -415,7 +419,6 @@ function determineResultOfChoice(sendID, opt) {
 		main.style.display = "block";
 		if (!!inner1) {
 			inner1 = main.childNodes[1];
-			console.log(inner1);
 			inner1.style.height = Math.floor(inner1.parentNode.offsetHeight/3.5) + "px"
 			inner1.style.width = Math.floor(inner1.parentNode.offsetWidth) + "px"
 			inner1.style.marginTop = Math.floor(inner1.parentNode.offsetHeight/8) + "px"
@@ -1796,7 +1799,7 @@ function checkForStartupMessage() {
 					el.style.marginTop="0em"; 
 					el.style.opacity="1"; 
 				} else {
-				setTimeout(function() {showMenu(document.getElementById('menuDiv')) },500);
+					setTimeout(function() {showMenu(document.getElementById('menuDiv')) },500);
 				} // if (message != "1")
 			}
 			return true;
@@ -1806,6 +1809,15 @@ function checkForStartupMessage() {
 	return true;
 } // end function checkForStartupMessage()
 
+function showBeginningModal() {
+	var PandaThumbsUpSVG = document.getElementById("pandathumbsupsvg").innerHTML; 
+	var el = document.getElementById("gameMessage"); 
+	el.style.color = "#3ecf8e"; 
+	el.innerHTML = "You" + PandaThumbsUpSVG + "Won!"; 
+	showMenu(document.getElementById('gameMessageDiv')); 
+	el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px"; 
+	setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000);
+} // end function showBeginningModal()
 
 // timer functions ...
 
@@ -1814,44 +1826,80 @@ function setupTimer() {
 		if (!webWorker) {webWorker = new window.Worker("timer.js"); webWorker.onmessage = function(evt) {updateTimer(evt.data);} }
 	} // end if (!!window.Worker)
 	else {
-		clearInterval(intervalID);
-		intervalID = setInterval(function() {updateTimer(null)},100);
+		dateStart = new Date().getTime(), timeAdd = 0;
+		clearTimeout(timeoutID);
+		timeoutID = setTimeout(function() {updateTimer(null)},100);
 	} // end else
 	return true;
 } // end function setupTimer()
 
 function updateTimer(time) {
 	if (!gameOver) {
+		if (!startTime) {startTime = time; remove_bars(); add_bars(); transition_bars();}
 		timerEl = document.getElementById("timer");
-		var time = time;
-		if (!time) {
+		var timeNow = time;
+		if (!timeNow) {
 			var d = new Date();
-			time = d.getTime();
+			timeNow = d.getTime();
 		} // end if (!time)
-		if (!startTime) {startTime = time; var a = guessTop; var b = document.createElement("div"); b.setAttribute("class", "guess-middle-cover-pre"); b.style.top = a.offsetHeight + "px"; a.appendChild(b); console.log(b); b.setAttribute("class", "guess-middle-cover-post"); b.style.marginTop = (0 - a.offsetHeight) + "px";}
-		if (time < lastTime) alert("Don't cheat!");
+		if (timeNow < lastTime) alert("Don't cheat!");
 		else {
-			lastTime = time;
-			var timeDiff = time - startTime;
+			lastTime = timeNow;
+			var timeDiff = timeNow - startTime;
 			var timeDiffInSec = Math.floor(timeDiff / 1000);
 			var minutes = Math.floor(timeDiffInSec / 60);
 			var seconds = timeDiffInSec % 60;
-			var displayTime = 5 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
+			var displayTime = 15 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
 			//if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
-			if (displayTime < 0) {displayTime = 5; startTime = null;}
-			else if ((displayTime < 1) && (startTime != -1)) { startTime = -1; var a = guessTop; a.removeChild(a.lastChild); isGameLost(); }
+			if (displayTime < 0) {displayTime = 15; startTime = null;}
+			else if ((displayTime < 1) && (startTime != -1)) { startTime = -1; isGameLost(); }
 			timerEl.style.display = "none";
 			timerEl.innerHTML = displayTime;
 			timerEl.style.display = "inline-block";
 		} // end else
+		if (timeoutID != null) { timeAdd += 100; var diff = (new Date().getTime()) - dateStart - timeAdd; clearTimeout(timeoutID); timeoutID = setTimeout(function() {updateTimer(null)},100 - diff);}
 	} // end if (!gameOver)
 	else {
 		webWorker.terminate();
-		clearInterval(intervalID);
+		clearTimeout(timeoutID);
 	}
 	return true;
 } // end function updateTimer(time)
 
+function remove_bars() {
+	var par = document.getElementById("timerBar");
+	var a = par.childNodes[0];
+	var b = par.childNodes[1];
+	if (!!a) par.removeChild(a);
+	if (!!b) par.removeChild(b);
+	return true;
+} // end function remove_bars()
+
+function add_bars() {
+	var par = document.getElementById("timerBar");
+	par.style.display = "none";
+	var a = document.createElement("div");
+	a.setAttribute("class","timer-inner-bar-pre"); 
+	var b = document.createElement("div"); 
+	b.setAttribute("class","timer-inner-bar-pre");
+	par.appendChild(a);
+	par.appendChild(b); 
+	a.style.float = "left";
+	b.style.float = "right";
+	par.style.display = "block";
+	a.getBoundingClientRect();
+	b.getBoundingClientRect();
+	return true;
+} // end function add_bars()
+
+function transition_bars() {
+	var par = document.getElementById("timerBar");
+	var a = par.childNodes[0];
+	var b = par.childNodes[1];
+	a.style.width = "50%";
+	b.style.width = "50%";
+	return true;
+} // end function transition_bars()
 
 
 // Stripe.com functions
