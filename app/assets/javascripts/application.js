@@ -1799,7 +1799,8 @@ function checkForStartupMessage() {
 					el.style.marginTop="0em"; 
 					el.style.opacity="1"; 
 				} else {
-					setTimeout(function() {showMenu(document.getElementById('menuDiv')) },500);
+					setTimeout(function() {showBeginningModal();},500);
+					/*setTimeout(function() {showMenu(document.getElementById('menuDiv'));},500);*/
 				} // if (message != "1")
 			}
 			return true;
@@ -1812,11 +1813,22 @@ function checkForStartupMessage() {
 function showBeginningModal() {
 	var PandaThumbsUpSVG = document.getElementById("pandathumbsupsvg").innerHTML; 
 	var el = document.getElementById("gameMessage"); 
+	var par = el.parentNode;
 	el.style.color = "#3ecf8e"; 
-	el.innerHTML = "You" + PandaThumbsUpSVG + "Won!"; 
+	el.innerHTML = PandaThumbsUpSVG; 
 	showMenu(document.getElementById('gameMessageDiv')); 
 	el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px"; 
-	setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000);
+	var button1 = document.createElement("button");
+	var button2 = document.createElement("button");
+	button1.innerHTML = "Start Demo Game";
+	button1.setAttribute("class","beginning-button demo-game");
+	button1.onclick = function() {closeMenu(document.getElementById('gameMessageDiv')); setupNewGame();}
+	button2.innerHTML = "Show Menu";
+	button2.setAttribute("class","beginning-button show-menu");
+	button2.onclick = function() {closeMenu(document.getElementById('gameMessageDiv')); showMenu(document.getElementById('menuDiv'));}
+	par.appendChild(button1);
+	par.appendChild(button2);
+/*	setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000);*/
 } // end function showBeginningModal()
 
 // timer functions ...
