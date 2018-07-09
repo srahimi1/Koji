@@ -1823,7 +1823,7 @@ function showBeginningModal() {
 
 function setupTimer() {
 	if (!!window.Worker) {
-		if (!webWorker) {webWorker = new window.Worker("timer.js"); webWorker.onmessage = function(evt) {alert("ww"); updateTimer(evt.data);} }
+		if (!webWorker) {webWorker = new window.Worker("timer.js"); webWorker.onmessage = function(evt) {updateTimer(evt.data);} }
 	} // end if (!!window.Worker)
 	else {
 		dateStart = new Date();
@@ -1837,7 +1837,7 @@ function setupTimer() {
 
 function updateTimer(time) {
 	if (!gameOver) {
-		if (!startTime) {startTime = time; remove_bars(); add_bars(); transition_bars();}
+		if (!startTime) {startTime = time; setTimeout(function() {remove_bars(); add_bars(); transition_bars();}, 900);}
 		timerEl = document.getElementById("timer");
 		var timeNow = time;
 		if (!timeNow) {
