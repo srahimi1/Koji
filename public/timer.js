@@ -7,7 +7,7 @@ function getDateTime() {
 	postMessage(v);
 	var diff = v - start - time;
 	clearTimeout(timeoutID);
-	timeoutID = setTimeout(function() {getDateTime()},100 - diff);
+	timeoutID = setTimeout(function() {getDateTime()}, 100 - diff);
 } // end function getDateTime()
 
 getDateTime();

@@ -407,6 +407,11 @@ body {
 	background-color: beige;
 }
 
+.start-image {
+	margin: 10px auto;
+	display: block;
+}
+
 	
 /* modal classes */
 
