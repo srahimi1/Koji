@@ -232,10 +232,10 @@ body {
 	margin: 0;
 	background-color: red;
 	overflow: hidden;
-	-moz-transition: width 15s;
-	-webkit-transition: width 15s;
-	-o-transition: width 15s;
-	transition: width 15s;
+	-moz-transition: width 10s;
+	-webkit-transition: width 10s;
+	-o-transition: width 10s;
+	transition: width 10s;
 }
 
 
