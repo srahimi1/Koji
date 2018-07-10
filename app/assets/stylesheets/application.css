@@ -369,7 +369,7 @@ body {
 	text-align: center;
 	overflow-y: auto;
 	overflow-x: hidden;
-	display: none;
+	visibility: hidden;
 }
 
 .letter-p {
@@ -407,9 +407,9 @@ body {
 	background-color: beige;
 }
 
-.start-image {
+.panda-boxes {
+	width: 50%;
 	margin: 10px auto;
-	display: block;
 }
 
 	

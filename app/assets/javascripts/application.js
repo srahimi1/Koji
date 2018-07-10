@@ -172,7 +172,7 @@ function setupNewGame() {
 	canvas2 = null;
 	ctx2 = null;	
 	gc = document.getElementById("goalContainer");
-	document.getElementById("letterChoicesCont").style.display = "none";
+	document.getElementById("letterChoicesCont").style.visibility = "hidden";
 	document.getElementById("pointsSpan").innerHTML = points;
 	document.getElementById("gameMessage").innerHTML = "";
 	var gameLD = document.getElementById("gameLettersDiv");
@@ -649,7 +649,7 @@ function isChosenLetterCorrect(letter, ind) {
 	ind2 = ind2.split(":")[1];
 	if (correctLetters[ind].index == ind2) letterBorderAnimation(letter, 0);
 	else letterBorderAnimation(letter, 1);
-	if (isGameWon()) {document.getElementById("letterChoicesCont").style.display = "none"; var PandaThumbsUpSVG = document.getElementById("pandathumbsupsvg").innerHTML; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You" + PandaThumbsUpSVG + "Won!"; showMenu(document.getElementById('gameMessageDiv')); el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px"; setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); } // if
+	if (isGameWon()) {document.getElementById("letterChoicesCont").style.visibility = "hidden"; var PandaThumbsUpSVG = document.getElementById("pandathumbsupsvg").innerHTML; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You" + PandaThumbsUpSVG + "Won!"; showMenu(document.getElementById('gameMessageDiv')); el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px"; setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); } // if
 	else if (isLetterBoardsEmpty()) {isGameLost();}
 } // function isChosenLetterCorrect(letter, ind)
 
@@ -711,7 +711,7 @@ function selectUnderscore(el, letters) {
 		var repeat = false;
 		if (!!selectedUnderscore && (selectedUnderscore == el)) {
 			for (var i = 0; i < letters.length; i++) document.getElementById("letterChoices"+i).style.display = "none";
-			document.getElementById("letterChoicesCont").style.display = "none";
+			document.getElementById("letterChoicesCont").style.visibility = "hidden";
 			if (!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "2px solid gray"; 
 			else if (!!selectedUnderscore.childNodes[0]) selectedUnderscore.style.borderBottom = "";
 			selectedUnderscore = null;
@@ -801,7 +801,7 @@ function showLetterChoices(ind,len) {
 	var el = document.getElementById("letterChoices"+ind);
 	var letCC = document.getElementById("letterChoicesCont");
 	el.style.verticalAlign = "middle";
-	letCC.style.display = "block";
+	letCC.style.visibility = "visible";
 	el.style.display = "block";
 	return true;
 } // end function showLetterChoices(ind,len)
@@ -956,7 +956,7 @@ function isGameLost() {
 		if ((numXs == 4) || (letterBoardsEmpty)) {
 			updateGameDataOnServer(2); 
 			gameOver = true; 
-			document.getElementById("letterChoicesCont").style.display = "none"; 
+			document.getElementById("letterChoicesCont").style.visibility = "hidden"; 
 			var el = document.getElementById("gameMessage"); 
 			el.style.color = "red"; 
 			el.innerHTML = "Game Over"; 
