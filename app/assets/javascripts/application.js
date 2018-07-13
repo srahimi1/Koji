@@ -1813,8 +1813,9 @@ function checkForStartupMessage() {
 function showBeginningModal() {
 	var PandaBoxesSVG = document.getElementById("pandaboxessvg").innerHTML; 
 	var el = document.getElementById("pandaboxes"); 
-	el.innerHTML = PandaBoxesSVG; 
 	var ht = window.innerHeight || document.documentElement.clientHeight;
+	el.parentNode.style.height = ht + "px";
+	el.innerHTML = PandaBoxesSVG; 
 	el.style.height = Math.floor(ht/2) + "px";
 	el.style.width = Math.floor(ht/2*.7) + "px";
 	el = document.getElementById("startupTitle");
