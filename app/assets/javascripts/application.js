@@ -67,7 +67,7 @@ function getTitleBarHeight() {
 
 function setGameContentHeight() {
 	if (document && document.getElementById('gameContent')) {
-		var ht = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+		var ht = window.innerHeight || document.documentElement.clientHeight;
 		document.getElementById('gameContent').style.height = ht - getTitleBarHeight() + 'px';
 	}
 } // end function setGameContentHeight()
@@ -1814,8 +1814,23 @@ function showBeginningModal() {
 	var PandaBoxesSVG = document.getElementById("pandaboxessvg").innerHTML; 
 	var el = document.getElementById("pandaboxes"); 
 	el.innerHTML = PandaBoxesSVG; 
+	var ht = window.innerHeight || document.documentElement.clientHeight;
+	el.style.height = Math.floor(ht/2) + "px";
+	el.style.width = Math.floor(ht/2*.7) + "px";
+	el = document.getElementById("startupTitle");
+	el.style.width = Math.floor(ht/10) + "px";
+	el.style.height = Math.floor(ht/10) + "px";
+	el.style.verticalAlign = "bottom";
+	el.style.fontSize = Math.floor(ht/10) + "px";
+	el = document.getElementById("startupTitleImage");
+	el.style.width = Math.floor(ht/9) + "px";
+	el.style.height = Math.floor(ht/9) + "px";
+	el = document.getElementById("startupButton1");
+	el.style.width = Math.floor(ht/2*.7) + "px";
+	el = document.getElementById("startupButton2");
+	el.style.width = Math.floor(ht/2*.7) + "px";
 	showMenu(document.getElementById('startupDiv')); 
-	el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px"; 
+	/*el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";*/ 
 } // end function showBeginningModal()
 
 // timer functions ...

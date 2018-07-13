@@ -71,10 +71,10 @@
 
 
 <div id="startupDiv" class="modal-div startup-div">
-	<div style="text-align: center;"><%= image_tag "testLogo6.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %><span>Koji</span></div>
+	<div style="text-align: center;"><%= image_tag "testLogo6.png", :id => "startupTitleImage", :style => "margin: 0 0.1em 0 0;" %><span id="startupTitle">Koji</span></div>
 	<div id="pandaboxes" class="panda-boxes"></div>
-	<button class="beginning-button demo-game" onclick="closeMenu(document.getElementById('startupDiv')); setupNewGame();">Start Demo Game</button>
-	<button class="beginning-button show-menu" onclick="closeMenu(document.getElementById('startupDiv')); showMenu(document.getElementById('menuDiv'));">Show Menu</button>
+	<button id="startupButton1" class="beginning-button demo-game" onclick="closeMenu(document.getElementById('startupDiv')); setupNewGame();">Start Demo Game</button>
+	<button id="startupButton2" class="beginning-button show-menu" onclick="closeMenu(document.getElementById('startupDiv')); showMenu(document.getElementById('menuDiv'));">Show Menu</button>
 </div><!-- end startupDiv -->
 
 
