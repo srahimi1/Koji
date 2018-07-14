@@ -711,7 +711,7 @@ function changeColorOfSelectCanvasPixels(hexC) {
 } // end function changeColorOfSelectCanvasPixels(hexColor)
 
 function selectUnderscore(el, letters) {
-	if (!gameOver && (numberCorrect == 4) ) {
+	if (!gameOver && (numberCorrect == 6) ) {
 		var repeat = false;
 		if (!!selectedUnderscore && (selectedUnderscore == el)) {
 			for (var i = 0; i < letters.length; i++) document.getElementById("letterChoices"+i).style.display = "none";
@@ -729,7 +729,7 @@ function selectUnderscore(el, letters) {
 			el.style.borderBottom="5px solid gray"; 
 			showLetterChoices(el.id.split(":")[1], letters.length);
 		} // if (!repeat) 
-	} // end if (!gameOver && (numberCorrect == 4) ) {
+	} // end if (!gameOver && (numberCorrect == 6) ) {
 	return true;
 } // end function selectUnderscore(el, letters)
 
@@ -870,7 +870,7 @@ function makeLetterDivs(ind) {
 } // end function makeLetterDivs(ind) 
 
 function selectLetter(letter){
-	if (!gameOver && (numberCorrect == 4) ) {
+	if (!gameOver && (numberCorrect == 6) ) {
 		numberCorrect = 0;
 		if (letter != -1) {
 			var par = selectedUnderscore;
@@ -891,7 +891,7 @@ function selectLetter(letter){
 			getNextColors(par, sendID);
 			shrinkGoalContainer();
 		} // if (letter != -1)
-	} // if (!gameOver && (numberCorrect == 4) ) {
+	} // if (!gameOver && (numberCorrect == 6) ) {
 	return true;
 } // end function selectLetter(letter)
 
@@ -1021,9 +1021,9 @@ function updatePoints(add, code) {
 			else add = Math.floor(add * .10);
 		}
 		points += add;
-		if (numberCorrect == 4) {
+		if (numberCorrect == 6) {
 			//redoXs();
-		} // if (numberCorrect == 4)
+		} // if (numberCorrect == 6)
 		updateGameDataOnServer(0);
 		var el = document.getElementById("pointsSpan");
 		el.style.fontWeight = "bold";
@@ -1110,7 +1110,7 @@ function animatePoints(add, code) {
 	var values = [0,0];
 	var el2 = null;
 	if (code == 0) {
-		if (numberCorrect == 4) 
+		if (numberCorrect == 6) 
 			clearTimeout(getNextColorsTimeoutID);
 		time=22;
 	}
@@ -1131,7 +1131,7 @@ function animatePoints(add, code) {
 				clearInterval(pointsIntervalID);
 /*				document.getElementById("guessContainer").style.overflow = "hidden";
 				document.getElementById("guess").style.overflow = "hidden";*/
-				if (numberCorrect == 4) {
+				if (numberCorrect == 6) {
 					clearTimeout(getNextColorsTimeoutID);
 					setTimeout(function() {switchButtonsAndLetters(2); selectUnderscore(document.getElementById("letterBox:0"), inputData.letters);},500);
 				}
