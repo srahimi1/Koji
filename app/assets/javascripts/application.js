@@ -13,6 +13,8 @@
 //= require rails-ujs
 //= require_tree .
 
+timerPaused = false;
+correctLimit = 2;
 dateStart = null;
 timeAdd = null;
 guessTop = null;
@@ -103,6 +105,8 @@ function removeButtonColorOnTouchEnd(element) {
 } // end function removeButtonColorOnTouchEnd(element)
 
 function expandGoalContainer() {
+	timerPaused = true;
+	remove_bars();
 	var body = document.getElementsByTagName("body")[0];
 	gc.parentNode.removeChild(gc);
 	gc.style.position = "absolute";
@@ -122,10 +126,18 @@ function shrinkGoalContainer() {
     var go = document.getElementById("guessContainer");
     setCanvasParentHeight();
 	gc.style.marginTop = "0px";
-	setTimeout(function() {gc.parentNode.removeChild(gc); gc.style.position = "relative"; gc.style.top = "0px"; go.parentNode.insertBefore(gc,go.previousSibling.previousSibling);}, 500);
+	setTimeout(function() {gc.parentNode.removeChild(gc); gc.style.position = "relative"; gc.style.top = "0px"; go.parentNode.insertBefore(gc,go.previousSibling.previousSibling); startTime = null; timerPaused = false; setupTimer(); }, 500);
 } // end function shrinkGoalContainer()
 
+function clearLines() {
+	linesDrawnSoFar = {};
+	numberOfLinesDrawnOnCanvas = 0;
+	numberCorrect = 0;
+	colorGoalDiv();
+}
+
 function setupNewGame() {
+	timerPaused = false;
 	dateStart = null;
 	timeAdd = null;
 	guessTop = document.getElementById("guess");
@@ -458,6 +470,7 @@ function determineResultOfChoice(sendID, opt) {
 		points = 5;
 		code = 2;
 		time = 1350;
+		numberCorrect++;
 		var inner1 = document.getElementById("goodcallsvg");
 		var inner2 = document.getElementById("plus5svg");
 		inner = inner1.innerHTML + "" + inner2.innerHTML;
@@ -472,11 +485,13 @@ function determineResultOfChoice(sendID, opt) {
 		svg.style.left = "50%";
 		svg.style.marginLeft = -(svg.getBoundingClientRect().width/2) + "px";
 		missedCorrect = 0;		
+		drawLine();
 		startTime = null;
 	}
 	
-	if (missedCorrect == 3) {
-		missedCorrect = 0; 
+	if (missedCorrect == 2) {
+		missedCorrect = 0;
+		clearLines();
 		//isGameLost();
 	}
 	
@@ -487,7 +502,7 @@ function determineResultOfChoice(sendID, opt) {
 	}
 	var par = guessTop.firstChild;
 	var sendID = par.id + "";
-	if (numberCorrect != 4) 
+	if (numberCorrect != correctLimit)
 		getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},time);
 	return true;
 } // function determineResultOfChoice(sendID, opt)
@@ -711,7 +726,7 @@ function changeColorOfSelectCanvasPixels(hexC) {
 } // end function changeColorOfSelectCanvasPixels(hexColor)
 
 function selectUnderscore(el, letters) {
-	if (!gameOver && (numberCorrect == 6) ) {
+	if (!gameOver && (numberCorrect == correctLimit) ) {
 		var repeat = false;
 		if (!!selectedUnderscore && (selectedUnderscore == el)) {
 			for (var i = 0; i < letters.length; i++) document.getElementById("letterChoices"+i).style.display = "none";
@@ -729,7 +744,7 @@ function selectUnderscore(el, letters) {
 			el.style.borderBottom="5px solid gray"; 
 			showLetterChoices(el.id.split(":")[1], letters.length);
 		} // if (!repeat) 
-	} // end if (!gameOver && (numberCorrect == 6) ) {
+	} // end if (!gameOver && (numberCorrect == correctLimit) ) {
 	return true;
 } // end function selectUnderscore(el, letters)
 
@@ -870,7 +885,7 @@ function makeLetterDivs(ind) {
 } // end function makeLetterDivs(ind) 
 
 function selectLetter(letter){
-	if (!gameOver && (numberCorrect == 6) ) {
+	if (!gameOver && (numberCorrect == correctLimit) ) {
 		numberCorrect = 0;
 		if (letter != -1) {
 			var par = selectedUnderscore;
@@ -891,7 +906,7 @@ function selectLetter(letter){
 			getNextColors(par, sendID);
 			shrinkGoalContainer();
 		} // if (letter != -1)
-	} // if (!gameOver && (numberCorrect == 6) ) {
+	} // if (!gameOver && (numberCorrect == correctLimit) ) {
 	return true;
 } // end function selectLetter(letter)
 
@@ -1021,9 +1036,9 @@ function updatePoints(add, code) {
 			else add = Math.floor(add * .10);
 		}
 		points += add;
-		if (numberCorrect == 6) {
+		if (numberCorrect == correctLimit) {
 			//redoXs();
-		} // if (numberCorrect == 6)
+		} // if (numberCorrect == correctLimit)
 		updateGameDataOnServer(0);
 		var el = document.getElementById("pointsSpan");
 		el.style.fontWeight = "bold";
@@ -1110,7 +1125,7 @@ function animatePoints(add, code) {
 	var values = [0,0];
 	var el2 = null;
 	if (code == 0) {
-		if (numberCorrect == 6) 
+		if (numberCorrect == correctLimit) 
 			clearTimeout(getNextColorsTimeoutID);
 		time=22;
 	}
@@ -1131,7 +1146,7 @@ function animatePoints(add, code) {
 				clearInterval(pointsIntervalID);
 /*				document.getElementById("guessContainer").style.overflow = "hidden";
 				document.getElementById("guess").style.overflow = "hidden";*/
-				if (numberCorrect == 6) {
+				if (numberCorrect == correctLimit) {
 					clearTimeout(getNextColorsTimeoutID);
 					setTimeout(function() {switchButtonsAndLetters(2); selectUnderscore(document.getElementById("letterBox:0"), inputData.letters);},500);
 				}
@@ -1855,7 +1870,7 @@ function setupTimer() {
 } // end function setupTimer()
 
 function updateTimer(time) {
-	if (!gameOver) {
+	if (!gameOver && !timerPaused) {
 		if (!startTime) {startTime = time; setTimeout(function() {remove_bars(); add_bars(); transition_bars();}, 900);}
 		timerEl = document.getElementById("timer");
 		var timeNow = time;
@@ -1879,9 +1894,10 @@ function updateTimer(time) {
 			timerEl.style.display = "inline-block";
 		} // end else
 		if (timeoutID != null) { timeAdd += 100; var dt = new Date(); var diff = (dt.getTime()) - dateStart - timeAdd; clearTimeout(timeoutID); timeoutID = setTimeout(function() {updateTimer(null)},100 - diff);}
-	} // end if (!gameOver)
+	} // end if (!gameOver && !timerPaused)
 	else {
-		webWorker.terminate();
+		if (!!webWorker) webWorker.terminate();
+		webWorker = null;
 		clearTimeout(timeoutID);
 	}
 	return true;
