@@ -111,8 +111,8 @@ body {
 
 .points-and-xs-container {
 	width: 100%;
-	padding: 0.5em 0 0.7em 0;
-	font-size: 1.1em;
+	padding: 2px 0 4px 0;
+	font-size: 1em;
 	margin: 0 auto;
 	white-space: nowrap;
 	background-color: #3a3a3a;
@@ -166,7 +166,7 @@ body {
 
 .points-span {
 	margin: 0;
-	font-size: 1.5em;
+	font-size: 1.2em;
 }
 
 .game-letters-container {
