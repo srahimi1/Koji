@@ -82,8 +82,12 @@ function setCanvasParentHeight() {
 
 function positionYesNoButtons() {
 	var b = document.getElementById("buttonsDiv");
-	var diff = b.getBoundingClientRect().bottom - document.getElementById("gameContent").offsetHeight;
-	if (diff > 0) b.style.marginTop = Math.floor(diff) + "px";
+	var ht1 = document.getElementById("gameContent").offsetHeight;
+	var ht2 = document.getElementById("pointsandxsContainer").offsetHeight;
+	var ht3 = document.getElementById("goalContainer").offsetHeight;
+	var ht4 = document.getElementById("timerBar").offsetHeight;
+	var ht5 = document.getElementById("guessContainer").offsetHeight;
+	b.style.height = (ht1 - ht2 - ht3 - ht4 - ht5) + "px";
 }
 
 function setButtonColorOnTouch(element) {
@@ -214,10 +218,10 @@ function getGameData() {
 function finishSettingUpGame() {
 	setGameContentHeight();
 	setCanvasParentHeight();
-	positionYesNoButtons();
 	createColorDivs();
 	createCanvasWithLetters();
 	colorGoalDiv();
+	positionYesNoButtons();
 	gcheight = gc.offsetHeight;
 	gsheight = document.getElementById("guessContainer").offsetHeight;
 	setupTimer();
