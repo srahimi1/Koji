@@ -977,9 +977,9 @@ function isGameLost() {
 			document.getElementById("letterChoicesCont").style.visibility = "hidden"; 
 			var el = document.getElementById("gameMessage"); 
 			el.style.color = "red"; 
-			el.innerHTML = "<p style='margin-bottom: 5px;'>Game Over</p><p style='font-size: 0.5em; margin-top: 0;'>(...wait for answer)</p>"; 
+			el.innerHTML = "<p style='margin: 0 auto 5px auto;'>Game Over</p><p style='font-size: 0.5em; margin-top: 0;'>(...wait for answer)</p>"; 
 			showMenu(document.getElementById('gameMessageDiv')); 
-			el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";
+			el.parentNode.style.marginTop = -(el.parentNode.offsetHeight/2) + "px";
 			setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); switchButtonsAndLetters(2); showLetters();},2000);  
 			return true; 
 		} // if (numXs == 4)
