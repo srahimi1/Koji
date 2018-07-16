@@ -234,10 +234,10 @@ body {
 	margin: 0;
 	background-color: red;
 	overflow: hidden;
-	-moz-transition: width 10s;
-	-webkit-transition: width 10s;
-	-o-transition: width 10s;
-	transition: width 10s;
+	-moz-transition: width 30s;
+	-webkit-transition: width 30s;
+	-o-transition: width 30s;
+	transition: width 30s;
 }
 
 
@@ -324,9 +324,8 @@ body {
 }
 
 .plus-5-svg {
-	position: relative; 
 	display: block; 
-	margin:auto; 
+	margin: 20px auto; 
 	width: 15%; 
 	height: 15%;
 }
@@ -338,7 +337,11 @@ body {
 }
 
 .panda-svg {
+	display: block;
 	vertical-align: middle;
+	width: 80%;
+	height: 50%;
+	margin: auto;
 }
 
 .missed-it-svg {
@@ -919,7 +922,10 @@ body {
 	}
 
 	.plus-5-svg {
-		margin:auto; height: 3em;
+		display: block; 
+		margin: 20px auto; 
+		width: 15%; 
+		height: 15%;
 	}
 
 	.missed-it-svg {

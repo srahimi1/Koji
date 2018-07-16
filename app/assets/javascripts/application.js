@@ -14,7 +14,7 @@
 //= require_tree .
 
 timerPaused = false;
-correctLimit = 2;
+correctLimit = 6;
 dateStart = null;
 timeAdd = null;
 guessTop = null;
@@ -55,8 +55,8 @@ counterU = 0;
 correctLetters = [];
 canvas = null, ctx = null, canvas2 = null, ctx2 = null, gc = null, gcheight = 0, gsheight = 0;
 imageData = null;
-similarLettersLowerCase = {"a": "egqdDQGB", "b": "hdgopqPFLK", "c": "eouvhyQEDO", "d": "bpqghPRBD", "e": "agqdEFKRP", "f": "ktjiFLKR", "g":"abdopqGQO", "h":"bdkrvHLRK", "i":"ljtILJT", "j":"iltTKRL", "k":"bdepxMWFE", "l": "ijtLPKH", "m": "nwuveWNRHE", "n": "muwvWRMK", "o":"bqpcdQBP", "p": "bdgceBRDE", "q": "pbdeBPDR", "r":"nuhHJLK", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuvEM", "x": "kwmyz", "y": "zvukh", "z":"snum"};
-similarLettersUpperCase = {"A": "VYUHegqd", "B": "KEPRFXhdgopq", "C": "GOQDeouvhy", "D": "CGOQbpqgh", "E": "KBPRFXMagqd", "F" : "KBEPRXktji", "G":"COQDabdopq", "H":"ITLJAbdkrv", "I":"HTLJljt", "J":"HITLilt", "K":"BEPRFXbdepx", "L":"HITJijt", "M":"NWUHEnwuv", "N": "MWUHEmuwv", "O": "CGQDbqpcd", "P": "KBERFXbdgce", "Q":"GCDOpbde", "R": "KBEPFXnuh", "S" : "ZCBE", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNEm", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
+similarLettersLowerCase = {"a": "egqdDQGB", "b": "hdgopqPFLK", "c": "eouvhyQEDO", "d": "bpqghPRBD", "e": "agqdEFKRP", "f": "ktjiFLKR", "g":"abdopqGQO", "h":"bdkrvHLRK", "i":"ljtILJT", "j":"iltTKRL", "k":"bdepxMWFE", "l": "ijtLPKH", "m": "nwuveWNRHE", "n": "muwvWRMK", "o":"bqpcdQBP", "p": "bdgceBRDE", "q": "pbdeBPDR", "r":"nuhHJLK", "s":"czgoCZGO", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuvzEMZ", "x": "kwmyz", "y": "zvukh", "z":"snum"};
+similarLettersUpperCase = {"A": "VYUHegqd", "B": "KEPRFXhdgopq", "C": "GOQDeouvhy", "D": "CGOQbpqgh", "E": "KBPRFXMagqd", "F" : "KBEPRXktji", "G":"COQDabdopq", "H":"ITLJAbdkrv", "I":"HTLJljt", "J":"HITLilt", "K":"BEPRFXbdepx", "L":"HITJijt", "M":"NWUHEnwuv", "N": "MWUHEmuwv", "O": "CGQDbqpcd", "P": "KBERFXbdgce", "Q":"GCDOpbde", "R": "KBEPFXnuh", "S" : "ZCBEOzcbeo", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNEZmz", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
 allLetters = {"a": 1, "b": 1, "c": 1, "d": 1, "e": 1, "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z": 1, "A": 1, "B": 1, "C": 1, "D": 1, "E": 1, "F" : 1, "G": 1, "H": 1, "I": 1, "J": 1, "K": 1, "L": 1, "M": 1, "N": 1, "O": 1, "P": 1, "Q": 1, "R": 1, "S" : 1, "T": 1, "U": 1, "V" : 1, "W" : 1, "X" : 1, "Y": 1, "Z" : 1};
 
 function getTitleBarHeight() {
@@ -217,7 +217,8 @@ function getGameData() {
 			inputData = JSON.parse(this.responseText);
 			localStorage.setItem("gameID", inputData.gameID);
 			topData = inputData["colors"];
-			cycleTopDataAt = Math.floor(Math.random() * 4) + 4;
+			cycleTopDataAt = 1;
+			//cycleTopDataAt = Math.floor(Math.random() * 4) + 4;
 			gameData = topData[0];
 			finishSettingUpGame();
 			return true;
@@ -262,7 +263,8 @@ function test1A(num) {
 function cycleThroughTopData() {
 	var prev = gameData.goalColor;
 	gameData = topData[Math.floor(Math.random() * topData.length)];
-	cycleTopDataAt = Math.floor(Math.random() * 4) + 4;
+	cycleTopDataAt = 1;
+	//cycleTopDataAt = Math.floor(Math.random() * 4) + 4;
 	cycleTopDataCounter = 0;
 	colorGoalDiv();
 	redrawLines();
@@ -420,7 +422,6 @@ function determineResultOfChoice(sendID, opt) {
 			numberCorrect++;
 			time = 1350;
 			drawLine();
-			startTime = null;
 		}
 		else if (opt == 1) {
 			inner = document.getElementById("missedthisonesvg").innerHTML;
@@ -447,8 +448,8 @@ function determineResultOfChoice(sendID, opt) {
 		var svg = null;
 		if (points == 5) {
 			svg = document.getElementById("plus5svg2");
-			svg.style.left = "50%";
-			svg.style.marginLeft = -(svg.getBoundingClientRect().width/2) + "px";
+			//svg.style.left = "50%";
+			//svg.style.marginLeft = -(svg.getBoundingClientRect().width/2) + "px";
 		}
 	} // if (bkDivColors[key].toUpperCase() == gameData.goalColor.toUpperCase()) 
 	else if (opt == 0) {
@@ -467,12 +468,12 @@ function determineResultOfChoice(sendID, opt) {
 		inner.style.marginTop = Math.floor(inner.parentNode.offsetHeight/8) + "px"
 	} // else if (opt == 0)
 	else if (opt == 1) {
-		points = 5;
+		points = 1;
 		code = 2;
 		time = 1350;
 		numberCorrect++;
 		var inner1 = document.getElementById("goodcallsvg");
-		var inner2 = document.getElementById("plus5svg");
+		var inner2 = document.getElementById("plus1svg");
 		inner = inner1.innerHTML + "" + inner2.innerHTML;
 		var main = document.getElementById(sendID);
 		main.style.display = "none";
@@ -481,17 +482,15 @@ function determineResultOfChoice(sendID, opt) {
 		inner = main.childNodes[1];
 		inner.style.height = Math.floor(inner.parentNode.offsetHeight/4) + "px"
 		inner.style.marginTop = Math.floor(inner.parentNode.offsetHeight/8) + "px"
-		var svg = document.getElementById("plus5svg2");
-		svg.style.left = "50%";
-		svg.style.marginLeft = -(svg.getBoundingClientRect().width/2) + "px";
+		var svg = document.getElementById("plus1svg2");
+		//svg.style.left = "50%";
+		//svg.style.marginLeft = -(svg.getBoundingClientRect().width/2) + "px";
 		missedCorrect = 0;		
 		drawLine();
-		startTime = null;
 	}
 	
 	if (missedCorrect == 2) {
 		missedCorrect = 0;
-		clearLines();
 		//isGameLost();
 	}
 	
@@ -668,7 +667,7 @@ function isChosenLetterCorrect(letter, ind) {
 	ind2 = ind2.split(":")[1];
 	if (correctLetters[ind].index == ind2) letterBorderAnimation(letter, 0);
 	else letterBorderAnimation(letter, 1);
-	if (isGameWon()) {document.getElementById("letterChoicesCont").style.visibility = "hidden"; var PandaThumbsUpSVG = document.getElementById("pandathumbsupsvg").innerHTML; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "You" + PandaThumbsUpSVG + "Won!"; showMenu(document.getElementById('gameMessageDiv')); el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px"; setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); } // if
+	if (isGameWon()) {document.getElementById("letterChoicesCont").style.visibility = "hidden"; var PandaThumbsUpSVG = document.getElementById("pandathumbsupsvg").innerHTML; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "<p style='margin: 20px auto;'>You</p>" + PandaThumbsUpSVG + "<p style='margin: 20px auto;'>Won!</p>"; showMenu(document.getElementById('gameMessageDiv')); el.parentNode.style.marginTop = -(el.parentNode.offsetHeight/2) + "px"; } // setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); } // if
 	else if (isLetterBoardsEmpty()) {isGameLost();}
 } // function isChosenLetterCorrect(letter, ind)
 
@@ -1136,8 +1135,9 @@ function animatePoints(add, code) {
 	else if (code == 3) 
 		time=500;
 	if (code == 0) el2 = document.getElementById("plus5svg2");
-	else if (code == 2) el2 = document.getElementById("plus5svg2");
-	var height = el2.getBoundingClientRect().height;
+	else if (code == 2) el2 = document.getElementById("plus1svg2");
+	var ht = el2.getBoundingClientRect().height;
+	var mp = document.getElementById("guess").offsetWidth/2;
 	/*document.getElementById("guessContainer").style.overflow = "visible";
 	document.getElementById("guess").style.overflow = "visible";*/
 	pointsIntervalID = setInterval(
@@ -1154,13 +1154,13 @@ function animatePoints(add, code) {
 			else {
 				values[1] += 0.05;
 				if ((code == 0) || (code == 2)) {
-					if (code == 0) values = animateSmallLargeMedium(1, 2, values[1], 6, null);  
-					else if (code == 2) values = animateSmallLargeMedium(1, 2, values[1], 4, null);
+					if (code == 0) values = animateSmallLargeMedium(1, 2, values[1], 25, null);  
+					else if (code == 2) values = animateSmallLargeMedium(1, 2, values[1], 2, null);
 					el2.style.width = (12.5*values[0])+"%";
 					el2.style.height = (12.5*values[0])+"%";
-					el2.style.left = "50%";
-					el2.style.marginTop = ((height-el2.getBoundingClientRect().height)/2) + "px";
-					el2.style.marginLeft = -(el2.getBoundingClientRect().width/2) + "px";
+					//el2.style.left = "50%";
+					el2.style.marginTop = (20 - ((el2.getBoundingClientRect().height - ht)/2)) + "px"; // ((height-el2.getBoundingClientRect().height)/2) + "px";
+					el2.style.marginLeft = (mp - (el2.getBoundingClientRect().width/2)) + "px"; //(left-((width-el2.getBoundingClientRect().width))) + "px";
 				}
 				else if ((code == 1) || (code == 3)) {
 					values = [-1,-1];
@@ -1885,9 +1885,9 @@ function updateTimer(time) {
 			var timeDiffInSec = Math.floor(timeDiff / 1000);
 			var minutes = Math.floor(timeDiffInSec / 60);
 			var seconds = timeDiffInSec % 60;
-			var displayTime = 10 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
+			var displayTime = 30 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
 			//if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
-			if (displayTime < 0) {displayTime = 10; startTime = null;}
+			if (displayTime < 0) {displayTime = 30; startTime = null; clearLines();}
 			else if ((displayTime < 1) && (startTime != -1)) { startTime = -1; isGameLost(); }
 			timerEl.style.display = "none";
 			timerEl.innerHTML = displayTime;
