@@ -667,7 +667,7 @@ function isChosenLetterCorrect(letter, ind) {
 	ind2 = ind2.split(":")[1];
 	if (correctLetters[ind].index == ind2) letterBorderAnimation(letter, 0);
 	else letterBorderAnimation(letter, 1);
-	if (isGameWon()) {document.getElementById("letterChoicesCont").style.visibility = "hidden"; var PandaThumbsUpSVG = document.getElementById("pandathumbsupsvg").innerHTML; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "<p style='margin: 20px auto;'>You</p>" + PandaThumbsUpSVG + "<p style='margin: 20px auto;'>Won!</p>"; showMenu(document.getElementById('gameMessageDiv')); el.parentNode.style.marginTop = -(el.parentNode.offsetHeight/2) + "px"; } // setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); } // if
+	if (isGameWon()) {document.getElementById("letterChoicesCont").style.visibility = "hidden"; var PandaThumbsUpSVG = document.getElementById("pandathumbsupsvg").innerHTML; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "<p style='margin: 20px auto;'>You</p>" + PandaThumbsUpSVG + "<p style='margin: 20px auto;'>Won!</p>"; showMenu(document.getElementById('gameMessageDiv')); el.parentNode.style.marginTop = -(el.parentNode.offsetHeight/2) + "px"; setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); } // if
 	else if (isLetterBoardsEmpty()) {isGameLost();}
 } // function isChosenLetterCorrect(letter, ind)
 
@@ -977,7 +977,7 @@ function isGameLost() {
 			document.getElementById("letterChoicesCont").style.visibility = "hidden"; 
 			var el = document.getElementById("gameMessage"); 
 			el.style.color = "red"; 
-			el.innerHTML = "Game Over"; 
+			el.innerHTML = "<p style='margin-bottom: 5px;'>Game Over</p><p style='font-size: 0.5em; margin-top: 0;'>(...wait for answer)</p>"; 
 			showMenu(document.getElementById('gameMessageDiv')); 
 			el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";
 			setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); switchButtonsAndLetters(2); showLetters();},2000);  
