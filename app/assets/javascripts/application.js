@@ -1154,7 +1154,7 @@ function animatePoints(add, code) {
 			else {
 				values[1] += 0.05;
 				if ((code == 0) || (code == 2)) {
-					if (code == 0) values = animateSmallLargeMedium(1, 2, values[1], 25, null);  
+					if (code == 0) values = animateSmallLargeMedium(1, 2, values[1], 12, null);  
 					else if (code == 2) values = animateSmallLargeMedium(1, 2, values[1], 2, null);
 					el2.style.width = (12.5*values[0])+"%";
 					el2.style.height = (12.5*values[0])+"%";
