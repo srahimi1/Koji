@@ -584,15 +584,15 @@ body {
 
 .menu-div-svg-icon {
 	float: left;
-	width: 2em;
-	height: 2em;
+	width: 1.5em;
+	height: 1.5em;
 	margin-left: 1em;
 	margin-right: 1em;
 }
 
 .menu-div-item {
 	margin: 0;
-	font-size: 2em;
+	font-size: 1.5em;
 	font-weight: 500;
 	color: dimgray;
 	line-height: 0.8em;
@@ -884,7 +884,7 @@ body {
 
 @media only screen and (max-width: 320px) {
 	.menu-div-item {
-		font-size: 2em;
+		font-size: 1.5em;
 		line-height: 0.8em;
 	}
 
@@ -900,8 +900,8 @@ body {
 
 	.menu-div-svg-icon {
 		float: left;
-		width: 2em;
-		height: 2em;
+		width: 1.5em;
+		height: 1.5em;
 		margin-left: 1em;
 		margin-right: 1em;
 	}
