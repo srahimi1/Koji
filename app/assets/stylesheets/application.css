@@ -583,20 +583,19 @@ body {
 }
 
 .menu-div-svg-icon {
-	display: inline-block;
-	width: 1.6em;
-	height: 4em;
+	float: left;
+	width: 2em;
+	height: 2em;
 	margin-left: 1em;
 	margin-right: 1em;
 }
 
 .menu-div-item {
-	display: inline-block;
 	margin: 0;
-	text-align: left;
-	font-size: 1.5em;
+	font-size: 2em;
 	font-weight: 500;
 	color: dimgray;
+	line-height: 0.8em;
 }
 
 .menu-div-item-description {
@@ -885,7 +884,8 @@ body {
 
 @media only screen and (max-width: 320px) {
 	.menu-div-item {
-		font-size: 1em;
+		font-size: 2em;
+		line-height: 0.8em;
 	}
 
 	.menu-div-item-description{
@@ -899,9 +899,9 @@ body {
 	}
 
 	.menu-div-svg-icon {
-		display: inline-block;
-		width: 1.6em;
-		height: 4em;
+		float: left;
+		width: 2em;
+		height: 2em;
 		margin-left: 1em;
 		margin-right: 1em;
 	}
