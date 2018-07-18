@@ -1,9 +1,10 @@
-timeoutID = null, dateStart = new Date(), start = dateStart.getTime(), time = -100;
+timeoutID = null, start = null, time = -100;
 
 function getDateTime() {
 	time += 100;
 	var n = new Date();
 	v = n.getTime();
+	if (!start) start = v;
 	postMessage(v);
 	var diff = v - start - time;
 	clearTimeout(timeoutID);

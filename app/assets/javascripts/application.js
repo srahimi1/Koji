@@ -1052,7 +1052,8 @@ function updatePoints(add, code) {
 } // function updatePoints(add, code)
 
 function redoXs() {
-	numXs = ((numXs - 2) < 0) ? 0 : (numXs - 2);
+	numXs = 0;
+	//numXs = ((numXs - 2) < 0) ? 0 : (numXs - 2);
 	for (var i = 0; i < 2; i++) {
 		if (i == 0) par = document.getElementById("xbox1");
 		else par = document.getElementById("xbox2");
@@ -1889,13 +1890,14 @@ function updateTimer(time) {
 			var seconds = timeDiffInSec % 60;
 			var displayTime = 25 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
 			//if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
-			if (displayTime < 0) {displayTime = 25; startTime = null; clearLines();}
-			else if ((displayTime < 1) && (startTime != -1)) { startTime = -1; isGameLost(); }
+			if ((displayTime == -1) || (displayTime < 0)) {displayTime = 25; startTime = null; clearLines(); isGameLost();}
+/*			if (displayTime < 0) {displayTime = 25; startTime = null; clearLines();}
+			else if ((displayTime < 1) && (startTime != -1)) { startTime = -1; isGameLost(); }*/
 			timerEl.style.display = "none";
 			timerEl.innerHTML = displayTime;
 			timerEl.style.display = "inline-block";
 		} // end else
-		if (timeoutID != null) { timeAdd += 100; var dt = new Date(); var diff = (dt.getTime()) - dateStart - timeAdd; clearTimeout(timeoutID); timeoutID = setTimeout(function() {updateTimer(null)},100 - diff);}
+		if (timeoutID != null) { timeAdd += 100; var dt = new Date(); var diff = dt.getTime() - dateStart - timeAdd; clearTimeout(timeoutID); timeoutID = setTimeout(function() {updateTimer(null)},100 - diff);}
 	} // end if (!gameOver && !timerPaused)
 	else {
 		if (!!webWorker) webWorker.terminate();
