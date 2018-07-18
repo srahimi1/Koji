@@ -173,7 +173,7 @@ body {
 	position: relative;
 	width: 95%;
 	height: 20%;
-	margin: 1em auto;
+	margin: 1em auto 0 auto;
 	padding-top: 0.2em;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -234,10 +234,10 @@ body {
 	margin: 0;
 	background-color: red;
 	overflow: hidden;
-	-moz-transition: width 30s;
-	-webkit-transition: width 30s;
-	-o-transition: width 30s;
-	transition: width 30s;
+	-moz-transition: width 25s;
+	-webkit-transition: width 25s;
+	-o-transition: width 25s;
+	transition: width 25s;
 }
 
 
@@ -301,7 +301,6 @@ body {
 .notyet-button {
 	border: 2px solid #555555;
 	width: 50%;
-	margin-top: 1em;
 }
 
 .touched{
@@ -375,6 +374,7 @@ body {
 	overflow-y: auto;
 	overflow-x: hidden;
 	visibility: hidden;
+	background-color: gray;
 }
 
 .letter-p {

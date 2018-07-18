@@ -108,6 +108,7 @@ function expandGoalContainer() {
 	timerPaused = true;
 	remove_bars();
 	var body = document.getElementsByTagName("body")[0];
+	var gameContentHeight = document.getElementById('gameContent').offsetHeight;
 	gc.parentNode.removeChild(gc);
 	gc.style.position = "absolute";
 	var pandx = document.getElementById("pointsandxsContainer");
@@ -117,7 +118,9 @@ function expandGoalContainer() {
 	canvas.style.height = gcheight + "px";
 	canvas2.style.height = gcheight + "px";
 	gc.style.marginTop = (0 - pandx.offsetHeight) + "px";
-	gc.style.height = document.getElementById('gameContent').offsetHeight + "px";
+	gc.style.height = gameContentHeight + "px";
+	document.getElementById("letterChoicesCont").style.height = Math.floor(gameContentHeight/5) + "px";
+	document.getElementById("gameLettersContainer").style.height = Math.floor(gameContentHeight/5) + "px";
 /*	gc.onclick = function() {shrinkGoalContainer();};*/
 } // end function expandGoalContainer()
 
@@ -489,9 +492,9 @@ function determineResultOfChoice(sendID, opt) {
 		drawLine();
 	}
 	
-	if (missedCorrect == 2) {
+	if (missedCorrect == 1) {
 		missedCorrect = 0;
-		//isGameLost();
+		isGameLost();
 	}
 	
 	if ((points != 0) && (!gameOver)) {
@@ -897,7 +900,6 @@ function selectLetter(letter){
 		} else if (letter == -1){
 			numberCorrect = 4;
 			selectUnderscore(selectedUnderscore, inputData.letters);
-			numberCorrect = 0;
 			var par = guessTop.firstChild;
 			var cn = par.childNodes;
 			var sendID = cn[0].id + "";
@@ -1148,14 +1150,14 @@ function animatePoints(add, code) {
 				document.getElementById("guess").style.overflow = "hidden";*/
 				if (numberCorrect == correctLimit) {
 					clearTimeout(getNextColorsTimeoutID);
-					setTimeout(function() {switchButtonsAndLetters(2); selectUnderscore(document.getElementById("letterBox:0"), inputData.letters);},500);
+					setTimeout(function() {redoXs(); switchButtonsAndLetters(2); selectUnderscore(document.getElementById("letterBox:0"), inputData.letters);},500);
 				}
 			}
 			else {
 				values[1] += 0.05;
 				if ((code == 0) || (code == 2)) {
 					if (code == 0) values = animateSmallLargeMedium(1, 2, values[1], 12, null);  
-					else if (code == 2) values = animateSmallLargeMedium(1, 2, values[1], 2, null);
+					else if (code == 2) values = animateSmallLargeMedium(1, 2, values[1], 3, null);
 					el2.style.width = (12.5*values[0])+"%";
 					el2.style.height = (12.5*values[0])+"%";
 					//el2.style.left = "50%";
@@ -1885,9 +1887,9 @@ function updateTimer(time) {
 			var timeDiffInSec = Math.floor(timeDiff / 1000);
 			var minutes = Math.floor(timeDiffInSec / 60);
 			var seconds = timeDiffInSec % 60;
-			var displayTime = 30 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
+			var displayTime = 25 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
 			//if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
-			if (displayTime < 0) {displayTime = 30; startTime = null; clearLines();}
+			if (displayTime < 0) {displayTime = 25; startTime = null; clearLines();}
 			else if ((displayTime < 1) && (startTime != -1)) { startTime = -1; isGameLost(); }
 			timerEl.style.display = "none";
 			timerEl.innerHTML = displayTime;

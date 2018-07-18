@@ -7,7 +7,7 @@
 </head>
 
 <body onload="checkForStartupMessage();">
-	<h1 id="KOJITitle" class="title-bar"><%= image_tag "testLogo6.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %><span>Koji</span><p style="display:inline-block; float: right; padding: 0; margin: 2px 0.4em 0 0; overflow: hidden;"><span style="display: block; width: 1.5em; border-bottom: 2px solid white; margin: 0.2em 0;"></span><span style="display: block; width: 1.5em; border-bottom: 2px solid white; margin: 0.2em 0;"></span><span style="display: block; width: 1.5em; border-bottom: 2px solid white; margin: 0.2em 0;"></span></p></h1>
+	<h1 id="KOJITitle" class="title-bar"><%= image_tag "tl3.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %><span>Koji</span><p style="display:inline-block; float: right; padding: 0; margin: 2px 0.4em 0 0; overflow: hidden;"><span style="display: block; width: 1.5em; border-bottom: 2px solid white; margin: 0.2em 0;"></span><span style="display: block; width: 1.5em; border-bottom: 2px solid white; margin: 0.2em 0;"></span><span style="display: block; width: 1.5em; border-bottom: 2px solid white; margin: 0.2em 0;"></span></p></h1>
 	<div style="position: absolute; top: 0; width: 8em; height: 5em; left: 100%; margin-left: -8em; z-index: 4" onclick="closeMenu(document.getElementById('instructionsDiv')); closeMenu(document.getElementById('signupDiv')); closeMenu(document.getElementById('signinDiv')); closeMenu(document.getElementById('profileDiv')); showMenu(document.getElementById('menuDiv'));">
 	</div>	
 
@@ -71,7 +71,7 @@
 
 
 <div id="startupDiv" class="modal-div startup-div">
-	<div style="text-align: center;"><%= image_tag "testLogo6.png", :id => "startupTitleImage", :style => "margin: 0 0.1em 0 0;" %><span id="startupTitle">Koji</span></div>
+	<div style="text-align: center;"><%= image_tag "tl3.png", :id => "startupTitleImage", :style => "margin: 0 0.1em 0 0;" %><span id="startupTitle">Koji</span></div>
 	<div id="pandaboxes" class="panda-boxes"></div>
 	<button id="startupButton1" class="beginning-button demo-game" onclick="closeMenu(document.getElementById('startupDiv')); setupNewGame();">Start Demo Game</button>
 	<button id="startupButton2" class="beginning-button show-menu" onclick="closeMenu(document.getElementById('startupDiv')); showMenu(document.getElementById('menuDiv'));">Show Menu</button>
@@ -161,7 +161,7 @@
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('instructionsDiv'))">X</li>
 		</ul>
 	</div>
-	<p class="modal-game-title"><%= image_tag "testLogo6.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
+	<p class="modal-game-title"><%= image_tag "tl3.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
 	<ul class="instruction-ul">
 		<li class="instruction-top-li"><h4>Mix to match colors and uncover hidden letters. Figure out all the hidden letters and you win!</h4></li>
 		<li class="instruction-li">
@@ -189,7 +189,7 @@
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('signupDiv'))">X</li>
 		</ul>
 	</div>
-	<p class="modal-game-title"><%= image_tag "testLogo6.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
+	<p class="modal-game-title"><%= image_tag "tl3.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signupForm", class: "signup-form-form") do %>
 			<p class="signup-form-paragraph" style="font-size: 0.9em;">Email and cellphone will be used for login and password recovery. Sign-up requires a $2 (two dollars) recurring monthly membership fee.</p>
@@ -226,7 +226,7 @@
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('signinDiv'))">X</li>
 		</ul>
 	</div>
-	<p class="modal-game-title"><%= image_tag "testLogo6.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
+	<p class="modal-game-title"><%= image_tag "tl3.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "signinForm", class: "signup-form-form signin-form-form") do %>
 			<p class="signup-form-paragraph" style="font-size: 0.9em;">If you forgot your password, you can reset it by entering in your login info, without the password, and pressing 'Reset Password'. You will be emailed or texted a confirmation code to reset your password.</p>
@@ -317,7 +317,7 @@
 			<li class="li-for-header-right" onclick="closeMenu(document.getElementById('contactusDiv'))">X</li>
 		</ul>
 	</div>
-	<p class="modal-game-title"><%= image_tag "testLogo6.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
+	<p class="modal-game-title"><%= image_tag "tl3.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
 	<div class="signup-form-div">
 		<%= form_tag("/", method: "", id: "contactusForm", class: "signup-form-form contactus-form-form") do %>
 			<p class="signup-form-paragraph" style="font-size: 0.7em;"><input id="contactusEmailInput" type="text" name="contactusEmail" placeholder=" Email" maxlength="70" class="signup-form-input"></p>
@@ -342,8 +342,6 @@
 <path d="m84.751 117.43-0.19218-11.656-50.917 0.0153"/>
 <path d="m33.642 105.79-8.3725 0.0515-0.09599 11.588"/>
 </g>
-<path d="m43.883 105.9 0.37888 26.762" stroke-width=".26689px"/>
-<path d="m66.051 105.88 0.28411 26.763" stroke-width=".26783px"/>
 <path d="m79.128 132.7h5.5935l0.0398-0.9569" stroke-width=".26492px"/>
 </g>
 <g stroke-width="0">
