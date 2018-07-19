@@ -1157,12 +1157,12 @@ function animatePoints(add, code) {
 			else {
 				values[1] += 0.05;
 				if ((code == 0) || (code == 2)) {
-					if (code == 0) values = animateSmallLargeMedium(1, 2, values[1], 12, null);  
+					if (code == 0) values = animateSmallLargeMedium(1, 4, values[1], 12, null);  
 					else if (code == 2) values = animateSmallLargeMedium(1, 2, values[1], 3, null);
 					el2.style.width = (12.5*values[0])+"%";
 					el2.style.height = (12.5*values[0])+"%";
 					//el2.style.left = "50%";
-					el2.style.marginTop = (20 - ((el2.getBoundingClientRect().height - ht)/2)) + "px"; // ((height-el2.getBoundingClientRect().height)/2) + "px";
+					el2.style.marginTop = (60 - ((el2.getBoundingClientRect().height - ht)/2)) + "px"; // ((height-el2.getBoundingClientRect().height)/2) + "px";
 					el2.style.marginLeft = (mp - (el2.getBoundingClientRect().width/2)) + "px"; //(left-((width-el2.getBoundingClientRect().width))) + "px";
 				}
 				else if ((code == 1) || (code == 3)) {

@@ -69,11 +69,18 @@
 	</div>
 </div><!-- end gameMessageDiv -->
 
+<div id="demoAnimatedInstructionsDiv" class="modal-div demo-animated-instructions-div">
+	<div style="position: relative; width: 100%; height: 25%;"><div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden;">TEST 1</div><div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 1; background-color: white;"></div></div>
+	<div style="position: relative; width: 100%; height: 25%;"><div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden;">TEST 2</div><div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 1; background-color: white;"></div></div>
+	<div style="position: relative; width: 100%; height: 25%;"><div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden;">TEST 3</div><div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 1; background-color: white;"></div></div>
+	<div style="position: relative; width: 100%; height: 25%;"><div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden;">TEST 4</div><div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 1; background-color: white;"></div></div>
+</div><!-- end demoAnimatedInstructionsDiv -->
+
 
 <div id="startupDiv" class="modal-div startup-div">
 	<div style="text-align: center;"><%= image_tag "tl3.png", :id => "startupTitleImage", :style => "margin: 0 0.1em 0 0;" %><span id="startupTitle">Koji</span></div>
 	<div id="pandaboxes" class="panda-boxes"></div>
-	<button id="startupButton1" class="beginning-button demo-game" onclick="closeMenu(document.getElementById('startupDiv')); setupNewGame();">Start Demo Game</button>
+	<button id="startupButton1" class="beginning-button demo-game" onclick="closeMenu(document.getElementById('startupDiv')); /*showMenu(document.getElementById('demoAnimatedInstructionsDiv'));*/ setupNewGame();">Start Demo Game</button>
 	<button id="startupButton2" class="beginning-button show-menu" onclick="closeMenu(document.getElementById('startupDiv')); showMenu(document.getElementById('menuDiv'));">Show Menu</button>
 </div><!-- end startupDiv -->
 
