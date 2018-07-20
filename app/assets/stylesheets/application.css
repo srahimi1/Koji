@@ -424,6 +424,17 @@ body {
 	padding: 1em 0;
 }
 
+.demo-instructions-section-div {
+	position: relative;
+	width: 100%;
+	-moz-transition: opacity 1s; 
+	-webkit-transition: opacity 1s; 
+	-o-transition: opacity 1s; 
+	transition: opacity 1s;
+	opacity: 0;
+	font-size: 1.2em;
+}
+
 .demo-instructions-under-div {
 	position: absolute;
 	width: 100%;
@@ -443,19 +454,13 @@ body {
 	overflow: hidden;
 	text-align: center;
 	color: white;
+	padding: 0.3em;
 }
 
-.demo-instructions-section-div {
-	position: relative;
-	width: 100%;
-	-moz-transition: opacity 1s; 
-	-webkit-transition: opacity 1s; 
-	-o-transition: opacity 1s; 
-	transition: opacity 1s;
-	opacity: 0;
-	font-size: 1.2em
-} 
-
+.demo-instructions-words {
+	display: inline-block;
+	padding: 0.75em;
+}
 	
 /* modal classes */
 

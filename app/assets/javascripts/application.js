@@ -930,19 +930,30 @@ function switchButtonsAndLetters(code) {
 function showDemoInstructions() {
 	showMenu(document.getElementById('demoAnimatedInstructionsDiv1'));
 	document.getElementById("demoInstructions0A").style.opacity = 1;
+	document.getElementById("demoInstructions3").style.opacity = 1;
 	setTimeout(function() {document.getElementById("demoInstructions1").style.opacity = 1;}, 2000);
-	setTimeout(function() {document.getElementById("demoInstructions2").style.opacity = 1;}, 4000);
-	setTimeout(function() {document.getElementById("demoInstructions3").style.opacity = 1;}, 6000);
-	setTimeout(function() {closeMenu(document.getElementById('demoAnimatedInstructionsDiv1'));}, 12000);
-	setTimeout(function() {showMenu(document.getElementById('demoAnimatedInstructionsDiv2'));}, 12500);
-	document.getElementById("demoInstructions0B").style.opacity = 1;
-	setTimeout(function() {document.getElementById("demoInstructions4").style.opacity = 1;}, 14000);
-	setTimeout(function() {drawLine(); drawLine();}, 16000);
-	setTimeout(function() {numberCorrect = 6; selectUnderscore(document.getElementById("letterBox:0"), inputData.letters); switchButtonsAndLetters(2);}, 22000);
-	setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 23000);
-	setTimeout(function() {selectUnderscore(document.getElementById("letterBox:2"), inputData.letters); }, 24000);
-	setTimeout(function() {selectLetter(document.getElementById("letterChoices2").firstChild);}, 26000);
-	setTimeout(function() {document.getElementById("demoInstructions5").style.opacity = 1;}, 30000);
+	setTimeout(function() {document.getElementById("demoInstructions2").style.opacity = 1;}, 5000);
+	setTimeout(function() {closeMenu(document.getElementById('demoAnimatedInstructionsDiv1'));}, 10000);
+	
+	setTimeout(function() {showMenu(document.getElementById('demoAnimatedInstructionsDiv2'));}, 11000);
+	setTimeout(function() {document.getElementById("demoInstructions0B").style.opacity = 1;}, 11000);
+	setTimeout(function() {document.getElementById("demoInstructions4").style.opacity = 1;}, 12000);
+	setTimeout(function() {document.getElementById("demoInstructions5").style.opacity = 1;}, 14500);
+	setTimeout(function() {document.getElementById("demoInstructions6").style.opacity = 1;}, 17000);
+	setTimeout(function() {closeMenu(document.getElementById('demoAnimatedInstructionsDiv2'));}, 23000);
+
+	setTimeout(function() {showMenu(document.getElementById('demoAnimatedInstructionsDiv3'));}, 24000);
+	setTimeout(function() {document.getElementById("demoInstructions0C").style.opacity = 1;}, 24000);
+	setTimeout(function() {document.getElementById("demoInstructions9").style.opacity = 1;}, 24000);
+	setTimeout(function() {document.getElementById("demoInstructions7").style.opacity = 1;}, 25000);
+	setTimeout(function() {drawLine(); drawLine();}, 29000);
+	setTimeout(function() {numberCorrect = 6; selectUnderscore(document.getElementById("letterBox:0"), inputData.letters); switchButtonsAndLetters(2);}, 32000);
+	setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 34000);
+	setTimeout(function() {selectUnderscore(document.getElementById("letterBox:2"), inputData.letters); }, 35000);
+	setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 36000);
+	setTimeout(function() {selectUnderscore(document.getElementById("letterBox:2"), inputData.letters); }, 37000);
+	setTimeout(function() {selectLetter(document.getElementById("letterChoices2").firstChild);}, 38000);
+	setTimeout(function() {document.getElementById("demoInstructions8").style.opacity = 1;}, 39000);
 }
 
 // end of game functions ...
