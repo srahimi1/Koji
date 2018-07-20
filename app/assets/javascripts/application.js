@@ -898,7 +898,6 @@ function selectLetter(letter){
 			selectedLetters[ind] = letter;
 			letter.onclick = null;
 		} else if (letter == -1){
-			numberCorrect = 4;
 			selectUnderscore(selectedUnderscore, inputData.letters);
 			var par = guessTop.firstChild;
 			var cn = par.childNodes;
@@ -1151,18 +1150,18 @@ function animatePoints(add, code) {
 				document.getElementById("guess").style.overflow = "hidden";*/
 				if (numberCorrect == correctLimit) {
 					clearTimeout(getNextColorsTimeoutID);
-					setTimeout(function() {redoXs(); switchButtonsAndLetters(2); selectUnderscore(document.getElementById("letterBox:0"), inputData.letters);},500);
+					setTimeout(function() {redoXs(); selectUnderscore(document.getElementById("letterBox:0"), inputData.letters); switchButtonsAndLetters(2);},500);
 				}
 			}
 			else {
 				values[1] += 0.05;
 				if ((code == 0) || (code == 2)) {
-					if (code == 0) values = animateSmallLargeMedium(1, 4, values[1], 12, null);  
-					else if (code == 2) values = animateSmallLargeMedium(1, 2, values[1], 3, null);
+					if (code == 0) values = animateSmallLargeMedium(1, 2.2, values[1], 12, null);  
+					else if (code == 2) values = animateSmallLargeMedium(1, 1.2, values[1], 3, null);
 					el2.style.width = (12.5*values[0])+"%";
 					el2.style.height = (12.5*values[0])+"%";
 					//el2.style.left = "50%";
-					el2.style.marginTop = (60 - ((el2.getBoundingClientRect().height - ht)/2)) + "px"; // ((height-el2.getBoundingClientRect().height)/2) + "px";
+					el2.style.marginTop = (20 - ((el2.getBoundingClientRect().height - ht)/2)) + "px"; // ((height-el2.getBoundingClientRect().height)/2) + "px";
 					el2.style.marginLeft = (mp - (el2.getBoundingClientRect().width/2)) + "px"; //(left-((width-el2.getBoundingClientRect().width))) + "px";
 				}
 				else if ((code == 1) || (code == 3)) {
