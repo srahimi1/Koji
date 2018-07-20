@@ -928,15 +928,21 @@ function switchButtonsAndLetters(code) {
 }
 
 function showDemoInstructions() {
-	showMenu(document.getElementById('demoAnimatedInstructionsDiv'));
+	showMenu(document.getElementById('demoAnimatedInstructionsDiv1'));
+	document.getElementById("demoInstructions0A").style.opacity = 1;
 	setTimeout(function() {document.getElementById("demoInstructions1").style.opacity = 1;}, 2000);
 	setTimeout(function() {document.getElementById("demoInstructions2").style.opacity = 1;}, 4000);
 	setTimeout(function() {document.getElementById("demoInstructions3").style.opacity = 1;}, 6000);
-	setTimeout(function() {drawLine(); drawLine(); drawLine();}, 12000);
-	setTimeout(function() {numberCorrect = 6; selectUnderscore(document.getElementById("letterBox:0"), inputData.letters); switchButtonsAndLetters(2);}, 15000);
-	setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 18000);
-	setTimeout(function() {selectUnderscore(document.getElementById("letterBox:2"), inputData.letters); }, 21000);
-	setTimeout(function() {selectLetter(document.getElementById("letterChoices2").firstChild);}, 23000);
+	setTimeout(function() {closeMenu(document.getElementById('demoAnimatedInstructionsDiv1'));}, 12000);
+	setTimeout(function() {showMenu(document.getElementById('demoAnimatedInstructionsDiv2'));}, 12500);
+	document.getElementById("demoInstructions0B").style.opacity = 1;
+	setTimeout(function() {document.getElementById("demoInstructions4").style.opacity = 1;}, 14000);
+	setTimeout(function() {drawLine(); drawLine();}, 16000);
+	setTimeout(function() {numberCorrect = 6; selectUnderscore(document.getElementById("letterBox:0"), inputData.letters); switchButtonsAndLetters(2);}, 22000);
+	setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 23000);
+	setTimeout(function() {selectUnderscore(document.getElementById("letterBox:2"), inputData.letters); }, 24000);
+	setTimeout(function() {selectLetter(document.getElementById("letterChoices2").firstChild);}, 26000);
+	setTimeout(function() {document.getElementById("demoInstructions5").style.opacity = 1;}, 30000);
 }
 
 // end of game functions ...
