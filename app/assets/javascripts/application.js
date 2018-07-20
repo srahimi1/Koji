@@ -927,6 +927,17 @@ function switchButtonsAndLetters(code) {
 	}// end switch(code)
 }
 
+function showDemoInstructions() {
+	showMenu(document.getElementById('demoAnimatedInstructionsDiv'));
+	setTimeout(function() {document.getElementById("demoInstructions1").style.opacity = 1;}, 2000);
+	setTimeout(function() {document.getElementById("demoInstructions2").style.opacity = 1;}, 4000);
+	setTimeout(function() {document.getElementById("demoInstructions3").style.opacity = 1;}, 6000);
+	setTimeout(function() {drawLine(); drawLine(); drawLine();}, 12000);
+	setTimeout(function() {numberCorrect = 6; selectUnderscore(document.getElementById("letterBox:0"), inputData.letters); switchButtonsAndLetters(2);}, 15000);
+	setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 18000);
+	setTimeout(function() {selectUnderscore(document.getElementById("letterBox:2"), inputData.letters); }, 21000);
+	setTimeout(function() {selectLetter(document.getElementById("letterChoices2").firstChild);}, 23000);
+}
 
 // end of game functions ...
 

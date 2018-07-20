@@ -70,17 +70,17 @@
 </div><!-- end gameMessageDiv -->
 
 <div id="demoAnimatedInstructionsDiv" class="modal-div demo-animated-instructions-div" style="background: none;">
-	<div style="position: relative; width: 100%; height: 25%;"><div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; text-align: center;">TEST 1</div><div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; background-color: white;"></div></div>
-	<div style="position: relative; width: 100%; height: 25%;"><div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; text-align: center; color: white; font-size: 1.2em"><span>2) To make this color?</span></div><div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; background-color: white;"></div></div>
-	<div style="position: relative; width: 100%; height: 25%;"><div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; text-align: center; color: white; font-size: 1.2em; line-height: 100px;"><span>1) Will these two colors combine</span></div><div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; background-color: white;"></div></div>
-	<div style="position: relative; width: 100%; height: 25%;"><div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; overflow: hidden; text-align: center; color: black; font-size: 1.2em; line-height: 215px;"><span>3) Press Yes or No</span></div><div style="position: absolute; left: 0; top: 0; width: 100%; height: 100%; opacity: 0; background-color: white;"></div></div>
+	<div class="demo-instructions-section-div" style="height: 15%;"><div class="demo-instructions-under-div"></div><div class="demo-instructions-over-div">TEST 1</div></div>
+	<div class="demo-instructions-section-div" style="height: 33%;" id="demoInstructions2"><div class="demo-instructions-under-div"></div><div class="demo-instructions-over-div"><span style="display: inline-block; margin-top: 10%;">2) To make this color?</span></div></div>
+	<div class="demo-instructions-section-div" style="height: 34%;" id="demoInstructions1"><div class="demo-instructions-under-div"></div><div class="demo-instructions-over-div"><span style="display: inline-block; margin-top: 15%;">1) Will these two colors combine</span></div></div>
+	<div class="demo-instructions-section-div" style="height: 18%;" id="demoInstructions3"><div class="demo-instructions-under-div"></div><div class="demo-instructions-over-div"><span>3) Press Yes or No</span></div></div>
 </div><!-- end demoAnimatedInstructionsDiv -->
 
 
 <div id="startupDiv" class="modal-div startup-div">
 	<div style="text-align: center;"><%= image_tag "tl3.png", :id => "startupTitleImage", :style => "margin: 0 0.1em 0 0;" %><span id="startupTitle">Koji</span></div>
 	<div id="pandaboxes" class="panda-boxes"></div>
-	<button id="startupButton1" class="beginning-button demo-game" onclick="closeMenu(document.getElementById('startupDiv')); showMenu(document.getElementById('demoAnimatedInstructionsDiv')); setupNewGame();">Start Demo Game</button>
+	<button id="startupButton1" class="beginning-button demo-game" onclick="closeMenu(document.getElementById('startupDiv'));/* showMenu(document.getElementById('demoAnimatedInstructionsDiv'));*/ setupNewGame(); showDemoInstructions();">Start Demo Game</button>
 	<button id="startupButton2" class="beginning-button show-menu" onclick="closeMenu(document.getElementById('startupDiv')); showMenu(document.getElementById('menuDiv'));">Show Menu</button>
 </div><!-- end startupDiv -->
 
