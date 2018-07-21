@@ -961,7 +961,7 @@ function showDemoInstructions() {
 	
 	setTimeout(function() {showMenu(document.getElementById("demoAnimatedInstructionsDiv4"));}, 45000);
 	setTimeout(function() {document.getElementById("demoInstructions0D").style.height = ht1 + "px"; document.getElementById("demoInstructions0D").style.opacity = 1;}, 45000);
-	setTimeout(function() {document.getElementById("demoInstructions0D").style.lineHeight = ht1 + "px"; document.getElementById("demoInstructions0D").style.fontSize = "2em";},46000); 
+	setTimeout(function() {document.getElementById("zaa1").style.fontSize = "2em"; document.getElementById("zaa1").style.marginTop = "-0.7em"; },46000); 
 }
 
 // end of game functions ...
