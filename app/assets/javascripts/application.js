@@ -955,9 +955,13 @@ function showDemoInstructions() {
 	setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 34000);
 	setTimeout(function() {selectUnderscore(document.getElementById("letterBox:2"), inputData.letters); }, 35000);
 	setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 36000);
-	setTimeout(function() {selectUnderscore(document.getElementById("letterBox:2"), inputData.letters); }, 37000);
-	setTimeout(function() {selectLetter(document.getElementById("letterChoices2").firstChild);}, 38000);
-	setTimeout(function() {document.getElementById("demoInstructions8").style.opacity = 1;}, 39000);
+	setTimeout(function() {selectLetter(document.getElementById("letterChoices1").firstChild);}, 37000);
+	setTimeout(function() {document.getElementById("demoInstructions8").style.opacity = 1;}, 38000);
+	setTimeout(function() {closeMenu(document.getElementById("demoAnimatedInstructionsDiv3"));}, 44000);
+	
+	setTimeout(function() {showMenu(document.getElementById("demoAnimatedInstructionsDiv4"));}, 45000);
+	setTimeout(function() {document.getElementById("demoInstructions0D").style.height = ht1 + "px"; document.getElementById("demoInstructions0D").style.opacity = 1;}, 45000);
+	setTimeout(function() {document.getElementById("demoInstructions0D").style.lineHeight = ht1 + "px"; document.getElementById("demoInstructions0D").style.fontSize = "2em";},46000); 
 }
 
 // end of game functions ...

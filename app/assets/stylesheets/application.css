@@ -427,10 +427,10 @@ body {
 .demo-instructions-section-div {
 	position: relative;
 	width: 100%;
-	-moz-transition: opacity 1s; 
-	-webkit-transition: opacity 1s; 
-	-o-transition: opacity 1s; 
-	transition: opacity 1s;
+	-moz-transition: opacity 1s, font-size 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);; 
+	-webkit-transition: opacity 1s, font-size 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);; 
+	-o-transition: opacity 1s, font-size 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);; 
+	transition: opacity 1s, font-size 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);;
 	opacity: 0;
 	font-size: 0.8em;
 }
