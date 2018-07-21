@@ -928,22 +928,26 @@ function switchButtonsAndLetters(code) {
 }
 
 function showDemoInstructions() {
+	var ht1 = document.getElementById("KOJITitle").offsetHeight + document.getElementById("pointsandxsContainer").offsetHeight;
+	var ht2 = document.getElementById("goalContainer").offsetHeight;
+	var ht3 = document.getElementById("guessContainer").offsetHeight
 	showMenu(document.getElementById('demoAnimatedInstructionsDiv1'));
 	document.getElementById("demoInstructions0A").style.opacity = 1;
+	document.getElementById("demoInstructions0A").style.height = ht1 + "px";
 	document.getElementById("demoInstructions3").style.opacity = 1;
 	setTimeout(function() {document.getElementById("demoInstructions1").style.opacity = 1;}, 2000);
 	setTimeout(function() {document.getElementById("demoInstructions2").style.opacity = 1;}, 5000);
 	setTimeout(function() {closeMenu(document.getElementById('demoAnimatedInstructionsDiv1'));}, 10000);
 	
 	setTimeout(function() {showMenu(document.getElementById('demoAnimatedInstructionsDiv2'));}, 11000);
-	setTimeout(function() {document.getElementById("demoInstructions0B").style.opacity = 1;}, 11000);
+	setTimeout(function() {document.getElementById("demoInstructions0B").style.height = ht1 + "px"; document.getElementById("demoInstructions0B").style.opacity = 1;}, 11000);
 	setTimeout(function() {document.getElementById("demoInstructions4").style.opacity = 1;}, 12000);
 	setTimeout(function() {document.getElementById("demoInstructions5").style.opacity = 1;}, 14500);
 	setTimeout(function() {document.getElementById("demoInstructions6").style.opacity = 1;}, 17000);
 	setTimeout(function() {closeMenu(document.getElementById('demoAnimatedInstructionsDiv2'));}, 23000);
 
 	setTimeout(function() {showMenu(document.getElementById('demoAnimatedInstructionsDiv3'));}, 24000);
-	setTimeout(function() {document.getElementById("demoInstructions0C").style.opacity = 1;}, 24000);
+	setTimeout(function() {document.getElementById("demoInstructions0C").style.height = ht1 + "px"; document.getElementById("demoInstructions0C").style.opacity = 1;}, 24000);
 	setTimeout(function() {document.getElementById("demoInstructions9").style.opacity = 1;}, 24000);
 	setTimeout(function() {document.getElementById("demoInstructions7").style.opacity = 1;}, 25000);
 	setTimeout(function() {drawLine(); drawLine();}, 29000);
