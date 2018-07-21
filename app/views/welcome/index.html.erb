@@ -104,11 +104,13 @@
 
 
 <div id="startupDiv" class="modal-div startup-div">
-	<div style="text-align: center;"><%= image_tag "tl3.png", :id => "startupTitleImage", :style => "margin: 0 0.1em 0 0;" %><span id="startupTitle">Koji</span></div>
-	<div id="pandaboxes" class="panda-boxes"></div>
-	<button id="startupButton1" class="beginning-button demo-game" onclick="closeMenu(document.getElementById('startupDiv')); setupNewGame(1);">Walk-through & Demo Game</button>
-	<button id="startupButton2" class="beginning-button show-menu" onclick="closeMenu(document.getElementById('startupDiv')); showMenu(document.getElementById('menuDiv'));">Show Menu</button>
-</div><!-- end startupDiv -->
+	<div class="flex-grow-1" style="text-align: center; margin-top: 1em;"><%= image_tag "tl3.png", :id => "startupTitleImage", :style => "margin: 0 0.1em 0 0;" %><span id="startupTitle">Koji</span></div>
+	<div id="pandaboxes" class="panda-boxes flex-grow-1"></div>
+	<div class="flex-grow-1 flex-row">
+		<button id="startupButton1" class="beginning-button demo-game" onclick="closeMenu(document.getElementById('startupDiv')); setupNewGame(1);">Start Demo Game</button>
+		<button id="startupButton2" class="beginning-button show-menu" onclick="closeMenu(document.getElementById('startupDiv')); showMenu(document.getElementById('menuDiv'));">Show Menu</button>
+	</div>
+	</div><!-- end startupDiv -->
 
 
 

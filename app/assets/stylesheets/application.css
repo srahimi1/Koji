@@ -61,11 +61,13 @@ body {
 
 .beginning-button {
 	display: block;
-	width: 20%;
+	flex: 1;
 	color: white;
-	margin: 10px auto;
-	padding: 10px 20px;
+	margin-top: 1em;
+	padding: auto;
 	border: none;
+	font-size: 1em;
+	font-weight: 600;
 }
 
 .demo-game {
@@ -425,7 +427,8 @@ body {
 }
 
 .startup-div {
-	padding: 1em 0;
+	height: auto;
+	margin: auto;
 }
 
 .demo-instructions-section-div {
