@@ -241,7 +241,7 @@ function finishSettingUpGame(demoInstructionsCode) {
 	gcheight = gc.offsetHeight;
 	gsheight = document.getElementById("guessContainer").offsetHeight;
 	setupTimer();
-	if (demoInstructionsCode == 1) showDemoInstructions();
+	if (demoInstructionsCode == 1) doDemoInstructions();
 } // end function finishSettingUpGame()
 
 // color mixing part of game functions ...
@@ -928,8 +928,35 @@ function switchButtonsAndLetters(code) {
 	}// end switch(code)
 }
 
+function doDemoInstructions() {
+	resetDemoInstructions();
+	setTimeout(function() {showDemoInstructions();},1100);
+}
+
+function resetDemoInstructions() {
+	closeMenu(document.getElementById('demoAnimatedInstructionsDiv1'));
+	closeMenu(document.getElementById('demoAnimatedInstructionsDiv2'));
+	closeMenu(document.getElementById('demoAnimatedInstructionsDiv3'));
+	closeMenu(document.getElementById('demoAnimatedInstructionsDiv4'));
+	closeMenu(document.getElementById('demoAnimatedInstructionsDiv5'));	
+	document.getElementById("demoInstructions1").style.opacity = 0;
+	document.getElementById("demoInstructions2").style.opacity = 0;
+	document.getElementById("demoInstructions3").style.opacity = 0;
+	document.getElementById("demoInstructions4").style.opacity = 0;
+	document.getElementById("demoInstructions5").style.opacity = 0;
+	document.getElementById("demoInstructions6").style.opacity = 0;
+	document.getElementById("demoInstructions7").style.opacity = 0;
+	document.getElementById("demoInstructions8").style.opacity = 0;
+	document.getElementById("demoInstructions9").style.opacity = 0;
+	document.getElementById("demoInstructions10").style.opacity = 0;
+	document.getElementById("demoInstructions11").style.opacity = 0;
+	document.getElementById("demoInstructions12").style.opacity = 0;
+	document.getElementById("demoInstructions13").style.opacity = 0;
+	document.getElementById("zaa1").style.fontSize = "0.5em";
+	document.getElementById("zaa1").style.marginTop = "2em";
+}
+
 function showDemoInstructions() {
-	closeMenu(document.getElementById("demoAnimatedInstructionsDiv5"));
 	var ht1 = document.getElementById("KOJITitle").offsetHeight + document.getElementById("pointsandxsContainer").offsetHeight;
 	var ht2 = document.getElementById("goalContainer").offsetHeight;
 	var ht3 = document.getElementById("guessContainer").offsetHeight
@@ -968,13 +995,11 @@ function showDemoInstructions() {
 	setTimeout(function() {document.getElementById("demoInstructions10").style.opacity = 1;}, 47000);
 	setTimeout(function() {document.getElementById("demoInstructions11").style.opacity = 1;}, 49000);
 	setTimeout(function() {document.getElementById("demoInstructions12").style.opacity = 1;}, 52000);
-	setTimeout(function() {closeMenu(document.getElementById("demoAnimatedInstructionsDiv4"));}, 56000);
+	setTimeout(function() {closeMenu(document.getElementById("demoAnimatedInstructionsDiv4"));}, 57000);
 	
-	setTimeout(function() {showMenu(document.getElementById("demoAnimatedInstructionsDiv5"));}, 57000);
-	setTimeout(function() {document.getElementById("demoInstructions0E").style.height = ht1 + "px"; document.getElementById("demoInstructions0B").style.opacity = 1;}, 58000);
+	setTimeout(function() {showMenu(document.getElementById("demoAnimatedInstructionsDiv5"));}, 58000);
+	setTimeout(function() {document.getElementById("demoInstructions0E").style.height = ht1 + "px"; document.getElementById("demoInstructions0E").style.opacity = 1;}, 58000);
 	setTimeout(function() {document.getElementById("demoInstructions13").style.opacity = 1;}, 58000);
-	setTimeout(function() {document.getElementById("demoInstructions14").style.opacity = 1;}, 58000);
-	setTimeout(function() {document.getElementById("demoInstructions15").style.opacity = 1;}, 58000);
 }
 
 // end of game functions ...
