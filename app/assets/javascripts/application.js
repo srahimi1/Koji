@@ -139,7 +139,7 @@ function clearLines() {
 	colorGoalDiv();
 }
 
-function setupNewGame() {
+function setupNewGame(demoInstructionsCode) {
 	timerPaused = false;
 	dateStart = null;
 	timeAdd = null;
@@ -205,11 +205,11 @@ function setupNewGame() {
 	while (first) {first.style.color = "#3a3a3a"; first.style.textShadow = "none"; first = first.nextSibling;}
 	switchButtonsAndLetters(1);
 	closeMenu(document.getElementById("menuDiv"));
-	getGameData();
+	getGameData(demoInstructionsCode);
 	return true;
 }// function setupNewGame()
 
-function getGameData() {
+function getGameData(demoInstructionsCode) {
 	var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 	xhttp.abort();
 	xhttp.open("POST", "/games");
@@ -223,7 +223,7 @@ function getGameData() {
 			cycleTopDataAt = 1;
 			//cycleTopDataAt = Math.floor(Math.random() * 4) + 4;
 			gameData = topData[0];
-			finishSettingUpGame();
+			finishSettingUpGame(demoInstructionsCode);
 			return true;
 		} // end if
 	} // end onreadystatechange
@@ -231,7 +231,7 @@ function getGameData() {
 	return true;
 } // function getGameData()
 
-function finishSettingUpGame() {
+function finishSettingUpGame(demoInstructionsCode) {
 	setGameContentHeight();
 	setCanvasParentHeight();
 	createColorDivs();
@@ -241,6 +241,7 @@ function finishSettingUpGame() {
 	gcheight = gc.offsetHeight;
 	gsheight = document.getElementById("guessContainer").offsetHeight;
 	setupTimer();
+	if (demoInstructionsCode == 1) showDemoInstructions();
 } // end function finishSettingUpGame()
 
 // color mixing part of game functions ...
@@ -928,6 +929,7 @@ function switchButtonsAndLetters(code) {
 }
 
 function showDemoInstructions() {
+	closeMenu(document.getElementById("demoAnimatedInstructionsDiv5"));
 	var ht1 = document.getElementById("KOJITitle").offsetHeight + document.getElementById("pointsandxsContainer").offsetHeight;
 	var ht2 = document.getElementById("goalContainer").offsetHeight;
 	var ht3 = document.getElementById("guessContainer").offsetHeight
@@ -960,8 +962,19 @@ function showDemoInstructions() {
 	setTimeout(function() {closeMenu(document.getElementById("demoAnimatedInstructionsDiv3"));}, 44000);
 	
 	setTimeout(function() {showMenu(document.getElementById("demoAnimatedInstructionsDiv4"));}, 45000);
+	setTimeout(function() {timerPaused = true; gameOver = true; }, 45000);
 	setTimeout(function() {document.getElementById("demoInstructions0D").style.height = ht1 + "px"; document.getElementById("demoInstructions0D").style.opacity = 1;}, 45000);
 	setTimeout(function() {document.getElementById("zaa1").style.fontSize = "2em"; document.getElementById("zaa1").style.marginTop = "-0.7em"; },46000); 
+	setTimeout(function() {document.getElementById("demoInstructions10").style.opacity = 1;}, 47000);
+	setTimeout(function() {document.getElementById("demoInstructions11").style.opacity = 1;}, 49000);
+	setTimeout(function() {document.getElementById("demoInstructions12").style.opacity = 1;}, 52000);
+	setTimeout(function() {closeMenu(document.getElementById("demoAnimatedInstructionsDiv4"));}, 56000);
+	
+	setTimeout(function() {showMenu(document.getElementById("demoAnimatedInstructionsDiv5"));}, 57000);
+	setTimeout(function() {document.getElementById("demoInstructions0E").style.height = ht1 + "px"; document.getElementById("demoInstructions0B").style.opacity = 1;}, 58000);
+	setTimeout(function() {document.getElementById("demoInstructions13").style.opacity = 1;}, 58000);
+	setTimeout(function() {document.getElementById("demoInstructions14").style.opacity = 1;}, 58000);
+	setTimeout(function() {document.getElementById("demoInstructions15").style.opacity = 1;}, 58000);
 }
 
 // end of game functions ...

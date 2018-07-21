@@ -85,23 +85,30 @@
 
 <div id="demoAnimatedInstructionsDiv3" class="modal-div demo-animated-instructions-div" style="background: none;">
 	<div class="demo-instructions-section-div" style="height: 15%; font-size: 1.5em;" id="demoInstructions0C"><div class="demo-instructions-under-div" style="opacity: 1;"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words">INSTRUCTIONS (...cont'd)</span></div></div>
-	<div class="demo-instructions-section-div" style="height: 33%;" id="demoInstructions7"><div class="demo-instructions-under-div"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words" style="margin-top: 10%;">4) For every correct answer, small sections of letters hidden in the top board are revealed. After every six correct color matching guesses, you get a chance to guess a letter.</span></div></div>
+	<div class="demo-instructions-section-div" style="height: 33%;" id="demoInstructions7"><div class="demo-instructions-under-div"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words" style="margin-top: 10%;">4) Letters are hidden in the top board. When you match the colors correctly, parts of those letter are revealed. 6 correct color matching answers and you get a chance to guess a letter.</span></div></div>
 	<div class="demo-instructions-section-div" style="height: 34%;" id="demoInstructions8"><div class="demo-instructions-under-div"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words" style="margin-top: 15%;">5) Guess all the letters correctly, and you win the game!</span></div></div>
 	<div class="demo-instructions-section-div" style="height: 18%;" id="demoInstructions9"><div class="demo-instructions-under-div"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words"></span></div></div>
 </div><!-- end demoAnimatedInstructionsDiv3 -->
 
 <div id="demoAnimatedInstructionsDiv4" class="modal-div demo-animated-instructions-div" style="background: none;">
 	<div class="demo-instructions-section-div" style="height: 15%; font-size: 1.5em;" id="demoInstructions0D"><div class="demo-instructions-under-div" style="opacity: 1;"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words" style="font-size: 0.5em; margin-top: 2em;" id="zaa1">-- <span style="color: #F00000">X</span> --</span></div></div>
-	<div class="demo-instructions-section-div" style="height: 33%;" id="demoInstructions7"><div class="demo-instructions-under-div"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words" style="margin-top: 10%;">4) For every correct answer, small sections of letters hidden in the top board are revealed. After every six correct color matching guesses, you get a chance to guess a letter.</span></div></div>
-	<div class="demo-instructions-section-div" style="height: 34%;" id="demoInstructions8"><div class="demo-instructions-under-div"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words" style="margin-top: 15%;">5) Guess all the letters correctly, and you win the game!</span></div></div>
-	<div class="demo-instructions-section-div" style="height: 18%;" id="demoInstructions9"><div class="demo-instructions-under-div"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words"></span></div></div>
+	<div class="demo-instructions-section-div" style="height: 33%;" id="demoInstructions10"><div class="demo-instructions-under-div" style="opacity: 1;"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words" style="margin-top: 10%;">Guess the wrong color combination<br>-- or --<br>Guess a wrong letter<br><br>You get an X</span></div></div>
+	<div class="demo-instructions-section-div" style="height: 34%;" id="demoInstructions11"><div class="demo-instructions-under-div" style="opacity: 1;"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words" style="margin-top: 15%;">You don't get 6 correct color combination guesses before time runs out<br><br>You get an X</span></div></div>
+	<div class="demo-instructions-section-div" style="height: 18%;" id="demoInstructions12"><div class="demo-instructions-under-div" style="opacity: 1;"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words">4 Xs and game over!</span></div></div>
 </div><!-- end demoAnimatedInstructionsDiv4 -->
+
+<div id="demoAnimatedInstructionsDiv5" class="modal-div demo-animated-instructions-div" style="background: none;">
+	<div class="demo-instructions-section-div" style="height: 15%; font-size: 1.5em;" id="demoInstructions0E"><div class="demo-instructions-under-div" style="opacity: 1;"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words"></span></div></div>
+	<div class="demo-instructions-section-div" style="height: 33%;" id="demoInstructions13"><div class="demo-instructions-under-div" style="opacity: 1;"></div><div class="demo-instructions-over-div"><button style="margin-top: 50%;" onclick="setupNewGame(1);"><%= image_tag "replayTransparent.png", :id => "replayPNG", :style => "height: 1em; width: 1em; vertical-align: text-top; margin-right: 0.5em" %>Replay Instructions</button></div></div>
+	<div class="demo-instructions-section-div" style="height: 34%;" id="demoInstructions14"><div class="demo-instructions-under-div" style="opacity: 1;"></div><div class="demo-instructions-over-div"><button onclick="setupNewGame(0);">Start Game</button></div></div>
+	<div class="demo-instructions-section-div" style="height: 18%;" id="demoInstructions15"><div class="demo-instructions-under-div" style="opacity: 1;"></div><div class="demo-instructions-over-div"></div></div>
+</div><!-- end demoAnimatedInstructionsDiv5 -->
 
 
 <div id="startupDiv" class="modal-div startup-div">
 	<div style="text-align: center;"><%= image_tag "tl3.png", :id => "startupTitleImage", :style => "margin: 0 0.1em 0 0;" %><span id="startupTitle">Koji</span></div>
 	<div id="pandaboxes" class="panda-boxes"></div>
-	<button id="startupButton1" class="beginning-button demo-game" onclick="closeMenu(document.getElementById('startupDiv'));/* showMenu(document.getElementById('demoAnimatedInstructionsDiv'));*/ setupNewGame(); showDemoInstructions();">Start Demo Game</button>
+	<button id="startupButton1" class="beginning-button demo-game" onclick="closeMenu(document.getElementById('startupDiv')); setupNewGame(1);">Start Demo Game</button>
 	<button id="startupButton2" class="beginning-button show-menu" onclick="closeMenu(document.getElementById('startupDiv')); showMenu(document.getElementById('menuDiv'));">Show Menu</button>
 </div><!-- end startupDiv -->
 
@@ -172,7 +179,7 @@
 			</div>
 		</li>
 		<li class="" style="text-align:center;">
-			<button id="newGameButton" onclick="setupNewGame()">New Game</button>
+			<button id="newGameButton" onclick="setupNewGame(0)">New Game</button>
 		</li>
 	</ul>
 	<div class="modal-div-footer"></div>

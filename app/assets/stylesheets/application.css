@@ -460,10 +460,10 @@ body {
 .demo-instructions-words {
 	display: inline-block;
 	padding: 0.75em;
-	-moz-transition: all 1s cubic-bezier(.68,-0.55,.56,2.93); 
-	-webkit-transition: all 1s cubic-bezier(.68,-0.55,.56,2.93); 
-	-o-transition: all 1s cubic-bezier(.68,-0.55,.56,2.93); 
-	transition: all 1s cubic-bezier(.68,-0.55,.56,2.93);
+	-moz-transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93); 
+	-webkit-transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93); 
+	-o-transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93); 
+	transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93);
 }
 	
 /* modal classes */
