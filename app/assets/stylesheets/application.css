@@ -34,7 +34,17 @@ body {
 	color: black;
 	padding: 10px 15px 11px;
 	width: calc(100% - 32px);
+	margin-top: 1em;
 }
+
+input#contactusSubmit {
+	width: 100%;
+	color: white;
+	position: absolute;
+	bottom: 0;
+}
+
+
 
 #signinForm input {
 	height: auto;
@@ -488,7 +498,7 @@ body {
 	-o-transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93); 
 	transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93);
 }
-	
+
 /* modal classes */
 
 .modal-div {
@@ -894,13 +904,12 @@ input#signupSubmit {
 	text-align: center;
 }
 
-.contactus-form-form {
-	padding-bottom: 12.5em;
-}
-
 .contactus-message {
-	margin-left: 0.1em;
-	border: none;
+	width: calc(100% - 6px);
+	font-size: 1.35em;
+	margin-top:0.5em;
+	height: 55vh;
+	border: 1px solid black;
 }
 
 .flex-grow-1 {
