@@ -67,10 +67,11 @@ function getTitleBarHeight() {
 	}
 } // end function getTitleBarHeight()
 
-function setGameContentHeight() {
+function setGameContentHeightWidth() {
 	if (document && document.getElementById('gameContent')) {
 		var ht = window.innerHeight || document.documentElement.clientHeight;
 		document.getElementById('gameContent').style.height = ht - getTitleBarHeight() + 'px';
+		document.getElementById('gameContent').style.width = window.innerWidth - 20 || document.documentElement.clientWidth - 20
 	}
 } // end function setGameContentHeight()
 
@@ -232,7 +233,7 @@ function getGameData(demoInstructionsCode) {
 } // function getGameData()
 
 function finishSettingUpGame(demoInstructionsCode) {
-	setGameContentHeight();
+	setGameContentHeightWidth();
 	setCanvasParentHeight();
 	createColorDivs();
 	createCanvasWithLetters();

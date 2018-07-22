@@ -230,21 +230,21 @@
 			<p class="signup-form-paragraph" style="font-size: 0.9em;">Email and cellphone will be used for login and password recovery. Sign-up requires a $2 (two dollars) recurring monthly membership fee.</p>
 			<p class="signup-form-paragraph">&nbsp;</p>
 			<p class="signup-form-paragraph"><span id="emailErrorMessage" style="color:red"></span></p>
-			<p class="signup-form-paragraph"><input id="emailInput" class="signup-form-input" type="text" name="email" placeholder=" Email" maxlength="70" onkeyup="validateEmail(this,1)" onfocus="validateEmail(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
+			<div class="signup-form-paragraph"><input id="emailInput" class="signup-form-input" type="text" name="email" placeholder=" Email" maxlength="70" onkeyup="validateEmail(this,1)" onfocus="validateEmail(this,1)"><%= image_tag "greenCheck.png", :class => "green-check" %></div>
 			<p class="signup-form-paragraph" style="font-size: 0.8em;">- Cellphone optional -</p>
 			<p class="signup-form-paragraph"><span id="cellphoneErrorMessage" style="color:red"></span></p>
 			<% if false %>
 				<p class="signup-form-paragraph"><input id="numberInput" style="font-size: 1em; margin: 0;" type="number" name="none" onkeyup="validateCellphone(document.getElementById('cellphoneInput'),1)"></p>
 			<% end %>
-			<p class="signup-form-paragraph" style="margin-top: -2em;"><input id="numberInput" class="signup-form-input" type="tel" name="cell" placeholder=" Cellphone" maxlength="20" onkeyup="validateCellphone(document.getElementById('numberInput'),1)" onfocus="validateCellphone(this,1)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><input id="numberInput" class="signup-form-input" type="tel" name="cell" placeholder=" Cellphone" maxlength="20" onkeyup="validateCellphone(document.getElementById('numberInput'),1)" onfocus="validateCellphone(this,1)"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
 			<p class="signup-form-paragraph"><span id="displaynameErrorMessage" style="color:red"></span></p>
-			<p class="signup-form-paragraph"><input id="displaynameInput" class="signup-form-input" type="text" name="displayname" placeholder=" Display Name" maxlength="70" onkeyup="validateDisplayName(this)" onfocus="validateDisplayName(this)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><input id="displaynameInput" class="signup-form-input" type="text" name="displayname" placeholder=" Display Name" maxlength="70" onkeyup="validateDisplayName(this)" onfocus="validateDisplayName(this)"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
 			<p class="signup-form-paragraph"><span id="password1ErrorMessage" style="color:red"></span></p>
-			<p class="signup-form-paragraph"><input id="password1Input" class="signup-form-input" type="password" name="password1" placeholder=" Password" maxlength="70" onkeyup="validatePassword()" onfocus="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><input id="password1Input" class="signup-form-input" type="password" name="password1" placeholder=" Password" maxlength="70" onkeyup="validatePassword()" onfocus="validatePassword()"><%= image_tag "greenCheck.png", :class =>"green-check" %></p>
 			<p class="signup-form-paragraph"><span id="password2ErrorMessage" style="color:red"></span></p>
-			<p class="signup-form-paragraph"><input id="password2Input" class="signup-form-input" type="password" name="password2" placeholder=" Re-enter Password" maxlength="70" onkeyup="validatePassword()" onfocus="validatePassword()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 0.5em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><input id="password2Input" class="signup-form-input" type="password" name="password2" placeholder=" Re-enter Password" maxlength="70" onkeyup="validatePassword()" onfocus="validatePassword()"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
 			<p class="signup-form-paragraph"></p>
-			<p class="buttons-paragraph"><input id="signupSubmit" class="signup-form-submit-button" type="button" name="signupSubmit" value="Payment Info >" onclick="stripePopup()" onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-1px 3px 9px #777777'" disabled="disabled"></p>
+			<p class=""><input id="signupSubmit" class="signup-form-submit-button" type="button" name="signupSubmit" value="Payment Info >" onclick="stripePopup()" onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-1px 3px 9px #777777'" disabled="disabled"></p>
 		<% end %>
 		<div class="form-footer"></div>
 	</div>
@@ -269,15 +269,15 @@
 			<p class="signup-form-paragraph" style="font-size: 0.9em;">If you forgot your password, you can reset it by entering in your login info, without the password, and pressing 'Reset Password'. You will be emailed or texted a confirmation code to reset your password.</p>
 			<p class="signup-form-paragraph">&nbsp;</p>
 			<p class="signup-form-paragraph"><span id="loginEmailErrorMessage" style="color:red;"></span></p>
-			<p class="signup-form-paragraph"><input id="loginEmailInput" type="text" name="loginEmail" placeholder=" Email" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><input id="loginEmailInput" type="text" name="loginEmail" placeholder=" Email" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
 			<p class="signup-form-paragraph" style="font-size: 0.9em;">- or -</p>
 			<p class="signup-form-paragraph"><span id="loginCellphoneErrorMessage" style="color:red;"></span></p>
 			<p class="signup-form-paragraph"><input id="loginNumberInput" style="font-size: 1em; margin: 0;" type="number" name="none2" onkeyup="validateCellphone(document.getElementById('loginCellphoneInput'),2)"></p>
-			<p class="signup-form-paragraph" style="margin-top: -2em;"><input id="loginCellphoneInput" type="text" name="loginCell" placeholder=" Cellphone" maxlength="20" class="signup-form-input" onkeyup="validateCellphone(this,2)" onfocus="validateCellphone(this,2)"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><input id="loginCellphoneInput" type="text" name="loginCell" placeholder=" Cellphone" maxlength="20" class="signup-form-input" onkeyup="validateCellphone(this,2)" onfocus="validateCellphone(this,2)"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
 			<p class="signup-form-paragraph">&nbsp;</p>
 			<p class="signup-form-paragraph" style="font-size: 0.9em;">- and -</p>
 			<p class="signup-form-paragraph"><span id="loginPasswordErrorMessage" style="color:red;"></span></p>
-			<p class="signup-form-paragraph"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder=" Password" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
+			<p class="signup-form-paragraph"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder=" Password" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
 			<p class="signup-form-paragraph"></p>
 			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: #999999; float: left; clear: both;" onclick="signinFormSubmit(1);"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #666666;" onclick="signinFormSubmit(0)"></p>
 		<% end %>

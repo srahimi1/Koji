@@ -21,11 +21,27 @@ body {
 }
 
 #signupForm input {
-	height: 3em;
+	height: auto;
+	font-size: 1.35em;
+	color: black;
+	padding: 10px 15px 11px;
+	width: calc(100% - 32px);
 }
 
 #contactusForm input{
-	height: 3em;
+	height: auto;
+	font-size: 1.35em;
+	color: black;
+	padding: 10px 15px 11px;
+	width: calc(100% - 32px);
+}
+
+#signinForm input {
+	height: auto;
+	font-size: 1.35em;
+	color: black;
+	padding: 10px 15px 11px;
+	width: calc(100% - 32px);
 }
 
 /* main app sections */
@@ -692,14 +708,30 @@ body {
 	overflow-x: hidden;
 }
 
-.signup-form-form {
+input#signupSubmit {
 	width: 100%;
+	position: absolute;
+	bottom: 0;
+	color: white;
+}
+
+.signup-form-form {
+	/* width: 100%;
 	margin: 0.5em auto 0 auto;
-	padding: 1em 1em 15em 1em;
-	color: #663399;
+	padding: 1em 1em 15em 1em; */
+	/* color: #663399;
 	background-color: #e5e5e5;
 	overflow: hidden;
-	border-radius: 8px;
+	border-radius: 8px; */
+}
+
+.green-check {
+	height: 1.2em;
+	position: relative;
+	visibility: hidden;
+	bottom: 2em;
+	float: right;
+	right: 0.5em;
 }
 
 .signin-form-form {
@@ -713,23 +745,24 @@ body {
 }
 
 .signup-form-paragraph {
-	width: 95%;
-	margin: 0;
-	padding: .2em 0;
+	/* width: 95%; */
+	/* width: 100%; */
+	margin: 0 0.6em;
+	/* padding: .2em 0; */
 }
 
 .signup-form-input {
-	margin: 0;
-	width: 88%;
-	color: #3ecf8e;
-	border: none;
-	-webkit-box-shadow: inset 2px 2px 9px #969696;
-	-moz-box-shadow: inset 2px 2px 9px #969696;
-	box-shadow: inset 2px 2px 9px #969696;
+	/* margin: 0;
+	width: 100%; */
+	border: 0.5px solid navy;
+	border-radius: 5px;
+	/* -webkit-box-shadow: inset 2px 2px 9px #969696;
+	-moz-box-shadow: inset 2px 2px 9px #969696; */
+	/* box-shadow: inset 2px 2px 9px #969696; */
 }
 
 .signup-form-submit-button {
-	padding:0.5em 2em 0.5em 2em;
+	/* padding:0.5em 2em 0.5em 2em; */
 	border: none;
 	color: white;
 	background-color: #e6eded;
@@ -961,6 +994,10 @@ body {
 		margin-left: 1em;
 		margin-right: 1em;
 	}
+}
+
+div#startupDiv {
+	background-color: white;
 }
 
 @media only screen and (max-height: 475px) {
