@@ -672,7 +672,7 @@ function isChosenLetterCorrect(letter, ind) {
 	ind2 = ind2.split(":")[1];
 	if (correctLetters[ind].index == ind2) letterBorderAnimation(letter, 0);
 	else letterBorderAnimation(letter, 1);
-	if (isGameWon()) {document.getElementById("letterChoicesCont").style.visibility = "hidden"; var PandaThumbsUpSVG = document.getElementById("pandathumbsupsvg").innerHTML; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "<p style='margin: 20px auto;'>You</p>" + PandaThumbsUpSVG + "<p style='margin: 20px auto;'>Won!</p>"; showMenu(document.getElementById('gameMessageDiv')); el.parentNode.style.marginTop = -(el.parentNode.offsetHeight/2) + "px"; setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); } // if
+	if (isGameWon()) {document.getElementById("letterChoicesCont").style.visibility = "hidden"; var PandaThumbsUpSVG = document.getElementById("pandathumbsupsvg").innerHTML; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "<p style='margin: 20px auto; font-size: 2.5em;'>You</p>" + PandaThumbsUpSVG + "<p style='margin: 20px auto; font-size: 2.5em;'>Won!</p>"; showMenu(document.getElementById('gameMessageDiv')); el.parentNode.style.marginTop = -(el.parentNode.offsetHeight/2) + "px"; setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); } // if
 	else if (isLetterBoardsEmpty()) {isGameLost();}
 } // function isChosenLetterCorrect(letter, ind)
 
@@ -1006,7 +1006,7 @@ function showDemoInstructions() {
 // end of game functions ...
 
 function isGameWon() {
-	if (!gameOver) {
+	/*if (!gameOver) {
 		var par = document.getElementById("gameLettersDiv");
 		var first = par.firstChild;
 		var numLetts = 0;
@@ -1035,7 +1035,8 @@ function isGameWon() {
 			}
 		} // if (numLetts == correctLetters.length)
 	} // if (!gameOver)
-	return false;
+	return false;*/
+	return true;
 } // end function isGameWon() 
 
 function isGameLost() {
@@ -1053,7 +1054,7 @@ function isGameLost() {
 			document.getElementById("letterChoicesCont").style.visibility = "hidden"; 
 			var el = document.getElementById("gameMessage"); 
 			el.style.color = "red"; 
-			el.innerHTML = "<p style='margin: 0 auto 5px auto;'>Game Over</p><p style='font-size: 0.5em; margin-top: 0;'>(...wait for answer)</p>"; 
+			el.innerHTML = "<p style='margin: 0 auto 5px auto; font-size: 2.5em;'>Game Over</p><p style='font-size: 1em; margin-top: 0;'>(...wait for answer)</p>"; 
 			showMenu(document.getElementById('gameMessageDiv')); 
 			el.parentNode.style.marginTop = -(el.parentNode.offsetHeight/2) + "px";
 			setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); switchButtonsAndLetters(2); showLetters();},2000);  
@@ -1596,9 +1597,7 @@ function validateCellphone(inp, sel) {
 		else number = number + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
 	} // for (var i = 0; i < 10; i++)
 
-	var test2 = "";
-	for (var i = 0; i < test.length; i++) if ((i != 0) && (i != 4) && (i != 8)) test2 += test[i];
-	test2 = parseInt(test2);
+	var test2 = returnInteger(test);
 	if ((len == 13) && (sel == 1)) {
 		console.log("in here");
 		console.log(test);
@@ -1619,6 +1618,14 @@ function validateCellphone(inp, sel) {
 	isSignupFormReady();
 	return false;
 } // end function validateCellphone()
+
+function returnInteger(str) {
+	var test = "";
+	for (var i = 0; i < str.length; i++) {
+		if ((i != 0) && (i != 4) && (i != 8)) test += str[i];
+	} // end for statement
+	return parseInt(test);
+} // end function returnInteger(str)
 
 function validateDisplayName(inp) {
 	formcheck[2] = false;
@@ -1737,7 +1744,7 @@ function signupFormSubmit(stripeToken) {
 	if (cont) {
 		var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 		var email = encodeURIComponent(document.getElementById("emailInput").value);
-		var cellphone = encodeURIComponent(document.getElementById("numberInput").value);
+		var cellphone = encodeURIComponent(returnInteger(document.getElementById("cellphoneInput").value));
 		var displayname= encodeURIComponent(document.getElementById("displaynameInput").value);
 		var password1 = encodeURIComponent(document.getElementById("password1Input").value);
 		var password2 = encodeURIComponent(document.getElementById("password2Input").value);
