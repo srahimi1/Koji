@@ -1839,7 +1839,6 @@ function isSignupFormReady() {
 // general purpose app functions ...
 
 function showMenu(el) {
-	document.getElementById("buttonsDiv").style.display = "none";
 	var id = el.id + "";
 	if (id == "signupDiv") {
 		document.getElementById("signupForm").reset();
@@ -1863,7 +1862,6 @@ function showMenu(el) {
 } // end function showMenu(el)
 
 function closeMenu(el) {
-	document.getElementById("buttonsDiv").style.display = "flex";
 	el.style.opacity = "0";
 	el.style.marginTop = "-2em";
 	setTimeout(function() {el.style.display = "none";}, 800);
