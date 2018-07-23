@@ -311,6 +311,7 @@ input.signup-form-submit-button {
 }
 
 .buttons-div {
+	position: relative;
 	display:-webkit-box;
 	display:-ms-flexbox;
 	display:-webkit-flex;
