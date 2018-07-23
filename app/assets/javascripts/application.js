@@ -402,8 +402,8 @@ function showUnderneathDiv(opt) {
 	var cn = par.childNodes;
 	cn[0].innerHTML = "";
 	cn[1].innerHTML = "";
-	cn[0].style.zIndex = "100";
-	cn[1].style.zIndex = "101";
+	cn[0].style.zIndex = "10";
+	cn[1].style.zIndex = "11";
 	cn[0].style.width = "100%";
 	cn[1].style.width = "100%";
 	cn[1].style.marginLeft = "-100%";

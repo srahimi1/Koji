@@ -71,6 +71,7 @@ input.signup-form-submit-button {
 }
 /* main app sections */
 .title-bar {
+	position: relative;
 	width: 100%;
 	margin: 0 auto;
 	padding: .2em 0;
@@ -78,7 +79,7 @@ input.signup-form-submit-button {
 	text-align: left;
 	background-color: #2e2e2e;
 	font-weight: normal;
-	z-index: 100;
+	z-index: 10;
 	font-size: 1.5em;
 }
 
@@ -86,6 +87,7 @@ input.signup-form-submit-button {
 	position: absolute;
 	width: 100%;
 	text-align: center;
+	z-index: 10;
 }
 
 .flex-col {
@@ -130,14 +132,14 @@ input.signup-form-submit-button {
 	text-align: center;
 	overflow: hidden;
 	transition: margin-top 0.5s, height 0.5s;
-	z-index: 100;
+	z-index: 20;
 }
 
 .small-title {
 	position: relative;
 	padding: 0 1em 0 1em;
 	text-align: center;
-	z-index: 4;
+	z-index: 10;
 }
 
 .goal-title {
@@ -153,7 +155,7 @@ input.signup-form-submit-button {
 	margin: 0 auto;
 	text-align: center;
 	display: none;
-	z-index: 2;
+	z-index: 10;
 }
 
 .points-and-xs-container {
@@ -226,7 +228,7 @@ input.signup-form-submit-button {
 	overflow-x: hidden;
 	text-align: center;
 	color: #fafffa;
-	z-index: 1;
+	z-index: 20;
 }
 
 .game-letters-div {
@@ -318,6 +320,7 @@ input.signup-form-submit-button {
 	-webkit-align-items: flex-end;
 	align-items: flex-end;
 	width: 100%;
+	z-index: 10;
 }
 
 .buttons-instructions {
@@ -531,7 +534,7 @@ input.signup-form-submit-button {
 	-o-transition: margin-top 0.5s, opacity 0.5s; 
 	transition: margin-top 0.5s, opacity 0.5s; 
 	overflow: hidden;
-	z-index: 100;
+	z-index: 30;
 }
 
 .modal-div-header {
@@ -613,7 +616,7 @@ input.signup-form-submit-button {
 	top: 0;
 	left: 100%;
 	margin-left: -7em;
-	z-index: 106;
+	z-index: 31;
 }
 
 .hidden-opt-left {
@@ -623,7 +626,7 @@ input.signup-form-submit-button {
 	top: 0;
 	left: 0;
 	margin-left: 0;
-	z-index: 106;
+	z-index: 31;
 }
 
 .menu-div {
@@ -632,7 +635,7 @@ input.signup-form-submit-button {
 
 .game-message-div {
 	opacity: 0;
-	z-index: 500;
+	z-index: 30;
 }
 
 .buttons-paragraph {
@@ -801,7 +804,7 @@ input#signupSubmit {
 	width: 100%;
 	padding: 0 0.3em;
 	list-style: none;
-	z-index: 200;
+	z-index: 30;
 	text-align: center;
 }
 
