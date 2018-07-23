@@ -13,6 +13,9 @@
  *= require_self
  */
 
+input {
+	-webkit-appearance: none;
+}
 body {
 	margin: 0;
   	padding: 0;
@@ -534,7 +537,7 @@ input.signup-form-submit-button {
 .modal-div-header {
 	width: 100%;
 	margin: 0;
-	padding: .5em 0;
+	padding: 1.45em 0;
 	text-align: center;
 	color: #fafffa;
 	background-color: #2e2e2e;
@@ -552,7 +555,7 @@ input.signup-form-submit-button {
 
 .modal-game-title {
 	width: 100%;
-	margin: 0;
+	margin: 0.2em;
 	font-size: 2em;
 	text-align: center;
 	color: #7a00cc;
@@ -737,14 +740,14 @@ input.signup-form-submit-button {
 .signup-form-div {
 	overflow-y: auto;
 	overflow-x: hidden;
+	margin-top: 1em;
 }
 
 input#signupSubmit {
-	position: absolute;
-	bottom: 0;
 	color: white;
 	width: 100%;
 	margin: 0;
+	-webkit-appearance: none;
 }
 
 .signup-form-form {
@@ -779,7 +782,7 @@ input#signupSubmit {
 .signup-form-paragraph {
 	/* width: 95%; */
 	/* width: 100%; */
-	margin: 0 0.6em;
+	margin: 0.5em 0.6em 0em 0.6em;
 	/* padding: .2em 0; */
 }
 
