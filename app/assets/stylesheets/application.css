@@ -13,10 +13,6 @@
  *= require_self
  */
 
-html {
-
-}
-
 body {
 	margin: 0;
   	padding: 0;
@@ -24,6 +20,52 @@ body {
 	font-family: 'Playfair Display', serif, Trebuchet MS, helvetica, tahoma;
 }
 
+#signupForm input {
+	height: auto;
+	font-size: 1.35em;
+	color: black;
+	padding: 10px 15px 11px;
+	width: calc(100% - 32px);
+}
+
+#contactusForm input{
+	height: auto;
+	font-size: 1.35em;
+	color: black;
+	padding: 10px 15px 11px;
+	width: calc(100% - 32px);
+	margin-top: 1em;
+}
+
+input#contactusSubmit {
+	width: 100%;
+	color: white;
+	position: absolute;
+	bottom: 0;
+	margin: 0;
+}
+
+input#loginEmailInput, input#loginCellphoneInput, input#loginPasswordInput,
+input#passwordChangeConfirmationCode, input#changePasswordInput1, input#changePasswordInput2, 
+button.profile-cancel-button, button#changePasswordButton{
+	width: calc(100% - 32px);
+	height: auto;
+	font-size: 1.35em;
+	padding: 10px 15px 11px;
+}
+
+div#changePassword {
+	background-color: gray;
+}
+
+input.signup-form-submit-button {
+	height: auto;
+	font-size: 1.35em;
+	color: black;
+	padding: 10px 15px 11px;
+	margin: 0.5em;
+	border-radius: 5px;
+}
 /* main app sections */
 .title-bar {
 	width: 100%;
@@ -57,11 +99,13 @@ body {
 
 .beginning-button {
 	display: block;
-	width: 20%;
+	flex: 1;
 	color: white;
-	margin: 10px auto;
-	padding: 10px 20px;
+	margin-top: 1em;
+	padding: auto;
 	border: none;
+	font-size: 1em;
+	font-weight: 600;
 }
 
 .demo-game {
@@ -421,7 +465,8 @@ body {
 }
 
 .startup-div {
-	padding: 1em 0;
+	height: auto;
+	margin: auto;
 }
 
 .demo-instructions-section-div {
@@ -465,7 +510,7 @@ body {
 	-o-transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93); 
 	transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93);
 }
-	
+
 /* modal classes */
 
 .modal-div {
@@ -508,10 +553,9 @@ body {
 .modal-game-title {
 	width: 100%;
 	margin: 0;
-	padding: .1em 0;
+	font-size: 2em;
 	text-align: center;
 	color: #7a00cc;
-	padding-left: 0.2em auto;
 }
 
 
@@ -595,6 +639,15 @@ body {
 	text-align: right;
 }
 
+.buttons-signin {
+	margin: 0;
+	padding: 10px 15px 11px;
+}
+
+.screen-width {
+	width: 100%;
+}
+
 /* individual modal classes */
 
 .menu-div-ul {
@@ -650,21 +703,26 @@ body {
 }
 
 .instruction-top-li {
-	padding: 0.1em 0.75em 0.1em 0.75em;
+	padding-left: 0.8em;
+	padding-right: 0.8em;
+	text-align: justify;
 }
 
 .instruction-ul {
 	padding: 0;
 	margin: 0;
+	font-size: 1em;
 	text-align: left;
 	overflow-y: auto;
-	list-style: none;
+	list-style: none;;
 	color: #8E3ECF;
 }
 
 .instruction-li {
 	margin: 0;
-	padding: 0.1em 0.75em 0.1em 0.75em;
+	padding-left: 0.8em;
+	padding-right: 0.8em;
+	text-align: justify;
 }
 
 .instruction-header-paragraph {
@@ -681,19 +739,36 @@ body {
 	overflow-x: hidden;
 }
 
-.signup-form-form {
+input#signupSubmit {
+	position: absolute;
+	bottom: 0;
+	color: white;
 	width: 100%;
+	margin: 0;
+}
+
+.signup-form-form {
+	/* width: 100%;
 	margin: 0.5em auto 0 auto;
-	padding: 1em 1em 15em 1em;
-	color: #663399;
+	padding: 1em 1em 15em 1em; */
+	/* color: #663399;
 	background-color: #e5e5e5;
 	overflow: hidden;
-	border-radius: 8px;
+	border-radius: 8px; */
+}
+
+.green-check {
+	height: 1.2em;
+	position: relative;
+	visibility: hidden;
+	bottom: 2em;
+	float: right;
+	right: 0.5em;
 }
 
 .signin-form-form {
-	overflow: hidden;
-	padding-bottom: 12.5em;
+	/* overflow: hidden;
+	padding-bottom: 12.5em; */
 }
 
 .form-footer {
@@ -702,27 +777,20 @@ body {
 }
 
 .signup-form-paragraph {
-	width: 95%;
-	margin: 0;
-	padding: .2em 0;
+	/* width: 95%; */
+	/* width: 100%; */
+	margin: 0 0.6em;
+	/* padding: .2em 0; */
 }
 
 .signup-form-input {
-	margin: 0;
-	width: 88%;
-	color: #3ecf8e;
-	border: none;
-	-webkit-box-shadow: inset 2px 2px 9px #969696;
-	-moz-box-shadow: inset 2px 2px 9px #969696;
-	box-shadow: inset 2px 2px 9px #969696;
-}
-
-.signup-form-submit-button {
-	padding:0.5em 2em 0.5em 2em;
-	border: none;
-	color: white;
-	background-color: #e6eded;
-	border-radius: 0.2em;
+	/* margin: 0;
+	width: 100%; */
+	border: 0.5px solid navy;
+	border-radius: 5px;
+	/* -webkit-box-shadow: inset 2px 2px 9px #969696;
+	-moz-box-shadow: inset 2px 2px 9px #969696; */
+	/* box-shadow: inset 2px 2px 9px #969696; */
 }
 
 .profile-options-ul {
@@ -777,8 +845,6 @@ body {
 }
 
 .profile-update-button {
-	padding: 0.2em 0.7em;
-	margin-left: 1em;
 	border: none;
 	background-color: #3311cc;
 	color: #fafffa;
@@ -786,10 +852,7 @@ body {
 }
 
 .profile-cancel-button {
-	padding: 0.2em 0.7em;
-	margin-left: 1em;
 	border: none;
-	color: #c00000;
 	box-shadow: -1px 1px 9px #cfcfcf;
 }
 
@@ -850,13 +913,12 @@ body {
 	text-align: center;
 }
 
-.contactus-form-form {
-	padding-bottom: 12.5em;
-}
-
 .contactus-message {
-	margin-left: 0.1em;
-	border: none;
+	width: calc(100% - 6px);
+	font-size: 1.35em;
+	margin-top:0.5em;
+	height: 55vh;
+	border: 1px solid black;
 }
 
 .flex-grow-1 {
@@ -950,6 +1012,10 @@ body {
 		margin-left: 1em;
 		margin-right: 1em;
 	}
+}
+
+div#startupDiv {
+	background-color: white;
 }
 
 @media only screen and (max-height: 475px) {
