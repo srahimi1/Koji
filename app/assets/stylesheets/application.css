@@ -67,7 +67,7 @@ input.signup-form-submit-button {
 	color: black;
 	padding: 10px 15px 11px;
 	margin: 0.5em;
-	border-radius: 0px;
+	border-radius: 5px;
 }
 /* main app sections */
 .title-bar {
@@ -790,7 +790,7 @@ input#signupSubmit {
 	/* margin: 0;
 	width: 100%; */
 	border: 0.5px solid navy;
-	border-radius: 0px;
+	border-radius: 5px;
 	/* -webkit-box-shadow: inset 2px 2px 9px #969696;
 	-moz-box-shadow: inset 2px 2px 9px #969696; */
 	/* box-shadow: inset 2px 2px 9px #969696; */
