@@ -672,7 +672,7 @@ function isChosenLetterCorrect(letter, ind) {
 	ind2 = ind2.split(":")[1];
 	if (correctLetters[ind].index == ind2) letterBorderAnimation(letter, 0);
 	else letterBorderAnimation(letter, 1);
-	if (isGameWon()) {document.getElementById("letterChoicesCont").style.visibility = "hidden"; var PandaThumbsUpSVG = document.getElementById("pandathumbsupsvg").innerHTML; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "<p style='margin: 20px auto; font-size: 2.5em;'>You</p>" + PandaThumbsUpSVG + "<p style='margin: 20px auto; font-size: 2.5em;'>Won!</p>"; showMenu(document.getElementById('gameMessageDiv')); el.parentNode.style.marginTop = -(el.parentNode.offsetHeight/2) + "px"; setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); } // if
+	if (isGameWon()) {document.getElementById("letterChoicesCont").style.visibility = "hidden"; var PandaThumbsUpSVG = document.getElementById("pandathumbsupsvg").innerHTML; var el = document.getElementById("gameMessage"); el.style.color = "#3ecf8e"; el.innerHTML = "<p style='margin: 20px auto; font-size: 2.2em;'>You</p>" + PandaThumbsUpSVG + "<p style='margin: 20px auto; font-size: 2.2em;'>Won!</p>"; showMenu(document.getElementById('gameMessageDiv')); el.parentNode.style.marginTop = -(el.parentNode.offsetHeight/2) + "px"; setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000); showLetters(); } // if
 	else if (isLetterBoardsEmpty()) {isGameLost();}
 } // function isChosenLetterCorrect(letter, ind)
 
