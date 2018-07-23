@@ -42,18 +42,30 @@ input#contactusSubmit {
 	color: white;
 	position: absolute;
 	bottom: 0;
+	margin: 0;
 }
 
+input#loginEmailInput, input#loginCellphoneInput, input#loginPasswordInput,
+input#passwordChangeConfirmationCode, input#changePasswordInput1, input#changePasswordInput2, 
+button.profile-cancel-button, button#changePasswordButton{
+	width: calc(100% - 32px);
+	height: auto;
+	font-size: 1.35em;
+	padding: 10px 15px 11px;
+}
 
+div#changePassword {
+	background-color: gray;
+}
 
-#signinForm input {
+input.signup-form-submit-button {
 	height: auto;
 	font-size: 1.35em;
 	color: black;
 	padding: 10px 15px 11px;
-	width: calc(100% - 32px);
+	margin: 0.5em;
+	border-radius: 5px;
 }
-
 /* main app sections */
 .title-bar {
 	width: 100%;
@@ -627,6 +639,15 @@ input#contactusSubmit {
 	text-align: right;
 }
 
+.buttons-signin {
+	margin: 0;
+	padding: 10px 15px 11px;
+}
+
+.screen-width {
+	width: 100%;
+}
+
 /* individual modal classes */
 
 .menu-div-ul {
@@ -719,10 +740,11 @@ input#contactusSubmit {
 }
 
 input#signupSubmit {
-	width: 100%;
 	position: absolute;
 	bottom: 0;
 	color: white;
+	width: 100%;
+	margin: 0;
 }
 
 .signup-form-form {
@@ -745,8 +767,8 @@ input#signupSubmit {
 }
 
 .signin-form-form {
-	overflow: hidden;
-	padding-bottom: 12.5em;
+	/* overflow: hidden;
+	padding-bottom: 12.5em; */
 }
 
 .form-footer {
@@ -769,14 +791,6 @@ input#signupSubmit {
 	/* -webkit-box-shadow: inset 2px 2px 9px #969696;
 	-moz-box-shadow: inset 2px 2px 9px #969696; */
 	/* box-shadow: inset 2px 2px 9px #969696; */
-}
-
-.signup-form-submit-button {
-	/* padding:0.5em 2em 0.5em 2em; */
-	border: none;
-	color: white;
-	background-color: #e6eded;
-	border-radius: 0.2em;
 }
 
 .profile-options-ul {
@@ -831,8 +845,6 @@ input#signupSubmit {
 }
 
 .profile-update-button {
-	padding: 0.2em 0.7em;
-	margin-left: 1em;
 	border: none;
 	background-color: #3311cc;
 	color: #fafffa;
@@ -840,10 +852,7 @@ input#signupSubmit {
 }
 
 .profile-cancel-button {
-	padding: 0.2em 0.7em;
-	margin-left: 1em;
 	border: none;
-	color: #c00000;
 	box-shadow: -1px 1px 9px #cfcfcf;
 }
 

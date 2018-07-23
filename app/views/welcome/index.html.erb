@@ -272,24 +272,25 @@
 			<p class="signup-form-paragraph"><input id="loginEmailInput" type="text" name="loginEmail" placeholder=" Email" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
 			<p class="signup-form-paragraph" style="font-size: 0.9em;">- or -</p>
 			<p class="signup-form-paragraph"><span id="loginCellphoneErrorMessage" style="color:red;"></span></p>
-			<p class="signup-form-paragraph"><input id="loginNumberInput" style="font-size: 1em; margin: 0;" type="number" name="none2" onkeyup="validateCellphone(document.getElementById('loginCellphoneInput'),2)"></p>
-			<p class="signup-form-paragraph"><input id="loginCellphoneInput" type="text" name="loginCell" placeholder=" Cellphone" maxlength="20" class="signup-form-input" onkeyup="validateCellphone(this,2)" onfocus="validateCellphone(this,2)"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
+			<p class="signup-form-paragraph"><input id="loginCellphoneInput" type="tel" name="loginCell" placeholder=" Cellphone" maxlength="20" class="signup-form-input" onkeyup="validateCellphone(this,2)" onfocus="validateCellphone(this,2)"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
 			<p class="signup-form-paragraph">&nbsp;</p>
 			<p class="signup-form-paragraph" style="font-size: 0.9em;">- and -</p>
 			<p class="signup-form-paragraph"><span id="loginPasswordErrorMessage" style="color:red;"></span></p>
 			<p class="signup-form-paragraph"><input id="loginPasswordInput" type="password" name="loginPassword" placeholder=" Password" maxlength="70" class="signup-form-input"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
 			<p class="signup-form-paragraph"></p>
-			<p class="buttons-paragraph"><input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: #999999; float: left; clear: both;" onclick="signinFormSubmit(1);"><input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: #666666;" onclick="signinFormSubmit(0)"></p>
+			<p class="flex-col screen-width">
+				<input type="button" value="Reset Password" class="signup-form-submit-button" style="background-color: black; color: white;" onclick="signinFormSubmit(1);">
+				<input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: black; color: white;" onclick="signinFormSubmit(0)"></p>
 		<% end %>
 		<div class="form-footer"></div>
-		<div id="changePassword" class="profile-option-div" style="position: relative; background-color: gray; border-bottom: none; padding-left: 1em;">
+		<div id="changePassword" class="profile-option-div">
 			<p id="changePasswordErrorMessage" class="signup-form-paragraph" style="font-size: 1.5em; padding: 0.5em 0; color:red"></p>
 			<p class="signup-form-paragraph" style="padding: 0.5em 0; color: white;">Please enter reset password confirmation code below</p>
 			<p class="signup-form-paragraph"><input id="passwordChangeConfirmationCode" class="signup-form-input" type="text" placeholder="Reset Confirmation Code"></p>
 			<p class="signup-form-paragraph"><input id="changePasswordInput1" class="signup-form-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onfocus="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 			<p class="signup-form-paragraph"><input id="changePasswordInput2" class="signup-form-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onfocus="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 
-			<p class="buttons-paragraph" style="width: 84%;"><button class="profile-cancel-button" onclick="profileOption(4)">Close</button><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button></p>
+			<p class="buttons-signin flex-row"><button class="profile-cancel-button" onclick="profileOption(4)">Close</button><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button></p>
 		</div>
 	</div>
 	<div class="modal-div-footer"></div>
