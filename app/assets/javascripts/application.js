@@ -1559,56 +1559,62 @@ function validateCellphone(inp, sel) {
 	document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
 	document.getElementById("signupSubmit").style.boxShadow = "none";
 	document.getElementById("signupSubmit").disabled = true;
+	var hid = inp;
 	if (sel == 1) {
 		formcheck[1] = false;
 		var errorEl = document.getElementById("cellphoneErrorMessage");
-		var hid = document.getElementById("numberInput");
 	} else if (sel == 2) {
 		var errorEl = document.getElementById("loginCellphoneErrorMessage");
-		var hid = document.getElementById("loginNumberInput");
 	}
 	else if (sel == 3) {
 		var errorEl = document.getElementById("changeLoginErrorMessage");
-		var hid = document.getElementById("changeNumberInput");
 	}
 	// inp.blur();
 	// hid.focus();
 	var hidValue = hid.value + "";
 	var char = hidValue[hidValue.length - 1];
+	console.log(hidValue);
 	var test = "";
 	var temp = "";
-	// if ( isNaN(char) || (parseInt(char) == null) || (hidValue.length > 10) ) {
-	// 	for (var i = 0; i < hidValue.length - 1; i++)
-	// 		temp += hidValue[i];
-	// } else {
-	// 	for (var i = 0; i < hidValue.length; i++)
-	// 		temp += hidValue[i];
-	// }
-	// hid.value = parseInt(temp);
-	// test = temp + "";
+	if ( isNaN(char) || (parseInt(char) == null) || (hidValue.length > 13) ) {
+		for (var i = 0; i < hidValue.length - 1; i++)
+	 		temp += hidValue[i];
+	} else {
+	 	for (var i = 0; i < hidValue.length; i++)
+	 		temp += hidValue[i];
+	}
+	test = temp + "";
 
 	var len = test.length;
 	var number = "";
 	for (var i = 0; i < len; i++) {
-		if (i == 0) number = "(" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
-		else if (i == 3) number = number + ")" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
-		else if (i == 6) number = number + "-" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
+		if ((i == 0) && (test[i] != "(")) number = "(" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
+		else if (i == 0) number = ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
+		else if ((i == 4) && (test[i] != ")")) number = number + ")" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
+		/*else if (i == 3) number = number + ")" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);*/
+		else if ((i == 8) && (test[i] != "-")) number = number + "-" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
 		else number = number + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
 	} // for (var i = 0; i < 10; i++)
 
-	if ((len == 10) && (sel == 1)) {
+	var test2 = "";
+	for (var i = 0; i < test.length; i++) if ((i != 0) && (i != 4) && (i != 8)) test2 += test[i];
+	test2 = parseInt(test2);
+	if ((len == 13) && (sel == 1)) {
+		console.log("in here");
+		console.log(test);
 		var success = "document.getElementById('cellphoneInput').nextSibling.style.visibility = 'visible'; document.getElementById('cellphoneErrorMessage').innerHTML = ''";
 		var fail = "document.getElementById('cellphoneInput').nextSibling.style.visibility = 'hidden'; document.getElementById('cellphoneErrorMessage').innerHTML = 'cellphone number already exists'";
-		checkIfExist("/checkcellphone",test,success,fail);
-	} else if ((len == 10) && (sel == 3)) {
+		checkIfExist("/checkcellphone",test2,success,fail);
+	} else if ((len == 13) && (sel == 3)) {
+		console.log("in here2");
 		var success = "document.getElementById('changeCellphoneInput').nextSibling.style.visibility = 'visible'; document.getElementById('changeLoginErrorMessage').innerHTML = '';document.getElementById('changeLoginButton').disabled = false;";
 		var fail = "document.getElementById('changeCellphoneInput').nextSibling.style.visibility = 'hidden'; document.getElementById('changeLoginErrorMessage').innerHTML = 'cellphone number already exists';document.getElementById('changeLoginButton').disabled = true;";
-		checkIfExist("/checkcellphone",test,success,fail);
+		checkIfExist("/checkcellphone",test2,success,fail);
 	} else {
 		inp.nextSibling.style.visibility = "hidden"; 
 		errorEl.innerHTML = "";
 	}
-	// inp.value = number;
+	hid.value = number;
 	// hid.focus();
 	isSignupFormReady();
 	return false;

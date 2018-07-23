@@ -233,10 +233,7 @@
 			<div class="signup-form-paragraph"><input id="emailInput" class="signup-form-input" type="text" name="email" placeholder=" Email" maxlength="70" onkeyup="validateEmail(this,1)" onfocus="validateEmail(this,1)"><%= image_tag "greenCheck.png", :class => "green-check" %></div>
 			<p class="signup-form-paragraph" style="font-size: 0.8em;">- Cellphone optional -</p>
 			<p class="signup-form-paragraph"><span id="cellphoneErrorMessage" style="color:red"></span></p>
-			<% if false %>
-				<p class="signup-form-paragraph"><input id="numberInput" style="font-size: 1em; margin: 0;" type="number" name="none" onkeyup="validateCellphone(document.getElementById('cellphoneInput'),1)"></p>
-			<% end %>
-			<p class="signup-form-paragraph"><input id="numberInput" class="signup-form-input" type="tel" name="cell" placeholder=" Cellphone" maxlength="20" onkeyup="validateCellphone(document.getElementById('numberInput'),1)" onfocus="validateCellphone(this,1)"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
+			<p class="signup-form-paragraph"><input id="cellphoneInput" class="signup-form-input" type="tel" name="cell" placeholder=" Cellphone" maxlength="20" onkeyup="validateCellphone(this,1)" onfocus="validateCellphone(this,1)"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
 			<p class="signup-form-paragraph"><span id="displaynameErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="displaynameInput" class="signup-form-input" type="text" name="displayname" placeholder=" Display Name" maxlength="70" onkeyup="validateDisplayName(this)" onfocus="validateDisplayName(this)"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
 			<p class="signup-form-paragraph"><span id="password1ErrorMessage" style="color:red"></span></p>
