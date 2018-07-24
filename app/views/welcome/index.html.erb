@@ -55,7 +55,7 @@
 </body>
 
 
-<div id="startupMessageDiv" class="modal-div">
+<div id="startupMessageDiv" class="modal-div startup-message-div">
 	<div class="hidden-opt-right" onclick="closeMenu(document.getElementById('startupMessageDiv'))"></div>
 	<div style="width: 100%; height: 6em; text-align: right; color: red; font-size: 6em; margin-top: 0"><p style="margin-top: 0; padding-right: 0.5em" onclick="closeMenu(document.getElementById('startupMessageDiv'))">X</p></div>
 	<div style="display: block; width: 100%; height: 100%; text-align: center; overflow: hidden;"><p id="startupMessageSpan" style="font-size: 2em; text-align: center;"></p>
@@ -280,7 +280,7 @@
 				<input id="signinSubmit" type="button" name="signinSubmit" value="Log In" class="signup-form-submit-button" style="background-color: black; color: white;" onclick="signinFormSubmit(0)"></p>
 		<% end %>
 		<div class="form-footer"></div>
-		<div id="changePassword" class="profile-option-div">
+		<div id="changePassword" class="profile-option-div change-password-confirmation-div">
 			<p id="changePasswordErrorMessage" class="signup-form-paragraph" style="font-size: 1.5em; padding: 0.5em 0; color:red"></p>
 			<p class="signup-form-paragraph" style="padding: 0.5em 0; color: white;">Please enter reset password confirmation code below</p>
 			<p class="signup-form-paragraph"><input id="passwordChangeConfirmationCode" class="signup-form-input" type="text" placeholder="Reset Confirmation Code"></p>

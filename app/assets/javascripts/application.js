@@ -1006,7 +1006,7 @@ function showDemoInstructions() {
 // end of game functions ...
 
 function isGameWon() {
-	/*if (!gameOver) {
+	if (!gameOver) {
 		var par = document.getElementById("gameLettersDiv");
 		var first = par.firstChild;
 		var numLetts = 0;
@@ -1035,8 +1035,7 @@ function isGameWon() {
 			}
 		} // if (numLetts == correctLetters.length)
 	} // if (!gameOver)
-	return false;*/
-	return true;
+	return false;
 } // end function isGameWon() 
 
 function isGameLost() {
@@ -1424,9 +1423,9 @@ function profileOption(opt) {
 	if (opt == 1) {
 		/*document.getElementById("changePassword").style.display = "block";*/
 		if (document.getElementById("changePassword").offsetHeight < 5) {
-			document.getElementById("changePassword").style.height = "142em";
-			document.getElementById("changePassword").style.marginTop = "-142em";
-		} else setTimeout(function() {document.getElementById("changePassword").style.height = "142em"; document.getElementById("changePassword").style.marginTop = "-142em";},600);
+			document.getElementById("changePassword").style.height = "34em";
+			document.getElementById("changePassword").style.marginTop = "-34em";
+		} else setTimeout(function() {document.getElementById("changePassword").style.height = "34em"; document.getElementById("changePassword").style.marginTop = "-34em";},600);
 		document.getElementById("changePasswordInput1").value = '';
 		document.getElementById("changePasswordInput2").value = '';
 		document.getElementById("passwordChangeConfirmationCode").value = "";
@@ -1624,7 +1623,8 @@ function returnInteger(str) {
 	for (var i = 0; i < str.length; i++) {
 		if ((i != 0) && (i != 4) && (i != 8)) test += str[i];
 	} // end for statement
-	return parseInt(test);
+	if ((test == "") || (test == " ") || (test.trim() == "") || isNaN(parseInt(test)) ) return "";
+	else return parseInt(test);
 } // end function returnInteger(str)
 
 function validateDisplayName(inp) {
@@ -1754,18 +1754,16 @@ function signupFormSubmit(stripeToken) {
   		xhttp.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
       			var res = this.responseText + "";
+    			var el = document.getElementById("gameMessage");
     			if (res.toUpperCase() == "OK") {
-    				var el = document.getElementById("gameMessage"); 
     				el.style.color = "#3ecf8e";
     				el.innerHTML = "Thank you for signing up to play Koji!<br/>Enjoy!"; 
     				closeMenu(document.getElementById('signupDiv'));
     			} else if (res.toUpperCase() == "BAD2") {
-    				var el = document.getElementById("gameMessage"); 
     				el.style.color = "#F00000"; 
     				el.innerHTML = "Payment processing was not succesful, we apologize.<br/>Please check your information and try again."; 
     				button.disabled = false;
-    			} else if (res.toUpperCase() == "BAD") {
-    				var el = document.getElementById("gameMessage"); 
+    			} else if (res.toUpperCase() == "BAD") { 
     				el.style.color = "#F00000"; 
     				el.innerHTML = "Sorry, sign-up was not succesful<br/>Please check your information and try again."; 
     				button.disabled = false;
@@ -1779,6 +1777,7 @@ function signupFormSubmit(stripeToken) {
   		xhttp.open("POST", "/players", true);
   		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
+  		console.log("this is"+cellphone+"s");
   		xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version+"&stripeToken="+stripeToken.id+"&stripeEmail="+stripeToken.email);
 	} // end if (cont)
 	return false;
@@ -1786,7 +1785,7 @@ function signupFormSubmit(stripeToken) {
 
 function signinFormSubmit(code) {
 	var email = encodeURIComponent(document.getElementById("loginEmailInput").value);
-	var cellphone = encodeURIComponent(document.getElementById("loginNumberInput").value);
+	var cellphone = encodeURIComponent(returnInteger(document.getElementById("loginCellphoneInput").value));
 	var password = encodeURIComponent(document.getElementById("loginPasswordInput").value);
 	var auth_token = document.getElementsByName("authenticity_token")[0].value;
 	if (((email === "") && (cellphone === "")) || ((email.trim() === "") && (cellphone.trim() === ""))) {
@@ -1796,30 +1795,29 @@ function signinFormSubmit(code) {
   		xhttp.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
       			var res = this.responseText + "";
+    			console.log(res);
+    			var el = document.getElementById("gameMessage");
     			if (res.toUpperCase() == "OK") {
-					getProfileData();
-					var el = document.getElementById("gameMessage"); 
+					getProfileData(); 
 					el.style.color = "#3ecf8e"; 
 					el.innerHTML = "Sign in succesful."; 
 					closeMenu(document.getElementById('signinDiv'));
-				} else if (res.toUpperCase() == "RESET SENT") {
-					var el = document.getElementById("gameMessage"); 
+				} else if (res.toUpperCase() == "RESET SENT") { 
 					el.style.color = "#3ecf8e"; 
 					el.innerHTML = "Password reset confirmation code sent. Please wait up to 2 minutes to receive code."; 
 					profileOption(1);
 				} else if ((res.toUpperCase() == "BAD") && (code == 0)) {
-					var el = document.getElementById("gameMessage"); 
+					console.log("g9t here this"); 
 					el.style.color = "#F00000"; 
 					el.innerHTML = "Sorry, sign-in was not succesful.<br/>Please check your information and try again."; 
 				} else if ((res.toUpperCase() == "BAD") && (code == 1)) {
-					profileOption(4);
-					var el = document.getElementById("gameMessage"); 
+					profileOption(4); 
 					el.style.color = "#F00000"; 
 					el.innerHTML = "The login information was not found.<br/>Please check your information and try again."; 
 				}
 				showMenu(document.getElementById('gameMessageDiv')); 
 				el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";
-				setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},3500);
+				setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},3000);
 				return false;
     		} // if (this.readyState == 4 && this.status == 200)
   		}; // xhttp.onreadystatechange = function()

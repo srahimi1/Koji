@@ -636,7 +636,18 @@ input.signup-form-submit-button {
 
 .game-message-div {
 	opacity: 0;
-	z-index: 30;
+	z-index: 32;
+}
+
+.startup-message-div {
+	z-index: 32;
+}
+
+.change-password-confirmation-div {
+	position: relative;
+	height: 0;
+	margin-top: 0;
+	z-index: 31;
 }
 
 .buttons-paragraph {
