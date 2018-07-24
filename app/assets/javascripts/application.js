@@ -935,7 +935,7 @@ function switchButtonsAndLetters(code) {
 
 function doDemoInstructions() {
 	resetDemoInstructions();
-	setTimeout(function() {showDemoInstructions();},1100);
+	setTimeout(function() {gameC.style.display = "flex"; showDemoInstructions();},1100);
 }
 
 function resetDemoInstructions() {
