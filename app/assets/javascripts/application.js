@@ -13,6 +13,9 @@
 //= require rails-ujs
 //= require_tree .
 
+gameC = null;
+numModalsOpen = 0;
+demoShowing = false;
 timerPaused = false;
 correctLimit = 6;
 dateStart = null;
@@ -1846,6 +1849,8 @@ function isSignupFormReady() {
 // general purpose app functions ...
 
 function showMenu(el) {
+	gameC.style.display = "none";
+	numModalsOpen++;
 	var id = el.id + "";
 	if (id == "signupDiv") {
 		document.getElementById("signupForm").reset();
@@ -1869,9 +1874,10 @@ function showMenu(el) {
 } // end function showMenu(el)
 
 function closeMenu(el) {
+	if ((el.style.opacity == "1") || (!!el.currentStyle && (el.currentStyle.display != "none")) || (!!getComputedStyle(el) && (getComputedStyle(el).display != "none")) || (!!getComputedStyle(el,null) && (getComputedStyle(el,null).display != "none")) ) numModalsOpen--;
 	el.style.opacity = "0";
 	el.style.marginTop = "-2em";
-	setTimeout(function() {el.style.display = "none";}, 800);
+	setTimeout(function() {el.style.display = "none"; if (numModalsOpen == 0) {gameC.style.display = "flex";}}, 800);
 	return true;
 } // end function closeMenu(el)
 
@@ -1892,6 +1898,8 @@ function animateMenu(para, code) {
 } // end function animateMenu(para, code)
 
 function checkForStartupMessage() {
+	gameC = document.getElementById("gameContent");
+	gameC.style.display = "none";
 	var version = document.getElementById("gameVersion").value;
 	var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 	var route = "/message?version="+version;
@@ -1907,7 +1915,8 @@ function checkForStartupMessage() {
 					el = document.getElementById('startupMessageDiv');
 					el.style.height = "100%";
 					el.style.marginTop="0em"; 
-					el.style.opacity="1"; 
+					el.style.opacity="1";
+					numModalsOpen++; 
 				} else {
 					setTimeout(function() {showBeginningModal();},500);
 					/*setTimeout(function() {showMenu(document.getElementById('menuDiv'));},500);*/
