@@ -1337,7 +1337,7 @@ function updateInfo(sel) {
 	var data = "";
 	if (sel == 1) {
 		var email = encodeURIComponent(document.getElementById("loginEmailInput").value);
-		var cellphone = encodeURIComponent(document.getElementById("loginNumberInput").value);
+		var cellphone = encodeURIComponent(returnInteger(document.getElementById("loginCellphoneInput").value));
 		var password = encodeURIComponent(document.getElementById("changePasswordInput1").value);
 		var cc = encodeURIComponent(document.getElementById("passwordChangeConfirmationCode").value);
 		route = "/players/0";
@@ -1375,9 +1375,9 @@ function updateInfo(sel) {
 					el.style.color = "#3ecf8e"; 
 					el.innerHTML = "Password change succesful."; 
 					showMenu(document.getElementById('gameMessageDiv')); 
-					setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},2000);
-					document.getElementById("changePassword").style.height = "0";
-					document.getElementById("changePassword").style.marginTop = "0";
+					setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); closeMenu(document.getElementById('resetPasswordDiv'))},2000);
+/*					document.getElementById("changePassword").style.height = "0";
+					document.getElementById("changePassword").style.marginTop = "0";*/
 				} else if (res.toUpperCase() == "BAD") {
 					var err;
 					switch(sel) {
@@ -1415,17 +1415,18 @@ function profileOption(opt) {
 	document.getElementById("changeNumberInput").value = "";
 	document.getElementById("changeCellphoneInput").value = "";
 	document.getElementById("cancelMembershipInput").value = "";
-	document.getElementById("changePassword").style.height = "0";
-	document.getElementById("changePassword").style.marginTop = "0";
+/*	document.getElementById("changePassword").style.height = "0";
+	document.getElementById("changePassword").style.marginTop = "0";*/
 	document.getElementById("changeLogin").style.height = "0";
 	document.getElementById("cancelMembership").style.height = "0";
 
 	if (opt == 1) {
 		/*document.getElementById("changePassword").style.display = "block";*/
-		if (document.getElementById("changePassword").offsetHeight < 5) {
+		showMenu(document.getElementById('resetPasswordDiv'));
+/*		if (document.getElementById("changePassword").offsetHeight < 5) {
 			document.getElementById("changePassword").style.height = "34em";
 			document.getElementById("changePassword").style.marginTop = "-34em";
-		} else setTimeout(function() {document.getElementById("changePassword").style.height = "34em"; document.getElementById("changePassword").style.marginTop = "-34em";},600);
+		} else setTimeout(function() {document.getElementById("changePassword").style.height = "34em"; document.getElementById("changePassword").style.marginTop = "-34em";},600);*/
 		document.getElementById("changePasswordInput1").value = '';
 		document.getElementById("changePasswordInput2").value = '';
 		document.getElementById("passwordChangeConfirmationCode").value = "";
@@ -1456,10 +1457,11 @@ function profileOption(opt) {
 		document.getElementById("changeNumberInput").value = "";
 		document.getElementById("changeCellphoneInput").value = "";
 		document.getElementById("cancelMembershipInput").value = "";
-		document.getElementById("changePassword").style.height = "0";
-		document.getElementById("changePassword").style.marginTop = "0";
+/*		document.getElementById("changePassword").style.height = "0";
+		document.getElementById("changePassword").style.marginTop = "0";*/
 		document.getElementById("changeLogin").style.height = "0";
 		document.getElementById("cancelMembership").style.height = "0";			
+		closeMenu(document.getElementById('resetPasswordDiv'));
 	}
 	return false;
 } // function profileOption(opt)
