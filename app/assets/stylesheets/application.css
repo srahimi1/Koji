@@ -50,7 +50,7 @@ input#contactusSubmit {
 
 input#loginEmailInput, input#loginCellphoneInput, input#loginPasswordInput,
 input#passwordChangeConfirmationCode, input#changePasswordInput1, input#changePasswordInput2, 
-button.profile-cancel-button, button#changePasswordButton{
+button.profile-cancel-button2, button#changePasswordButton{
 	width: calc(100% - 32px);
 	height: auto;
 	font-size: 1.35em;
@@ -819,8 +819,6 @@ input#signupSubmit {
 
 .profile-option {
 	display: inline-block;
-	width: 6em;
-	margin: 0 0.8em;
 	padding: 0.3em 1.8em;
 	text-decoration: none;
 	text-align: center;
@@ -842,10 +840,17 @@ input#signupSubmit {
 	color: #fafffa;
 }
 
+.change-login-div {
+	height: 0;
+}
+
+.cancel-membership-div {
+	height: 0;
+}
+
 .profile-paragraph {
 	width: 92%;
-	padding: 0.5em 0 0.5em 2.8em;
-	margin: 0.5em auto;
+	padding: 0.2em 0 0.2em 0.5em;
 }
 
 .profile-error-message {
@@ -855,7 +860,7 @@ input#signupSubmit {
 
 .profile-input {
 	width: 80%;
-	font-size: 3em;
+	font-size: 1.3em;
 	border: 1px solid #aaaaaa;
 }
 
@@ -863,12 +868,14 @@ input#signupSubmit {
 	border: none;
 	background-color: #3311cc;
 	color: #fafffa;
-	box-shadow: -1px 1px 9px #cfcfcf;
+	padding: 0.3em 1.5em;
+	margin-left: 0.5em;
 }
 
 .profile-cancel-button {
 	border: none;
-	box-shadow: -1px 1px 9px #cfcfcf;
+	padding: 0.3em 1.5em;
+	margin-right: 1em;
 }
 
 .profile-option-div {

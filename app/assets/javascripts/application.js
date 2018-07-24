@@ -1435,8 +1435,8 @@ function profileOption(opt) {
 		document.getElementById("changePasswordButton").disabled = true;
 	} else if (opt == 2) {
 		/*document.getElementById("changeLogin").style.display = "block";*/
-		if (document.getElementById("changeLogin").offsetHeight < 5) document.getElementById("changeLogin").style.height = "30em";
-		else setTimeout(function() {document.getElementById("changeLogin").style.height = "30em";},600);
+		if (document.getElementById("changeLogin").offsetHeight < 5) document.getElementById("changeLogin").style.height = "15em";
+		else setTimeout(function() {document.getElementById("changeLogin").style.height = "15em";},600);
 		document.getElementById("changeEmailInput").value = '';
 		document.getElementById("changeCellphoneInput").value = '';
 		document.getElementById("changeNumberInput").value = '';
@@ -1445,8 +1445,8 @@ function profileOption(opt) {
 		document.getElementById("changeLoginButton").disabled = true;
 	} else if (opt == 3) {
 		/*document.getElementById("cancelMembership").style.display = "block";*/
-		if (document.getElementById("cancelMembership").offsetHeight < 5) document.getElementById("cancelMembership").style.height = "30em";
-		else setTimeout(function() {document.getElementById("cancelMembership").style.height = "30em";},600);
+		if (document.getElementById("cancelMembership").offsetHeight < 5) document.getElementById("cancelMembership").style.height = "15em";
+		else setTimeout(function() {document.getElementById("cancelMembership").style.height = "15em";},600);
 		document.getElementById("cancelMembershipInput").value = '';
 		document.getElementById("cancelMembershipButton").disabled = true;
 	} else if (opt == 4) {

@@ -293,7 +293,7 @@
 		<p class="signup-form-paragraph"><input id="changePasswordInput1" class="signup-form-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onfocus="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 		<p class="signup-form-paragraph"><input id="changePasswordInput2" class="signup-form-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onfocus="validatePassword2()"><%= image_tag "greenCheck.png", :style => "width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;" %></p>
 
-		<p class="buttons-signin flex-row"><button class="profile-cancel-button" onclick="profileOption(4)">Close</button><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button></p>
+		<p class="buttons-signin flex-row"><button class="profile-cancel-button2" onclick="profileOption(4)">Close</button><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button></p>
 </div><!-- end resetPasswordDiv -->
 
 
@@ -310,25 +310,24 @@
 		<li style="display: inline-block;"><a href="javascript:void(0);" class="profile-option change-account-info" onclick="profileOption(2);">Change<br>Account Info</a></li>
 		<li style="display: inline-block;"><a href="javascript:void(0);" class="profile-option cancel-membership" onclick="profileOption(3);">Cancel<br>Membership</a></li>
 	</ul>
-	<div id="changeLogin" class="profile-option-div">
+	<div id="changeLogin" class="profile-option-div change-login-div">
 		<p id="changeLoginErrorMessage" class="profile-paragraph profile-error-message"></p>
 		<p class="profile-paragraph">
 			<input id="changeEmailInput" class="profile-input" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onfocus="validateEmail(this,2)"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
-		<p class="profile-paragraph" style="padding: 0.1em 1.9em; font-size: 2em;">- and/ or -</p>
+		<p class="profile-paragraph" style="padding: 0.1em 0.5em; font-size: 1em;">- and/ or -</p>
 		<p class="profile-paragraph">
 			<input id="changeNumberInput" type="number" name="none" style="font-size: 1em;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)"></p>
 		<p class="profile-paragraph" style="margin-top: -3.4em;">
-			<input id="changeCellphoneInput" class="profile-input" type="text" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
+			<input id="changeCellphoneInput" class="profile-input" type="tel" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
 		<p class="buttons-paragraph" style="width: 80%;"><button class="profile-cancel-button" onclick="profileOption(4)">Close</button><button id="changeLoginButton" class="profile-update-button" onclick="updateInfo(2)" disabled="disabled">Update</button></p>
 	</div>
-	<div id="cancelMembership" class="profile-option-div">
+	<div id="cancelMembership" class="profile-option-div cancel-membership-div">
 		<p id="cancelMembershipErrorMessage" class="profile-paragraph profile-error-message"></p>
 		<p class="profile-paragraph"><input id="cancelMembershipInput" class="profile-input" type="text" placeholder="Type 'cancel'" onkeyup="validateCancelMembership(this)"></p>
 		<p class="buttons-paragraph" style="width: 80%;"><button class="profile-cancel-button" onclick="profileOption(4)">Close</button><button id="cancelMembershipButton" class="profile-update-button" onclick="updateInfo(3)" disabled="disabled">Cancel Membership</button></p>
-		<p style="font-size: 2em; width: 27em; padding: 0.1em 1em;">By cancelling your membership, you are ending monthly membership payments and deleting your entire account.</p>
+		<p style="font-size: 0.75em; width: 27em; padding: 0.1em 1em;">By cancelling your membership, you are ending monthly membership payments and deleting your entire account.</p>
 	</div>
 	<p class="profile-paragraph"><span id="profileUpdateResult" class="profile-update-result"></span><a href="javascript:void(0);" class="profile-option logout" onclick="updateInfo(4);">Logout</a></p>
-	<p class="profile-paragraph">&nbsp;</p>
 	<p class="profile-paragraph-2">Email: <span id="profileEmail" class="profile-email"></span></p>
 	<p class="profile-paragraph-2">Cellphone: <span id="profileCellphone" class="profile-cellphone"></span></p>
 	<div id="scoreHistory" class="score-history">
