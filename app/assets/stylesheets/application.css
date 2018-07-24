@@ -120,7 +120,8 @@ input.signup-form-submit-button {
 }
 
 .show-menu {
-	background-color: green;
+	background-color: yellow;
+	color: black;
 }
 
 /* game sections */
