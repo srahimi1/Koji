@@ -144,6 +144,7 @@ function clearLines() {
 }
 
 function setupNewGame(demoInstructionsCode) {
+	gameC.style.display = "flex";
 	timerPaused = false;
 	dateStart = null;
 	timeAdd = null;
