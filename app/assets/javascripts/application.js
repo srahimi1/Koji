@@ -76,7 +76,7 @@ function setGameContentHeightWidth() {
 		document.getElementById('gameContent').style.height = ht - getTitleBarHeight() + 'px';
 		document.getElementById('gameContent').style.width = window.innerWidth - 20 || document.documentElement.clientWidth - 20
 	}
-} // end function setGameContentHeight()
+} // end function setGameContentHeightWidth()
 
 function setCanvasParentHeight() {
 	var c = document.getElementById("goalContainer");
@@ -144,7 +144,7 @@ function clearLines() {
 }
 
 function setupNewGame(demoInstructionsCode) {
-	gameC.style.display = "flex";
+	setGameContentHeightWidth();
 	timerPaused = false;
 	dateStart = null;
 	timeAdd = null;
@@ -935,7 +935,7 @@ function switchButtonsAndLetters(code) {
 
 function doDemoInstructions() {
 	resetDemoInstructions();
-	setTimeout(function() {demoShowing = true; gameC.style.display = "flex"; showDemoInstructions();},1100);
+	setTimeout(function() {demoShowing = true; setGameContentHeightWidth(); showDemoInstructions();},1100);
 }
 
 function resetDemoInstructions() {
@@ -1850,7 +1850,7 @@ function isSignupFormReady() {
 // general purpose app functions ...
 
 function showMenu(el) {
-	if (!demoShowing) gameC.style.display = "none";
+	if (!demoShowing) gameC.style.height = "0";
 	numModalsOpen++;
 	var id = el.id + "";
 	if (id == "signupDiv") {
@@ -1878,7 +1878,7 @@ function closeMenu(el) {
 	if ((el.style.opacity == "1") || (!!el.currentStyle && (el.currentStyle.display != "none")) || (!!getComputedStyle(el) && (getComputedStyle(el).display != "none")) || (!!getComputedStyle(el,null) && (getComputedStyle(el,null).display != "none")) ) numModalsOpen--;
 	el.style.opacity = "0";
 	el.style.marginTop = "-2em";
-	setTimeout(function() {el.style.display = "none"; if (numModalsOpen == 0) {gameC.style.display = "flex";}}, 800);
+	setTimeout(function() {el.style.display = "none"; if (numModalsOpen == 0) {setGameContentHeightWidth();}}, 800);
 	return true;
 } // end function closeMenu(el)
 
@@ -1900,7 +1900,7 @@ function animateMenu(para, code) {
 
 function checkForStartupMessage() {
 	gameC = document.getElementById("gameContent");
-	gameC.style.display = "none";
+	gameC.style.height = "0";
 	var version = document.getElementById("gameVersion").value;
 	var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 	var route = "/message?version="+version;
