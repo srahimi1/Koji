@@ -241,7 +241,7 @@
 			<p class="signup-form-paragraph"><span id="password2ErrorMessage" style="color:red"></span></p>
 			<p class="signup-form-paragraph"><input id="password2Input" class="signup-form-input" type="password" name="password2" placeholder=" Re-enter Password" maxlength="70" onkeyup="validatePassword()" onfocus="validatePassword()"><%= image_tag "greenCheck.png", :class => "green-check" %></p>
 			<p class="signup-form-paragraph"></p>
-			<p class=""><input id="signupSubmit" class="signup-form-submit-button" type="button" name="signupSubmit" value="Payment Info >" onclick="stripePopup()" onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-1px 3px 9px #777777'" disabled="disabled"></p>
+			<p class="btn-padding"><input id="signupSubmit" class="signup-form-submit-button" type="button" name="signupSubmit" value="Payment Info >" onclick="stripePopup()" onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-1px 3px 9px #777777'" disabled="disabled"></p>
 		<% end %>
 		<div class="form-footer"></div>
 	</div>
@@ -360,7 +360,7 @@
 		<%= form_tag("/", method: "", id: "contactusForm", class: "signup-form-form contactus-form-form") do %>
 			<p class="signup-form-paragraph" style="font-size: 0.7em;"><input id="contactusEmailInput" type="text" name="contactusEmail" placeholder=" Email" maxlength="70" class="signup-form-input"></p>
 			<p class="signup-form-paragraph"><textarea id="contactusMessage" class="contactus-message" placeholder="Your message"></textarea></p>
-			<p class=""><input id="contactusSubmit" type="button" name="contactusSubmit" value="Send" class="signup-form-submit-button" style="margin-right: 0.2em; background-color: dimgray;" onclick="submitMessage()"></p>
+			<p class="btn-padding"><input id="contactusSubmit" type="button" name="contactusSubmit" value="Send" class="signup-form-submit-button" style="margin-right: 0.2em; background-color: dimgray;" onclick="submitMessage()"></p>
 		<% end %>
 		<div class="form-footer"></div>
 	</div>

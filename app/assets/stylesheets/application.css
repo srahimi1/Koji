@@ -43,9 +43,11 @@ body {
 input#contactusSubmit {
 	width: 100%;
 	color: white;
-	position: absolute;
-	bottom: 0;
 	margin: 0;
+}
+
+.btn-padding {
+	padding: 0.5em 0.6em 0em 0.6em;
 }
 
 input#loginEmailInput, input#loginCellphoneInput, input#loginPasswordInput,
@@ -118,7 +120,8 @@ input.signup-form-submit-button {
 }
 
 .show-menu {
-	background-color: green;
+	background-color: yellow;
+	color: black;
 }
 
 /* game sections */
