@@ -935,7 +935,7 @@ function switchButtonsAndLetters(code) {
 
 function doDemoInstructions() {
 	resetDemoInstructions();
-	setTimeout(function() {gameC.style.display = "flex"; showDemoInstructions();},1100);
+	setTimeout(function() {demoShowing = true; gameC.style.display = "flex"; showDemoInstructions();},1100);
 }
 
 function resetDemoInstructions() {
@@ -1850,7 +1850,7 @@ function isSignupFormReady() {
 // general purpose app functions ...
 
 function showMenu(el) {
-	gameC.style.display = "none";
+	if (!demoShowing) gameC.style.display = "none";
 	numModalsOpen++;
 	var id = el.id + "";
 	if (id == "signupDiv") {
