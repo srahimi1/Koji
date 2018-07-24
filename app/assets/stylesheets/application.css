@@ -936,6 +936,10 @@ input#signupSubmit {
 	border: 1px solid black;
 }
 
+.contactus-form-form {
+	height: 150%;
+}
+
 .flex-grow-1 {
 	-webkit-box-flex: 1;
 	-ms-flex-positive: 1;

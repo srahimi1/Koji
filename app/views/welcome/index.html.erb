@@ -357,7 +357,7 @@
 		</ul>
 	</div>
 	<p class="modal-game-title"><%= image_tag "tl3.png", :style => "width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;" %>Koji</p>
-	<div class="signup-form-div">
+	<div class="signup-form-div" style="height: 100%;">
 		<%= form_tag("/", method: "", id: "contactusForm", class: "signup-form-form contactus-form-form") do %>
 			<p class="signup-form-paragraph" style="font-size: 0.7em;"><input id="contactusEmailInput" type="text" name="contactusEmail" placeholder=" Email" maxlength="70" class="signup-form-input"></p>
 			<p class="signup-form-paragraph"><textarea id="contactusMessage" class="contactus-message" placeholder="Your message"></textarea></p>
