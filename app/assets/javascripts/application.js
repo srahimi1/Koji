@@ -13,7 +13,9 @@
 //= require rails-ujs
 //= require_tree .
 
+gcExpanded = false;
 gameC = null;
+gameCHeight = 0;
 numModalsOpen = 0;
 demoShowing = false;
 timerPaused = false;
@@ -74,6 +76,7 @@ function setGameContentHeightWidth() {
 	if (document && document.getElementById('gameContent')) {
 		var ht = window.innerHeight || document.documentElement.clientHeight;
 		document.getElementById('gameContent').style.height = ht - getTitleBarHeight() + 'px';
+		gameCHeight = ht - getTitleBarHeight();
 		document.getElementById('gameContent').style.width = window.innerWidth - 20 || document.documentElement.clientWidth - 20
 	}
 } // end function setGameContentHeightWidth()
@@ -109,10 +112,11 @@ function removeButtonColorOnTouchEnd(element) {
 } // end function removeButtonColorOnTouchEnd(element)
 
 function expandGoalContainer() {
+	gcExpanded = true;
 	timerPaused = true;
 	remove_bars();
 	var body = document.getElementsByTagName("body")[0];
-	var gameContentHeight = document.getElementById('gameContent').offsetHeight;
+	//var gameContentHeight = document.getElementById('gameContent').offsetHeight;
 	gc.parentNode.removeChild(gc);
 	gc.style.position = "absolute";
 	var pandx = document.getElementById("pointsandxsContainer");
@@ -122,10 +126,11 @@ function expandGoalContainer() {
 	canvas.style.height = gcheight + "px";
 	canvas2.style.height = gcheight + "px";
 	gc.style.marginTop = (0 - pandx.offsetHeight) + "px";
-	gc.style.height = gameContentHeight + "px";
-	document.getElementById("letterChoicesCont").style.height = Math.floor(gameContentHeight/5) + "px";
-	document.getElementById("gameLettersContainer").style.height = Math.floor(gameContentHeight/5) + "px";
+	gc.style.height = gameCHeight + "px";
+	document.getElementById("letterChoicesCont").style.height = Math.floor(gameCHeight/5) + "px";
+	document.getElementById("gameLettersContainer").style.height = Math.floor(gameCHeight/5) + "px";
 /*	gc.onclick = function() {shrinkGoalContainer();};*/
+	return false;
 } // end function expandGoalContainer()
 
 function shrinkGoalContainer() {
@@ -133,7 +138,15 @@ function shrinkGoalContainer() {
     var go = document.getElementById("guessContainer");
     setCanvasParentHeight();
 	gc.style.marginTop = "0px";
-	setTimeout(function() {gc.parentNode.removeChild(gc); gc.style.position = "relative"; gc.style.top = "0px"; go.parentNode.insertBefore(gc,go.previousSibling.previousSibling); startTime = null; timerPaused = false; setupTimer(); }, 500);
+	gc.parentNode.removeChild(gc);
+	gc.style.position = "relative";
+	gc.style.top = "0px";
+	go.parentNode.insertBefore(gc,go.previousSibling.previousSibling);
+	gcExpanded = false;
+	startTime = null;
+	timerPaused = false;
+	setupTimer();
+	return false;
 } // end function shrinkGoalContainer()
 
 function clearLines() {
@@ -141,10 +154,15 @@ function clearLines() {
 	numberOfLinesDrawnOnCanvas = 0;
 	numberCorrect = 0;
 	colorGoalDiv();
+	return false;
 }
 
 function setupNewGame(demoInstructionsCode) {
-	setGameContentHeightWidth();
+	if (gcExpanded) shrinkGoalContainer();
+	var a = document.getElementById("cantguessletteryetButton");
+	a.innerHTML = "CAN'T GUESS A LETTER YET";
+	a.style.visibility = "visible";
+	a.onclick = function() {selectLetter(-1);};
 	timerPaused = false;
 	dateStart = null;
 	timeAdd = null;
@@ -1060,7 +1078,7 @@ function isGameLost() {
 			el.innerHTML = "<p style='margin: 0 auto 5px auto; font-size: 2.5em;'>Game Over</p><p style='font-size: 1em; margin-top: 0;'>(...wait for answer)</p>"; 
 			showMenu(document.getElementById('gameMessageDiv')); 
 			el.parentNode.style.marginTop = -(el.parentNode.offsetHeight/2) + "px";
-			setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); switchButtonsAndLetters(2); showLetters();},2000);  
+			setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); document.getElementById("cantguessletteryetButton").style.visibility = "hidden"; switchButtonsAndLetters(2); showLetters();},2000);  
 			return true; 
 		} // if (numXs == 4)
 	} // if (!gameOver)
@@ -1070,6 +1088,7 @@ function isGameLost() {
 function showLetters() {
 	drawLine();
 	if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3)) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
+	else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='assets/replayTransparent.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
 	return true;
 } // end function showLetters()
 
@@ -1561,7 +1580,6 @@ function validateEmail(inp, sel) {
 } // end function validateEmail()
 
 function validateCellphone(inp, sel) {
-	console.log(sel)
 	document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
 	document.getElementById("signupSubmit").style.boxShadow = "none";
 	document.getElementById("signupSubmit").disabled = true;
@@ -1579,7 +1597,6 @@ function validateCellphone(inp, sel) {
 	// hid.focus();
 	var hidValue = hid.value + "";
 	var char = hidValue[hidValue.length - 1];
-	console.log(hidValue);
 	var test = "";
 	var temp = "";
 	if ( isNaN(char) || (parseInt(char) == null) || (hidValue.length > 13) ) {
@@ -1604,13 +1621,10 @@ function validateCellphone(inp, sel) {
 
 	var test2 = returnInteger(test);
 	if ((len == 13) && (sel == 1)) {
-		console.log("in here");
-		console.log(test);
 		var success = "document.getElementById('cellphoneInput').nextSibling.style.visibility = 'visible'; document.getElementById('cellphoneErrorMessage').innerHTML = ''";
 		var fail = "document.getElementById('cellphoneInput').nextSibling.style.visibility = 'hidden'; document.getElementById('cellphoneErrorMessage').innerHTML = 'cellphone number already exists'";
 		checkIfExist("/checkcellphone",test2,success,fail);
 	} else if ((len == 13) && (sel == 3)) {
-		console.log("in here2");
 		var success = "document.getElementById('changeCellphoneInput').nextSibling.style.visibility = 'visible'; document.getElementById('changeLoginErrorMessage').innerHTML = '';document.getElementById('changeLoginButton').disabled = false;";
 		var fail = "document.getElementById('changeCellphoneInput').nextSibling.style.visibility = 'hidden'; document.getElementById('changeLoginErrorMessage').innerHTML = 'cellphone number already exists';document.getElementById('changeLoginButton').disabled = true;";
 		checkIfExist("/checkcellphone",test2,success,fail);
@@ -1783,7 +1797,6 @@ function signupFormSubmit(stripeToken) {
   		xhttp.open("POST", "/players", true);
   		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   		xhttp.setRequestHeader('X-CSRF-Token', auth_token);
-  		console.log("this is"+cellphone+"s");
   		xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version+"&stripeToken="+stripeToken.id+"&stripeEmail="+stripeToken.email);
 	} // end if (cont)
 	return false;
@@ -1801,7 +1814,6 @@ function signinFormSubmit(code) {
   		xhttp.onreadystatechange = function() {
     		if (this.readyState == 4 && this.status == 200) {
       			var res = this.responseText + "";
-    			console.log(res);
     			var el = document.getElementById("gameMessage");
     			if (res.toUpperCase() == "OK") {
 					getProfileData(); 
@@ -1813,7 +1825,6 @@ function signinFormSubmit(code) {
 					el.innerHTML = "Password reset confirmation code sent. Please wait up to 2 minutes to receive code."; 
 					profileOption(1);
 				} else if ((res.toUpperCase() == "BAD") && (code == 0)) {
-					console.log("g9t here this"); 
 					el.style.color = "#F00000"; 
 					el.innerHTML = "Sorry, sign-in was not succesful.<br/>Please check your information and try again."; 
 				} else if ((res.toUpperCase() == "BAD") && (code == 1)) {
@@ -1967,7 +1978,7 @@ function setupTimer() {
 		clearTimeout(timeoutID);
 		timeoutID = setTimeout(function() {updateTimer(null)},100);
 	} // end else
-	return true;
+	return false;
 } // end function setupTimer()
 
 function updateTimer(time) {
@@ -2002,7 +2013,7 @@ function updateTimer(time) {
 		webWorker = null;
 		clearTimeout(timeoutID);
 	}
-	return true;
+	return false;
 } // end function updateTimer(time)
 
 function remove_bars() {
