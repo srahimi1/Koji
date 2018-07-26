@@ -13,7 +13,7 @@
 //= require rails-ujs
 //= require_tree .
 
-gcExpanded = false;
+gameContentHTML = null;
 gameC = null;
 gameCHeight = 0;
 numModalsOpen = 0;
@@ -77,7 +77,7 @@ function setGameContentHeightWidth() {
 		var ht = window.innerHeight || document.documentElement.clientHeight;
 		document.getElementById('gameContent').style.height = ht - getTitleBarHeight() + 'px';
 		gameCHeight = ht - getTitleBarHeight();
-		document.getElementById('gameContent').style.width = window.innerWidth - 20 || document.documentElement.clientWidth - 20
+		document.getElementById('gameContent').style.width = (window.innerWidth - 20 || document.documentElement.clientWidth - 20);
 	}
 } // end function setGameContentHeightWidth()
 
@@ -112,7 +112,6 @@ function removeButtonColorOnTouchEnd(element) {
 } // end function removeButtonColorOnTouchEnd(element)
 
 function expandGoalContainer() {
-	gcExpanded = true;
 	timerPaused = true;
 	remove_bars();
 	var body = document.getElementsByTagName("body")[0];
@@ -134,15 +133,15 @@ function expandGoalContainer() {
 } // end function expandGoalContainer()
 
 function shrinkGoalContainer() {
+	if (gameOver) { gc.setAttribute("class", "goal-container-pre"); gc.style.display = "none"; gc.style.display = "block"; }
 	var body = document.getElementsByTagName("body")[0];
     var go = document.getElementById("guessContainer");
-    setCanvasParentHeight();
+    if (!gameOver) setCanvasParentHeight();
 	gc.style.marginTop = "0px";
 	gc.parentNode.removeChild(gc);
 	gc.style.position = "relative";
 	gc.style.top = "0px";
 	go.parentNode.insertBefore(gc,go.previousSibling.previousSibling);
-	gcExpanded = false;
 	startTime = null;
 	timerPaused = false;
 	setupTimer();
@@ -158,7 +157,13 @@ function clearLines() {
 }
 
 function setupNewGame(demoInstructionsCode) {
-	if (gcExpanded) shrinkGoalContainer();
+	var gcsetup = document.getElementById("gameContent");
+	gcsetup.setAttribute("class", "");
+	gcsetup.style.display = "none";
+	gcsetup.innerHTML = gameContentHTML;
+	gcsetup.setAttribute("class", "game-content flex-col");
+	gcsetup.style.display = "";
+	gc = document.getElementById("goalContainer");
 	var a = document.getElementById("cantguessletteryetButton");
 	a.innerHTML = "CAN'T GUESS A LETTER YET";
 	a.style.visibility = "visible";
@@ -213,7 +218,6 @@ function setupNewGame(demoInstructionsCode) {
 	if (!!ctx2) ctx2.clearRect(0,0,canvas2.width,canvas2.height);
 	canvas2 = null;
 	ctx2 = null;	
-	gc = document.getElementById("goalContainer");
 	document.getElementById("letterChoicesCont").style.visibility = "hidden";
 	document.getElementById("pointsSpan").innerHTML = points;
 	document.getElementById("gameMessage").innerHTML = "";
@@ -251,7 +255,7 @@ function getGameData(demoInstructionsCode) {
 		} // end if
 	} // end onreadystatechange
 	xhttp.send();
-	return true;
+	return false;
 } // function getGameData()
 
 function finishSettingUpGame(demoInstructionsCode) {
@@ -262,9 +266,12 @@ function finishSettingUpGame(demoInstructionsCode) {
 	colorGoalDiv();
 	positionYesNoButtons();
 	gcheight = gc.offsetHeight;
-	gsheight = document.getElementById("guessContainer").offsetHeight;
+	gsheight = (document.getElementById("guessContainer").offsetHeight * .35) + "px";
+	gc.style.height = document.getElementById("gameContent").offsetHeight;
+	gc.setAttribute("class", "goal-container-post");
 	setupTimer();
 	if (demoInstructionsCode == 1) doDemoInstructions();
+	return false;
 } // end function finishSettingUpGame()
 
 // color mixing part of game functions ...
@@ -1088,7 +1095,7 @@ function isGameLost() {
 function showLetters() {
 	drawLine();
 	if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3)) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
-	else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='assets/replayTransparent.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
+	else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='assets/replayTransparent.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {gc.style.display = "none"; shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
 	return true;
 } // end function showLetters()
 
@@ -1911,6 +1918,7 @@ function animateMenu(para, code) {
 
 function checkForStartupMessage() {
 	gameC = document.getElementById("gameContent");
+	gameContentHTML = gameC.innerHTML;
 	gameC.style.height = "0";
 	var version = document.getElementById("gameVersion").value;
 	var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");

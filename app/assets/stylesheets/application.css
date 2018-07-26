@@ -126,7 +126,18 @@ input.signup-form-submit-button {
 
 /* game sections */
 
-.goal-container {
+.goal-container-pre {
+	position: relative;
+	width: 100%;
+	padding: 0;
+	margin: 0 auto;
+	background-color: white;
+	text-align: center;
+	overflow: hidden;
+	z-index: 20;
+}
+
+.goal-container-post {
 	position: relative;
 	width: 100%;
 	padding: 0;
