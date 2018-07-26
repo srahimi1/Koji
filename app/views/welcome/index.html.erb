@@ -104,8 +104,7 @@
 
 
 <div id="startupDiv" class="modal-div startup-div">
-	<div class="flex-grow-1" style="text-align: center; margin-top: 0; padding-top: 1em; background-color: skyblue;"><div style="position: absolute; width: 7em; height: 7em; border-radius: 7em; left: -2em; top: -3em; background-color: #FFFF5A;"></div><%= image_tag "tl3.png", :id => "startupTitleImage", :style => "margin: 0 0.1em 0 0;" %><span id="startupTitle">Koji</span></div>
-	<div id="pandaboxes" class="panda-boxes flex-grow-1"><div style="position: absolute; top: 0; left: 0; width: 100%; height: 70%; background-color: skyblue; z-index: -1;"></div><div style="position: absolute; top: 70%; left: 0; width: 100%; height: 30%; background-color: papayawhip; z-index: -1;"></div></div>
+	<div class="flex-grow-1" style="text-align: center; margin-top: 0; padding-top: 1em; background-color: skyblue;"><div id="sun" style="position: absolute; width: 7em; height: 7em; border-radius: 7em; left: -2em; top: -3em; background-color: #FFFF5A; z-index: 1;"></div><div style="position: relative; z-index: 2;"><%= image_tag "tl3.png", :id => "startupTitleImage", :style => "margin: 0 0.1em 0 0;" %><span id="startupTitle">Koji</span></div></div><div id="pandaboxes" class="panda-boxes flex-grow-1"><div style="position: absolute; top: 0; left: 0; width: 100%; height: 70%; background-color: skyblue; z-index: -1;"></div><div style="position: absolute; top: 70%; left: 0; width: 100%; height: 30%; background-color: papayawhip; z-index: -1;"></div></div>
 	<div class="flex-grow-1 flex-row" style="background-color: papayawhip;">
 		<button id="startupButton1" class="beginning-button demo-game" onclick="closeMenu(document.getElementById('startupDiv')); setupNewGame(1);">Start Demo Game</button>
 		<button id="startupButton2" class="beginning-button show-menu" onclick="closeMenu(document.getElementById('startupDiv')); showMenu(document.getElementById('menuDiv'));">Show Menu</button>

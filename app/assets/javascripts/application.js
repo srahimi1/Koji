@@ -1971,7 +1971,15 @@ function showBeginningModal() {
 	el.style.width = Math.floor(ht/2*.7) + "px";
 	el = document.getElementById("startupButton2");
 	el.style.width = Math.floor(ht/2*.7) + "px";
-	showMenu(document.getElementById('startupDiv')); 
+	el = document.getElementById("sun");
+	var par = document.getElementById("gameContent");
+	var sz = Math.floor(par.offsetWidth/3);
+	el.style.height = sz + "px";
+	el.style.width = sz + "px";
+	el.style.borderRadius = sz + "px";
+	el.style.left = (0 - Math.floor(par.offsetWidth/10)) + "px";
+	el.style.top = (0 - Math.floor(par.offsetWidth/8)) + "px";
+	showMenu(document.getElementById('startupDiv'));
 	/*el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";*/ 
 } // end function showBeginningModal()
 
