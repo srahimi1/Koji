@@ -1095,7 +1095,7 @@ function isGameLost() {
 function showLetters() {
 	drawLine();
 	if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3)) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
-	else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='/assets/replayTransparent.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {gc.style.display = "none"; shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
+	else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='replayTransparent.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {gc.style.display = "none"; shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
 	return true;
 } // end function showLetters()
 
