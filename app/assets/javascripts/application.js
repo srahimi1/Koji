@@ -536,7 +536,7 @@ function determineResultOfChoice(sendID, opt) {
 	var par = guessTop.firstChild;
 	var sendID = par.id + "";
 	if (numberCorrect != correctLimit)
-		getNextColorsTimeoutID = setTimeout(function() {getNextColors(par, sendID);},time);
+		getNextColorsTimeoutID = setTimeout(function() {startTime = null;timerPaused = false;setupTimer();getNextColors(par, sendID);},time);
 	return true;
 } // function determineResultOfChoice(sendID, opt)
 
@@ -1095,7 +1095,7 @@ function isGameLost() {
 function showLetters() {
 	drawLine();
 	if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3)) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
-	else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='assets/replayTransparent.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {gc.style.display = "none"; shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
+	else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='/assets/replayTransparent.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {gc.style.display = "none"; shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
 	return true;
 } // end function showLetters()
 
@@ -1991,7 +1991,7 @@ function setupTimer() {
 
 function updateTimer(time) {
 	if (!gameOver && !timerPaused) {
-		if (!startTime) {startTime = time; setTimeout(function() {remove_bars(); add_bars(); transition_bars();}, 900);}
+		if (!startTime) {startTime = time; setTimeout(function() {remove_bars(); add_bars(); transition_bars();}, 0);}
 		timerEl = document.getElementById("timer");
 		var timeNow = time;
 		if (!timeNow) {
@@ -2005,9 +2005,9 @@ function updateTimer(time) {
 			var timeDiffInSec = Math.floor(timeDiff / 1000);
 			var minutes = Math.floor(timeDiffInSec / 60);
 			var seconds = timeDiffInSec % 60;
-			var displayTime = 25 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
+			var displayTime = 6 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
 			//if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
-			if ((displayTime == -1) || (displayTime < 0)) {displayTime = 25; startTime = null; clearLines(); isGameLost();}
+			if ((displayTime == -1) || (displayTime < 0)) {displayTime = 6; startTime = null; clearLines(); isGameLost();}
 /*			if (displayTime < 0) {displayTime = 25; startTime = null; clearLines();}
 			else if ((displayTime < 1) && (startTime != -1)) { startTime = -1; isGameLost(); }*/
 			timerEl.style.display = "none";

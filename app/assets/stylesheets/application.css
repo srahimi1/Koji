@@ -301,10 +301,10 @@ input.signup-form-submit-button {
 	margin: 0;
 	background-color: red;
 	overflow: hidden;
-	-moz-transition: width 25s;
-	-webkit-transition: width 25s;
-	-o-transition: width 25s;
-	transition: width 25s;
+	-moz-transition: width 6s;
+	-webkit-transition: width 6s;
+	-o-transition: width 6s;
+	transition: width 6s;
 	border-top: 2px solid #8f0000;
 	border-bottom: 2px solid #8f0000;
 }
