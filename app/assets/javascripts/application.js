@@ -1954,9 +1954,11 @@ function showBeginningModal() {
 	var el = document.getElementById("pandaboxes"); 
 	var ht = window.innerHeight || document.documentElement.clientHeight;
 	el.parentNode.style.height = ht + "px";
-	el.innerHTML = PandaBoxesSVG; 
-	el.style.height = Math.floor(ht/2) + "px";
-	el.style.width = Math.floor(ht/2*.7) + "px";
+	el.style.display = "none";
+	el.innerHTML += PandaBoxesSVG; 
+	el.style.display = "block";
+	el.childNodes[2].style.height = Math.floor(ht/2) + "px";
+	el.childNodes[2].style.width = Math.floor(ht/2*.7) + "px";
 	el = document.getElementById("startupTitle");
 	el.style.width = Math.floor(ht/10) + "px";
 	el.style.height = Math.floor(ht/10) + "px";

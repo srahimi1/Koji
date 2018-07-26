@@ -301,10 +301,10 @@ input.signup-form-submit-button {
 	margin: 0;
 	background-color: red;
 	overflow: hidden;
-	-moz-transition: width 6s;
-	-webkit-transition: width 6s;
-	-o-transition: width 6s;
-	transition: width 6s;
+	-moz-transition: width 6s linear;
+	-webkit-transition: width 6s linear;
+	-o-transition: width 6s linear;
+	transition: width 6s linear;
 	border-top: 2px solid #8f0000;
 	border-bottom: 2px solid #8f0000;
 }
@@ -484,8 +484,10 @@ input.signup-form-submit-button {
 }
 
 .panda-boxes {
-	width: 50%;
-	margin: 10px auto;
+	position: relative;
+	width: 100%;
+	margin: 0 auto;
+	text-align: center;
 }
 
 .startup-div {
