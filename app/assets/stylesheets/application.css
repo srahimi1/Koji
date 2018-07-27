@@ -538,6 +538,13 @@ input.signup-form-submit-button {
 	transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93);
 }
 
+.rainbow-cover {
+	-moz-transition: margin-left 7s; 
+	-webkit-transition: margin-left 7s; 
+	-o-transition: margin-left 7s; 
+	transition: margin-left 7s; 
+}
+
 /* modal classes */
 
 .modal-div {

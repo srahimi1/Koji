@@ -364,11 +364,11 @@ function getColorsForHalfDivs() {
 		} else if ((opt == 2) || (opt == 3) || (opt == 4)) {
 			var shift = 0;
 			if (factor < 30)
-				shift = 20; //0;
+				shift = 50; //0;
 			else if (factor < 70)
-				shift = 70; //25;
+				shift = 50; //25;
 			else 
-				shift = 100; //30;
+				shift = 50; //30;
 
 			if (opt2 == null) opt2 = Math.floor(Math.random() * 12);
 			if (opt2 == 0) {
@@ -713,7 +713,7 @@ function putLettersOntoPanels(letters, fontSz) {
 		tempLetterChoicesDiv.id = "letterChoices" + i;
 		tempLetterChoicesDiv.style.width = "100%";
 		tempLetterChoicesDiv.style.height = "100%";
-		tempLetterChoicesDiv.style.backgroundColor = "gray";
+		tempLetterChoicesDiv.style.backgroundColor = "#E4ECFF";
 		tempLetterChoicesDiv.style.display = "none";
 		var container = document.getElementById("letterChoicesCont");
 		container.appendChild(tempLetterChoicesDiv);
@@ -1889,6 +1889,7 @@ function showMenu(el) {
 	el.classList.add("flex");
 	el.classList.add("flex-col");
 	setTimeout(function() {el.style.marginTop="0em"; el.style.opacity="1";}, 100);
+	if (id == "startupDiv") setTimeout(function() {document.getElementById('rainbowCover').style.marginLeft = "175%"}, 600);
 	return true;
 } // end function showMenu(el)
 
