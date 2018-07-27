@@ -157,12 +157,11 @@ function clearLines() {
 }
 
 function setupNewGame(demoInstructionsCode) {
-	var gcsetup = document.getElementById("gameContent");
-	gcsetup.setAttribute("class", "");
-	gcsetup.style.display = "none";
-	gcsetup.innerHTML = gameContentHTML;
-	gcsetup.setAttribute("class", "game-content flex-col");
-	gcsetup.style.display = "";
+	gameC.setAttribute("class", "");
+	gameC.style.display = "none";
+	gameC.innerHTML = gameContentHTML;
+	gameC.setAttribute("class", "game-content flex-col");
+	gameC.style.display = "";
 	gc = document.getElementById("goalContainer");
 	var a = document.getElementById("cantguessletteryetButton");
 	a.innerHTML = "CAN'T GUESS A LETTER YET";
@@ -269,6 +268,7 @@ function finishSettingUpGame(demoInstructionsCode) {
 	gsheight = (document.getElementById("guessContainer").offsetHeight * .35) + "px";
 	gc.style.height = document.getElementById("gameContent").offsetHeight;
 	gc.setAttribute("class", "goal-container-post");
+	gameC.style.visibility = "visible";
 	setupTimer();
 	if (demoInstructionsCode == 1) doDemoInstructions();
 	return false;
@@ -364,11 +364,11 @@ function getColorsForHalfDivs() {
 		} else if ((opt == 2) || (opt == 3) || (opt == 4)) {
 			var shift = 0;
 			if (factor < 30)
-				shift = 0;
+				shift = 20; //0;
 			else if (factor < 70)
-				shift = 25;
+				shift = 70; //25;
 			else 
-				shift = 30;
+				shift = 100; //30;
 
 			if (opt2 == null) opt2 = Math.floor(Math.random() * 12);
 			if (opt2 == 0) {

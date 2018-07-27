@@ -90,6 +90,7 @@ input.signup-form-submit-button {
 	width: 100%;
 	text-align: center;
 	z-index: 10;
+	visibility: hidden;
 }
 
 .flex-col {
