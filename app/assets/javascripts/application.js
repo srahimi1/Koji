@@ -271,6 +271,8 @@ function finishSettingUpGame(demoInstructionsCode) {
 	gameC.style.visibility = "visible";
 	setupTimer();
 	if (demoInstructionsCode == 1) doDemoInstructions();
+	document.getElementById("yesButton").disabled = false;
+	document.getElementById("noButton").disabled = false;
 	return false;
 } // end function finishSettingUpGame()
 
@@ -336,6 +338,8 @@ function getNextColors(par, did) {
 	else if (!gameOver) {
 		createColorDivs();
 	} // if (!gameOver)
+	document.getElementById("yesButton").disabled = false;
+	document.getElementById("noButton").disabled = false;
 	return true;
 } // function getNextColors(par, did)
 
@@ -427,6 +431,8 @@ function createMixColorDivs() {
 } // function createMixColorDivs()
 
 function showUnderneathDiv(opt) {
+	document.getElementById("yesButton").disabled = true;
+	document.getElementById("noButton").disabled = true;
 	var par = guessTop.firstChild;
 	var cn = par.childNodes;
 	cn[0].innerHTML = "";
@@ -1797,7 +1803,8 @@ function signupFormSubmit(stripeToken) {
     			} // if (res.toUpperCase() == "OK")
     		    showMenu(document.getElementById('gameMessageDiv')); 
     			el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";
-    			setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv'))},3500);
+    			setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); showMenu(document.getElementById('menuDiv')); },3500);
+    			
     			return true;
     		} // if (this.readyState == 4 && this.status == 200)
   		}; // xhttptemp.onreadystatechange = function()
@@ -1889,7 +1896,7 @@ function showMenu(el) {
 	el.classList.add("flex");
 	el.classList.add("flex-col");
 	setTimeout(function() {el.style.marginTop="0em"; el.style.opacity="1";}, 100);
-	if (id == "startupDiv") setTimeout(function() {document.getElementById('rainbowCover').style.marginLeft = "175%"}, 600);
+	if (id == "startupDiv") setTimeout(function() {document.getElementById('rainbowCover').style.marginLeft = "175%"}, 150);
 	return true;
 } // end function showMenu(el)
 

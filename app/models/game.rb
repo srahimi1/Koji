@@ -4,7 +4,7 @@ class Game < ApplicationRecord
 	def start_new_demo_game
 		output = {}
 		output["colors"] = [{"goalColor" => "#634478"},{"goalColor" => "#74553A"},{"goalColor" => "#A1AA64"},{"goalColor" => "#329844"},{"goalColor" => "#443298"},{"goalColor" => "#984432"}]
-		output["letters"] = ["w","I","n","D","s"]
+		output["letters"] = ["s","I","w","D","n"]
 		output["numberOfX"] = 0
 		output["points"] = 0
 		return output

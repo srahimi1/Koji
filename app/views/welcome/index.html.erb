@@ -46,8 +46,8 @@
 		<div id="instruction1" class="small-title buttons-instructions">Will mixing the colors in boxes 1 and 2 make the color shown above them?</div>
 
 		<div id="buttonsDiv" class="buttons-div">
-			<div id="yes-button"class="yesno-button yes-button flex-center" onclick="showUnderneathDiv(0);" ontouchstart="setButtonColorOnTouch('yes-button')" ontouchend="removeButtonColorOnTouchEnd('yes-button')">Yes</div>
-			<div id="no-button" class="yesno-button no-button flex-center" onclick="showUnderneathDiv(1);" ontouchstart="setButtonColorOnTouch('no-button')" ontouchend="removeButtonColorOnTouchEnd('no-button')">No</div>
+			<div id="yesButton"class="yesno-button yes-button flex-center" onclick="showUnderneathDiv(0);" ontouchstart="setButtonColorOnTouch('yes-button')" ontouchend="removeButtonColorOnTouchEnd('yes-button')" disabled="disabled">Yes</div>
+			<div id="noButton" class="yesno-button no-button flex-center" onclick="showUnderneathDiv(1);" ontouchstart="setButtonColorOnTouch('no-button')" ontouchend="removeButtonColorOnTouchEnd('no-button')" disabled="disabled">No</div>
 		</div><!--end buttons-div div -->
 	</div><!--end gameContent div -->
 	<input type="hidden" id="gameVersion" name="gameVersion" value="1.0">
@@ -178,7 +178,7 @@
 			</div>
 		</li>
 		<li class="" style="text-align:center;">
-			<button id="newGameButton" onclick="setupNewGame(0)">New Game</button>
+			<button id="newGameButton" onclick="setupNewGame(0)">START NEW GAME</button>
 		</li>
 	</ul>
 	<div class="modal-div-footer"></div>
@@ -201,7 +201,7 @@
 		<li class="instruction-li">
 			<p class="instruction-paragraph">If two colors, shown in the middle of the screen, will produce the color shown directly above them when mixed, hit the bottom "Yes" button. If not, hit "No".</p></li>
 		<li class="instruction-li">
-			<p class="instruction-paragraph">Every time you guess correctly, small segments of letters hidden in the top panel are revealed. After every 6th correct color mixing guess, you will get a chance to guess at one of the hidden letters. Correctly choose all the hidden letters and you win!</p></li>
+			<p class="instruction-paragraph">Every time you guess correctly, small segments of letters hidden in the top panel are revealed. After every 6th correct color mixing guess, you will get a chance to guess at one of the hidden letters. Correctly choose all the hidden letters (correctly chosen letters will have green borders) and you win!</p></li>
 		<li class="instruction-li"><p class="instruction-header-paragraph">Xs:</p>
 			<p class="instruction-paragraph">For every wrong color matching guess, you get an X. For every incorrect hidden letter guess, you get an X. Four Xs and game is over.</p></li>
 		<li class="instruction-li"><p class="instruction-header-paragraph">Point values:</p>
