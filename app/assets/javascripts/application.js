@@ -97,7 +97,8 @@ function positionYesNoButtons() {
 	var ht3 = document.getElementById("goalContainer").offsetHeight;
 	var ht4 = document.getElementById("timerBar").offsetHeight;
 	var ht5 = document.getElementById("guessContainer").offsetHeight;
-	b.style.height = (ht1 - ht2 - ht3 - ht4 - ht5) + "px";
+	var ht6 = document.getElementById("instruction1").offsetHeight;
+	b.style.height = (ht1 - ht2 - ht3 - ht4 - ht5 - ht6) + "px";
 }
 
 function setButtonColorOnTouch(element) {
