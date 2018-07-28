@@ -13,6 +13,7 @@
 //= require rails-ujs
 //= require_tree .
 
+yesnoButtonEnabled = true;
 gameContentHTML = null;
 gameC = null;
 gameCHeight = 0;
@@ -157,7 +158,8 @@ function clearLines() {
 }
 
 function setupNewGame(demoInstructionsCode) {
-	gameC.setAttribute("class", "");
+	yesnoButtonEnabled = true;
+	gameC.removeAttribute("class");
 	gameC.style.display = "none";
 	gameC.innerHTML = gameContentHTML;
 	gameC.setAttribute("class", "game-content flex-col");
@@ -271,8 +273,6 @@ function finishSettingUpGame(demoInstructionsCode) {
 	gameC.style.visibility = "visible";
 	setupTimer();
 	if (demoInstructionsCode == 1) doDemoInstructions();
-	document.getElementById("yesButton").disabled = false;
-	document.getElementById("noButton").disabled = false;
 	return false;
 } // end function finishSettingUpGame()
 
@@ -338,8 +338,7 @@ function getNextColors(par, did) {
 	else if (!gameOver) {
 		createColorDivs();
 	} // if (!gameOver)
-	document.getElementById("yesButton").disabled = false;
-	document.getElementById("noButton").disabled = false;
+	yesnoButtonEnabled = true;
 	return true;
 } // function getNextColors(par, did)
 
@@ -431,21 +430,22 @@ function createMixColorDivs() {
 } // function createMixColorDivs()
 
 function showUnderneathDiv(opt) {
-	document.getElementById("yesButton").disabled = true;
-	document.getElementById("noButton").disabled = true;
-	var par = guessTop.firstChild;
-	var cn = par.childNodes;
-	cn[0].innerHTML = "";
-	cn[1].innerHTML = "";
-	cn[0].style.zIndex = "10";
-	cn[1].style.zIndex = "11";
-	cn[0].style.width = "100%";
-	cn[1].style.width = "100%";
-	cn[1].style.marginLeft = "-100%";
-	cn[0].style.opacity = "0";
-	cn[1].style.opacity = "0";
-	var sendID = par.id + "";
-	setTimeout(function() {determineResultOfChoice(sendID, opt);}, 200);
+	if (yesnoButtonEnabled) {
+		yesnoButtonEnabled = false;
+		var par = guessTop.firstChild;
+		var cn = par.childNodes;
+		cn[0].innerHTML = "";
+		cn[1].innerHTML = "";
+		cn[0].style.zIndex = "10";
+		cn[1].style.zIndex = "11";
+		cn[0].style.width = "100%";
+		cn[1].style.width = "100%";
+		cn[1].style.marginLeft = "-100%";
+		cn[0].style.opacity = "0";
+		cn[1].style.opacity = "0";
+		var sendID = par.id + "";
+		setTimeout(function() {determineResultOfChoice(sendID, opt);}, 200);
+	}
 	return true;
 } // end function showUnderneathDiv(opt)
 
