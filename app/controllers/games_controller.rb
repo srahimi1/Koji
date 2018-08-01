@@ -1,5 +1,3 @@
-before_filter :set_access
-
 class GamesController < ApplicationController
   def set_access
     @response.headers['Access-Control-Allow-Origin'] = "*"
