@@ -164,7 +164,7 @@ class PlayersController < ApplicationController
 	end
 
 	def startup_message
-		render plain: "1"
+		render plain: "1:q:" + form_authenticity_token 
 	end
 
   def player_params
