@@ -25,7 +25,8 @@ class GamesController < ApplicationController
       @game.save
       session["game_id"] = @game.id
       @response["gameID"] = @game.id
-  		render json: @response
+  		headers['Access-Control-Allow-Origin'] = "*"
+      render json: @response
   end
 
   def update
