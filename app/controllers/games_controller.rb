@@ -1,8 +1,4 @@
 class GamesController < ApplicationController
-  def set_access
-    @response.headers['Access-Control-Allow-Origin'] = "*"
-  end
-
   def create
       if (session["player_id"] != nil)
         @player = Player.find(session[:player_id])
