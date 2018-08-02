@@ -1,4 +1,5 @@
 class GamesController < ApplicationController
+  
   def create
       if (session["player_id"] != nil)
         @player = Player.find(session[:player_id])
