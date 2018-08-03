@@ -166,7 +166,7 @@ class PlayersController < ApplicationController
 	def startup_message
 		puts "this is"
 		puts " "
-		puts " "
+		puts "  "
 		puts "1:q:" + form_authenticity_token
 		render plain: "1:q:" + form_authenticity_token 
 	end
