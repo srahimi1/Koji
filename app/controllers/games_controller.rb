@@ -26,10 +26,10 @@ class GamesController < ApplicationController
       @game.save
       session["game_id"] = @game.id
       @response["gameID"] = @game.id
-      @response.headers["Access-Control-Allow-Origin"] = "*"
-      @response.headers["Access-Control-Allow-Methods"] = "GET, POST, PATCH"
-      @response.headers["Access-Control-Allow-Headers"] = "X-PINGOTHER, Content-Type"
-      @response.headers["Access-Control-Max-Age"] = "86400"
+      headers["Access-Control-Allow-Origin"] = "*"
+      headers["Access-Control-Allow-Methods"] = "GET, POST, PATCH"
+      headers["Access-Control-Allow-Headers"] = "X-PINGOTHER, Content-Type"
+      headers["Access-Control-Max-Age"] = "86400"
       render json: @response
   end
 
