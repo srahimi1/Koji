@@ -1,6 +1,6 @@
 class GamesController < ApplicationController
   
-  def new
+  def create
       if (session["player_id"] != nil)
         @player = Player.find(session[:player_id])
       else 
@@ -26,6 +26,10 @@ class GamesController < ApplicationController
       @game.save
       session["game_id"] = @game.id
       @response["gameID"] = @game.id
+      @response.headers["Access-Control-Allow-Origin"] = "*"
+      @response.headers["Access-Control-Allow-Methods"] = "GET, POST, PATCH"
+      @response.headers["Access-Control-Allow-Headers"] = "X-PINGOTHER, Content-Type"
+      @response.headers["Access-Control-Max-Age"] = "86400"
       render json: @response
   end
 

@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   resources :players
   resources :paymentserviceproviders
-  resources :games, :only => [:create, :update, :new]
+  resources :games, :only => [:create, :update]
   resources :messages, only: [:create]
 
   get '/checkemail', to: 'players#check_email'
