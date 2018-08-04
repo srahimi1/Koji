@@ -1,13 +1,22 @@
 class GamesController < ApplicationController
   
   def create
+      puts "this is form authenticity token at point 1"
+      puts form_authenticity_token
+      puts "that was it"
       if (session["player_id"] != nil)
         @player = Player.find(session[:player_id])
       else 
         @player = Player.find(0)
       end
+      puts "This is form authenticity token at point 2"
+      puts form_authenticity_token
+      puts "this was it"
       @game = @player.games.new(score: 0)
-  		if (!session["player_id"].blank? && !@player.blank?)
+  		puts "This is form authenticity token at point 2"
+      puts form_authenticity_token
+      puts "this was it"
+      if (!session["player_id"].blank? && !@player.blank?)
         @response = @game.start_new_game
         puts " "
         puts " "
