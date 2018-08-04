@@ -1,0 +1,1123 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_self
+ */
+
+input {
+    -webkit-appearance: none;
+}
+body {
+    margin: 0;
+    padding: 0;
+    margin: auto;
+    font-family: 'Playfair Display', serif, Trebuchet MS, helvetica, tahoma;
+}
+
+#signupForm input {
+    height: auto;
+    font-size: 1.35em;
+    color: black;
+    padding: 10px 15px 11px;
+    width: calc(100% - 32px);
+}
+
+#contactusForm input{
+    height: auto;
+    font-size: 1.35em;
+    color: black;
+    padding: 10px 15px 11px;
+    width: calc(100% - 32px);
+    margin-top: 1em;
+}
+
+input#contactusSubmit {
+    width: 100%;
+    color: white;
+    margin: 0;
+}
+
+.btn-padding {
+    padding: 0.5em 0.6em 0em 0.6em;
+}
+
+input#loginEmailInput, input#loginCellphoneInput, input#loginPasswordInput,
+input#passwordChangeConfirmationCode, input#changePasswordInput1, input#changePasswordInput2, 
+button.profile-cancel-button2, button#changePasswordButton{
+    width: calc(100% - 32px);
+    height: auto;
+    font-size: 1.35em;
+    padding: 10px 15px 11px;
+}
+
+div#resetPasswordDiv {
+    background-color: gray;
+}
+
+input.signup-form-submit-button {
+    height: auto;
+    font-size: 1.35em;
+    color: black;
+    padding: 10px 15px 11px;
+    margin: 0.5em;
+    border-radius: 5px;
+}
+/* main app sections */
+.title-bar {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    padding: .2em 0;
+    color:white;
+    text-align: left;
+    background-color: #2e2e2e;
+    font-weight: normal;
+    z-index: 10;
+    font-size: 1.5em;
+}
+
+.game-content {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    z-index: 10;
+    visibility: hidden;
+}
+
+.flex-col {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    flex-direction: column;
+}
+
+.beginning-button {
+    display: block;
+    flex: 1;
+    color: white;
+    margin-top: 1em;
+    padding: auto;
+    border: none;
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.demo-game {
+    background-color: blue;
+}
+
+.show-menu {
+    background-color: yellow;
+    color: black;
+}
+
+/* game sections */
+
+.goal-container-pre {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+    background-color: white;
+    text-align: center;
+    overflow: hidden;
+    z-index: 20;
+}
+
+.goal-container-post {
+    position: relative;
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+    background-color: white;
+    text-align: center;
+    overflow: hidden;
+    -moz-transition: margin-top 0.5s, height 0.5s;
+    -webkit-transition: margin-top 0.5s, height 0.5s;
+    -o-transition: margin-top 0.5s, height 0.5s;
+    transition: margin-top 0.5s, height 0.5s;
+    z-index: 20;
+}
+
+.small-title {
+    position: relative;
+    padding: 0 1em 0 1em;
+    text-align: center;
+    z-index: 10;
+}
+
+.goal-title {
+    background-color: #4a4a4a;
+    color: white;
+}
+
+.canvas-1 {
+    position: absolute;
+    flex-grow: 1;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    text-align: center;
+    display: none;
+    z-index: 10;
+}
+
+.points-and-xs-container {
+    width: 100%;
+    padding: 2px 0 4px 0;
+    font-size: 1em;
+    margin: 0 auto;
+    white-space: nowrap;
+    background-color: #3a3a3a;
+    color: white;
+}
+
+.pointsandxs-div {
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+}
+
+.divider {
+    display: inline-block;
+    height: 2em;
+    width: 0.5px;
+    margin-top: 0.5em;
+    border: 1px solid white;
+}
+
+.points {
+    float: left;
+    clear: left;
+}
+
+.xs {
+    float: right;
+    clear: right;
+}
+
+.xs-p {
+    padding: 0;
+    margin: 0 auto;
+    font-weight: bold;
+    text-align: center;
+}
+
+.x {
+    padding: 0 .2em;
+    margin: 0;
+}
+
+.points-title {
+     display: inline-block;
+     width: 45%;
+     margin: 0 auto;
+     text-align: center;
+     color: white;
+     border-bottom: 1px solid white;
+}
+
+.points-span {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.game-letters-container {
+    position: relative;
+    width: 95%;
+    height: 20%;
+    margin: 1em auto 0 auto;
+    padding-top: 0.2em;
+    overflow-y: auto;
+    overflow-x: hidden;
+    text-align: center;
+    color: #fafffa;
+    z-index: 20;
+}
+
+.game-letters-div {
+    margin: 0 auto;
+    text-align: center;
+    color: #fafffa;
+}
+
+.guess-container {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.guess {
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: #f0f0f0;
+    overflow: hidden;
+}
+
+.guess-middle {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+}
+
+.timer-bar {
+    position: relative;
+    height: 10px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    background-color: #efddef;
+}
+
+.timer-inner-bar-pre {
+    position: relative;
+    display: block;
+    width: 0%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+    background-color: red;
+    overflow: hidden;
+    -moz-transition: width 6s linear;
+    -webkit-transition: width 6s linear;
+    -o-transition: width 6s linear;
+    transition: width 6s linear;
+    border-top: 2px solid #8f0000;
+    border-bottom: 2px solid #8f0000;
+}
+
+
+.color-divs {
+    display: inline-block;
+    position: relative;
+    width: 50%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    color: white;
+    line-height: 4em;
+    opacity: 1;
+    font-size: 1.5em;
+    -moz-transition: width 0.3s, margin-left 0.3s, opacity 0.3s;
+    -webkit-transition: width 0.3s, margin-left 0.3s, opacity 0.3s;
+    -o-transition: width 0.3s, margin-left 0.3s, opacity 0.3s;
+    transition: width 0.3s, margin-left 0.3s, opacity 0.3s;
+}
+
+.buttons-div {
+    position: relative;
+    display:-webkit-box;
+    display:-ms-flexbox;
+    display:-webkit-flex;
+    display:flex;
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    -webkit-align-items: flex-end;
+    align-items: flex-end;
+    width: 100%;
+    z-index: 10;
+}
+
+.buttons-instructions {
+    font-size: 1em;
+    padding-top: 1em;
+    color: #363636;
+}
+
+.yesno-button {
+    display: inline-block;
+    background-color: white;
+    padding: 0.4em 0;
+    margin-top: 0.5em;
+    border: none;
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.2em;
+    font-weight: 800;
+    border-radius: 3px
+}
+
+.yes-button {
+    border: 2px solid #555555;
+    color: black;
+    height: 2em;
+    width: 50%;
+    box-shadow: 1px -1px 1px #bababa;
+}
+
+.notyet-button {
+    border: 2px solid #555555;
+    width: 75%;
+}
+
+.touched{
+    background-color: #3a3a3a;
+    color: white;
+}
+
+.no-button {
+    border: 2px solid #555555;
+    height: 2em;
+    color: black;
+    width: 50%;
+    box-shadow: -1px -1px 1px #bababa;
+}
+
+.it-matches-svg {
+    margin-top: 3em;
+    width: 28em;
+    height: 8em;
+}
+
+.plus-5-svg {
+    display: block; 
+    margin: 20px auto; 
+    width: 15%; 
+    height: 15%;
+}
+
+.good-call-svg {
+    margin-top: 3em; 
+    width: 25em; 
+    height: 8.5em;
+}
+
+.panda-svg {
+    display: block;
+    vertical-align: middle;
+    width: 80%;
+    height: 50%;
+    margin: auto;
+}
+
+.missed-it-svg {
+    margin-top: 5em;
+    width: 40em;
+    height: 22em;
+}
+
+.dont-match-svg {
+    margin-top: 2em;
+    width: 38em;
+    height: 16em;
+}
+
+#newGameButton{
+    color: white;
+    box-shadow: -2px 1px 8px #aaaaaa;
+    font-size: 1.7em;
+    width: 100%;
+    border: none;
+    min-width: 320px;
+    height: 2em;
+    min-height: 52px;
+    background-color: #3ecf8e;
+}
+
+.letter-choices-container {
+    position: relative;
+    height: 25%;
+    text-align: center;
+    overflow-y: auto;
+    overflow-x: hidden;
+    visibility: hidden;
+    background-color: gray;
+}
+
+.letter-p {
+    display: inline-block;
+    margin: auto;
+    text-align: center;
+    text-shadow: -2px 1px 4px gray;
+}
+
+.letter-div {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    background: lightblue;
+    border: 3px solid #fafffa;
+    border-radius: 0.4em;
+}
+
+.letter-instructions {
+    margin-bottom: 2em;
+    color: black;
+    opacity: 0;
+    -moz-transition: opacity 0.5s; 
+    -webkit-transition: opacity 0.5s; 
+    -o-transition: opacity 0.5s; 
+    transition: opacity 0.5s;   
+}
+
+.underscores {
+    display: inline-block;
+    position: relative;
+    margin: 0.2em 0.5em;
+    padding: 0 1em;
+    color: #363636;
+    background-color: beige;
+}
+
+.panda-boxes {
+    position: relative;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.startup-div {
+    height: auto;
+    margin: auto;
+}
+
+.demo-instructions-section-div {
+    position: relative;
+    width: 100%;
+    -moz-transition: opacity 1s; 
+    -webkit-transition: opacity 1s; 
+    -o-transition: opacity 1s; 
+    transition: opacity 1s;
+    opacity: 0;
+    font-size: 0.8em;
+}
+
+.demo-instructions-under-div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    background-color: #333333;
+    opacity: 0.3;
+}
+
+.demo-instructions-over-div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+    text-align: center;
+    color: white;
+    padding: 0.3em;
+}
+
+.demo-instructions-words {
+    display: inline-block;
+    padding: 0.75em;
+    -moz-transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93); 
+    -webkit-transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93); 
+    -o-transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93); 
+    transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93);
+}
+
+.rainbow-cover {
+    -moz-transition: margin-left 7s; 
+    -webkit-transition: margin-left 7s; 
+    -o-transition: margin-left 7s; 
+    transition: margin-left 7s; 
+}
+
+/* modal classes */
+
+.modal-div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin-top: -2em;
+    top: 0%; 
+    left: 0%; 
+    background-color: #f0f0f0;
+    opacity: 0;
+    display: none;
+    -moz-transition: margin-top 0.5s, opacity 0.5s; 
+    -webkit-transition: margin-top 0.5s, opacity 0.5s; 
+    -o-transition: margin-top 0.5s, opacity 0.5s; 
+    transition: margin-top 0.5s, opacity 0.5s; 
+    overflow: hidden;
+    z-index: 30;
+}
+
+.modal-div-header {
+    width: 100%;
+    margin: 0;
+    padding: 0.7em 0;
+    text-align: center;
+    color: #fafffa;
+    background-color: #2e2e2e;
+}
+
+.modal-div-footer {
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    padding: 2.5em 0;
+    margin-top: -4.5em;
+    background-color: #2e2e2e;
+    display: none;
+}
+
+.modal-game-title {
+    width: 100%;
+    margin: 0.2em;
+    font-size: 2em;
+    text-align: center;
+    color: #7a00cc;
+}
+
+
+.ul-for-header {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.li-for-header-left {
+    display: inline-block;
+    width: 20%;
+    margin: 0;
+    overflow: hidden;
+    cursor: default;
+    text-align: left;
+    padding: 0.2em 0 0.2em 0;
+
+}
+
+.li-for-header-middle {
+    display: inline-block;
+    width: 50%;
+    margin: 0;
+    text-align: center;
+    overflow: hidden;
+    font-size: 1.5em;
+    font-weight: 800;
+}
+
+.li-for-header-right {
+    display: inline-block;
+    width: 20%;
+    margin: 0;
+    overflow: hidden;
+    cursor: default;
+    text-align: right;
+    padding: 0.2em 0 0.2em 0;
+}
+
+.menu-li-pad {
+    margin-top: 0.8em;
+}
+
+.hidden-opt-right {
+    position: absolute; 
+    width: 7em;
+    height: 4em;
+    top: 0;
+    left: 100%;
+    margin-left: -7em;
+    z-index: 31;
+}
+
+.hidden-opt-left {
+    position: absolute; 
+    width: 7em;
+    height: 4em;
+    top: 0;
+    left: 0;
+    margin-left: 0;
+    z-index: 31;
+}
+
+.menu-div {
+    height: 100%;
+}
+
+.game-message-div {
+    opacity: 0;
+    z-index: 32;
+}
+
+.startup-message-div {
+    z-index: 100;
+}
+
+.change-password-confirmation-div {
+    z-index: 31;
+}
+
+.buttons-paragraph {
+    width: 84%;
+    margin: 0;
+    padding: .2em 0;
+    text-align: right;
+}
+
+.buttons-signin {
+    margin: 0;
+    padding: 10px 15px 11px;
+}
+
+.screen-width {
+    width: 100%;
+}
+
+/* individual modal classes */
+
+.menu-div-ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    color: #663399;
+}
+
+.menu-div-li {
+    margin: 0;
+    background-color: #f3f6f9;
+}
+
+.li-even {
+    background: -moz-linear-gradient(left, #ffffff, #e6e9ec);
+    background: -webkit-linear-gradient(left, #ffffff, #e6e9ec);
+    background: -o-linear-gradient(left, #ffffff, #e6e9ec);
+    background: linear-gradient(to right, #ffffff, #e6e9ec);
+}
+
+.li-odd {
+    background: -moz-linear-gradient(left, #e6e9ec, #ffffff);
+    background: -webkit-linear-gradient(left, #e6e9ec, #ffffff);
+    background: -o-linear-gradient(left, #e6e9ec, #ffffff);
+    background: linear-gradient(to right, #e6e9ec, #ffffff);
+}
+
+#profileChoice{
+    padding-right: 3em;
+}
+
+.menu-div-svg-icon {
+    float: left;
+    width: 1.5em;
+    height: 1.5em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.menu-div-item {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: 500;
+    color: dimgray;
+    line-height: 1em;
+}
+
+.menu-div-item-description {
+    margin: 0;
+    text-align: left;
+    color: #888888;
+}
+
+.instruction-top-li {
+    padding-left: 0.8em;
+    padding-right: 0.8em;
+    text-align: justify;
+}
+
+.instruction-ul {
+    padding: 0;
+    margin: 0;
+    font-size: 1em;
+    text-align: left;
+    overflow-y: auto;
+    list-style: none;;
+    color: #8E3ECF;
+}
+
+.instruction-li {
+    margin: 0;
+    padding-left: 0.8em;
+    padding-right: 0.8em;
+    text-align: justify;
+}
+
+.instruction-header-paragraph {
+    margin: 0;
+    color: #8E3ECF;
+}
+
+.instruction-paragraph {
+    color: gray;
+}
+
+.signup-form-div {
+    overflow-y: auto;
+    overflow-x: hidden;
+    margin-top: 1em;
+}
+
+input#signupSubmit {
+    color: white;
+    width: 100%;
+    margin: 0;
+    -webkit-appearance: none;
+}
+
+.signup-form-form {
+    /* width: 100%;
+    margin: 0.5em auto 0 auto;
+    padding: 1em 1em 15em 1em; */
+    /* color: #663399;
+    background-color: #e5e5e5;
+    overflow: hidden;
+    border-radius: 8px; */
+}
+
+.green-check {
+    height: 1.2em;
+    position: relative;
+    visibility: hidden;
+    bottom: 2em;
+    float: right;
+    right: 0.5em;
+}
+
+.signin-form-form {
+    /* overflow: hidden;
+    padding-bottom: 12.5em; */
+}
+
+.form-footer {
+    margin: 0;
+    background-color: #666666;
+}
+
+.signup-form-paragraph {
+    /* width: 95%; */
+    /* width: 100%; */
+    margin: 0.5em 0.6em 0em 0.6em;
+    /* padding: .2em 0; */
+}
+
+.signup-form-input {
+    /* margin: 0;
+    width: 100%; */
+    border: 0.5px solid navy;
+    border-radius: 5px;
+    /* -webkit-box-shadow: inset 2px 2px 9px #969696;
+    -moz-box-shadow: inset 2px 2px 9px #969696; */
+    /* box-shadow: inset 2px 2px 9px #969696; */
+}
+
+.profile-options-ul {
+    position: relative;
+    width: 100%;
+    padding: 0 0.3em;
+    list-style: none;
+    z-index: 30;
+    text-align: center;
+}
+
+.profile-option {
+    display: inline-block;
+    padding: 0.3em 1.8em;
+    text-decoration: none;
+    text-align: center;
+    border: none;
+}
+
+.change-password {
+    background-color: #3ecf8e;
+    color: #fafffa;
+}
+
+.change-account-info {
+    background-color: #7a00cc;
+    color: #fafffa;
+}
+
+.cancel-membership {
+    background-color: #666666;
+    color: #fafffa;
+}
+
+.change-login-div {
+    height: 0;
+}
+
+.cancel-membership-div {
+    height: 0;
+}
+
+.profile-paragraph {
+    width: 92%;
+    padding: 0.2em 0 0.2em 0.5em;
+}
+
+.profile-error-message {
+    padding: 0.1em 2em;
+    color: red;
+}
+
+.profile-input {
+    width: 80%;
+    font-size: 1.3em;
+    border: 1px solid #aaaaaa;
+}
+
+.profile-update-button {
+    border: none;
+    background-color: #3311cc;
+    color: #fafffa;
+    padding: 0.3em 1.5em;
+    margin-left: 0.5em;
+}
+
+.profile-cancel-button {
+    border: none;
+    padding: 0.3em 1.5em;
+    margin-right: 1em;
+}
+
+.profile-option-div {
+    border-bottom: 1px solid gray;
+    overflow: hidden;
+    -moz-transition: height .5s, margin .5s; 
+    -webkit-transition: height .5s, margin .5s; 
+    -o-transition: height .5s, margin .5s; 
+    transition: height .5s, margin .5s; 
+}
+
+.logout {
+    padding: 0.4em 0.7em;
+    float: right;
+    clear: right;
+    border: none;
+    background-color: #bebebe;
+    color: blue;
+    box-shadow: -1px 1px 9px #cfcfcf;
+}
+
+.profile-update-result {
+    padding: 0.5em 0em;
+    margin: 0.5em 0;
+    font-style: italic;
+    color: #00C000;
+    opacity: 0;
+    -moz-transition: opacity 0.5s; 
+    -webkit-transition: opacity 0.5s; 
+    -o-transition: opacity 0.5s; 
+    transition: opacity 0.5s;
+}
+
+.profile-paragraph-2 {
+    padding: 0.1em .2em;
+    margin: 0.1em 1.3em;
+    color: slateblue;
+}
+
+.profile-email {
+    color: #3ecf8e;
+}
+
+.profile-cellphone {
+    color: #3ecf8e;
+}
+
+.score-history {
+    width: 90%;
+    padding: 0.5em 2em;
+    margin: 0.5em auto; 
+}
+
+.score-history-table {
+    width: 100%;
+    margin: 0.5em auto;
+    text-align: center;
+}
+
+.contactus-message {
+    width: calc(100% - 6px);
+    font-size: 1.35em;
+    margin-top:0.5em;
+    height: 55vh;
+    border: 1px solid black;
+}
+
+.contactus-form-form {
+    height: 150%;
+}
+
+.flex-grow-1 {
+    -webkit-box-flex: 1;
+    -ms-flex-positive: 1;
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+}
+
+.flex-grow-half {
+    -webkit-box-flex: 0.5;
+    -ms-flex-positive: 0.5;
+    -webkit-flex-grow: 0.5;
+    flex-grow: 0.5;
+}
+
+.flex-grow-quarter {
+    -webkit-box-flex: 0.25;
+    -ms-flex-positive: 0.25;
+    -webkit-flex-grow: 0.25;
+    flex-grow: 0.25;
+}
+
+.flex-grow-9 {
+    -webkit-box-flex: 9;
+    -ms-flex-positive: 9;
+    -webkit-flex-grow: 9;
+     flex-grow: 9;
+}
+
+.flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
+
+.flex-center {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+}
+
+.flex-row{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row
+}
+
+.flex-space-between {
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+@media only screen and (max-width: 320px) {
+    .menu-div-item {
+        font-size: 1.5em;
+        line-height: 1em;
+    }
+
+    .menu-div-item-description{
+        font-size: 0.8em;
+        width: 250px;
+    }
+
+    .menu-li-pad {
+        margin-top: 0.2em;
+        margin-right: 0.2em;
+    }
+
+    .menu-div-svg-icon {
+        float: left;
+        width: 1.5em;
+        height: 1.5em;
+        margin-left: 1em;
+        margin-right: 1em;
+    }
+}
+
+div#startupDiv {
+    background-color: white;
+}
+
+@media only screen and (max-height: 475px) {
+    .buttons-instructions {
+        margin: 0;
+        padding-top: 0.6em;
+        padding-bottom: 2em;
+    }
+}
+
+@media (max-width: 600px) and (min-width: 320px){
+    .good-call-svg {
+        margin-top: 0;
+        width: 10em;
+        height: 5em;
+    }
+
+    .plus-5-svg {
+        display: block; 
+        margin: 20px auto; 
+        width: 15%; 
+        height: 15%;
+    }
+
+    .missed-it-svg {
+        margin-top: 0;
+        width: 15em;
+        height: 15em
+    }
+
+    .it-matches-svg {
+        margin-top: 0;
+        width: 15em;
+        height: 5em;
+    }
+
+    .dont-match-svg {
+        margin: 0;
+        width: 15em;
+        height: 10em;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1123px) {
+    body{
+        font-size: 1.8em;
+    }
+}
+
+@media (min-width: 767px) and (max-width: 1023px) {
+    body{
+        font-size: 1.5em;
+    }
+}
