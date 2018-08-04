@@ -1968,6 +1968,8 @@ function checkForStartupMessage() {
                 var messageArr = message.split(":q:");
                 if (messageArr[0] == "1") {
                     csrfVar = messageArr[1];
+                    console.log("in checkForStartupMessage");
+                    console.log(csrfVar);
                     localStorage.setItem("csrfToken",csrfVar);
                 } else {
                     var el = document.getElementById('startupMessageSpan');
