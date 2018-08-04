@@ -165,7 +165,7 @@ class PlayersController < ApplicationController
 
 	def startup_message
 		form_authenticity_token
-		render plain: "1:q:" + session[:_csrf_token]
+		render plain: "1:q:" + params[:authenticity_token]
 	end
 
   def player_params
