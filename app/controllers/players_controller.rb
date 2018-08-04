@@ -168,7 +168,6 @@ class PlayersController < ApplicationController
 		puts " "
 		puts "  "
 		puts "1:q:" + form_authenticity_token
-		headers["Access-Control-Allow-Origin"] = "*"
 		render plain: "1:q:" + form_authenticity_token 
 	end
 

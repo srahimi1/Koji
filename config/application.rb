@@ -13,7 +13,7 @@ module App1
     config.action_dispatch.default_headers = {
     	"Access-Control-Allow-Origin" => "*",
       	"Access-Control-Allow-Methods" => "OPTIONS, GET, POST, PATCH, PUT, DELETE",
-      	"Access-Control-Allow-Headers" => "X-PINGOTHER, Content-Type",
+      	"Access-Control-Allow-Headers" => "Origin, X-Requested-With, X-PINGOTHER, Content-Type, Accept",
       	"Access-Control-Max-Age" => "86400"
     }
     # Settings in config/environments/* take precedence over those specified here.
