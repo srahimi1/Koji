@@ -295,16 +295,22 @@ input.signup-form-submit-button {
 .timer-inner-bar-pre {
     position: relative;
     display: block;
-    width: 0%;
+    width: 1px;
     height: 100%;
     padding: 0;
     margin: 0;
     background-color: red;
     overflow: hidden;
-    -moz-transition: width 6s linear;
-    -webkit-transition: width 6s linear;
-    -o-transition: width 6s linear;
-    transition: width 6s linear;
+    -moz-transition: transform 6s linear;
+    -ms-transition: transform 6s linear;
+    -webkit-transition: transform 6s linear;
+    -o-transition: transform 6s linear;
+    transition: transform 6s linear;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
     border-top: 2px solid #8f0000;
     border-bottom: 2px solid #8f0000;
 }
@@ -322,6 +328,7 @@ input.signup-form-submit-button {
     opacity: 1;
     font-size: 1.5em;
     -moz-transition: width 0.3s, margin-left 0.3s, opacity 0.3s;
+    -ms-transition: width 0.3s, margin-left 0.3s, opacity 0.3s;
     -webkit-transition: width 0.3s, margin-left 0.3s, opacity 0.3s;
     -o-transition: width 0.3s, margin-left 0.3s, opacity 0.3s;
     transition: width 0.3s, margin-left 0.3s, opacity 0.3s;
@@ -397,6 +404,11 @@ input.signup-form-submit-button {
     margin: 20px auto; 
     width: 15%; 
     height: 15%;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .good-call-svg {
@@ -461,6 +473,11 @@ input.signup-form-submit-button {
     background: lightblue;
     border: 3px solid #fafffa;
     border-radius: 0.4em;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
 }
 
 .letter-instructions {
@@ -1089,6 +1106,11 @@ div#startupDiv {
         margin: 20px auto; 
         width: 15%; 
         height: 15%;
+        -webkit-transform: translateZ(0);
+        -moz-transform: translateZ(0);
+        -ms-transform: translateZ(0);
+        -o-transform: translateZ(0);
+        transform: translateZ(0);
     }
 
     .missed-it-svg {

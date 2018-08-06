@@ -711,9 +711,14 @@ function popUpALetter(letter) {
                 values[0] = Math.floor(values[0]);
                 if (((100 - values[0]) > 5)  && ((100 - values[0]) < 90)) {
                     letter.style.padding = "0";
-                    letter.style.width = (width * ((100 - values[0])/100)) + "px";
-                    letter.style.height = (height * ((100 - values[0])/100)) + "px";                
-                    letter.style.top = -(height - (height * ((100 - values[0])/100)))/2 + "px";
+                    letter.style.webkitTransform = "scale("+ ((100 - values[0])/100) +")";
+                    letter.style.mozTransform = "scale("+ ((100 - values[0])/100) +")";
+                    letter.style.msTransform = "scale("+ ((100 - values[0])/100) +")";
+                    letter.style.oTransform = "scale("+ ((100 - values[0])/100) +")";
+                    letter.style.transform = "scale("+ ((100 - values[0])/100) +")";
+                    //letter.style.width = (width * ((100 - values[0])/100)) + "px";
+                    //letter.style.height = (height * ((100 - values[0])/100)) + "px";                
+                    //letter.style.top = -(height - (height * ((100 - values[0])/100)))/2 + "px";
                 }
                 if (((100 - values[0]) < 10) && (moved == 0)) {                 
                     letter.style.visibility = "hidden";
@@ -728,7 +733,7 @@ function popUpALetter(letter) {
                     moved = 2;
                 } // if (((100 - values[0]) < 10) && (moved == 0)) 
             }
-        },22);
+        },17);
     return true;
 } // function popUpALetter(letter)
 
@@ -928,13 +933,9 @@ function makeLetterDivs(ind) {
         elP.setAttribute("class","letter-p");
         elP.style.fontFamily = useTheseLetters[i].font;
         elP.style.webkitTransform = "rotate("+angle+"deg)";
-        elP.style.WebkitTransform = "rotate("+angle+"deg)";
         elP.style.mozTransform = "rotate("+angle+"deg)";
-        elP.style.MozTransform = "rotate("+angle+"deg)";
         elP.style.msTransform = "rotate("+angle+"deg)";
-        elP.style.MsTransform = "rotate("+angle+"deg)";
         elP.style.oTransform = "rotate("+angle+"deg)";
-        elP.style.OTransform = "rotate("+angle+"deg)";
         elP.style.transform = "rotate("+angle+"deg)";
         var t = document.createTextNode(useTheseLetters[i].letter);
         elP.appendChild(t);
@@ -1131,7 +1132,7 @@ function isGameLost() {
 function showLetters() {
     drawLine();
     if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3)) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
-    else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='replayTransparent.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {gc.style.display = "none"; shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
+    else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='img/replayTransparent.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {gc.style.display = "none"; shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
     return true;
 } // end function showLetters()
 
@@ -1269,12 +1270,12 @@ function animatePoints(add, code) {
     if (code == 0) {
         if (numberCorrect == correctLimit) 
             clearTimeout(getNextColorsTimeoutID);
-        time=22;
+        time=17;
     }
     else if (code == 1) 
         time=500;
     else if (code == 2) 
-        time=22;
+        time=17;
     else if (code == 3) 
         time=500;
     if (code == 0) el2 = document.getElementById("plus5svg2");
@@ -1297,13 +1298,18 @@ function animatePoints(add, code) {
             else {
                 values[1] += 0.05;
                 if ((code == 0) || (code == 2)) {
-                    if (code == 0) values = animateSmallLargeMedium(1, 2.2, values[1], 12, null);  
-                    else if (code == 2) values = animateSmallLargeMedium(1, 1.2, values[1], 3, null);
-                    el2.style.width = (12.5*values[0])+"%";
-                    el2.style.height = (12.5*values[0])+"%";
+                    if (code == 0) values = animateSmallLargeMedium(1, 2, values[1], 9, null);  
+                    else if (code == 2) values = animateSmallLargeMedium(1, 2, values[1], 3, null);
+                    //el2.style.width = (12.5*values[0])+"%";
+                    //el2.style.height = (12.5*values[0])+"%";
+                    el2.style.webkitTransform = "scale("+values[0]+")";
+                    el2.style.msTransform = "scale("+values[0]+")";
+                    el2.style.mozTransform = "scale("+values[0]+")";
+                    el2.style.oTransform = "scale("+values[0]+")";
+                    el2.style.transform = "scale("+values[0]+")";
                     //el2.style.left = "50%";
-                    el2.style.marginTop = (20 - ((el2.getBoundingClientRect().height - ht)/2)) + "px"; // ((height-el2.getBoundingClientRect().height)/2) + "px";
-                    el2.style.marginLeft = (mp - (el2.getBoundingClientRect().width/2)) + "px"; //(left-((width-el2.getBoundingClientRect().width))) + "px";
+                   // el2.style.marginTop = (20 - ((el2.getBoundingClientRect().height - ht)/2)) + "px"; // ((height-el2.getBoundingClientRect().height)/2) + "px";
+                    //el2.style.marginLeft = (mp - (el2.getBoundingClientRect().width/2)) + "px"; //(left-((width-el2.getBoundingClientRect().width))) + "px";
                 }
                 else if ((code == 1) || (code == 3)) {
                     values = [-1,-1];
@@ -2031,7 +2037,7 @@ function showBeginningModal() {
 
 function setupTimer() {
     if (!!window.Worker) {
-        if (!webWorker) {webWorker = new window.Worker("timer.js"); webWorker.onmessage = function(evt) {updateTimer(evt.data);} }
+        if (!webWorker) {webWorker = new window.Worker("js/timer.js"); webWorker.onmessage = function(evt) {updateTimer(evt.data);} }
     } // end if (!!window.Worker)
     else {
         dateStart = new Date();
@@ -2108,8 +2114,11 @@ function transition_bars() {
     var par = document.getElementById("timerBar");
     var a = par.childNodes[0];
     var b = par.childNodes[1];
-    a.style.width = "50%";
-    b.style.width = "50%";
+    var len = par.offsetWidth;
+    a.style.transform = "scaleX(" + len + ")";
+    b.style.transform = "scaleX(" + len + ")";
+   // a.style.width = "50%";
+   // b.style.width = "50%";
     return true;
 } // end function transition_bars()
 
