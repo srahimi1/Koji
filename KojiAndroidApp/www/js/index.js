@@ -1955,6 +1955,7 @@ function animateMenu(para, code) {
 } // end function animateMenu(para, code)
 
 function checkForStartupMessage() {
+    console.log("in checkforstartupmessage");
     var version = document.getElementById("gameVersion").value;
     //var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
     var route = "/message?version="+version;
