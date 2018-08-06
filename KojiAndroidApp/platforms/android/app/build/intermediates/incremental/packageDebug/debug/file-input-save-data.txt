@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Mon Aug 06 08:11:08 EDT 2018
+#Mon Aug 06 09:41:14 EDT 2018
 25.file=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-port-hdpi-v4\\screen.png
 25.base=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 22.set=ANDROID_RESOURCE

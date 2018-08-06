@@ -2065,7 +2065,7 @@ function updateTimer(time) {
             var timeDiffInSec = Math.floor(timeDiff / 1000);
             var minutes = Math.floor(timeDiffInSec / 60);
             var seconds = timeDiffInSec % 60;
-            var displayTime = 6 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
+            var displayTime = 6- seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
             //if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
             if ((displayTime == -1) || (displayTime < 0)) {displayTime = 6; startTime = null; clearLines(); isGameLost();}
 /*          if (displayTime < 0) {displayTime = 25; startTime = null; clearLines();}
@@ -2097,13 +2097,13 @@ function add_bars() {
     var par = document.getElementById("timerBar");
     par.style.display = "none";
     var a = document.createElement("div");
-    a.setAttribute("class","timer-inner-bar-pre"); 
-    var b = document.createElement("div"); 
-    b.setAttribute("class","timer-inner-bar-pre");
+    a.setAttribute("class","timer-inner-bar-pre");
+    var b = document.createElement("div");
+    b.setAttribute("class","timer-inner-bar-middle");
     par.appendChild(a);
-    par.appendChild(b); 
-    a.style.float = "left";
-    b.style.float = "right";
+    par.appendChild(b);
+   // a.style.float = "left";
+   // b.style.float = "right";
     par.style.display = "block";
     a.getBoundingClientRect();
     b.getBoundingClientRect();
@@ -2114,9 +2114,8 @@ function transition_bars() {
     var par = document.getElementById("timerBar");
     var a = par.childNodes[0];
     var b = par.childNodes[1];
-    var len = par.offsetWidth;
-    a.style.transform = "translateX(" + len/4 + "px) scaleX(" + len/2 + ")";
-    b.style.transform = "translateX(" + (0-len/4) + "px) scaleX(" + len/2 + ")";
+   // a.style.transform = "translateX("+ Math.floor(len/4) +"px) scaleX(" + Math.floor(len/2) + ")";
+   b.style.transform = "scaleX(0.0001)";
    // a.style.width = "50%";
    // b.style.width = "50%";
     return true;
