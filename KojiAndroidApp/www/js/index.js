@@ -2115,8 +2115,8 @@ function transition_bars() {
     var a = par.childNodes[0];
     var b = par.childNodes[1];
     var len = par.offsetWidth;
-    a.style.transform = "scaleX(" + len + ")";
-    b.style.transform = "scaleX(" + len + ")";
+    a.style.transform = "translateX(" + len/4 + "px) scaleX(" + len/2 + ")";
+    b.style.transform = "translateX(" + (0-len/4) + "px) scaleX(" + len/2 + ")";
    // a.style.width = "50%";
    // b.style.width = "50%";
     return true;
