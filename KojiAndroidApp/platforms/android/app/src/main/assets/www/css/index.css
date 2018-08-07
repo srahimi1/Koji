@@ -373,7 +373,7 @@ input.signup-form-submit-button {
 
 .buttons-instructions {
     font-size: 1em;
-    padding-top: 1em;
+    padding: 0.5em;
     color: #363636;
 }
 
@@ -1118,8 +1118,7 @@ div#startupDiv {
 @media only screen and (max-height: 475px) {
     .buttons-instructions {
         margin: 0;
-        padding-top: 0.6em;
-        padding-bottom: 2em;
+        padding: 0.5em;
     }
 }
 

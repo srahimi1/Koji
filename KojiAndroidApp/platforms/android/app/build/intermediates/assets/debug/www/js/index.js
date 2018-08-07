@@ -2063,9 +2063,9 @@ function updateTimer(time) {
             var timeDiffInSec = Math.floor(timeDiff / 1000);
             var minutes = Math.floor(timeDiffInSec / 60);
             var seconds = timeDiffInSec % 60;
-            var displayTime = 60000 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
+            var displayTime = 6 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
             //if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
-            if ((displayTime == -1) || (displayTime < 0)) {displayTime = 60000; startTime = null; clearLines(); isGameLost();}
+            if ((displayTime == -1) || (displayTime < 0)) {displayTime = 6; startTime = null; clearLines(); isGameLost();}
 /*          if (displayTime < 0) {displayTime = 25; startTime = null; clearLines();}
             else if ((displayTime < 1) && (startTime != -1)) { startTime = -1; isGameLost(); }*/
             timerEl.style.display = "none";
