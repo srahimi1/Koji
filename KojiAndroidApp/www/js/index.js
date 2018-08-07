@@ -42,6 +42,7 @@ app.initialize();
 
 rootURL = "http://arsr-app1.herokuapp.com";
 csrfVar = "";
+timerTime = 6;
 yesnoButtonEnabled = true;
 gameContentHTML = null;
 gameC = null;
@@ -189,6 +190,7 @@ function clearLines() {
 
 function setupNewGame(demoInstructionsCode) {
     yesnoButtonEnabled = true;
+    timerTime = 6;
     gameC.removeAttribute("class");
     gameC.style.display = "none";
     gameC.innerHTML = gameContentHTML;
@@ -301,7 +303,7 @@ function finishSettingUpGame(demoInstructionsCode) {
     gc.setAttribute("class", "goal-container-post");
     gameC.style.visibility = "visible";
     setupTimer();
-    if (demoInstructionsCode == 1) doDemoInstructions();
+    if (demoInstructionsCode == 1) {timerTime = 6000; doDemoInstructions();}
     return false;
 } // end function finishSettingUpGame()
 
@@ -998,7 +1000,7 @@ function switchButtonsAndLetters(code) {
 
 function doDemoInstructions() {
     resetDemoInstructions();
-    setTimeout(function() {demoShowing = true; setGameContentHeightWidth(); showDemoInstructions();},1100);
+    setTimeout(function() {demoShowing = true; setGameContentHeightWidth(); showDemoInstructions();},1000);
 }
 
 function resetDemoInstructions() {
@@ -1032,42 +1034,42 @@ function showDemoInstructions() {
     document.getElementById("demoInstructions0A").style.opacity = 1;
     document.getElementById("demoInstructions0A").style.height = ht1 + "px";
     document.getElementById("demoInstructions3").style.opacity = 1;
-    setTimeout(function() {document.getElementById("demoInstructions1").style.opacity = 1;}, 2000);
-    setTimeout(function() {document.getElementById("demoInstructions2").style.opacity = 1;}, 5000);
-    setTimeout(function() {closeMenu(document.getElementById('demoAnimatedInstructionsDiv1'));}, 10000);
+    setTimeout(function() {document.getElementById("demoInstructions1").style.opacity = 1;}, 1000);
+    setTimeout(function() {document.getElementById("demoInstructions2").style.opacity = 1;}, 2500);
+    setTimeout(function() {closeMenu(document.getElementById('demoAnimatedInstructionsDiv1'));}, 6500);
     
-    setTimeout(function() {showMenu(document.getElementById('demoAnimatedInstructionsDiv2'));}, 11000);
-    setTimeout(function() {document.getElementById("demoInstructions0B").style.height = ht1 + "px"; document.getElementById("demoInstructions0B").style.opacity = 1;}, 11000);
-    setTimeout(function() {document.getElementById("demoInstructions4").style.opacity = 1;}, 12000);
-    setTimeout(function() {document.getElementById("demoInstructions5").style.opacity = 1;}, 14500);
-    setTimeout(function() {document.getElementById("demoInstructions6").style.opacity = 1;}, 17000);
-    setTimeout(function() {closeMenu(document.getElementById('demoAnimatedInstructionsDiv2'));}, 23000);
+    setTimeout(function() {showMenu(document.getElementById('demoAnimatedInstructionsDiv2'));}, 7000);
+    setTimeout(function() {document.getElementById("demoInstructions0B").style.height = ht1 + "px"; document.getElementById("demoInstructions0B").style.opacity = 1;}, 7500);
+    setTimeout(function() {document.getElementById("demoInstructions4").style.opacity = 1;}, 8000);
+    setTimeout(function() {document.getElementById("demoInstructions5").style.opacity = 1;}, 10000);
+    setTimeout(function() {document.getElementById("demoInstructions6").style.opacity = 1;}, 12000);
+    setTimeout(function() {closeMenu(document.getElementById('demoAnimatedInstructionsDiv2'));}, 15500);
 
-    setTimeout(function() {showMenu(document.getElementById('demoAnimatedInstructionsDiv3'));}, 24000);
-    setTimeout(function() {document.getElementById("demoInstructions0C").style.height = ht1 + "px"; document.getElementById("demoInstructions0C").style.opacity = 1;}, 24000);
-    setTimeout(function() {document.getElementById("demoInstructions7").style.opacity = 1;}, 25000);
-    setTimeout(function() {drawLine(); drawLine();}, 28000);
-    setTimeout(function() {document.getElementById("demoInstructions8").style.opacity = 1;}, 29000);
-    setTimeout(function() {numberCorrect = 6; selectUnderscore(document.getElementById("letterBox:0"), inputData.letters); switchButtonsAndLetters(2);}, 34000);
-    setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 35000);
-    setTimeout(function() {selectUnderscore(document.getElementById("letterBox:2"), inputData.letters); }, 36000);
-    setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 37000);
-    setTimeout(function() {selectLetter(document.getElementById("letterChoices1").firstChild);}, 38000);
-    setTimeout(function() {document.getElementById("demoInstructions9").style.opacity = 1;}, 39000);
-    setTimeout(function() {closeMenu(document.getElementById("demoAnimatedInstructionsDiv3"));}, 44000);
+    setTimeout(function() {showMenu(document.getElementById('demoAnimatedInstructionsDiv3'));}, 16000);
+    setTimeout(function() {document.getElementById("demoInstructions0C").style.height = ht1 + "px"; document.getElementById("demoInstructions0C").style.opacity = 1;}, 16500);
+    setTimeout(function() {document.getElementById("demoInstructions7").style.opacity = 1;}, 17000);
+    setTimeout(function() {drawLine(); drawLine();}, 19000);
+    setTimeout(function() {document.getElementById("demoInstructions8").style.opacity = 1;}, 22000);
+    setTimeout(function() {numberCorrect = 6; selectUnderscore(document.getElementById("letterBox:0"), inputData.letters); switchButtonsAndLetters(2);}, 26000);
+    setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 27000);
+    setTimeout(function() {selectUnderscore(document.getElementById("letterBox:2"), inputData.letters); }, 28000);
+    setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 29000);
+    setTimeout(function() {selectLetter(document.getElementById("letterChoices1").firstChild);}, 30000);
+    setTimeout(function() {document.getElementById("demoInstructions9").style.opacity = 1;}, 32000);
+    setTimeout(function() {closeMenu(document.getElementById("demoAnimatedInstructionsDiv3"));}, 35000);
     
-    setTimeout(function() {showMenu(document.getElementById("demoAnimatedInstructionsDiv4"));}, 45000);
-    setTimeout(function() {timerPaused = true; gameOver = true; }, 45000);
-    setTimeout(function() {document.getElementById("demoInstructions0D").style.height = ht1 + "px"; document.getElementById("demoInstructions0D").style.opacity = 1;}, 45000);
-    setTimeout(function() {document.getElementById("zaa1").style.fontSize = "2em"; document.getElementById("zaa1").style.marginTop = "-0.7em"; },46000); 
-    setTimeout(function() {document.getElementById("demoInstructions10").style.opacity = 1;}, 47000);
-    setTimeout(function() {document.getElementById("demoInstructions11").style.opacity = 1;}, 49000);
-    setTimeout(function() {document.getElementById("demoInstructions12").style.opacity = 1;}, 52000);
-    setTimeout(function() {closeMenu(document.getElementById("demoAnimatedInstructionsDiv4"));}, 57000);
+    setTimeout(function() {showMenu(document.getElementById("demoAnimatedInstructionsDiv4"));}, 35500);
+    setTimeout(function() {timerPaused = true; gameOver = true; }, 36000);
+    setTimeout(function() {document.getElementById("demoInstructions0D").style.height = ht1 + "px"; document.getElementById("demoInstructions0D").style.opacity = 1;}, 36000);
+    setTimeout(function() {document.getElementById("zaa1").style.fontSize = "2em"; document.getElementById("zaa1").style.marginTop = "-0.7em"; },37000); 
+    setTimeout(function() {document.getElementById("demoInstructions10").style.opacity = 1;}, 37000);
+    setTimeout(function() {document.getElementById("demoInstructions11").style.opacity = 1;}, 39000);
+    setTimeout(function() {document.getElementById("demoInstructions12").style.opacity = 1;}, 42000);
+    setTimeout(function() {closeMenu(document.getElementById("demoAnimatedInstructionsDiv4"));}, 47000);
     
-    setTimeout(function() {showMenu(document.getElementById("demoAnimatedInstructionsDiv5"));}, 58000);
-    setTimeout(function() {document.getElementById("demoInstructions0E").style.height = ht1 + "px"; document.getElementById("demoInstructions0E").style.opacity = 1;}, 58000);
-    setTimeout(function() {document.getElementById("demoInstructions13").style.opacity = 1;}, 58000);
+    setTimeout(function() {showMenu(document.getElementById("demoAnimatedInstructionsDiv5"));}, 48000);
+    setTimeout(function() {document.getElementById("demoInstructions0E").style.height = ht1 + "px"; document.getElementById("demoInstructions0E").style.opacity = 1;}, 48000);
+    setTimeout(function() {document.getElementById("demoInstructions13").style.opacity = 1;}, 48000);
 }
 
 // end of game functions ...
@@ -1815,7 +1817,6 @@ function signupFormSubmit(stripeToken) {
         var displayname= encodeURIComponent(document.getElementById("displaynameInput").value);
         var password1 = encodeURIComponent(document.getElementById("password1Input").value);
         var password2 = encodeURIComponent(document.getElementById("password2Input").value);
-        var auth_token = document.getElementsByName("authenticity_token")[0].value;
         var version = document.getElementById("gameVersion").value;
         xhttp.abort();
         xhttp.onreadystatechange = function() {
@@ -1837,8 +1838,7 @@ function signupFormSubmit(stripeToken) {
                 } // if (res.toUpperCase() == "OK")
                 showMenu(document.getElementById('gameMessageDiv')); 
                 el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";
-                setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); showMenu(document.getElementById('menuDiv')); },3500);
-                
+                setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); showMenu(document.getElementById('menuDiv')); },3500);               
                 return true;
             } // if (this.readyState == 4 && this.status == 200)
         }; // xhttptemp.onreadystatechange = function()
@@ -1854,7 +1854,6 @@ function signinFormSubmit(code) {
     var email = encodeURIComponent(document.getElementById("loginEmailInput").value);
     var cellphone = encodeURIComponent(returnInteger(document.getElementById("loginCellphoneInput").value));
     var password = encodeURIComponent(document.getElementById("loginPasswordInput").value);
-   // var auth_token = document.getElementsByName("authenticity_token")[0].value;
     if (((email === "") && (cellphone === "")) || ((email.trim() === "") && (cellphone.trim() === ""))) {
         return false;
     } else {
@@ -1925,6 +1924,8 @@ function showMenu(el) {
         document.getElementById("password2Input").nextSibling.style.visibility = "hidden";
     } else if (id == "signinDiv") {
         document.getElementById("signinForm").reset();
+    } else if (id == "contactusDiv") {
+        document.getElementById("contactusForm").reset();
     }
     el.style.display = "";
     el.classList.add("flex");
@@ -2063,9 +2064,9 @@ function updateTimer(time) {
             var timeDiffInSec = Math.floor(timeDiff / 1000);
             var minutes = Math.floor(timeDiffInSec / 60);
             var seconds = timeDiffInSec % 60;
-            var displayTime = 6 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
+            var displayTime = timerTime - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
             //if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
-            if ((displayTime == -1) || (displayTime < 0)) {displayTime = 6; startTime = null; clearLines(); isGameLost();}
+            if ((displayTime == -1) || (displayTime < 0)) {displayTime = timerTime; startTime = null; clearLines(); isGameLost();}
 /*          if (displayTime < 0) {displayTime = 25; startTime = null; clearLines();}
             else if ((displayTime < 1) && (startTime != -1)) { startTime = -1; isGameLost(); }*/
             timerEl.style.display = "none";
