@@ -107,6 +107,11 @@ class PlayersController < ApplicationController
 	def show
 		output = ""
 		if (!session["player_id"].blank?)
+			puts " "
+			puts "this is in login show"
+			puts session["player_id"]
+			puts session["player_id"].inspect
+			puts " "
 			player = Player.find(session["player_id"])
 			pgh = PlayerGamingHistory.find_by(player_id: session["player_id"])
 			if !pgh.blank?
