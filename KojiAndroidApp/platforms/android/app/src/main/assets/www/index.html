@@ -35,11 +35,13 @@
         <div id="goalContainer" class="goal-container">
             <canvas id="canvas1" class="canvas-1"></canvas>
             <canvas id="canvas2" class="canvas-1"></canvas>
-            <div id="letterChoicesCont" class="letter-choices-container"></div>
-            <div id="gameLettersContainer" class="game-letters-container" style="display: none;">
-                <div id="gameLettersDiv" class="game-letters-div"></div>
-            </div><!--end gameLettersContainer div -->
-            <button id="cantguessletteryetButton" onclick="selectLetter(-1)" class="yesno-button notyet-button">CAN'T GUESS A LETTER YET</button>
+            <div id="extra">
+                <div id="letterChoicesCont" class="letter-choices-container"></div>
+                <div id="gameLettersContainer" class="game-letters-container" style="display: none;">
+                    <div id="gameLettersDiv" class="game-letters-div"></div>
+                </div><!--end gameLettersContainer div -->
+                <button id="cantguessletteryetButton" onclick="selectLetter(-1)" class="yesno-button notyet-button">CAN'T GUESS A LETTER YET</button>
+            </div><!--end extra div -->
         </div><!--end goalContainer div -->
         <div id="timerBar" class="timer-bar"></div>
         <div id="guessContainer" class="guess-container">   
@@ -185,7 +187,7 @@
                 </div>
             </div>
         </li>
-        <li class="" style="text-align:center;">
+        <li style="text-align:center;">
             <button id="newGameButton" onclick="if (!!gc) {gc.style.display = 'none'; shrinkGoalContainer();} setupNewGame(0);">START NEW GAME</button>
         </li>
     </ul>
@@ -297,8 +299,8 @@
         <p id="changePasswordErrorMessage" class="signup-form-paragraph" style="font-size: 1.5em; padding: 0.5em 0; color:red"></p>
         <p class="signup-form-paragraph" style="padding: 0.5em 0; color: white;">Please enter reset password confirmation code below</p>
         <p class="signup-form-paragraph"><input id="passwordChangeConfirmationCode" class="signup-form-input" type="text" placeholder="Reset Confirmation Code"></p>
-        <p class="signup-form-paragraph"><input id="changePasswordInput1" class="signup-form-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onfocus="validatePassword2()"><img src="img/greenCheck.png" style="width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;"></p>
-        <p class="signup-form-paragraph"><input id="changePasswordInput2" class="signup-form-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onfocus="validatePassword2()"><img src="img/greenCheck.png" style="width: 1.2em; height: 1.2em; margin-left: 1em; visibility: hidden;"></p>
+        <p class="signup-form-paragraph"><input id="changePasswordInput1" class="signup-form-input" type="password" placeholder="New Password" onkeyup="validatePassword2()" onfocus="validatePassword2()"><img src="img/greenCheck.png" class="green-check"></p>
+        <p class="signup-form-paragraph"><input id="changePasswordInput2" class="signup-form-input" type="password" placeholder="Re-type Password" onkeyup="validatePassword2()" onfocus="validatePassword2()"><img src="img/greenCheck.png" class="green-check"></p>
 
         <p class="buttons-signin flex-row"><button class="profile-cancel-button2" onclick="profileOption(4)">Close</button><button id="changePasswordButton" class="profile-update-button" onclick="updateInfo(1)" disabled="disabled">Update</button></p>
 </div><!-- end resetPasswordDiv -->
@@ -320,19 +322,17 @@
     <div id="changeLogin" class="profile-option-div change-login-div">
         <p id="changeLoginErrorMessage" class="profile-paragraph profile-error-message"></p>
         <p class="profile-paragraph">
-            <input id="changeEmailInput" class="profile-input" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onfocus="validateEmail(this,2)"><img src="img/greenCheck.png" class="green-check"></p>
+            <input id="changeEmailInput" class="profile-input" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onfocus="validateEmail(this,2)"><img src="img/greenCheck.png" class="green-check" style="bottom: 0"></p>
         <p class="profile-paragraph" style="padding: 0.1em 0.5em; font-size: 1em;">- and/ or -</p>
         <p class="profile-paragraph">
-            <input id="changeNumberInput" type="number" name="none" style="font-size: 1em;" onkeyup="validateCellphone(document.getElementById('changeCellphoneInput'),3)"></p>
-        <p class="profile-paragraph" style="margin-top: -3.4em;">
-            <input id="changeCellphoneInput" class="profile-input" type="tel" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><img src="img/greenCheck.png" class="green-check"></p>
-        <p class="buttons-paragraph" style="width: 80%;"><button class="profile-cancel-button" onclick="profileOption(4)">Close</button><button id="changeLoginButton" class="profile-update-button" onclick="updateInfo(2)" disabled="disabled">Update</button></p>
+            <input id="changeCellphoneInput" class="profile-input" type="tel" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><img src="img/greenCheck.png" class="green-check" style="bottom: 0"></p>
+        <p class="buttons-paragraph" style="width: 90%;"><button class="profile-cancel-button" onclick="profileOption(4)">Close</button><button id="changeLoginButton" class="profile-update-button" onclick="updateInfo(2)" disabled="disabled">Update</button></p>
     </div>
     <div id="cancelMembership" class="profile-option-div cancel-membership-div">
         <p id="cancelMembershipErrorMessage" class="profile-paragraph profile-error-message"></p>
         <p class="profile-paragraph"><input id="cancelMembershipInput" class="profile-input" type="text" placeholder="Type 'cancel'" onkeyup="validateCancelMembership(this)"></p>
-        <p class="buttons-paragraph" style="width: 80%;"><button class="profile-cancel-button" onclick="profileOption(4)">Close</button><button id="cancelMembershipButton" class="profile-update-button" onclick="updateInfo(3)" disabled="disabled">Cancel Membership</button></p>
-        <p style="font-size: 0.75em; width: 27em; padding: 0.1em 1em;">By cancelling your membership, you are ending monthly membership payments and deleting your entire account.</p>
+        <p class="buttons-paragraph" style="width: 90%;"><button class="profile-cancel-button" onclick="profileOption(4)">Close</button><button id="cancelMembershipButton" class="profile-update-button" onclick="updateInfo(3)" disabled="disabled">Cancel Membership</button></p>
+        <p style="font-size: 0.75em; width: 75%; padding: 0.1em 1em;">By cancelling your membership, you are ending monthly membership payments and deleting your entire account.</p>
     </div>
     <p class="profile-paragraph"><span id="profileUpdateResult" class="profile-update-result"></span><a href="javascript:void(0);" class="profile-option logout" onclick="updateInfo(4);">Logout</a></p>
     <p class="profile-paragraph-2">Email: <span id="profileEmail" class="profile-email"></span></p>

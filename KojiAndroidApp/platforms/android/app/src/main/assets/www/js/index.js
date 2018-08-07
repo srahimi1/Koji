@@ -197,8 +197,8 @@ function setupNewGame(demoInstructionsCode) {
     gc = document.getElementById("goalContainer");
     var a = document.getElementById("cantguessletteryetButton");
     a.innerHTML = "CAN'T GUESS A LETTER YET";
-    a.style.visibility = "visible";
     a.onclick = function() {selectLetter(-1);};
+    document.getElementById("extra").style.visibility = "hidden";
     timerPaused = false;
     dateStart = null;
     timeAdd = null;
@@ -249,7 +249,6 @@ function setupNewGame(demoInstructionsCode) {
     if (!!ctx2) ctx2.clearRect(0,0,canvas2.width,canvas2.height);
     canvas2 = null;
     ctx2 = null;    
-    document.getElementById("letterChoicesCont").style.visibility = "hidden";
     document.getElementById("pointsSpan").innerHTML = points;
     document.getElementById("gameMessage").innerHTML = "";
     var gameLD = document.getElementById("gameLettersDiv");
@@ -982,6 +981,7 @@ function switchButtonsAndLetters(code) {
     switch(code) {
         case 1:
             document.getElementById("gameLettersContainer").style.display = "none";
+            document.getElementById("extra").style.visibility = "hidden";
 /*          document.getElementById("instruction1").innerHTML = "Will mixing the colors in boxes 1 and 2 make the color shown above them?";
             document.getElementById("buttonsDiv").style.display = "flex";*/
             break;
@@ -989,6 +989,7 @@ function switchButtonsAndLetters(code) {
             expandGoalContainer();
             document.getElementById("gameLettersContainer").style.display = "block";
             document.getElementById("letterChoicesCont").style.marginTop = (gcheight + 1) + "px";
+            document.getElementById("extra").style.visibility = "visible";
             /*document.getElementById("instruction1").innerHTML = "Can you figure out what letters are being revealed in the top panel? Select a spot below to see the available letters for it.";*/
             /*document.getElementById("buttonsDiv").style.display = "none";*/
             break;
@@ -1416,7 +1417,7 @@ function updateInfo(sel) {
         data = "code=1&password="+password+"&email="+email+"&cellphone="+cellphone+"&cc="+cc;
     } else if (sel == 2) {
         var email = encodeURIComponent(document.getElementById("changeEmailInput").value);
-        var cellphone = encodeURIComponent(document.getElementById("changeNumberInput").value);
+        var cellphone = encodeURIComponent(returnInteger(document.getElementById("changeCellphoneInput").value));
         route = "/players/change_login";
         data = "code=2&email="+email+"&cellphone="+cellphone;
     } else if (sel == 3) {
@@ -1484,7 +1485,6 @@ function profileOption(opt) {
     document.getElementById("changePasswordInput2").value = "";
     document.getElementById("passwordChangeConfirmationCode").value = "";
     document.getElementById("changeEmailInput").value = "";
-    document.getElementById("changeNumberInput").value = "";
     document.getElementById("changeCellphoneInput").value = "";
     document.getElementById("cancelMembershipInput").value = "";
 /*  document.getElementById("changePassword").style.height = "0";
@@ -1511,7 +1511,6 @@ function profileOption(opt) {
         else setTimeout(function() {document.getElementById("changeLogin").style.height = "15em";},600);
         document.getElementById("changeEmailInput").value = '';
         document.getElementById("changeCellphoneInput").value = '';
-        document.getElementById("changeNumberInput").value = '';
         document.getElementById("changeEmailInput").nextSibling.style.visibility = "hidden";
         document.getElementById("changeCellphoneInput").nextSibling.style.visibility = "hidden";
         document.getElementById("changeLoginButton").disabled = true;
@@ -1526,7 +1525,6 @@ function profileOption(opt) {
         document.getElementById("changePasswordInput2").value = "";
         document.getElementById("passwordChangeConfirmationCode").value = "";
         document.getElementById("changeEmailInput").value = "";
-        document.getElementById("changeNumberInput").value = "";
         document.getElementById("changeCellphoneInput").value = "";
         document.getElementById("cancelMembershipInput").value = "";
 /*      document.getElementById("changePassword").style.height = "0";
@@ -2065,9 +2063,9 @@ function updateTimer(time) {
             var timeDiffInSec = Math.floor(timeDiff / 1000);
             var minutes = Math.floor(timeDiffInSec / 60);
             var seconds = timeDiffInSec % 60;
-            var displayTime = 6- seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
+            var displayTime = 60000 - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
             //if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
-            if ((displayTime == -1) || (displayTime < 0)) {displayTime = 6; startTime = null; clearLines(); isGameLost();}
+            if ((displayTime == -1) || (displayTime < 0)) {displayTime = 60000; startTime = null; clearLines(); isGameLost();}
 /*          if (displayTime < 0) {displayTime = 25; startTime = null; clearLines();}
             else if ((displayTime < 1) && (startTime != -1)) { startTime = -1; isGameLost(); }*/
             timerEl.style.display = "none";

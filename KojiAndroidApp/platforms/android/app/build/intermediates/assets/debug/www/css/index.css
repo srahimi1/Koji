@@ -464,6 +464,7 @@ input.signup-form-submit-button {
     color: white;
     box-shadow: -2px 1px 8px #aaaaaa;
     font-size: 1.7em;
+    font-weight: 900;
     width: 100%;
     border: none;
     min-width: 320px;
@@ -478,7 +479,6 @@ input.signup-form-submit-button {
     text-align: center;
     overflow-y: auto;
     overflow-x: hidden;
-    visibility: hidden;
     background-color: gray;
 }
 
@@ -624,7 +624,7 @@ input.signup-form-submit-button {
 
 .modal-game-title {
     width: 100%;
-    margin: 0.2em;
+    margin: 0.2em 0;
     font-size: 2em;
     text-align: center;
     color: #7a00cc;
@@ -868,15 +868,17 @@ input#signupSubmit {
     width: 100%; */
     border: 0.5px solid navy;
     border-radius: 5px;
-    /* -webkit-box-shadow: inset 2px 2px 9px #969696;
-    -moz-box-shadow: inset 2px 2px 9px #969696; */
-    /* box-shadow: inset 2px 2px 9px #969696; */
+    -webkit-box-shadow: inset 1px 2px 8px #969696;
+    -moz-box-shadow: inset 1px 2px 8px #969696;
+    -ms-box-shadow: inset 1px 2px 8px #969696;;
+    -o-box-shadow: inset 1px 2px 8px #969696;;
+    box-shadow: inset 1px 2px 8px #969696;
 }
 
 .profile-options-ul {
     position: relative;
     width: 100%;
-    padding: 0 0.3em;
+    padding: 0 0;
     list-style: none;
     z-index: 30;
     text-align: center;
@@ -888,6 +890,10 @@ input#signupSubmit {
     text-decoration: none;
     text-align: center;
     border: none;
+}
+
+.profile-div {
+    height: 150%;
 }
 
 .change-password {
@@ -934,13 +940,13 @@ input#signupSubmit {
     background-color: #3311cc;
     color: #fafffa;
     padding: 0.3em 1.5em;
-    margin-left: 0.5em;
+    margin-left: 0.25em;
 }
 
 .profile-cancel-button {
     border: none;
     padding: 0.3em 1.5em;
-    margin-right: 1em;
+    margin-right: 0.25em;
 }
 
 .profile-option-div {
@@ -976,7 +982,7 @@ input#signupSubmit {
 
 .profile-paragraph-2 {
     padding: 0.1em .2em;
-    margin: 0.1em 1.3em;
+    margin: 0.1em 0.5em;
     color: slateblue;
 }
 
@@ -989,8 +995,8 @@ input#signupSubmit {
 }
 
 .score-history {
-    width: 90%;
-    padding: 0.5em 2em;
+    width: 100%;
+    padding: 0.5em 0;
     margin: 0.5em auto; 
 }
 
