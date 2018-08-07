@@ -1062,7 +1062,7 @@ function showDemoInstructions() {
     setTimeout(function() {timerPaused = true; gameOver = true; }, 36000);
     setTimeout(function() {document.getElementById("demoInstructions0D").style.height = ht1 + "px"; document.getElementById("demoInstructions0D").style.opacity = 1;}, 36000);
     setTimeout(function() {document.getElementById("zaa1").style.fontSize = "2em"; document.getElementById("zaa1").style.marginTop = "-0.7em"; },37000); 
-    setTimeout(function() {document.getElementById("demoInstructions10").style.opacity = 1;}, 37000);
+    setTimeout(function() {document.getElementById("demoInstructions10").style.opacity = 1;}, 38000);
     setTimeout(function() {document.getElementById("demoInstructions11").style.opacity = 1;}, 39000);
     setTimeout(function() {document.getElementById("demoInstructions12").style.opacity = 1;}, 42000);
     setTimeout(function() {closeMenu(document.getElementById("demoAnimatedInstructionsDiv4"));}, 47000);

@@ -24,6 +24,6 @@
         <allow-intent href="itms-apps:*" />
         <icon src="res/icons/hslcon3.png" />
     </platform>
-    <engine name="android" spec="^7.0.0" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
+    <engine name="android" spec="^7.0.0" />
 </widget>
