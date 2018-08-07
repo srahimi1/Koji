@@ -39,6 +39,12 @@ class GamesController < ApplicationController
       puts " "
       puts " "
       puts "end"
+    else
+      @game = Game.find(params[:id])
+      puts @game.inspect
+      puts " "
+      puts " "
+      puts "end"
     end
     if (@response.blank?)
       @response = JSON.parse(@game.game_data)
