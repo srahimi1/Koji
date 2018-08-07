@@ -32,7 +32,13 @@ class GamesController < ApplicationController
   def update
     update_gaming_history = false
     if (!session["game_id"].blank?)
+      puts "session is"
+      puts session["game_id"]
       @game = Game.find(session["game_id"])
+      puts @game.inspect
+      puts " "
+      puts " "
+      puts "end"
     end
     if (@response.blank?)
       @response = JSON.parse(@game.game_data)

@@ -1919,7 +1919,7 @@ function showMenu(el) {
         document.getElementById("signupSubmit").style.backgroundColor = "#eceded";
         document.getElementById("signupSubmit").style.boxShadow = "none";
         document.getElementById("emailInput").nextSibling.style.visibility = "hidden";
-        // document.getElementById("cellphoneInput").nextSibling.style.visibility = "hidden";
+        document.getElementById("cellphoneInput").nextSibling.style.visibility = "hidden";
         document.getElementById("displaynameInput").nextSibling.style.visibility = "hidden";
         document.getElementById("password1Input").nextSibling.style.visibility = "hidden";
         document.getElementById("password2Input").nextSibling.style.visibility = "hidden";
