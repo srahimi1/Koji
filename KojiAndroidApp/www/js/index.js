@@ -288,7 +288,7 @@ function createAndGetGameData(demoInstructionsCode) {
             return true;
         } // end if 
     } // end onreadystatechange
-    xhttp.send("session_token=" + sess);
+    xhttp.send("mup_token=" + sess);
     return false;
 } // function createAndGetGameData()
 
