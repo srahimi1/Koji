@@ -147,7 +147,6 @@ function expandGoalContainer() {
     timerPaused = true;
     remove_bars();
     var body = document.getElementsByTagName("body")[0];
-    //var gameContentHeight = document.getElementById('gameContent').offsetHeight;
     gc.parentNode.removeChild(gc);
     gc.style.position = "absolute";
     var pandx = document.getElementById("pointsandxsContainer");
@@ -160,7 +159,6 @@ function expandGoalContainer() {
     gc.style.height = gameCHeight + "px";
     document.getElementById("letterChoicesCont").style.height = Math.floor(gameCHeight/5) + "px";
     document.getElementById("gameLettersContainer").style.height = Math.floor(gameCHeight/5) + "px";
-/*  gc.onclick = function() {shrinkGoalContainer();};*/
     return false;
 } // end function expandGoalContainer()
 
@@ -270,7 +268,6 @@ function setupNewGame(demoInstructionsCode) {
 }// function setupNewGame()
 
 function createAndGetGameData(demoInstructionsCode) {
-   // var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
     var sess = ( !localStorage.getItem("session_token") ? 0 : localStorage.getItem("session_token") );
     xhttp.abort();
     xhttp.open("POST", rootURL+"/games");
@@ -283,7 +280,6 @@ function createAndGetGameData(demoInstructionsCode) {
             localStorage.setItem("gameID", inputData.gameID);
             topData = inputData["colors"];
             cycleTopDataAt = 1;
-            //cycleTopDataAt = Math.floor(Math.random() * 4) + 4;
             gameData = topData[0];
             finishSettingUpGame(demoInstructionsCode);
             return true;
@@ -334,7 +330,6 @@ function cycleThroughTopData() {
     var prev = gameData.goalColor;
     gameData = topData[Math.floor(Math.random() * topData.length)];
     cycleTopDataAt = 1;
-    //cycleTopDataAt = Math.floor(Math.random() * 4) + 4;
     cycleTopDataCounter = 0;
     colorGoalDiv();
     redrawLines();
@@ -522,8 +517,6 @@ function determineResultOfChoice(sendID, opt) {
         var svg = null;
         if (points == 5) {
             svg = document.getElementById("plus5svg2");
-            //svg.style.left = "50%";
-            //svg.style.marginLeft = -(svg.getBoundingClientRect().width/2) + "px";
         }
     } // if (bkDivColors[key].toUpperCase() == gameData.goalColor.toUpperCase()) 
     else if (opt == 0) {
@@ -557,8 +550,6 @@ function determineResultOfChoice(sendID, opt) {
         inner.style.height = Math.floor(inner.parentNode.offsetHeight/4) + "px"
         inner.style.marginTop = Math.floor(inner.parentNode.offsetHeight/8) + "px"
         var svg = document.getElementById("plus1svg2");
-        //svg.style.left = "50%";
-        //svg.style.marginLeft = -(svg.getBoundingClientRect().width/2) + "px";
         missedCorrect = 0;      
         drawLine();
     }
@@ -653,7 +644,6 @@ function createCanvasWithLetters() {
         var cs = "";
         if ( (charCode >= 65) && (charCode <= 90) ) cs = "upper";
         else if ( (charCode >= 97) && (charCode <= 122) ) cs = "lower";
-        //correctLetters.push(new letterObj(letters[i], cs, "Arial", tempfs, angle, true));
         correctLetters.push(new letterObj(letters[i], cs, "Arial", "2em", angle, true));
         ctx.rotate(angle);
         ctx.fillText(letters[i],0.5,0.5);
@@ -703,7 +693,6 @@ function popUpALetter(letter) {
                 letter.childNodes[0].style.fontSize = "1.5em";
                 var ind = selectedUnderscore.id.split(":")[1];
                 isChosenLetterCorrect(letter, ind);
-                //document.getElementById("letterChoicesCont").style.display = "none";
                 selectedUnderscore = null;
                 var par = guessTop.firstChild;
                 var cn = par.childNodes;
@@ -720,9 +709,6 @@ function popUpALetter(letter) {
                     letter.style.msTransform = "scale("+ ((100 - values[0])/100) +")";
                     letter.style.oTransform = "scale("+ ((100 - values[0])/100) +")";
                     letter.style.transform = "scale("+ ((100 - values[0])/100) +")";
-                    //letter.style.width = (width * ((100 - values[0])/100)) + "px";
-                    //letter.style.height = (height * ((100 - values[0])/100)) + "px";                
-                    //letter.style.top = -(height - (height * ((100 - values[0])/100)))/2 + "px";
                 }
                 if (((100 - values[0]) < 10) && (moved == 0)) {                 
                     letter.style.visibility = "hidden";
@@ -919,7 +905,6 @@ function makeLetterDivs(ind) {
         while (!!usedRotations[rotation] || ((rotation < cl.rotation + 0.5) && (rotation > cl.rotation - 0.5))) rotation = parseFloat((Math.random() * (Math.PI/2)).toFixed(2));
         usedRotations[rotation] = 1;
         if ( cl.rotation < 0 ) rotation = -rotation;
-        //orderedLetters.push(new letterObj(letterBlock[Math.floor(Math.random()*letterBlock.length)], cl.cs, cl.font, cl.size, rotation ,false));
         orderedLetters.push(new letterObj(letterBlock[Math.floor(Math.random()*letterBlock.length)], cl.cs, cl.font, "2em", rotation ,false));
     }
     for (var i = 0; i < orderedLetters.length; i++) useTheseLetters.push(null);
@@ -964,7 +949,6 @@ function selectLetter(letter){
         if (letter != -1) {
             var par = selectedUnderscore;
             var ind = par.id.split(":")[1];
-            //if (!!par.childNodes[0]) par.removeChild(par.childNodes[0]);
             popUpALetter(letter);
             par.style.borderBottom = "";
             selectedLetters[ind] = letter;
@@ -987,16 +971,12 @@ function switchButtonsAndLetters(code) {
         case 1:
             document.getElementById("gameLettersContainer").style.display = "none";
             document.getElementById("extra").style.visibility = "hidden";
-/*          document.getElementById("instruction1").innerHTML = "Will mixing the colors in boxes 1 and 2 make the color shown above them?";
-            document.getElementById("buttonsDiv").style.display = "flex";*/
             break;
         case 2:
             expandGoalContainer();
             document.getElementById("gameLettersContainer").style.display = "block";
             document.getElementById("letterChoicesCont").style.marginTop = (gcheight + 1) + "px";
             document.getElementById("extra").style.visibility = "visible";
-            /*document.getElementById("instruction1").innerHTML = "Can you figure out what letters are being revealed in the top panel? Select a spot below to see the available letters for it.";*/
-            /*document.getElementById("buttonsDiv").style.display = "none";*/
             break;
     }// end switch(code)
 }
@@ -1223,7 +1203,6 @@ function redoXs() {
 }// function redoXs()
 
 function updateGameDataOnServer(won) {
-   // var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
     var route = "/games/"+ (!localStorage.getItem("gameID") ? "0" : localStorage.getItem("gameID") );
     route += "?points="+points+"&numberOfX="+numXs+"&won="+won;
     xhttp.abort();
@@ -1257,7 +1236,6 @@ function letterBorderAnimation(letter, code) {
                 values = animateSmallLargeMedium(1, 2, values[1], 3, "letterBorder");  
                 letter.style.borderWidth = (values[0]/6)+"em";
                 letter.style.marginLeft = -(letter.offsetWidth - width)/2 + "px";
-                //letter.style.marginTop = -(letter.offsetHeight - height)/2 + "px";
             }
         },22);
     if (code == 0) {updatePoints(50,2);}
@@ -1288,14 +1266,10 @@ function animatePoints(add, code) {
     else if (code == 2) el2 = document.getElementById("plus1svg2");
     var ht = el2.getBoundingClientRect().height;
     var mp = document.getElementById("guess").offsetWidth/2;
-    /*document.getElementById("guessContainer").style.overflow = "visible";
-    document.getElementById("guess").style.overflow = "visible";*/
     pointsIntervalID = setInterval(
         function() {
             if (values[1] == -1) {
                 clearInterval(pointsIntervalID);
-/*              document.getElementById("guessContainer").style.overflow = "hidden";
-                document.getElementById("guess").style.overflow = "hidden";*/
                 if (numberCorrect == correctLimit) {
                     clearTimeout(getNextColorsTimeoutID);
                     setTimeout(function() {redoXs(); selectUnderscore(document.getElementById("letterBox:0"), inputData.letters); switchButtonsAndLetters(2);},500);
@@ -1306,16 +1280,11 @@ function animatePoints(add, code) {
                 if ((code == 0) || (code == 2)) {
                     if (code == 0) values = animateSmallLargeMedium(1, 2, values[1], 9, null);  
                     else if (code == 2) values = animateSmallLargeMedium(1, 2, values[1], 3, null);
-                    //el2.style.width = (12.5*values[0])+"%";
-                    //el2.style.height = (12.5*values[0])+"%";
                     el2.style.webkitTransform = "scale("+values[0]+")";
                     el2.style.msTransform = "scale("+values[0]+")";
                     el2.style.mozTransform = "scale("+values[0]+")";
                     el2.style.oTransform = "scale("+values[0]+")";
                     el2.style.transform = "scale("+values[0]+")";
-                    //el2.style.left = "50%";
-                   // el2.style.marginTop = (20 - ((el2.getBoundingClientRect().height - ht)/2)) + "px"; // ((height-el2.getBoundingClientRect().height)/2) + "px";
-                    //el2.style.marginLeft = (mp - (el2.getBoundingClientRect().width/2)) + "px"; //(left-((width-el2.getBoundingClientRect().width))) + "px";
                 }
                 else if ((code == 1) || (code == 3)) {
                     values = [-1,-1];
@@ -1347,11 +1316,9 @@ function animateOriginalSmallOriginal(origVal, endVal, step) {
 // Profile and account info get and update functions ...
 
 function getProfileData() {
-   // var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
     var route = "/players/" + (!localStorage.getItem("session_token") ? 0 : localStorage.getItem("session_token") );
     xhttp.abort();
     xhttp.open("GET", rootURL+route);
-    //xhttp.setRequestHeader('X-CSRF-Token', csrfVar);
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var res = this.responseText + "";
@@ -1435,7 +1402,6 @@ function updateInfo(sel) {
         data = "code=4";
     }
     if (proceed && ((sel == 1) || (sel == 2) || ((sel == 3) && (cancel.toUpperCase() == "CANCEL")) || (sel == 4))) {
-       // var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
         xhttp.abort();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -1455,8 +1421,6 @@ function updateInfo(sel) {
                     el.innerHTML = "Password change succesful."; 
                     showMenu(document.getElementById('gameMessageDiv')); 
                     setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); closeMenu(document.getElementById('resetPasswordDiv'))},2000);
-/*                  document.getElementById("changePassword").style.height = "0";
-                    document.getElementById("changePassword").style.marginTop = "0";*/
                 } else if ((res.toUpperCase() == "BAD") && (sel != 4)) {
                     var err;
                     switch(sel) {
@@ -1493,18 +1457,11 @@ function profileOption(opt) {
     document.getElementById("changeEmailInput").value = "";
     document.getElementById("changeCellphoneInput").value = "";
     document.getElementById("cancelMembershipInput").value = "";
-/*  document.getElementById("changePassword").style.height = "0";
-    document.getElementById("changePassword").style.marginTop = "0";*/
     document.getElementById("changeLogin").style.height = "0";
     document.getElementById("cancelMembership").style.height = "0";
 
     if (opt == 1) {
-        /*document.getElementById("changePassword").style.display = "block";*/
         showMenu(document.getElementById('resetPasswordDiv'));
-/*      if (document.getElementById("changePassword").offsetHeight < 5) {
-            document.getElementById("changePassword").style.height = "34em";
-            document.getElementById("changePassword").style.marginTop = "-34em";
-        } else setTimeout(function() {document.getElementById("changePassword").style.height = "34em"; document.getElementById("changePassword").style.marginTop = "-34em";},600);*/
         document.getElementById("changePasswordInput1").value = '';
         document.getElementById("changePasswordInput2").value = '';
         document.getElementById("passwordChangeConfirmationCode").value = "";
@@ -1512,7 +1469,6 @@ function profileOption(opt) {
         document.getElementById("changePasswordInput2").nextSibling.style.visibility = "hidden";
         document.getElementById("changePasswordButton").disabled = true;
     } else if (opt == 2) {
-        /*document.getElementById("changeLogin").style.display = "block";*/
         if (document.getElementById("changeLogin").offsetHeight < 5) document.getElementById("changeLogin").style.height = "20em";
         else setTimeout(function() {document.getElementById("changeLogin").style.height = "20em";},600);
         document.getElementById("changeEmailInput").value = '';
@@ -1521,7 +1477,6 @@ function profileOption(opt) {
         document.getElementById("changeCellphoneInput").nextSibling.style.visibility = "hidden";
         document.getElementById("changeLoginButton").disabled = true;
     } else if (opt == 3) {
-        /*document.getElementById("cancelMembership").style.display = "block";*/
         if (document.getElementById("cancelMembership").offsetHeight < 5) document.getElementById("cancelMembership").style.height = "20em";
         else setTimeout(function() {document.getElementById("cancelMembership").style.height = "20em";},600);
         document.getElementById("cancelMembershipInput").value = '';
@@ -1533,8 +1488,6 @@ function profileOption(opt) {
         document.getElementById("changeEmailInput").value = "";
         document.getElementById("changeCellphoneInput").value = "";
         document.getElementById("cancelMembershipInput").value = "";
-/*      document.getElementById("changePassword").style.height = "0";
-        document.getElementById("changePassword").style.marginTop = "0";*/
         document.getElementById("changeLogin").style.height = "0";
         document.getElementById("cancelMembership").style.height = "0";         
         closeMenu(document.getElementById('resetPasswordDiv'));
@@ -1544,7 +1497,6 @@ function profileOption(opt) {
 
 
 function submitMessage() {
-   // var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
     var email = encodeURIComponent(document.getElementById("contactusEmailInput").value);
     var message = encodeURIComponent(document.getElementById("contactusMessage").value);
     if (((email === "") && (message === "")) || ((email.trim() === "") && (message.trim() === ""))) {
@@ -1646,8 +1598,6 @@ function validateCellphone(inp, sel) {
     else if (sel == 3) {
         var errorEl = document.getElementById("changeLoginErrorMessage");
     }
-    // inp.blur();
-    // hid.focus();
     var hidValue = hid.value + "";
     var char = hidValue[hidValue.length - 1];
     var test = "";
@@ -1667,7 +1617,6 @@ function validateCellphone(inp, sel) {
         if ((i == 0) && (test[i] != "(")) number = "(" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
         else if (i == 0) number = ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
         else if ((i == 4) && (test[i] != ")")) number = number + ")" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
-        /*else if (i == 3) number = number + ")" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);*/
         else if ((i == 8) && (test[i] != "-")) number = number + "-" + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
         else number = number + ((test[i] == "0" || test[i] == 0) ? "0" : test[i]);
     } // for (var i = 0; i < 10; i++)
@@ -1686,7 +1635,6 @@ function validateCellphone(inp, sel) {
         errorEl.innerHTML = "";
     }
     hid.value = number;
-    // hid.focus();
     isSignupFormReady();
     return false;
 } // end function validateCellphone()
@@ -1815,7 +1763,6 @@ function signupFormSubmit(stripeToken) {
     var cont = false;
     if (formcheck[0] && formcheck[2] && formcheck[3]) cont = true;
     if (cont) {
-      //  var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
         var email = encodeURIComponent(document.getElementById("emailInput").value);
         var cellphone = encodeURIComponent(returnInteger(document.getElementById("cellphoneInput").value));
         var displayname= encodeURIComponent(document.getElementById("displaynameInput").value);
@@ -1970,11 +1917,9 @@ function animateMenu(para, code) {
 function checkForStartupMessage() {
     console.log("in checkforstartupmessage");
     var version = document.getElementById("gameVersion").value;
-    //var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
     var route = "/message?version="+version;
     var newRoute = rootURL+route;
     xhttp.open("GET", newRoute);
-    //xhttp.setRequestHeader('X-CSRF-Token', csrfVar);
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var message = this.responseText + "";
@@ -1993,7 +1938,6 @@ function checkForStartupMessage() {
                     el.style.marginTop="0em"; 
                     el.style.opacity="1";
                     numModalsOpen++; 
-                    /*setTimeout(function() {showMenu(document.getElementById('menuDiv'));},500);*/
                 } // if (message != "1")
             }
             return true;
@@ -2037,7 +1981,6 @@ function showBeginningModal() {
     el.style.left = (0 - Math.floor(par.offsetWidth/10)) + "px";
     el.style.top = (0 - Math.floor(par.offsetWidth/8)) + "px";
     showMenu(document.getElementById('startupDiv'));
-    /*el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";*/ 
 } // end function showBeginningModal()
 
 // timer functions ...
@@ -2072,11 +2015,8 @@ function updateTimer(time) {
             var timeDiffInSec = Math.floor(timeDiff / 1000);
             var minutes = Math.floor(timeDiffInSec / 60);
             var seconds = timeDiffInSec % 60;
-            var displayTime = timerTime - seconds; //minutes.toString() + ":" + ((seconds < 10) ? ("0" + seconds.toString()) : seconds.toString());
-            //if (minutes != previousMinute) { previousMinute = minutes; loseStars(1);  }
+            var displayTime = timerTime - seconds;
             if ((displayTime == -1) || (displayTime < 0)) {displayTime = timerTime; startTime = null; clearLines(); isGameLost();}
-/*          if (displayTime < 0) {displayTime = 25; startTime = null; clearLines();}
-            else if ((displayTime < 1) && (startTime != -1)) { startTime = -1; isGameLost(); }*/
             timerEl.style.display = "none";
             timerEl.innerHTML = displayTime;
             timerEl.style.display = "inline-block";
@@ -2109,8 +2049,6 @@ function add_bars() {
     b.setAttribute("class","timer-inner-bar-middle");
     par.appendChild(a);
     par.appendChild(b);
-   // a.style.float = "left";
-   // b.style.float = "right";
     par.style.display = "block";
     a.getBoundingClientRect();
     b.getBoundingClientRect();
@@ -2121,10 +2059,7 @@ function transition_bars() {
     var par = document.getElementById("timerBar");
     var a = par.childNodes[0];
     var b = par.childNodes[1];
-   // a.style.transform = "translateX("+ Math.floor(len/4) +"px) scaleX(" + Math.floor(len/2) + ")";
-   b.style.transform = "scaleX(0.0001)";
-   // a.style.width = "50%";
-   // b.style.width = "50%";
+    b.style.transform = "scaleX(0.0001)";
     return true;
 } // end function transition_bars()
 

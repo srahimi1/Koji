@@ -41,7 +41,6 @@ class Game < ApplicationRecord
 			word = word + letters_main[rand(2)][rand(26)]
 		end
 		words = [word]
-		#words = ["ANSWERS"]
 		chosen_word = words[rand(words.length)]
 		letters = chosen_word.split("")
 		return letters

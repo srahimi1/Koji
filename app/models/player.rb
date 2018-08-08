@@ -55,8 +55,6 @@ class Player < ApplicationRecord
     def self.send_password_reset_confirmation_code(player_id, cellphone, email)
     	player = Player.find(player_id)
     	confirmation_code = ConfirmationCode.make_code(player_id, 0)
-    	#email_confirmation_code = ConfirmationCode.make_code(player_id, 0)
-		#cellphone_confirmation_code = ConfirmationCode.make_code(player_id, 1)
 		Thread.new { 
 			if (!cellphone.blank?)
 				PlayerMailer.send_confirmation_text(player.cellphone, confirmation_code, "vtext.com").deliver_now   #all these used to be cellphone_confirmation_code, not confirmation_code

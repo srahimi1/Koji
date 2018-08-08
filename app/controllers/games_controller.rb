@@ -1,18 +1,7 @@
 class GamesController < ApplicationController
   
   def create
-      puts " shit shit"
-      puts " "
-      puts params
-      puts params.inspect
-      puts "  "
-      puts " pussy shit "
-
       if (!params["session_token"].blank? && !params["session_token"].to_s.blank? && (params["session_token"].to_s != "0") && (params["session_token"].to_s != "") )
-        puts "    looking for player with session token     "
-        puts "   "
-        puts "   "
-        puts "   still looking         "
         @player = Player.find_by(session_token: params["session_token"].to_s)
       else 
         @player = Player.find(0)
@@ -20,18 +9,8 @@ class GamesController < ApplicationController
       @game = @player.games.new(score: 0)
       if ((params["session_token"].to_s != "0") && !@player.blank? && @player.logged_in)
         @response = @game.start_new_game
-        puts " "
-        puts " "
-        puts "started new, not demo, game"
-        puts " "
-        puts " "
       else
         @response = @game.start_new_demo_game
-        puts " "
-        puts " "
-        puts "started demo game"
-        puts " "
-        puts " "
       end
       @game.game_data = JSON.generate(@response)
       @game.save
@@ -42,19 +21,9 @@ class GamesController < ApplicationController
   def update
     update_gaming_history = false
     if (!params[:id].blank? && (params[:id].to_s != "0"))
-      puts "session is"
-      puts params[:id]
       @game = Game.find(params[:id])
-      puts @game.inspect
-      puts " "
-      puts " "
-      puts "end"
     else
       @game = Game.find(params[:id])
-      puts @game.inspect
-      puts " "
-      puts " "
-      puts "end"
     end
     if (@response.blank?)
       @response = JSON.parse(@game.game_data)

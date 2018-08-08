@@ -112,11 +112,6 @@ class PlayersController < ApplicationController
 	def show
 		output = ""
 		if (!params[:id].blank? && !Player.find_by(session_token: params[:id]).blank? && Player.find_by(session_token: params[:id]).logged_in)
-			puts " "
-			puts "this is in login show"
-			puts params[:id]
-			puts params[:id].inspect
-			puts " "
 			player = Player.find_by(session_token: params[:id])
 			pgh = PlayerGamingHistory.find_by(player_id: player.id)
 			if !pgh.blank?
