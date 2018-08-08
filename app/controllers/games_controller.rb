@@ -2,7 +2,7 @@ class GamesController < ApplicationController
   
   def create
       if (params["session_token"].to_s != "0")
-        @player = Player.find_by(session_token: params["session_token"])
+        @player = Player.find_by(session_token: params["session_token"].to_s)
       else 
         @player = Player.find(0)
       end
