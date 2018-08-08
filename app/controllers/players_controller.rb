@@ -74,8 +74,7 @@ class PlayersController < ApplicationController
 				destroyed = 1
 				output = "OK"
 			end
-		elsif (params["code"].to_i == 4)
-			session[:player_id] = nil
+		elsif (!player.blank? && params["code"].to_i == 4)
 			player.session_token = ""
 			player.logged_in = false
 			player.save
