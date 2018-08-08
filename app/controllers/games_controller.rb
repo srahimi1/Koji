@@ -1,8 +1,13 @@
 class GamesController < ApplicationController
   
   def create
+      puts " shit shit"
+      puts " "
       puts params
       puts params.inspect
+      puts "  "
+      puts " pussy shit "
+
       if (!params["session_token"].blank? && !params["session_token"].to_s.blank? && (params["session_token"].to_s != "0") && (params["session_token"].to_s != "") )
         puts "    looking for player with session token     "
         puts "   "
