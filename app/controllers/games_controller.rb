@@ -7,7 +7,7 @@ class GamesController < ApplicationController
         @player = Player.find(0)
       end
       @game = @player.games.new(score: 0)
-      if ((params["session_token"].to_s != "0") && !@player.blank? && @player.logged_in)
+      if (!params["session_token"].blank? && (params["session_token"].to_s != "0") && !@player.blank? && @player.logged_in)
         @response = @game.start_new_game
       else
         @response = @game.start_new_demo_game
