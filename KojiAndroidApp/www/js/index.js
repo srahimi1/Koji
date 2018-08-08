@@ -289,7 +289,6 @@ function createAndGetGameData(demoInstructionsCode) {
         } // end if 
     } // end onreadystatechange
     xhttp.send("session_token=" + sess);
-    xhttp.send();
     return false;
 } // function createAndGetGameData()
 
@@ -1803,9 +1802,9 @@ function checkIfExist(route, data, success, fail) {
             }
         } // if (this.readyState == 4 && this.status == 200)
         }; // xhttptemp.onreadystatechange = function()
-        var routetotal = route + "?data=" + encodeURIComponent(data);
-        xhttptemp.open("GET", rootURL+routetotal, true);
-        xhttptemp.send();
+    var routetotal = route + "?data=" + encodeURIComponent(data);
+    xhttptemp.open("GET", rootURL+routetotal, true);
+    xhttptemp.send();
     return false;
 } // end function checkIfExist(route, method, data, success, fail)
 
