@@ -81,7 +81,7 @@ class Player < ApplicationRecord
     	token = SecureRandom.base64(16)
     	player = Player.find_by(session_token: token)
     	while !player.blank?
-    		token = SecureRandom.base64(16)
+    		token = SecureRandom.urlsafe_base64(16, false)
     		player = Player.find_by(session_token: token)
     	end
     	return token

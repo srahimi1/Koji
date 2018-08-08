@@ -1,13 +1,13 @@
 class GamesController < ApplicationController
   
   def create
-      if (session["player_id"] != nil)
-        @player = Player.find(session[:player_id])
+      if (params[:session_token].to_s != "0")
+        @player = Player.find_by(session_token: params[:session_token])
       else 
         @player = Player.find(0)
       end
       @game = @player.games.new(score: 0)
-      if (!session["player_id"].blank? && !@player.blank?)
+      if ((params[:session_token].to_s != "0") && !@player.blank? && @player.logged_in)
         @response = @game.start_new_game
         puts " "
         puts " "
@@ -24,17 +24,16 @@ class GamesController < ApplicationController
       end
       @game.game_data = JSON.generate(@response)
       @game.save
-      session["game_id"] = @game.id
       @response["gameID"] = @game.id
       render json: @response
   end
 
   def update
     update_gaming_history = false
-    if (!session["game_id"].blank?)
+    if (!params[:id].blank? && (params[:id].to_s != "0"))
       puts "session is"
-      puts session["game_id"]
-      @game = Game.find(session["game_id"])
+      puts params[:id]
+      @game = Game.find(params[:id])
       puts @game.inspect
       puts " "
       puts " "

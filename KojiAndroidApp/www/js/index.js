@@ -189,6 +189,7 @@ function clearLines() {
 }
 
 function setupNewGame(demoInstructionsCode) {
+    localStorage.removeItem("gameID");
     yesnoButtonEnabled = true;
     timerTime = 6;
     gameC.removeAttribute("class");
@@ -270,6 +271,7 @@ function setupNewGame(demoInstructionsCode) {
 
 function createAndGetGameData(demoInstructionsCode) {
    // var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
+    var sess = ( !localStorage.getItem("session_token") ? 0 : localStorage.getItem("session_token") );
     xhttp.abort();
     xhttp.open("POST", rootURL+"/games");
     xhttp.setRequestHeader('X-CSRF-Token', csrfVar);
@@ -286,6 +288,7 @@ function createAndGetGameData(demoInstructionsCode) {
             return true;
         } // end if 
     } // end onreadystatechange
+    xhttp.send("session_token=" + sess);
     xhttp.send();
     return false;
 } // function createAndGetGameData()
@@ -1221,7 +1224,7 @@ function redoXs() {
 
 function updateGameDataOnServer(won) {
    // var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-    var route = "/games/"+ (!!localStorage.getItem("gameID") ? localStorage.getItem("gameID") : "0");
+    var route = "/games/"+ (!localStorage.getItem("gameID") ? "0" : localStorage.getItem("gameID") );
     route += "?points="+points+"&numberOfX="+numXs+"&won="+won;
     xhttp.abort();
     xhttp.open("PUT", rootURL+route);
@@ -1440,7 +1443,7 @@ function updateInfo(sel) {
                 if (res.toUpperCase() == "OK") {
                     document.getElementById("changeLogin").style.height = "0";
                     document.getElementById("cancelMembership").style.height = "0";
-                    if (sel == 4) clearProfile();
+                    if (sel == 4) {localStorage.removeItem("session_token"); clearProfile();}
                     else getProfileData();
                     var result = document.getElementById("profileUpdateResult");
                     result.innerHTML = "profile succesfully updated!";
@@ -1454,7 +1457,7 @@ function updateInfo(sel) {
                     setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); closeMenu(document.getElementById('resetPasswordDiv'))},2000);
 /*                  document.getElementById("changePassword").style.height = "0";
                     document.getElementById("changePassword").style.marginTop = "0";*/
-                } else if (res.toUpperCase() == "BAD") {
+                } else if ((res.toUpperCase() == "BAD") && (sel != 4)) {
                     var err;
                     switch(sel) {
                         case 1:
