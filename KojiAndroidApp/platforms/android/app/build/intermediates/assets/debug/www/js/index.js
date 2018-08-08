@@ -275,6 +275,7 @@ function createAndGetGameData(demoInstructionsCode) {
     xhttp.abort();
     xhttp.open("POST", rootURL+"/games");
     xhttp.setRequestHeader('X-CSRF-Token', csrfVar);
+    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     console.log(csrfVar);
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
@@ -288,7 +289,7 @@ function createAndGetGameData(demoInstructionsCode) {
             return true;
         } // end if 
     } // end onreadystatechange
-    xhttp.send("mup_token=" + sess);
+    xhttp.send("session_token=" + sess);
     return false;
 } // function createAndGetGameData()
 
