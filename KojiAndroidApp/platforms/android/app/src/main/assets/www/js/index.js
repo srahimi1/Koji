@@ -1345,7 +1345,7 @@ function animateOriginalSmallOriginal(origVal, endVal, step) {
 
 function getProfileData() {
    // var csrfTok = document.querySelector("meta[name='csrf-token']").getAttribute("content");
-    var route = "/players/0";
+    var route = "/players/" + (!localStorage.getItem("session_token") ? 0 : localStorage.getItem("session_token") );
     xhttp.abort();
     xhttp.open("GET", rootURL+route);
     //xhttp.setRequestHeader('X-CSRF-Token', csrfVar);
@@ -1410,6 +1410,7 @@ function updateInfo(sel) {
     document.getElementById("cancelMembershipErrorMessage").innerHTML = ""; 
     var route = "";
     var data = "";
+    var routeFooter = "/players/" + (!localStorage.getItem("session_token") ? 0 : localStorage.getItem("session_token"));
     if (sel == 1) {
         var email = encodeURIComponent(document.getElementById("loginEmailInput").value);
         var cellphone = encodeURIComponent(returnInteger(document.getElementById("loginCellphoneInput").value));
@@ -1472,7 +1473,7 @@ function updateInfo(sel) {
                 return false;
             } // if (this.readyState == 4 && this.status == 200)
         }; // xhttp.onreadystatechange = function()
-        xhttp.open("PUT", rootURL+"/players/0", true);
+        xhttp.open("PUT", rootURL + routeFooter, true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.setRequestHeader('X-CSRF-Token', csrfVar);
         xhttp.send(data);
@@ -1827,7 +1828,7 @@ function signupFormSubmit(stripeToken) {
                 if (res2.toUpperCase() == "OK") {
                     el.style.color = "#3ecf8e";
                     el.innerHTML = "Thank you for signing up to play Koji!<br/>Enjoy!"; 
-                    localStorage.setItem("session_token",res.split("OK:q:")[1])
+                    localStorage.setItem("session_token",res.split("OK:q:")[1]);
                     closeMenu(document.getElementById('signupDiv'));
                 } else if (res.toUpperCase() == "BAD2") {
                     el.style.color = "#F00000"; 
@@ -1864,10 +1865,12 @@ function signinFormSubmit(code) {
             if (this.readyState == 4 && this.status == 200) {
                 var res = this.responseText + "";
                 var el = document.getElementById("gameMessage");
-                if (res.toUpperCase() == "OK") {
-                    getProfileData(); 
+                var res2 = res.split(":q:")[0];
+                if (res2.toUpperCase() == "OK") {
+                    localStorage.setItem("session_token",res.split("OK:q:")[1]); 
                     el.style.color = "#3ecf8e"; 
-                    el.innerHTML = "Sign in succesful."; 
+                    el.innerHTML = "Sign in succesful.";
+                    getProfileData();
                     closeMenu(document.getElementById('signinDiv'));
                 } else if (res.toUpperCase() == "RESET SENT") { 
                     el.style.color = "#3ecf8e"; 

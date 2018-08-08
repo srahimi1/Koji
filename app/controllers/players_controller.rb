@@ -39,8 +39,8 @@ class PlayersController < ApplicationController
 	end
 
 	def update
-		if ((!session["player_id"].blank?) && (params["code"].to_i != 1))
-			player = Player.find(session["player_id"])
+		if ((!params[:id].blank?) && (params["code"].to_i != 1))
+			player = Player.find_by(session_token: params[:id])
 		end
 		output = "BAD"
 		destroyed = 0
@@ -57,7 +57,7 @@ class PlayersController < ApplicationController
 					output = "RESET"
 				end
 			end
-		elsif (!player.blank? && (params["code"].to_i == 2))
+		elsif (!player.blank? && player.logged_in && (params["code"].to_i == 2))
 			if (!params["email"].blank? && Player.find_by(email: params[:email]).blank? && Player.validate_email(params["email"]))
 				player.email = params["email"].to_s.downcase
 				output = "OK"
@@ -66,17 +66,19 @@ class PlayersController < ApplicationController
 				player.cellphone = params["cellphone"]
 				output = "OK"
 			end
-		elsif (!player.blank? && (params["code"].to_i == 3) && (params["cancel"].to_s.downcase == "cancel"))
-			result = Player.cancel_membership(session["player_id"])
+		elsif (!player.blank? && player.logged_in && (params["code"].to_i == 3) && (params["cancel"].to_s.downcase == "cancel"))
+			result = Player.cancel_membership(player.id)
 			if (result == 1)
 				DeletedPlayer.create(player_id: player.id, email: player.email, cellphone: player.cellphone) 
 				player.destroy
-				session[:player_id] = nil
 				destroyed = 1
 				output = "OK"
 			end
 		elsif (params["code"].to_i == 4)
 			session[:player_id] = nil
+			player.session_token = ""
+			player.logged_in = false
+			player.save
 			output = "OK"
 		end 
 		if ( (destroyed == 0) && !player.blank? && (!player.save) )
@@ -96,8 +98,10 @@ class PlayersController < ApplicationController
 
 		if(!@player.blank? && (params[:reset].to_s == "0"))
 			if (params[:password] == @player.password)
-				session["player_id"] = @player.id
-				output = "OK"
+				@player.session_token = Player.create_session_token
+				@player.logged_in = true
+				@player.save
+				output = "OK:q:" + @player.session_token
 			end
 		elsif (!@player.blank? && (params[:reset].to_s == "1"))
 			Player.send_password_reset_confirmation_code(@player.id, params["cellphone"], params["email"])
@@ -108,14 +112,14 @@ class PlayersController < ApplicationController
 
 	def show
 		output = ""
-		if (!session["player_id"].blank?)
+		if (!params[:id].blank? && !Player.find_by(session_token: params[:id]).blank? && Player.find_by(session_token: params[:id]).logged_in)
 			puts " "
 			puts "this is in login show"
-			puts session["player_id"]
-			puts session["player_id"].inspect
+			puts params[:id]
+			puts params[:id].inspect
 			puts " "
-			player = Player.find(session["player_id"])
-			pgh = PlayerGamingHistory.find_by(player_id: session["player_id"])
+			player = Player.find_by(session_token: params[:id])
+			pgh = PlayerGamingHistory.find_by(player_id: player.id)
 			if !pgh.blank?
 				history = pgh.history
 			end
