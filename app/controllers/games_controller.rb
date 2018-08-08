@@ -1,13 +1,13 @@
 class GamesController < ApplicationController
   
   def create
-      if (params[:session_token].to_s != "0")
-        @player = Player.find_by(session_token: params[:session_token])
+      if (params["session_token"].to_s != "0")
+        @player = Player.find_by(session_token: params["session_token"])
       else 
         @player = Player.find(0)
       end
       @game = @player.games.new(score: 0)
-      if ((params[:session_token].to_s != "0") && !@player.blank? && @player.logged_in)
+      if ((params["session_token"].to_s != "0") && !@player.blank? && @player.logged_in)
         @response = @game.start_new_game
         puts " "
         puts " "
