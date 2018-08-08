@@ -1,4 +1,6 @@
 class Player < ApplicationRecord
+	require 'securerandom'
+
 	has_many :games, dependent: :destroy
 	has_one :player_gaming_history, dependent: :destroy
 	has_many :confirmation_codes, dependent: :destroy
@@ -74,4 +76,16 @@ class Player < ApplicationRecord
 		}
 		ActiveRecord::Base.connection.close
     end
+
+    def self.create_session_token
+    	token = SecureRandom.base64(16)
+    	player = Player.find_by(session_token: token)
+    	while !player.blank?
+    		token = SecureRandom.base64(16)
+    		player = Player.find_by(session_token: token)
+    	end
+    	return token
+    end
+
+
 end

@@ -11,6 +11,8 @@ class CreatePlayers < ActiveRecord::Migration[5.1]
       t.timestamp :date_first_subscribed
       t.integer :email_verified
       t.integer :cellphone_verified
+      t.string :session_token
+      t.boolean :logged_in
       t.timestamps
     end
   end

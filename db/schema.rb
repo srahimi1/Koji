@@ -97,6 +97,8 @@ ActiveRecord::Schema.define(version: 20180609171806) do
     t.datetime "date_first_subscribed"
     t.integer "email_verified"
     t.integer "cellphone_verified"
+    t.string "session_token"
+    t.boolean "logged_in"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cellphone"], name: "index_players_on_cellphone", unique: true
@@ -134,8 +136,4 @@ ActiveRecord::Schema.define(version: 20180609171806) do
   add_foreign_key "confirmation_codes", "players"
   add_foreign_key "games", "players"
   add_foreign_key "player_gaming_histories", "players"
-  add_foreign_key "pp_customer_infos", "payment_providers"
-  add_foreign_key "pp_customer_infos", "players"
-  add_foreign_key "subscriptions", "payment_providers"
-  add_foreign_key "subscriptions", "players"
 end

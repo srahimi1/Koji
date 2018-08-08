@@ -1823,9 +1823,11 @@ function signupFormSubmit(stripeToken) {
             if (this.readyState == 4 && this.status == 200) {
                 var res = this.responseText + "";
                 var el = document.getElementById("gameMessage");
-                if (res.toUpperCase() == "OK") {
+                var res2 = res.split(":q:")[0];
+                if (res2.toUpperCase() == "OK") {
                     el.style.color = "#3ecf8e";
                     el.innerHTML = "Thank you for signing up to play Koji!<br/>Enjoy!"; 
+                    localStorage.setItem("session_token",res.split("OK:q:")[1])
                     closeMenu(document.getElementById('signupDiv'));
                 } else if (res.toUpperCase() == "BAD2") {
                     el.style.color = "#F00000"; 
