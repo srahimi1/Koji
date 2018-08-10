@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Aug 10 02:36:17 EDT 2018
+#Fri Aug 10 03:48:17 EDT 2018
 25.file=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\assets\\release\\www\\cordova_plugins.js
 25.base=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\assets\\release
 22.set=ANDROID_RESOURCE
@@ -12,7 +12,7 @@
 14.base=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_
 16.set=ASSET
 count=34
-6.file=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\res\\drawable-land-xxhdpi-v4\\screen.png
+6.file=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\res\\drawable-land-ldpi-v4\\screen.png
 6.base=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_
 26.file=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\res\\mipmap-mdpi-v4\\icon.png
 2.set=ANDROID_RESOURCE
@@ -99,7 +99,7 @@ count=34
 17.set=ANDROID_RESOURCE
 13.file=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\assets\\release\\www\\cordova-js-src\\plugin\\android\\app.js
 13.base=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\assets\\release
-5.file=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\res\\drawable-land-ldpi-v4\\screen.png
+5.file=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\res\\drawable-land-xxhdpi-v4\\screen.png
 3.set=ANDROID_RESOURCE
 5.base=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_
 33.set=ASSET
