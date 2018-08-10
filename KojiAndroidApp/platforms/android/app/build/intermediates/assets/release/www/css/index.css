@@ -52,10 +52,19 @@ input#contactusSubmit {
 
 input#loginEmailInput, input#loginCellphoneInput, input#loginPasswordInput,
 input#passwordChangeConfirmationCode, input#changePasswordInput1, input#changePasswordInput2, 
-button.profile-cancel-button2, button#changePasswordButton{
+button.profile-cancel-button2, button#changePasswordButton, input#changeEmailInput, input#changeCellphoneInput,
+ input#cancelMembershipInput {
     width: calc(100% - 32px);
     height: auto;
     font-size: 1.35em;
+    padding: 10px 15px 11px;
+}
+
+#cantguessletteryetButton{
+    color: white;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 1.5px;
     padding: 10px 15px 11px;
 }
 
@@ -117,12 +126,13 @@ input.signup-form-submit-button {
 }
 
 .demo-game {
-    background-color: blue;
+    background-color: white;
+    color: black;
 }
 
 .show-menu {
-    background-color: yellow;
-    color: black;
+    background-color: black;
+    color: white;
 }
 
 /* game sections */
@@ -182,7 +192,7 @@ input.signup-form-submit-button {
     font-size: 1em;
     margin: 0 auto;
     white-space: nowrap;
-    background-color: #3a3a3a;
+    background-color: black;
     color: white;
 }
 
@@ -379,7 +389,7 @@ input.signup-form-submit-button {
 
 .yesno-button {
     display: inline-block;
-    background-color: white;
+    background-color: black;
     padding: 0.4em 0;
     margin-top: 0.5em;
     border: none;
@@ -387,15 +397,14 @@ input.signup-form-submit-button {
     text-transform: uppercase;
     font-size: 1.2em;
     font-weight: 800;
-    border-radius: 3px
+    border-radius: 1.5px
 }
 
 .yes-button {
     border: 2px solid #555555;
-    color: black;
+    color: white;
     height: 2em;
     width: 50%;
-    box-shadow: 1px -1px 1px #bababa;
 }
 
 .notyet-button {
@@ -411,9 +420,8 @@ input.signup-form-submit-button {
 .no-button {
     border: 2px solid #555555;
     height: 2em;
-    color: black;
+    color: white;
     width: 50%;
-    box-shadow: -1px -1px 1px #bababa;
 }
 
 .it-matches-svg {
@@ -868,11 +876,6 @@ input#signupSubmit {
     width: 100%; */
     border: 0.5px solid navy;
     border-radius: 5px;
-    -webkit-box-shadow: inset 1px 2px 8px #969696;
-    -moz-box-shadow: inset 1px 2px 8px #969696;
-    -ms-box-shadow: inset 1px 2px 8px #969696;;
-    -o-box-shadow: inset 1px 2px 8px #969696;;
-    box-shadow: inset 1px 2px 8px #969696;
 }
 
 .profile-options-ul {
@@ -882,6 +885,7 @@ input#signupSubmit {
     list-style: none;
     z-index: 30;
     text-align: center;
+    margin-bottom: 0.1em;
 }
 
 .profile-option {
@@ -921,7 +925,7 @@ input#signupSubmit {
 
 .profile-paragraph {
     width: 92%;
-    padding: 0.2em 0 0.2em 0.5em;
+    padding: 0.1em 0 0.1em 0.5em;
 }
 
 .profile-error-message {
@@ -939,14 +943,21 @@ input#signupSubmit {
     border: none;
     background-color: #3311cc;
     color: #fafffa;
-    padding: 0.3em 1.5em;
-    margin-left: 0.25em;
+    width: calc(100% - 32px);
+    height: auto;
+    font-size: 1.35em;
+    padding: 10px 15px 11px;
+    margin: 0.1em 0px 0px 0px;
 }
 
 .profile-cancel-button {
     border: none;
     padding: 0.3em 1.5em;
     margin-right: 0.25em;
+    width: calc(100% - 32px);
+    height: auto;
+    font-size: 1.35em;
+    margin: 0.4em 0px 0.4em 0px;
 }
 
 .profile-option-div {
@@ -959,12 +970,12 @@ input#signupSubmit {
 }
 
 .logout {
-    padding: 0.4em 0.7em;
+    padding: 0.3em 1.5em;
     float: right;
     clear: right;
     border: none;
-    background-color: #bebebe;
-    color: blue;
+    background-color: black;
+    color: white;
     box-shadow: -1px 1px 9px #cfcfcf;
 }
 

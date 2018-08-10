@@ -29,6 +29,7 @@ var app = {
     onDeviceReady: function() {
         showBeginningModal();
         checkForStartupMessage();
+        this.initStore();
         this.receivedEvent('deviceready');
     },
 
@@ -38,7 +39,80 @@ var app = {
     }
 };
 
+app.initStore = function() { 
+
+    if (!window.store) {
+        console.log("Store not available");
+        return;
+    } // end if (!window.store)
+
+    store.verbosity = store.DEBUG;
+
+    //store.validator = "https://api.fovea.cc:1982/check-purchase";
+
+    store.register({
+        id: "sub1",
+        alias: "Koji Subscription - $2 recurring monthly fee",
+        type: store.PAID_SUBSCRIPTION
+    });
+
+    store.when("product").updated(function(p) {
+        app.refreshAndRenderProduct(p);
+        // do something
+    });
+
+    store.when("sub1").approved(function(p) {
+        p.verify();
+    });
+
+    store.when("sub1").verified(function(p) {
+        p.finish();
+    });
+
+    store.when("sub1").unverified(function(p) {
+        console.log("subscription unverified");
+        // do something
+    });
+
+    store.when("sub1").updated(function(p) {
+        if (p.owned) {
+            // set a variable that indicates player is subscribed or something to verify player is subscribed. what if the player fakes that value of the variable in the console so they can play? so must be another way other than setting a variable?
+            console.log("you are subscribed!");
+            // maybe do other thing
+        } else {
+            console.log("you are not subscribed");
+        }
+    }); //store.when("sub1").updated(function(p)
+
+    store.error(function(err) {
+        console.log(err.code + ": the error was " + err.message);
+    }); //store.error(function(err)
+
+
+    store.ready(function() {
+        alert("store ready");
+        store.refresh();
+    }); // store.ready(function()
+
+
+    store.refresh();
+
+
+
+
+} // end app.initStore
+
+
+app.refreshAndRenderProduct = function(p) {
+    console.log("a product was updated");
+    var subscription = store.get("" + p.id + "");
+    // or var subscription = store.get("sub1");
+    // do something
+} // end app.renderProduct(p)
+
+
 app.initialize();
+
 
 rootURL = "http://arsr-app1.herokuapp.com";
 csrfVar = "";
@@ -1469,7 +1543,7 @@ function profileOption(opt) {
         document.getElementById("changePasswordInput2").nextSibling.style.visibility = "hidden";
         document.getElementById("changePasswordButton").disabled = true;
     } else if (opt == 2) {
-        if (document.getElementById("changeLogin").offsetHeight < 5) document.getElementById("changeLogin").style.height = "20em";
+        if (document.getElementById("changeLogin").offsetHeight < 5) document.getElementById("changeLogin").style.height = "21.5em";
         else setTimeout(function() {document.getElementById("changeLogin").style.height = "20em";},600);
         document.getElementById("changeEmailInput").value = '';
         document.getElementById("changeCellphoneInput").value = '';
@@ -2098,3 +2172,11 @@ function stripePopup() {
             }); 
     } // end if (cont) {    
 } // end function stripePopup()
+
+
+
+// play-purchase-plugin and Google play payment functions
+
+function googlePopup() {
+    store.order("sub1");
+}
