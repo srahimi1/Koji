@@ -155,7 +155,7 @@ function setupNewGame(demoInstructionsCode) {
     gameC.style.display = "";
     gc = document.getElementById("goalContainer");
     var a = document.getElementById("cantguessletteryetButton");
-    a.innerHTML = "CAN'T GUESS A LETTER YET";
+    a.innerHTML = "Skip Letter Guess";
     a.onclick = function() {selectLetter(-1);};
     document.getElementById("extra").style.visibility = "hidden";
     timerPaused = false;
