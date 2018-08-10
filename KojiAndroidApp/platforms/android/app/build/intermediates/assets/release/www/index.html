@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<title></title>
+<title>Koji</title>
 <head>
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
     <meta name="msapplication-tap-highlight" content="no">
@@ -250,7 +250,7 @@
             <p class="signup-form-paragraph"><span id="password2ErrorMessage" style="color:red"></span></p>
             <p class="signup-form-paragraph"><input id="password2Input" class="signup-form-input" type="password" name="password2" placeholder=" Re-enter Password" maxlength="70" onkeyup="validatePassword()" onfocus="validatePassword()"><img src="img/greenCheck.png" class="green-check"></p>
             <p class="signup-form-paragraph"></p>
-            <p class="btn-padding"><input id="signupSubmit" class="signup-form-submit-button" type="button" name="signupSubmit" value="Payment Info >" onclick="stripePopup()" onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-1px 3px 9px #777777'" disabled="disabled"></p>
+            <p class="btn-padding"><input id="signupSubmit" class="signup-form-submit-button" type="button" name="signupSubmit" value="Payment Info >" onclick="googlePopup()" onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-1px 3px 9px #777777'" disabled="disabled"></p>
         </form>
         <div class="form-footer"></div>
     </div>
@@ -322,10 +322,10 @@
     <div id="changeLogin" class="profile-option-div change-login-div">
         <p id="changeLoginErrorMessage" class="profile-paragraph profile-error-message"></p>
         <p class="profile-paragraph">
-            <input id="changeEmailInput" class="profile-input" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onfocus="validateEmail(this,2)"><img src="img/greenCheck.png" class="green-check" style="bottom: 0"></p>
+            <input id="changeEmailInput" class="profile-input" type="text" placeholder="New Email" onkeyup="validateEmail(this,2)" onfocus="validateEmail(this,2)"><img src="img/greenCheck.png" class="green-check"></p>
         <p class="profile-paragraph" style="padding: 0.1em 0.5em; font-size: 1em;">- and/ or -</p>
         <p class="profile-paragraph">
-            <input id="changeCellphoneInput" class="profile-input" type="tel" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><img src="img/greenCheck.png" class="green-check" style="bottom: 0"></p>
+            <input id="changeCellphoneInput" class="profile-input" type="tel" placeholder="New Cellphone Number" maxlength="20" onkeyup="validateCellphone(this,3)" onfocus="validateCellphone(this,3)"><img src="img/greenCheck.png" class="green-check"></p>
         <p class="buttons-paragraph" style="width: 90%;"><button class="profile-cancel-button" onclick="profileOption(4)">Close</button><button id="changeLoginButton" class="profile-update-button" onclick="updateInfo(2)" disabled="disabled">Update</button></p>
     </div>
     <div id="cancelMembership" class="profile-option-div cancel-membership-div">

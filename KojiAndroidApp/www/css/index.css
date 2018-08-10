@@ -52,7 +52,7 @@ input#contactusSubmit {
 
 input#loginEmailInput, input#loginCellphoneInput, input#loginPasswordInput,
 input#passwordChangeConfirmationCode, input#changePasswordInput1, input#changePasswordInput2, 
-button.profile-cancel-button2, button#changePasswordButton{
+button.profile-cancel-button2, button#changePasswordButton, input#changeEmailInput, input#changeCellphoneInput, input#cancelMembershipInput {
     width: calc(100% - 32px);
     height: auto;
     font-size: 1.35em;
@@ -117,12 +117,13 @@ input.signup-form-submit-button {
 }
 
 .demo-game {
-    background-color: blue;
+    background-color: white;
+    color: black;
 }
 
 .show-menu {
-    background-color: yellow;
-    color: black;
+    background-color: black;
+    color: white;
 }
 
 /* game sections */
@@ -182,7 +183,7 @@ input.signup-form-submit-button {
     font-size: 1em;
     margin: 0 auto;
     white-space: nowrap;
-    background-color: #3a3a3a;
+    background-color: #2e2e2e;
     color: white;
 }
 
@@ -379,7 +380,7 @@ input.signup-form-submit-button {
 
 .yesno-button {
     display: inline-block;
-    background-color: white;
+    background-color: #2e2e2e;
     padding: 0.4em 0;
     margin-top: 0.5em;
     border: none;
@@ -387,15 +388,14 @@ input.signup-form-submit-button {
     text-transform: uppercase;
     font-size: 1.2em;
     font-weight: 800;
-    border-radius: 3px
+    border-radius: 1.5px
 }
 
 .yes-button {
     border: 2px solid #555555;
-    color: black;
+    color: white;
     height: 2em;
     width: 50%;
-    box-shadow: 1px -1px 1px #bababa;
 }
 
 .notyet-button {
@@ -411,9 +411,8 @@ input.signup-form-submit-button {
 .no-button {
     border: 2px solid #555555;
     height: 2em;
-    color: black;
+    color: white;
     width: 50%;
-    box-shadow: -1px -1px 1px #bababa;
 }
 
 .it-matches-svg {
@@ -464,11 +463,11 @@ input.signup-form-submit-button {
     color: white;
     box-shadow: -2px 1px 8px #aaaaaa;
     font-size: 1.7em;
-    font-weight: 900;
+    font-weight: 600;
     width: 100%;
     border: none;
     min-width: 320px;
-    height: 2em;
+    height: 2.5em;
     min-height: 52px;
     background-color: #3ecf8e;
 }
@@ -868,11 +867,6 @@ input#signupSubmit {
     width: 100%; */
     border: 0.5px solid navy;
     border-radius: 5px;
-    -webkit-box-shadow: inset 1px 2px 8px #969696;
-    -moz-box-shadow: inset 1px 2px 8px #969696;
-    -ms-box-shadow: inset 1px 2px 8px #969696;;
-    -o-box-shadow: inset 1px 2px 8px #969696;;
-    box-shadow: inset 1px 2px 8px #969696;
 }
 
 .profile-options-ul {
