@@ -464,11 +464,11 @@ input.signup-form-submit-button {
     color: white;
     box-shadow: -2px 1px 8px #aaaaaa;
     font-size: 1.7em;
-    font-weight: 900;
+    font-weight: 600;
     width: 100%;
     border: none;
     min-width: 320px;
-    height: 2em;
+    height: 2.5em;
     min-height: 52px;
     background-color: #3ecf8e;
 }
