@@ -567,7 +567,7 @@ function determineResultOfChoice(sendID, opt) {
     var par = guessTop.firstChild;
     var sendID = par.id + "";
     if (numberCorrect != correctLimit)
-        getNextColorsTimeoutID = setTimeout(function() {startTime = null;timerPaused = false;setupTimer();getNextColors(par, sendID);},time);
+       getNextColorsTimeoutID = setTimeout(function() {startTime = null;timerPaused = false;setupTimer();getNextColors(par, sendID);},time);
     return true;
 } // function determineResultOfChoice(sendID, opt)
 

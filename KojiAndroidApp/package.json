@@ -10,12 +10,16 @@
     "author": "Apache Cordova Team",
     "license": "Apache-2.0",
     "dependencies": {
+        "cc.fovea.cordova.purchase": "^7.1.3",
         "cordova-android": "^7.0.0",
         "cordova-plugin-whitelist": "^1.3.3"
     },
     "cordova": {
         "plugins": {
-            "cordova-plugin-whitelist": {}
+            "cordova-plugin-whitelist": {},
+            "cc.fovea.cordova.purchase": {
+                "BILLING_KEY": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvYFHpjw+O9s7swgmng2e5Yr+lzx6KZDx0zk9Ta0vMyrOjoJOgoVGOuEGRfEoGeqKbSMI7z2GvcLSbKX7ir/CMAkzUTdJM/opFUjPxOhsmf9CZGlbdu/HZBth+ydlsNG3LogyucHcpvU9F9rnkqbox+x5URiARSTQbK+ELgrZtZs5aCcrMnmBEw25djpS6NgnyZn/j9z006XG3B/uoE3vtFovJxdHrelTSan/9mjyXX+wbSdqBCYSZ8OscUiqhlX4brtU8+0S2LBTyb7/nGmheKFAUo248YB1RE7RenJ+REP4LrUNHe7foT+bCMxts0Oz24N7eDyIMiV2ZQS4q3MfdQIDAQAB"
+            }
         },
         "platforms": [
             "android"
