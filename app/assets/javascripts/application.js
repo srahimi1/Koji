@@ -1427,7 +1427,7 @@ function profileOption(opt) {
         document.getElementById("changePasswordInput2").nextSibling.style.visibility = "hidden";
         document.getElementById("changePasswordButton").disabled = true;
     } else if (opt == 2) {
-        if (document.getElementById("changeLogin").offsetHeight < 5) document.getElementById("changeLogin").style.height = "20em";
+        if (document.getElementById("changeLogin").offsetHeight < 5) document.getElementById("changeLogin").style.height = "21.5em";
         else setTimeout(function() {document.getElementById("changeLogin").style.height = "20em";},600);
         document.getElementById("changeEmailInput").value = '';
         document.getElementById("changeCellphoneInput").value = '';
