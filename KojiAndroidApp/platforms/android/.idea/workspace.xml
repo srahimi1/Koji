@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0b879ea5-0867-4743-86e4-55b4e08b1854" name="Default" comment="" />
+    <list default="true" id="9c44c0b9-1192-4fd5-9d20-2783c82300ae" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -13,9 +13,6 @@
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
     </projectState>
-  </component>
-  <component name="FileEditorManager">
-    <leaf />
   </component>
   <component name="GenerateSignedApkSettings">
     <option name="KEY_STORE_PATH" value="C:\Users\lunarglow\AndroidAppSigningKey.jks" />
@@ -2984,13 +2981,6 @@
       </map>
     </option>
   </component>
-  <component name="IdeDocumentHistory">
-    <option name="CHANGED_PATHS">
-      <list>
-        <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      </list>
-    </option>
-  </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="61" />
     <option name="y" value="14" />
@@ -3012,21 +3002,11 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="android" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="ProjectPane" />
-      <pane id="Scope" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3195,11 +3175,11 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="0b879ea5-0867-4743-86e4-55b4e08b1854" name="Default" comment="" />
-      <created>1533887036871</created>
+      <changelist id="9c44c0b9-1192-4fd5-9d20-2783c82300ae" name="Default" comment="" />
+      <created>1534019856291</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1533887036871</updated>
+      <updated>1534019856291</updated>
     </task>
     <servers />
   </component>
@@ -3243,18 +3223,5 @@
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
-  </component>
-  <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="71" lean-forward="false" selection-start-line="1" selection-start-column="71" selection-end-line="1" selection-end-column="71" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
   </component>
 </project>

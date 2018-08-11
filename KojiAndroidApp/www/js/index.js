@@ -56,6 +56,15 @@ app.initStore = function() {
         type: store.PAID_SUBSCRIPTION
     });
 
+    store.validator = function(product, callback) {
+        alert("in validator");
+        alert("next is product.transaction");
+        alert(JSON.stringify(product.transaction));
+        signupFormSubmitWithGooglePlayBilling(product.transaction.purchaseToken, product.transaction);
+        //checkBillingServer(product.transaction);
+    };
+
+
     store.when("product").updated(function(p) {
         app.refreshAndRenderProduct(p);
         // do something
@@ -105,6 +114,7 @@ app.initStore = function() {
 
 app.refreshAndRenderProduct = function(p) {
     console.log("a product was updated");
+    store.refresh();
     var subscription = store.get("" + p.id + "");
     // or var subscription = store.get("sub1");
     // do something
@@ -112,6 +122,31 @@ app.refreshAndRenderProduct = function(p) {
 
 
 app.initialize();
+
+function checkBillingServer(transaction) {
+    alert("in check billing server");
+    alert("and this is the token in check billing serverr");
+    if (!!transaction.purchaseToken) alert(transaction.purchaseToken);
+    xhttpB = new XMLHttpRequest();
+    xhttpB.open("POST", rootURL+"/games");
+    xhttpB.setRequestHeader('X-CSRF-Token', csrfVar);
+    xhttpB.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    console.log(csrfVar);
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            inputData = JSON.parse(this.responseText);
+            localStorage.setItem("gameID", inputData.gameID);
+            topData = inputData["colors"];
+            cycleTopDataAt = 1;
+            gameData = topData[0];
+            finishSettingUpGame(demoInstructionsCode);
+            return true;
+        } // end if 
+    } // end onreadystatechange
+    xhttpB.send("session_token=" + sess);
+    return false;
+} // end checkBillingServer(transaction)
+
 
 
 rootURL = "http://arsr-app1.herokuapp.com";
@@ -1876,6 +1911,57 @@ function signupFormSubmit(stripeToken) {
     } // end if (cont)
     return false;
 } // end function signupFormSubmit()
+
+function signupFormSubmitWithGooglePlayBilling(purchaseToken, transaction) {
+    alert("in signupFormSubmitWithGooglePlayBilling(");
+    alert("in signupFormSubmitWithGooglePlayBilling( and this is purchaseToken : " + purchaseToken);
+    alert("signupFormSubmitWithGooglePlayBilling( and this is transaction : " + JSON.stringify(transaction));
+    var button = document.getElementById("signupSubmit");
+    button.disabled = true;
+    var cont = false;
+    if (formcheck[0] && formcheck[2] && formcheck[3]) cont = true;
+    if (cont) {
+        var email = encodeURIComponent(document.getElementById("emailInput").value);
+        var cellphone = encodeURIComponent(returnInteger(document.getElementById("cellphoneInput").value));
+        var displayname= encodeURIComponent(document.getElementById("displaynameInput").value);
+        var password1 = encodeURIComponent(document.getElementById("password1Input").value);
+        var password2 = encodeURIComponent(document.getElementById("password2Input").value);
+        var version = document.getElementById("gameVersion").value;
+        var transactionStringified = JSON.stringify(transaction);
+        xhttp.abort();
+        xhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var res = this.responseText + "";
+                alert(res);
+                /*var el = document.getElementById("gameMessage");
+                var res2 = res.split(":q:")[0];
+                if (res2.toUpperCase() == "OK") {
+                    el.style.color = "#3ecf8e";
+                    el.innerHTML = "Thank you for signing up to play Koji!<br/>Enjoy!"; 
+                    localStorage.setItem("session_token",res.split("OK:q:")[1]);
+                    closeMenu(document.getElementById('signupDiv'));
+                } else if (res.toUpperCase() == "BAD2") {
+                    el.style.color = "#F00000"; 
+                    el.innerHTML = "Payment processing was not succesful, we apologize.<br/>Please check your information and try again."; 
+                    button.disabled = false;
+                } else if (res.toUpperCase() == "BAD") { 
+                    el.style.color = "#F00000"; 
+                    el.innerHTML = "Sorry, sign-up was not succesful<br/>Please check your information and try again."; 
+                    button.disabled = false;
+                } // if (res.toUpperCase() == "OK")
+                showMenu(document.getElementById('gameMessageDiv')); 
+                el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";
+                setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); showMenu(document.getElementById('menuDiv')); },3500); */              
+                return true;
+            } // if (this.readyState == 4 && this.status == 200)
+        }; // xhttptemp.onreadystatechange = function()
+        xhttp.open("POST", rootURL+"/players/signupAndSubscribeWithGooglePlay", true);
+        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttp.setRequestHeader('X-CSRF-Token', csrfVar);
+        xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version+"&purchaseToken="+purchaseToken+"&transaction="+transactionStringified);
+    } // end if (cont)
+    return false;
+} // end function signupFormSubmitWithGooglePlayBilling(purchaseToken, transaction)
 
 function signinFormSubmit(code) {
     var email = encodeURIComponent(document.getElementById("loginEmailInput").value);

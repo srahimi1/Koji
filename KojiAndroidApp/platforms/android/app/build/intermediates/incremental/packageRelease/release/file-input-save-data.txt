@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Fri Aug 10 03:48:17 EDT 2018
+#Sat Aug 11 13:26:11 EDT 2018
 25.file=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\assets\\release\\www\\cordova_plugins.js
 25.base=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\assets\\release
 22.set=ANDROID_RESOURCE
@@ -68,7 +68,7 @@ count=34
 33.base=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\assets\\release
 9.file=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\res\\drawable-port-xhdpi-v4\\screen.png
 5.set=ANDROID_RESOURCE
-18.file=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\res\\drawable-port-hdpi-v4\\screen.png
+18.file=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\res\\xml\\config.xml
 9.base=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_
 18.base=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_
 11.file=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\assets\\release\\www\\cordova.js
@@ -83,7 +83,7 @@ count=34
 29.set=ASSET
 23.base=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_
 18.set=ANDROID_RESOURCE
-19.file=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\res\\xml\\config.xml
+19.file=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\res\\drawable-port-hdpi-v4\\screen.png
 19.base=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_
 12.file=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\assets\\release\\www\\js\\timer.js
 12.base=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\assets\\release
