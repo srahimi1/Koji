@@ -1917,7 +1917,7 @@ function googlePlayBillingSubmit(purchaseToken, transaction, product, callback) 
             alert(res);
         } // if (this.readyState == 4 && this.status == 200)
         }; // xhttptemp.onreadystatechange = function()
-    var data = "purchaseToken="+purchaseToken+"&transaction="+transactionStringified;
+    var data = "purchaseToken="+purchaseToken+"&transaction="+JSON.stringify(transaction);
     xhttptemp.open("GET", rootURL+"/players/subscribeWithGooglePlay?"+data, true);
     xhttptemp.send();
     return false;
