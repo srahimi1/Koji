@@ -4,6 +4,7 @@ class GooglePlaySubscriptionsController < ApplicationController
 
 
 	def get_access_and_refresh_tokens
+		puts params.inspect
 		puts " code is   "
 		puts " "
 		puts params["code"]
