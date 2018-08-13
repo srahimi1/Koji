@@ -9,7 +9,7 @@ class GooglePlaySubscriptionsController < ApplicationController
 		res = JSON.parse(x.body)
 		puts "this is the refre toke"
 		puts " "
-		puts res.refresh_token
+		puts res["refresh_token"]
 		puts " "
 		puts " "
 		render plain: res["refresh_token"]
