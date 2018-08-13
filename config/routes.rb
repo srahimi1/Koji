@@ -14,6 +14,5 @@ Rails.application.routes.draw do
   post '/players/login', to: 'players#login'
   get '/googleplaysubscriptions/subscribeWithGooglePlay', to: 'google_play_subscriptions#subscribe_with_google_play'
   get '/googleplaysubscriptions/getAccessAndRefreshTokens', to: 'google_play_subscriptions#get_access_and_refresh_tokens'
-  post '/googleplaysubscriptions/getAccessAndRefreshTokens', to: 'google_play_subscriptions#get_access_and_refresh_tokens'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
