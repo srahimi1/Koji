@@ -38,11 +38,6 @@ class PlayersController < ApplicationController
 		render plain: output
 	end
 
-	def subscribe_with_google_play
-		render plain: "IT made it!!!!!!"
-	end
-
-
 	def update
 		if ((!params[:id].blank?) && (params["code"].to_i != 1))
 			player = Player.find_by(session_token: params[:id])

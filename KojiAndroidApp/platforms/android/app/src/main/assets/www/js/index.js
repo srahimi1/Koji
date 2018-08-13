@@ -112,7 +112,6 @@ app.initStore = function() {
 
 app.refreshAndRenderProduct = function(p) {
     console.log("a product was updated");
-    store.refresh();
     var subscription = store.get("" + p.id + "");
     // or var subscription = store.get("sub1");
     // do something
@@ -1914,6 +1913,7 @@ function googlePlayBillingSubmit(purchaseToken, transaction, product, callback) 
         xhttptemp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var res = this.responseText + "";
+            callback(true, transaction);
             alert(res);
         } // if (this.readyState == 4 && this.status == 200)
         }; // xhttptemp.onreadystatechange = function()
@@ -1940,7 +1940,6 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, pro
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 var res = this.responseText + "";
-                callback(true, transaction);
                 alert(res);
                 /*var el = document.getElementById("gameMessage");
                 var res2 = res.split(":q:")[0];
