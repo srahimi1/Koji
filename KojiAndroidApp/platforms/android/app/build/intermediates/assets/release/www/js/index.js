@@ -1918,8 +1918,7 @@ function googlePlayBillingSubmit(purchaseToken, transaction, product, callback) 
         } // if (this.readyState == 4 && this.status == 200)
         }; // xhttptemp.onreadystatechange = function()
     var data = "purchaseToken="+purchaseToken+"&transaction="+transactionStringified;
-    var data2= encodeURIComponent(data);
-    xhttptemp.open("GET", rootURL+"/players/subscribeWithGooglePlay?"+data2, true);
+    xhttptemp.open("GET", rootURL+"/players/subscribeWithGooglePlay?"+data, true);
     xhttptemp.send();
     return false;
 } // end function googlePlayBillingSubmit(purchaseToken, transaction, product, callback)
