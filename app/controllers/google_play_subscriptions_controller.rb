@@ -12,3 +12,5 @@ class GooglePlaySubscriptionsController < ApplicationController
 	def subscribe_with_google_play
 		render plain: "IT made it!!!!!!"
 	end
+
+end
