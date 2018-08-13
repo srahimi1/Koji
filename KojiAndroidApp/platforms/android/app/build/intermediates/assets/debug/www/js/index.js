@@ -57,10 +57,7 @@ app.initStore = function() {
     });
 
     store.validator = function(product, callback) {
-        alert("in validator");
-        alert("next is product.transaction");
-        alert(JSON.stringify(product.transaction));
-        signupFormSubmitWithGooglePlayBilling(product.transaction.purchaseToken, product.transaction);
+        googlePlayBillingSubmit(product.transaction.purchaseToken, product.transaction, product, callback);
         //checkBillingServer(product.transaction);
     };
 
@@ -76,6 +73,7 @@ app.initStore = function() {
 
     store.when("sub1").verified(function(p) {
         p.finish();
+        alert("verified NEWddd");
     });
 
     store.when("sub1").unverified(function(p) {
@@ -86,10 +84,10 @@ app.initStore = function() {
     store.when("sub1").updated(function(p) {
         if (p.owned) {
             // set a variable that indicates player is subscribed or something to verify player is subscribed. what if the player fakes that value of the variable in the console so they can play? so must be another way other than setting a variable?
-            console.log("you are subscribed!");
+            alert("you are subscribed11111");
             // maybe do other thing
         } else {
-            console.log("you are not subscribed");
+            //alert("you are not subscribed");
         }
     }); //store.when("sub1").updated(function(p)
 
@@ -100,14 +98,14 @@ app.initStore = function() {
 
     store.ready(function() {
         alert("store ready");
-        store.refresh();
     }); // store.ready(function()
 
+    function dodo() {
+        store.refresh();
+        alert("just called refresh");
+    }
 
-    store.refresh();
-
-
-
+    dodo();
 
 } // end app.initStore
 
@@ -124,9 +122,6 @@ app.refreshAndRenderProduct = function(p) {
 app.initialize();
 
 function checkBillingServer(transaction) {
-    alert("in check billing server");
-    alert("and this is the token in check billing serverr");
-    if (!!transaction.purchaseToken) alert(transaction.purchaseToken);
     xhttpB = new XMLHttpRequest();
     xhttpB.open("POST", rootURL+"/games");
     xhttpB.setRequestHeader('X-CSRF-Token', csrfVar);
@@ -1912,10 +1907,24 @@ function signupFormSubmit(stripeToken) {
     return false;
 } // end function signupFormSubmit()
 
-function signupFormSubmitWithGooglePlayBilling(purchaseToken, transaction) {
-    alert("in signupFormSubmitWithGooglePlayBilling(");
-    alert("in signupFormSubmitWithGooglePlayBilling( and this is purchaseToken : " + purchaseToken);
-    alert("signupFormSubmitWithGooglePlayBilling( and this is transaction : " + JSON.stringify(transaction));
+function googlePlayBillingSubmit(purchaseToken, transaction, product, callback) {
+    var button = document.getElementById("signupSubmit");
+    button.disabled = true;
+    var xhttptemp = new XMLHttpRequest();
+        xhttptemp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            var res = this.responseText + "";
+            alert(res);
+        } // if (this.readyState == 4 && this.status == 200)
+        }; // xhttptemp.onreadystatechange = function()
+    var data = "purchaseToken="+purchaseToken+"&transaction="+transactionStringified;
+    var data2= encodeURIComponent(data);
+    xhttptemp.open("GET", rootURL+"/players/subscribeWithGooglePlay?"+data2, true);
+    xhttptemp.send();
+    return false;
+} // end function googlePlayBillingSubmit(purchaseToken, transaction, product, callback)
+
+function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, product, callback) {
     var button = document.getElementById("signupSubmit");
     button.disabled = true;
     var cont = false;
@@ -1932,6 +1941,7 @@ function signupFormSubmitWithGooglePlayBilling(purchaseToken, transaction) {
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 var res = this.responseText + "";
+                callback(true, transaction);
                 alert(res);
                 /*var el = document.getElementById("gameMessage");
                 var res2 = res.split(":q:")[0];
@@ -1961,7 +1971,7 @@ function signupFormSubmitWithGooglePlayBilling(purchaseToken, transaction) {
         xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version+"&purchaseToken="+purchaseToken+"&transaction="+transactionStringified);
     } // end if (cont)
     return false;
-} // end function signupFormSubmitWithGooglePlayBilling(purchaseToken, transaction)
+} // end function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, product, callback)
 
 function signinFormSubmit(code) {
     var email = encodeURIComponent(document.getElementById("loginEmailInput").value);

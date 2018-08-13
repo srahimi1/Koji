@@ -38,7 +38,7 @@ class PlayersController < ApplicationController
 		render plain: output
 	end
 
-	def signup_and_subscribe_with_google_play
+	def subscribe_with_google_play
 		render plain: "IT made it!!!!!!"
 	end
 
