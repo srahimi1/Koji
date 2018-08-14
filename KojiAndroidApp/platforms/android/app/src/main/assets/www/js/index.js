@@ -61,23 +61,20 @@ app.initStore = function() {
         //checkBillingServer(product.transaction);
     };
 
-
-    store.when("product").updated(function(p) {
-        app.refreshAndRenderProduct(p);
-        // do something
-    });
-
     store.when("sub1").approved(function(p) {
         p.verify();
     });
 
     store.when("sub1").verified(function(p) {
+        alert("this is p");
+        alert(JSON.stringify(p));
         p.finish();
-        alert("verified NEWddd");
+        p.set('state', store.FINISHED);
+        p.stateChanged();
+        alert("verified");
     });
 
     store.when("sub1").unverified(function(p) {
-        console.log("subscription unverified");
         // do something
     });
 
@@ -97,51 +94,13 @@ app.initStore = function() {
 
 
     store.ready(function() {
-        alert("store ready");
     }); // store.ready(function()
 
-    function dodo() {
-        store.refresh();
-        alert("just called refresh");
-    }
-
-    dodo();
-
+    store.refresh();
 } // end app.initStore
 
 
-app.refreshAndRenderProduct = function(p) {
-    console.log("a product was updated");
-    var subscription = store.get("" + p.id + "");
-    // or var subscription = store.get("sub1");
-    // do something
-} // end app.renderProduct(p)
-
-
 app.initialize();
-
-function checkBillingServer(transaction) {
-    xhttpB = new XMLHttpRequest();
-    xhttpB.open("POST", rootURL+"/games");
-    xhttpB.setRequestHeader('X-CSRF-Token', csrfVar);
-    xhttpB.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    console.log(csrfVar);
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            inputData = JSON.parse(this.responseText);
-            localStorage.setItem("gameID", inputData.gameID);
-            topData = inputData["colors"];
-            cycleTopDataAt = 1;
-            gameData = topData[0];
-            finishSettingUpGame(demoInstructionsCode);
-            return true;
-        } // end if 
-    } // end onreadystatechange
-    xhttpB.send("session_token=" + sess);
-    return false;
-} // end checkBillingServer(transaction)
-
-
 
 rootURL = "http://arsr-app1.herokuapp.com";
 csrfVar = "";
@@ -1913,12 +1872,13 @@ function googlePlayBillingSubmit(purchaseToken, transaction, product, callback) 
         xhttptemp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var res = this.responseText + "";
-            callback(true, transaction);
-            alert(res);
+            var response = JSON.parse(res);
+            if ((!!response.paymentState) && (response.paymentState == 1) && !response.cancelReason && !response.userCancellationTimeMillis) 
+                callback(true, response);
         } // if (this.readyState == 4 && this.status == 200)
         }; // xhttptemp.onreadystatechange = function()
     var data = "purchaseToken="+purchaseToken+"&transaction="+JSON.stringify(transaction);
-    xhttptemp.open("GET", rootURL+"/players/subscribeWithGooglePlay?"+data, true);
+    xhttptemp.open("GET", rootURL+"/googleplaysubscriptions/subscribeWithGooglePlay?"+data, true);
     xhttptemp.send();
     return false;
 } // end function googlePlayBillingSubmit(purchaseToken, transaction, product, callback)
@@ -1940,7 +1900,6 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, pro
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 var res = this.responseText + "";
-                alert(res);
                 /*var el = document.getElementById("gameMessage");
                 var res2 = res.split(":q:")[0];
                 if (res2.toUpperCase() == "OK") {

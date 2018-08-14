@@ -61,23 +61,18 @@ app.initStore = function() {
         //checkBillingServer(product.transaction);
     };
 
-
-    store.when("product").updated(function(p) {
-        app.refreshAndRenderProduct(p);
-        // do something
-    });
-
     store.when("sub1").approved(function(p) {
         p.verify();
     });
 
     store.when("sub1").verified(function(p) {
         p.finish();
-        alert("verified NEWddd");
+        p.set("state", store.FINISHED);
+        p.stateChanged();
+        alert("verified");
     });
 
     store.when("sub1").unverified(function(p) {
-        console.log("subscription unverified");
         // do something
     });
 
@@ -100,23 +95,8 @@ app.initStore = function() {
         alert("store ready");
     }); // store.ready(function()
 
-    function dodo() {
-        store.refresh();
-        alert("just called refresh");
-    }
-
-    dodo();
-
-} // end app.initStore
-
-
-app.refreshAndRenderProduct = function(p) {
-    console.log("a product was updated");
     store.refresh();
-    var subscription = store.get("" + p.id + "");
-    // or var subscription = store.get("sub1");
-    // do something
-} // end app.renderProduct(p)
+} // end app.initStore
 
 
 app.initialize();
@@ -1914,11 +1894,12 @@ function googlePlayBillingSubmit(purchaseToken, transaction, product, callback) 
         xhttptemp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var res = this.responseText + "";
-            alert(res);
+            callback(true, product);
+            alert("product id is " + product.id);
         } // if (this.readyState == 4 && this.status == 200)
         }; // xhttptemp.onreadystatechange = function()
     var data = "purchaseToken="+purchaseToken+"&transaction="+JSON.stringify(transaction);
-    xhttptemp.open("GET", rootURL+"/players/subscribeWithGooglePlay?"+data, true);
+    xhttptemp.open("GET", rootURL+"/googleplaysubscriptions/subscribeWithGooglePlay?"+data, true);
     xhttptemp.send();
     return false;
 } // end function googlePlayBillingSubmit(purchaseToken, transaction, product, callback)
@@ -1940,7 +1921,6 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, pro
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 var res = this.responseText + "";
-                callback(true, transaction);
                 alert(res);
                 /*var el = document.getElementById("gameMessage");
                 var res2 = res.split(":q:")[0];

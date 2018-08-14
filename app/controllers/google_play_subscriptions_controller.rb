@@ -25,6 +25,8 @@ class GooglePlaySubscriptionsController < ApplicationController
 		puts " "
 		puts "IT made it!!!!!!"
 		puts " "
+		puts params["transaction"].inspect
+		puts " "
 		puts res
 		render plain: res
 	end
