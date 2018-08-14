@@ -25,8 +25,8 @@ class GooglePlaySubscriptionsController < ApplicationController
 		puts " "
 		puts "IT made it!!!!!!"
 		puts " "
-		puts res.body
-		render plain: res.body
+		puts res
+		render plain: res
 	end
 
 end
