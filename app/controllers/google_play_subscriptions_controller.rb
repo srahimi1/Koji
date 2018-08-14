@@ -14,17 +14,19 @@ class GooglePlaySubscriptionsController < ApplicationController
 		params2 = {grant_type: "refresh_token", client_id: ENV["GOOGLE_PLAY_CLIENT_ID"], client_secret: ENV["GOOGLE_PLAY_CLIENT_SECRET"], refresh_token: ENV["GOOGLE_PLAY_REFRESH_TOKEN"]}
 		x = Net::HTTP.post_form(URI.parse("https://accounts.google.com/o/oauth2/token"),params2)
 		res = JSON.parse(x.body)
-		puts "this is the access_token"
-		puts " "
-		puts res["access_token"]
-		puts " "
-		puts " "
-		render plain: res["access_token"]
+		res["access_token"]
 	end
 
 	def subscribe_with_google_play
 		at = get_access_token_from_refresh_token
-		render plain: "IT made it!!!!!!"
+		url = "https://www.googleapis.com/androidpublisher/v3/applications/com.kojigame.koji/purchases/subscriptions/sub1/tokens/" + params["purchaseToken"] + "?access_token=" + at
+		res = Net::HTTP.get(URI.parse(url))
+		puts " "
+		puts " "
+		puts "IT made it!!!!!!"
+		puts " "
+		puts res.body
+		render plain: res.body
 	end
 
 end
