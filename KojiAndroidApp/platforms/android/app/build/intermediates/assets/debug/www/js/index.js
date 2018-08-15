@@ -16,94 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-var app = {
-    // Application Constructor
-    initialize: function() {
-        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
-    },
-
-    // deviceready Event Handler
-    //
-    // Bind any cordova events here. Common events are:
-    // 'pause', 'resume', etc.
-    onDeviceReady: function() {
-        showBeginningModal();
-        checkForStartupMessage();
-        this.initStore();
-        this.receivedEvent('deviceready');
-    },
-
-    // Update DOM on a Received Event
-    receivedEvent: function(id) {
-        console.log('Received Event: ' + id);
-    }
-};
-
-app.initStore = function() { 
-
-    if (!window.store) {
-        console.log("Store not available");
-        return;
-    } // end if (!window.store)
-
-    store.verbosity = store.DEBUG;
-
-    //store.validator = "https://api.fovea.cc:1982/check-purchase";
-
-    store.register({
-        id: "sub1",
-        alias: "Koji Subscription - $2 recurring monthly fee",
-        type: store.PAID_SUBSCRIPTION
-    });
-
-    store.validator = function(product, callback) {
-        googlePlayBillingSubmit(product.transaction.purchaseToken, product.transaction, product, callback);
-        //checkBillingServer(product.transaction);
-    };
-
-    store.when("sub1").approved(function(p) {
-        p.verify();
-    });
-
-    store.when("sub1").verified(function(p) {
-        alert("this is p");
-        alert(JSON.stringify(p));
-        p.finish();
-        p.set('state', store.FINISHED);
-        p.stateChanged();
-        alert("verified");
-    });
-
-    store.when("sub1").unverified(function(p) {
-        // do something
-    });
-
-    store.when("sub1").updated(function(p) {
-        if (p.owned) {
-            // set a variable that indicates player is subscribed or something to verify player is subscribed. what if the player fakes that value of the variable in the console so they can play? so must be another way other than setting a variable?
-            alert("you are subscribed11111");
-            // maybe do other thing
-        } else {
-            //alert("you are not subscribed");
-        }
-    }); //store.when("sub1").updated(function(p)
-
-    store.error(function(err) {
-        console.log(err.code + ": the error was " + err.message);
-    }); //store.error(function(err)
-
-
-    store.ready(function() {
-    }); // store.ready(function()
-
-    store.refresh();
-} // end app.initStore
-
-
-app.initialize();
-
 rootURL = "http://arsr-app1.herokuapp.com";
 csrfVar = "";
+purchaseStep = 0;
+kojiProduct = null;
 timerTime = 6;
 yesnoButtonEnabled = true;
 gameContentHTML = null;
@@ -156,6 +72,96 @@ imageData = null;
 similarLettersLowerCase = {"a": "egqdDQGB", "b": "hdgopqPFLK", "c": "eouvhyQEDO", "d": "bpqghPRBD", "e": "agqdEFKRP", "f": "ktjiFLKR", "g":"abdopqGQO", "h":"bdkrvHLRK", "i":"ljtILJT", "j":"iltTKRL", "k":"bdepxMWFE", "l": "ijtLPKH", "m": "nwuveWNRHE", "n": "muwvWRMK", "o":"bqpcdQBP", "p": "bdgceBRDE", "q": "pbdeBPDR", "r":"nuhHJLK", "s":"czgoCZGO", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuvzEMZ", "x": "kwmyz", "y": "zvukh", "z":"snum"};
 similarLettersUpperCase = {"A": "VYUHegqd", "B": "KEPRFXhdgopq", "C": "GOQDeouvhy", "D": "CGOQbpqgh", "E": "KBPRFXMagqd", "F" : "KBEPRXktji", "G":"COQDabdopq", "H":"ITLJAbdkrv", "I":"HTLJljt", "J":"HITLilt", "K":"BEPRFXbdepx", "L":"HITJijt", "M":"NWUHEnwuv", "N": "MWUHEmuwv", "O": "CGQDbqpcd", "P": "KBERFXbdgce", "Q":"GCDOpbde", "R": "KBEPFXnuh", "S" : "ZCBEOzcbeo", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNEZmz", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
 allLetters = {"a": 1, "b": 1, "c": 1, "d": 1, "e": 1, "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z": 1, "A": 1, "B": 1, "C": 1, "D": 1, "E": 1, "F" : 1, "G": 1, "H": 1, "I": 1, "J": 1, "K": 1, "L": 1, "M": 1, "N": 1, "O": 1, "P": 1, "Q": 1, "R": 1, "S" : 1, "T": 1, "U": 1, "V" : 1, "W" : 1, "X" : 1, "Y": 1, "Z" : 1};
+
+
+var app = {
+    // Application Constructor
+    initialize: function() {
+        document.addEventListener('deviceready', this.onDeviceReady.bind(this), false);
+    },
+
+    // deviceready Event Handler
+    //
+    // Bind any cordova events here. Common events are:
+    // 'pause', 'resume', etc.
+    onDeviceReady: function() {
+        showBeginningModal();
+        checkForStartupMessage();
+        this.initStore();
+        this.receivedEvent('deviceready');
+    },
+
+    // Update DOM on a Received Event
+    receivedEvent: function(id) {
+        console.log('Received Event: ' + id);
+    }
+};
+
+app.initStore = function() { 
+
+    if (!window.store) {
+        console.log("Store not available");
+        return;
+    } // end if (!window.store)
+
+    store.verbosity = store.DEBUG;
+
+    //store.validator = "https://api.fovea.cc:1982/check-purchase";
+
+    store.register({
+        id: "sub1",
+        alias: "Koji Subscription - $2 recurring monthly fee",
+        type: store.PAID_SUBSCRIPTION
+    });
+
+    store.validator = function(product, callback) {
+        googlePlayBillingSubmit(product.transaction.purchaseToken, product.transaction, product, callback);
+        //checkBillingServer(product.transaction);
+    };
+
+    store.when("sub1").approved(function(p) {
+        p.verify();
+    });
+
+    store.when("sub1").verified(function(p) {
+        p.finish();
+    });
+
+    store.when("sub1").unverified(function(p) {
+        // do something
+    });
+
+    store.when("sub1").updated(function(p) {
+        if (p.valid && (p.state == store.APPROVED) && (purchaseStep == 0)) {
+            p.finish();
+        } else if (p.owned) {
+            // set a variable that indicates player is subscribed or something to verify player is subscribed. what if the player fakes that value of the variable in the console so they can play? so must be another way other than setting a variable?
+            kojiProduct = p;
+            purchaseStep = 0;
+            // maybe do other thing
+        } else {
+            //alert("you are not subscribed");
+        }
+    }); //store.when("sub1").updated(function(p)
+
+    store.error(function(err) {
+        console.log(err.code + ": the error was " + err.message);
+    }); //store.error(function(err)
+
+
+    store.ready(function() {
+    }); // store.ready(function()
+
+    store.refresh();
+
+} // end app.initStore
+
+app.initialize();
+
+function startPurchase() {
+    purchaseStep = 1;
+    googlePopup();
+}
 
 function getTitleBarHeight() {
     if (document && document.getElementById('KOJITitle')) {
@@ -1874,7 +1880,7 @@ function googlePlayBillingSubmit(purchaseToken, transaction, product, callback) 
             var res = this.responseText + "";
             var response = JSON.parse(res);
             if ((!!response.paymentState) && (response.paymentState == 1) && !response.cancelReason && !response.userCancellationTimeMillis) 
-                callback(true, response);
+                {callback(true, response);}
         } // if (this.readyState == 4 && this.status == 200)
         }; // xhttptemp.onreadystatechange = function()
     var data = "purchaseToken="+purchaseToken+"&transaction="+JSON.stringify(transaction);
@@ -1900,13 +1906,15 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, pro
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 var res = this.responseText + "";
-                /*var el = document.getElementById("gameMessage");
+                var el = document.getElementById("gameMessage");
                 var res2 = res.split(":q:")[0];
                 if (res2.toUpperCase() == "OK") {
                     el.style.color = "#3ecf8e";
                     el.innerHTML = "Thank you for signing up to play Koji!<br/>Enjoy!"; 
                     localStorage.setItem("session_token",res.split("OK:q:")[1]);
                     closeMenu(document.getElementById('signupDiv'));
+                    if ((!!response.paymentState) && (response.paymentState == 1) && !response.cancelReason && !response.userCancellationTimeMillis) 
+                        {callback(true, response);}
                 } else if (res.toUpperCase() == "BAD2") {
                     el.style.color = "#F00000"; 
                     el.innerHTML = "Payment processing was not succesful, we apologize.<br/>Please check your information and try again."; 
@@ -1918,7 +1926,7 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, pro
                 } // if (res.toUpperCase() == "OK")
                 showMenu(document.getElementById('gameMessageDiv')); 
                 el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";
-                setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); showMenu(document.getElementById('menuDiv')); },3500); */              
+                setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); showMenu(document.getElementById('menuDiv')); },3500);               
                 return true;
             } // if (this.readyState == 4 && this.status == 200)
         }; // xhttptemp.onreadystatechange = function()

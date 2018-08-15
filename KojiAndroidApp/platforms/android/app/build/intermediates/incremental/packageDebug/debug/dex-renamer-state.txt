@@ -1,4 +1,4 @@
-#Tue Aug 14 18:51:02 EDT 2018
+#Wed Aug 15 18:40:06 EDT 2018
 base.0=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\37
 renamed.0=classes.dex
 file.0=D\:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\37\\classes.dex

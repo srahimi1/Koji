@@ -21,13 +21,6 @@ class GooglePlaySubscriptionsController < ApplicationController
 		at = get_access_token_from_refresh_token
 		url = "https://www.googleapis.com/androidpublisher/v3/applications/com.kojigame.koji/purchases/subscriptions/sub1/tokens/" + params["purchaseToken"] + "?access_token=" + at
 		res = Net::HTTP.get(URI.parse(url))
-		puts " "
-		puts " "
-		puts "IT made it!!!!!!"
-		puts " "
-		puts params["transaction"].inspect
-		puts " "
-		puts res
 		render plain: res
 	end
 
