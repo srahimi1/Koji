@@ -13,14 +13,14 @@ class GooglePlaySubscription < ApplicationRecord
 		res["access_token"]
 	end
 
-	def self.subscribe_with_google_play(token, transaction, email)
+	def self.subscribe_with_google_play(token, receipt, email)
 		at = get_access_token_from_refresh_token
 		url = "https://www.googleapis.com/androidpublisher/v3/applications/com.kojigame.koji/purchases/subscriptions/sub1/tokens/" + token + "?access_token=" + at
 		res = Net::HTTP.get(URI.parse(url))
 		subscription_response = JSON.parse(res)
-		transaction_response = JSON.parse(transaction)
-		if ( (subscription_response["paymentState"] == 1) && (transaction_response["receipt"]["purchaseState"] == 0) )
-			subs = GooglePlaySubscription.new(email: email, package_name: transaction_response["receipt"]["packageName"], order_id: transaction_response["receipt"]["orderId"], purchase_token: transaction_response["receipt"]["purchaseToken"], product_id: transaction_response["receipt"]["productId"], kind: subscription_response["kind"], start_time_millis: subscription_response["startTimeMillis"], expiry_time_millis: subscription_response["expiryTimeMillis"], price_amount_micros: subscription_response["price_amount_micros"], payment_state: subscription_response["paymentState"])
+		receipt_response = JSON.parse(receipt)
+		if ( (subscription_response["paymentState"] == 1) && (receipt_response["purchaseState"] == 0) )
+			subs = GooglePlaySubscription.new(email: email, package_name: receipt_response["packageName"], order_id: receipt_response["orderId"], purchase_token: receipt_response["purchaseToken"], product_id: receipt_response["productId"], kind: subscription_response["kind"], start_time_millis: subscription_response["startTimeMillis"], expiry_time_millis: subscription_response["expiryTimeMillis"], price_amount_micros: subscription_response["price_amount_micros"], payment_state: subscription_response["paymentState"])
 			if (subs.save)
 				res = subs.id
 			else
@@ -34,8 +34,11 @@ class GooglePlaySubscription < ApplicationRecord
 		puts " "
 		puts subscription_response["kind"]
 		puts " "
-		puts transaction_response["receipt"]["packageName"]
+		puts receipt_response
 		puts " "
+		puts receipt_response["packageName"]
+		puts " "
+		puts res
 		return res
 	end
 

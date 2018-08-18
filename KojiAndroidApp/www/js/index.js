@@ -115,7 +115,7 @@ app.initStore = function() {
     });
 
     store.validator = function(product, callback) {
-        signupFormSubmitAndUseGooglePlayBilling(product.transaction.purchaseToken, product.transaction, product, callback);
+        signupFormSubmitAndUseGooglePlayBilling(product.transaction.purchaseToken, product.transaction.receipt, product, callback);
         //checkBillingServer(product.transaction);
     };
 
@@ -1871,7 +1871,7 @@ function signupFormSubmit(stripeToken) {
     return false;
 } // end function signupFormSubmit()
 
-function googlePlayBillingSubmit(purchaseToken, transaction, product, callback) {
+function googlePlayBillingSubmit(purchaseToken, receipt, product, callback) {
     var button = document.getElementById("signupSubmit");
     button.disabled = true;
     var xhttptemp = new XMLHttpRequest();
@@ -1883,13 +1883,13 @@ function googlePlayBillingSubmit(purchaseToken, transaction, product, callback) 
                 {callback(true, response);}
         } // if (this.readyState == 4 && this.status == 200)
         }; // xhttptemp.onreadystatechange = function()
-    var data = "purchaseToken="+purchaseToken+"&transaction="+JSON.stringify(transaction);
+    var data = "purchaseToken="+purchaseToken+"&receipt="+JSON.stringify(receipt);
     xhttptemp.open("GET", rootURL+"/googleplaysubscriptions/subscribeWithGooglePlay?"+data, true);
     xhttptemp.send();
     return false;
 } // end function googlePlayBillingSubmit(purchaseToken, transaction, product, callback)
 
-function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, product, callback) {
+function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, receipt, product, callback) {
     var button = document.getElementById("signupSubmit");
     button.disabled = true;
     var cont = false;
@@ -1901,7 +1901,7 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, pro
         var password1 = encodeURIComponent(document.getElementById("password1Input").value);
         var password2 = encodeURIComponent(document.getElementById("password2Input").value);
         var version = encodeURIComponent(document.getElementById("gameVersion").value);
-        var transactionStringified = encodeURIComponent(JSON.stringify(transaction));
+        var receiptStringified = encodeURIComponent(JSON.stringify(receipt));
         xhttp.abort();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -1933,7 +1933,7 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, pro
         xhttp.open("POST", rootURL+"/players", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.setRequestHeader('X-CSRF-Token', csrfVar);
-        xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version+"&purchaseToken="+purchaseToken+"&transaction="+transactionStringified);
+        xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version+"&purchaseToken="+purchaseToken+"&receipt="+receiptStringified);
     } // end if (cont)
     return false;
 } // end function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, product, callback)
