@@ -1901,7 +1901,7 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, receipt, product
         var password1 = encodeURIComponent(document.getElementById("password1Input").value);
         var password2 = encodeURIComponent(document.getElementById("password2Input").value);
         var version = encodeURIComponent(document.getElementById("gameVersion").value);
-        var receiptStringified = encodeURIComponent(JSON.stringify(receipt));
+        var receiptA = encodeURIComponent(receipt);
         xhttp.abort();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -1913,8 +1913,9 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, receipt, product
                     el.innerHTML = "Thank you for signing up to play Koji!<br/>Enjoy!"; 
                     localStorage.setItem("session_token",res.split("OK:q:")[1]);
                     closeMenu(document.getElementById('signupDiv'));
-                    if ((!!response.paymentState) && (response.paymentState == 1) && !response.cancelReason && !response.userCancellationTimeMillis) 
-                        {callback(true, response);}
+                    callback(true, receipt);
+                    /*if ((!!response.paymentState) && (response.paymentState == 1) && !response.cancelReason && !response.userCancellationTimeMillis) 
+                        {callback(true, response);}*/
                 } else if (res.toUpperCase() == "BAD2") {
                     el.style.color = "#F00000"; 
                     el.innerHTML = "Payment processing was not succesful, we apologize.<br/>Please check your information and try again."; 
@@ -1933,7 +1934,7 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, receipt, product
         xhttp.open("POST", rootURL+"/players", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.setRequestHeader('X-CSRF-Token', csrfVar);
-        xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version+"&purchaseToken="+purchaseToken+"&receipt="+receiptStringified);
+        xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version+"&purchaseToken="+purchaseToken+"&receipt="+receiptA);
     } // end if (cont)
     return false;
 } // end function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, product, callback)

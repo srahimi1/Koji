@@ -31,7 +31,7 @@ class PlayersController < ApplicationController
 				subs.player_id = player.id
 				subs.save
 				output = "OK:q:" + player.session_token
-			elsif (subscription_result[0] != 1)
+			elsif (subscription_result == -1)
 				output = "BAD2"
 			else
 				output = "BAD"

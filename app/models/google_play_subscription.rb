@@ -29,16 +29,6 @@ class GooglePlaySubscription < ApplicationRecord
 		else
 			res = -1
 		end
-		puts " "
-		puts " this was a test of new setup"
-		puts " "
-		puts subscription_response["kind"]
-		puts " "
-		puts receipt_response
-		puts " "
-		puts receipt_response["packageName"]
-		puts " "
-		puts res
 		return res
 	end
 
