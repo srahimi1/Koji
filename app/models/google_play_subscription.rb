@@ -32,7 +32,7 @@ class GooglePlaySubscription < ApplicationRecord
 		puts " "
 		puts " this was a test of new setup"
 		puts " "
-		puts subscription_response
+		puts subscription_response["kind"]
 		puts " "
 		puts transaction_response["receipt"]["packageName"]
 		puts " "
