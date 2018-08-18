@@ -115,7 +115,7 @@ app.initStore = function() {
     });
 
     store.validator = function(product, callback) {
-        googlePlayBillingSubmit(product.transaction.purchaseToken, product.transaction, product, callback);
+        signupFormSubmitAndUseGooglePlayBilling(product.transaction.purchaseToken, product.transaction, product, callback);
         //checkBillingServer(product.transaction);
     };
 
@@ -1930,7 +1930,7 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, pro
                 return true;
             } // if (this.readyState == 4 && this.status == 200)
         }; // xhttptemp.onreadystatechange = function()
-        xhttp.open("POST", rootURL+"/players/signupAndSubscribeWithGooglePlay", true);
+        xhttp.open("POST", rootURL+"/players", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.setRequestHeader('X-CSRF-Token', csrfVar);
         xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version+"&purchaseToken="+purchaseToken+"&transaction="+transactionStringified);
