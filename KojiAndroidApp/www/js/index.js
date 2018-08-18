@@ -1900,8 +1900,8 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, pro
         var displayname= encodeURIComponent(document.getElementById("displaynameInput").value);
         var password1 = encodeURIComponent(document.getElementById("password1Input").value);
         var password2 = encodeURIComponent(document.getElementById("password2Input").value);
-        var version = document.getElementById("gameVersion").value;
-        var transactionStringified = JSON.stringify(transaction);
+        var version = encodeURIComponent(document.getElementById("gameVersion").value);
+        var transactionStringified = encodeURIComponent(JSON.stringify(transaction));
         xhttp.abort();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
