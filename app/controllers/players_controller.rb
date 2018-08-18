@@ -25,6 +25,7 @@ class PlayersController < ApplicationController
 				player.subscribed = 1
 				player.date_first_subscribed = DateTime.now
 				player.create_pp_customer_info(payment_provider_id: 2, pp_customer_id: "order id: " + subs.order_id)
+				player.google_play_subscription_id = subs.id
 				player.session_token = Player.create_session_token
 				player.logged_in = true
 				player.save
