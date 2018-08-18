@@ -19,7 +19,7 @@ class GooglePlaySubscription < ApplicationRecord
 		res = Net::HTTP.get(URI.parse(url))
 		subscription_response = JSON.parse(res)
 		transaction_response = JSON.parse(transaction)
-		if ( (subscription_response["paymentState"].to_s == "1") && (transaction_response["receipt"]["purchaseState"].to_s == "0") )
+		if ( (subscription_response["paymentState"] == 1) && (transaction_response["receipt"]["purchaseState"] == 0) )
 			subs = GooglePlaySubscription.new(email: email, package_name: transaction_response["receipt"]["packageName"], order_id: transaction_response["receipt"]["orderId"], purchase_token: transaction_response["receipt"]["purchaseToken"], product_id: transaction_response["receipt"]["productId"], kind: subscription_response["kind"], start_time_millis: subscription_response["startTimeMillis"], expiry_time_millis: subscription_response["expiryTimeMillis"], price_amount_micros: subscription_response["price_amount_micros"], payment_state: subscription_response["paymentState"])
 			if (subs.save)
 				res = subs.id
@@ -34,7 +34,7 @@ class GooglePlaySubscription < ApplicationRecord
 		puts " "
 		puts subscription_response
 		puts " "
-		puts transaction_response
+		puts transaction_response["receipt"]["packageName"]
 		puts " "
 		return res
 	end
