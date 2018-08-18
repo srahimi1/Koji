@@ -6,6 +6,7 @@ class Player < ApplicationRecord
 	has_many :confirmation_codes, dependent: :destroy
 	has_one :pp_customer_info
 	has_one :subscription
+	has_one :google_play_subscription
 
 	validates :email, uniqueness: true, allow_nil: true
 	validates :cellphone, uniqueness: true, allow_nil: true
