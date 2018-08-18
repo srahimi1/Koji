@@ -6,9 +6,11 @@
                 {
                     "source": "D:\\sites\\app1\\KojiAndroidApp\\platforms\\android\\app\\src\\main\\res\\values\\strings.xml",
                     "from": {
-                        "startLines": "-1,-1,-1",
-                        "startColumns": "-1,-1,-1",
-                        "startOffsets": "-1,-1,-1"
+                        "startLines": "4,2,3",
+                        "startColumns": "4,4,4",
+                        "startOffsets": "156,55,97",
+                        "endColumns": "63,41,58",
+                        "endOffsets": "215,92,151"
                     },
                     "to": {
                         "startLines": "2,3,5",
