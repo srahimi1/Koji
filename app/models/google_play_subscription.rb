@@ -46,7 +46,7 @@ class GooglePlaySubscription < ApplicationRecord
 	def self.revoke_google_play_subscription(subs_id)
 		at = get_access_token_from_refresh_token
 		subs = GooglePlaySubscription.find(subs_id)
-		url = "https://www.googleapis.com/androidpublisher/v3/applications/" + subs.package_name + "/purchases/subscriptions/" + subs.subscription_id + "/tokens/" + subs.purhcase_token + ":revoke"
+		url = "https://www.googleapis.com/androidpublisher/v3/applications/" + subs.package_name + "/purchases/subscriptions/" + subs.subscription_id + "/tokens/" + subs.purchase_token + ":revoke"
 		params2 = {}
 		x = Net::HTTP.post_form(URI.parse(url),params2)
 		return 1
@@ -55,7 +55,7 @@ class GooglePlaySubscription < ApplicationRecord
 	def self.cancel_google_play_subscription(subs_id)
 		at = get_access_token_from_refresh_token
 		subs = GooglePlaySubscription.find(subs_id)
-		url = "https://www.googleapis.com/androidpublisher/v3/applications/" + subs.package_name + "/purchases/subscriptions/" + subs.subscription_id + "/tokens/" + subs.purhcase_token + ":cancel"
+		url = "https://www.googleapis.com/androidpublisher/v3/applications/" + subs.package_name + "/purchases/subscriptions/" + subs.subscription_id + "/tokens/" + subs.purchase_token + ":cancel"
 		params2 = {}
 		x = Net::HTTP.post_form(URI.parse(url),params2)
 		return 1
@@ -64,7 +64,7 @@ class GooglePlaySubscription < ApplicationRecord
 	def self.refund_google_play_subscription(subs_id)
 		at = get_access_token_from_refresh_token
 		subs = GooglePlaySubscription.find(subs_id)
-		url = "https://www.googleapis.com/androidpublisher/v3/applications/" + subs.package_name + "/purchases/subscriptions/" + subs.subscription_id + "/tokens/" + subs.purhcase_token + ":refund"
+		url = "https://www.googleapis.com/androidpublisher/v3/applications/" + subs.package_name + "/purchases/subscriptions/" + subs.subscription_id + "/tokens/" + subs.purchase_token + ":refund"
 		params2 = {}
 		x = Net::HTTP.post_form(URI.parse(url),params2)
 		return 1
