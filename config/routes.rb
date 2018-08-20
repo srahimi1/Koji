@@ -7,6 +7,15 @@ Rails.application.routes.draw do
   resources :games, :only => [:create, :update]
   resources :messages, only: [:create]
 
+  get '/index2', to: 'welcome#index2'
+  get '/index3', to: 'welcome#index3'
+  get '/index4', to: 'welcome#index4'
+  get '/index5', to: 'welcome#index5'
+  get '/index6', to: 'welcome#index6'
+  get '/all', to: 'welcome#all'
+
+
+
   get '/checkemail', to: 'players#check_email'
   get '/checkcellphone', to: 'players#check_cellphone'
   get '/checkdisplayname', to: 'players#check_displayname'

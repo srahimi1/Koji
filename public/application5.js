@@ -1,4 +1,4 @@
-console.log("app1");
+console.log("app5");
 
 rootURL = "";// "http://arsr-app1.herokuapp.com";
 csrfVar = "";
@@ -10,7 +10,7 @@ gameCHeight = 0;
 numModalsOpen = 0;
 demoShowing = false;
 timerPaused = false;
-correctLimit = 6;
+correctLimit = 3;
 dateStart = null;
 timeAdd = null;
 guessTop = null;

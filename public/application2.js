@@ -1,4 +1,4 @@
-console.log("app1");
+console.log("app2");
 
 rootURL = "";// "http://arsr-app1.herokuapp.com";
 csrfVar = "";
@@ -10,7 +10,7 @@ gameCHeight = 0;
 numModalsOpen = 0;
 demoShowing = false;
 timerPaused = false;
-correctLimit = 6;
+correctLimit = 4;
 dateStart = null;
 timeAdd = null;
 guessTop = null;
@@ -775,37 +775,27 @@ function selectUnderscore(el, letters) {
 function drawLine() {
     var width = canvas2.width;
     var ind = 0; 
-    var vpos = Math.floor(Math.random() * 3);
+    var vpos = 0; //Math.floor(Math.random() * 3);
     var combinedIndex;
-    if (numberOfLinesDrawnOnCanvas < Math.floor((width * 3) * .70)) {
+    if (numberOfLinesDrawnOnCanvas < Math.floor(width * .70)) {
         ind = Math.floor(Math.random() * (width+1));
         combinedIndex = ind + "," + vpos;
         while (linesDrawnSoFar[combinedIndex]) {
             ind = Math.floor(Math.random() * (width+1));
-            vpos = Math.floor(Math.random() * 3);
+            vpos = 0;//Math.floor(Math.random() * 3);
             combinedIndex = ind + "," + vpos;
         } // while (linesDrawnSoFar[combinedIndex])
     } else {
-        for (var i = 0; i < Math.floor(width); i++) {
+        for (var i = 0; i < Math.floor(width+1); i++) {
             var a = i + ",0";
-            var b = i + ",1";
-            var c = i + ",2";
             if (!linesDrawnSoFar[a]) {combinedIndex = a; ind = i; vpos = 0; break;}
-            else if (!linesDrawnSoFar[b]) {combinedIndex = b; ind = i; vpos = 1;  break;}
-            else if (!linesDrawnSoFar[c]) {combinedIndex = c; ind = i; vpos = 2;  break;}
         } // end for (var i = 0; i < Math.floor(width); i++)                
     } // end if...else
     canvas2.style.display = "none";
-    var len = Math.floor(canvas2.height/3);
+    var len = Math.floor(canvas2.height);
     switch(vpos) {
         case 0:
             ctx2.clearRect(ind,0,1,len);
-            break;
-        case 1:
-            ctx2.clearRect(ind,len,1,len);
-            break;
-        case 2:
-            ctx2.clearRect(ind,2*len,1,len);
             break;
     }
     canvas2.style.display = "block";
@@ -817,7 +807,7 @@ function drawLine() {
 
 function redrawLines() {
     canvas2.style.display = "none";
-    var vpos, ind, len = Math.floor(canvas2.height/3);
+    var vpos, ind, len = Math.floor(canvas2.height);
     for (var index in linesDrawnSoFar) {
         if (linesDrawnSoFar.hasOwnProperty(index)) {
             vpos = parseInt(index.split(",")[1]);
@@ -825,12 +815,6 @@ function redrawLines() {
             switch(vpos) {
                 case 0:
                     ctx2.clearRect(ind,0,1,len);
-                    break;
-                case 1:
-                    ctx2.clearRect(ind,len,1,len);
-                    break;
-                case 2:
-                    ctx2.clearRect(ind,2*len,1,len);
                     break;
             } // end switch(vpos)
         } // end if (linesDrawnSoFar.hasOwnProperty(index))
@@ -1077,7 +1061,7 @@ function isGameLost() {
 
 function showLetters() {
     drawLine();
-    if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3)) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
+    if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width+1)) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
     else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='img/replayTransparent.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {gc.style.display = "none"; shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
     return true;
 } // end function showLetters()
