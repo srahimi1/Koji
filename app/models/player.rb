@@ -43,14 +43,17 @@ class Player < ApplicationRecord
     end
 
     def self.cancel_membership(player_id)
-    	subscription = Subscription.find_by(player_id: player_id)
-    	result = Subscription.cancel_subscription(subscription.pp_subscription_id)
-    	if (result == 1)
-    		subscription.status = 3
-    		subscription.status_description = "cancelled"
-    		subscription.save
-    	end
-    	return result
+    	subscription = GooglePlaySubscription.find_by(player_id: player_id, status: 1)
+    	result = 0
+    	if (!subscription.blank?)
+	    	result = GooglePlaySubscription.revoke_google_play_subscription(subscription.id)
+	    	if (result == 1)
+	    		subscription.status = 3
+	    		subscription.status_description = "revoked"
+	    		subscription.save
+	    	end
+	    end
+	    return result
     end
 
     def self.send_password_reset_confirmation_code(player_id, cellphone, email)

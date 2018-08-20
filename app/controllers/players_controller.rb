@@ -20,7 +20,7 @@ class PlayersController < ApplicationController
 		if (cellValid && emailValid && (params["password1"].to_s == params["password2"].to_s) && (!params["email"].blank? || !params["cellphone"].blank?))
 			player = Player.new(email: @email, cellphone: @cell, display_name: params["display_name"], password: params["password1"], phone_country: "USA", game_version: params["game_version"], subscribed: 0, email_verified: 0, cellphone_verified: 0, session_token: "", logged_in: false)
 			subscription_result = GooglePlaySubscription.subscribe_with_google_play(params["purchaseToken"], params["receipt"], @email)
-			if ((subscription_result != -1) && player.save && !player.id.blank?)
+			if ((subscription_result >= 0) && player.save && !player.id.blank?)
 				subs = GooglePlaySubscription.find(subscription_result)
 				player.create_player_gaming_history(current_total: 0, current_high_score: 0, history: "")
 				player.subscribed = 1
@@ -33,13 +33,14 @@ class PlayersController < ApplicationController
 				subs.player_id = player.id
 				subs.save
 				output = "OK:q:" + player.session_token
-			elsif (subscription_result != -1)
+			elsif (subscription_result >= 0)
 				subs = GooglePlaySubscription.find(subscription_result)
+				GooglePlaySubscription.revoke_google_play_subscription(subs.id)
 				subs.delete
 			elsif (subscription_result == -1)
 				output = "BAD2"
-			else
-				output = "BAD"
+			elsif (subscription_result == -2)
+				output = "BAD3"
 			end
 		end
 		render plain: output

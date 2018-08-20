@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html>
-<title>Koji</title>
-<head>
-    <link href="https://fonts.googleapis.com/css?family=Playfair+Display" rel="stylesheet">
-    <meta name="msapplication-tap-highlight" content="no">
-    <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, width=device-width">
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-
-</head>
-
-<body>
+<body onload="showBeginningModal();checkForStartupMessage();">
     <h1 id="KOJITitle" class="title-bar"><img src="img/tl4.png" style="width: 1em; height: 1em; vertical-align: sub; margin: 0 0.1em 0 0.4em;"><span>Koji</span><p style="display:inline-block; float: right; padding: 0; margin: 2px 0.4em 0 0; overflow: hidden;"><span style="display: block; width: 1.5em; border-bottom: 2px solid white; margin: 0.2em 0;"></span><span style="display: block; width: 1.5em; border-bottom: 2px solid white; margin: 0.2em 0;"></span><span style="display: block; width: 1.5em; border-bottom: 2px solid white; margin: 0.2em 0;"></span></p></h1>
     <div style="position: absolute; top: 0; width: 8em; height: 5em; left: 100%; margin-left: -8em; z-index: 11" onclick="closeMenu(document.getElementById('instructionsDiv')); closeMenu(document.getElementById('signupDiv')); closeMenu(document.getElementById('signinDiv')); closeMenu(document.getElementById('profileDiv')); showMenu(document.getElementById('menuDiv'));">
     </div>  
@@ -58,12 +47,7 @@
     <input type="hidden" id="gameVersion" name="gameVersion" value="1.0">
 </body>
 
-<script src="https://checkout.stripe.com/checkout.js"></script>
-<script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
-
-
-
+<script src="application1.js" type="text/javascript"></script>
 
 <div id="startupMessageDiv" class="modal-div startup-message-div">
     <div class="hidden-opt-right" onclick="closeMenu(document.getElementById('startupMessageDiv'))"></div>
@@ -116,8 +100,8 @@
 <div id="startupDiv" class="modal-div startup-div">
     <div class="flex-grow-1" style="text-align: center; margin-top: 0; padding-top: 1em; background-color: skyblue;"><div id="sun" style="position: absolute; width: 7em; height: 7em; border-radius: 7em; left: -2em; top: -3em; background-color: #FFFF5A; z-index: 1; display: none;"></div><div style="position: relative; z-index: 3;"><img src="img/tl4.png" id="startupTitleImage" style="margin: 0 0.1em 0 0;"><span id="startupTitle">Koji</span></div></div><div id="pandaboxes" class="panda-boxes flex-grow-1"><div style="position: absolute; top: 0; left: 0; width: 100%; height: 70%; background-color: skyblue; z-index: -1;"></div><div style="position: absolute; top: 70%; left: 0; width: 100%; height: 30%; background-color: papayawhip; z-index: 3;"></div></div>
     <div id="rainbow" style="position: absolute; width: 240%; height: 80%; border-radius: 90%; background-color: #F00000; top:21%; left: -70%; z-index: 1"><div style="position: absolute; width: 90%; height: 90%; border-radius: 90%; background-color: orange; top:4%; left: 5%;"><div style="position: absolute; width: 90%; height: 90%; border-radius: 90%; background-color: yellow; top:4%; left: 5%;"><div style="position: absolute; width: 90%; height: 90%; border-radius: 90%; background-color: #00F000; top:4%; left: 5%;"><div style="position: absolute; width: 90%; height: 90%; border-radius: 90%; background-color: #0000F0; top:4%; left: 5%;"><div style="position: absolute; width: 90%; height: 90%; border-radius: 90%; background-color: #F000F0; top:5%; left: 5%;"><div style="position: absolute; width: 90%; height: 90%; border-radius: 90%; background-color: skyblue; top:6%; left: 5%;"></div></div></div></div></div></div></div><div id="rainbowCover" class="rainbow-cover" style="position: absolute; width: 200%; height: 80%; border-radius: 90%; background-color: skyblue; top:15%; left: -50%; z-index: 1"></div><div class="flex-grow-1 flex-row" style="background-color: papayawhip; z-index: 3;">
-        <button id="startupButton1" class="beginning-button demo-game" onclick="closeMenu(document.getElementById('startupDiv')); setupNewGame(1);">Demo</button>
-        <button id="startupButton2" class="beginning-button show-menu" onclick="closeMenu(document.getElementById('startupDiv')); showMenu(document.getElementById('menuDiv'));">Menu</button>
+        <button id="startupButton1" class="beginning-button demo-game" onclick="closeMenu(document.getElementById('startupDiv')); setupNewGame(1);">Show Demonstration</button>
+        <button id="startupButton2" class="beginning-button show-menu" onclick="closeMenu(document.getElementById('startupDiv')); showMenu(document.getElementById('menuDiv'));">Show Menu</button>
     </div>
 </div><!-- end startupDiv -->
 
@@ -188,7 +172,7 @@
             </div>
         </li>
         <li style="text-align:center;">
-            <button id="newGameButton" onclick="if (!!gc) {gc.style.display = 'none'; shrinkGoalContainer();} setupNewGame(0);">START DEMO GAME</button>
+            <button id="newGameButton" onclick="if (!!gc) {gc.style.display = 'none'; shrinkGoalContainer();} setupNewGame(0);">START NEW GAME</button>
         </li>
     </ul>
     <div class="modal-div-footer"></div>
@@ -250,7 +234,7 @@
             <p class="signup-form-paragraph"><span id="password2ErrorMessage" style="color:red"></span></p>
             <p class="signup-form-paragraph"><input id="password2Input" class="signup-form-input" type="password" name="password2" placeholder=" Re-enter Password" maxlength="70" onkeyup="validatePassword()" onfocus="validatePassword()"><img src="img/greenCheck.png" class="green-check"></p>
             <p class="signup-form-paragraph"></p>
-            <p class="btn-padding"><input id="signupSubmit" class="signup-form-submit-button" type="button" name="signupSubmit" value="Payment Info >" onclick="startPurchase()" onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-1px 3px 9px #777777'" disabled="disabled"></p>
+            <p class="btn-padding"><input id="signupSubmit" class="signup-form-submit-button" type="button" name="signupSubmit" value="Payment Info >" onclick="stripePopup()" onmousedown="if (!this.disabled) this.style.boxShadow='none'" onmouseup="if (!this.disabled) this.style.boxShadow='-1px 3px 9px #777777'" disabled="disabled"></p>
         </form>
         <div class="form-footer"></div>
     </div>
@@ -573,7 +557,3 @@
 </g>
 </svg>
 </div>
-
-
-
-</html>

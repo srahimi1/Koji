@@ -1916,6 +1916,10 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, receipt, product
                     callback(true, receipt);
                     /*if ((!!response.paymentState) && (response.paymentState == 1) && !response.cancelReason && !response.userCancellationTimeMillis) 
                         {callback(true, response);}*/
+                } else if (res.toUpperCase() == "BAD3") { 
+                    el.style.color = "#F00000"; 
+                    el.innerHTML = "You already have an active subscription. Thank you for being a player! We appreciate you!"; 
+                    button.disabled = false;
                 } else if (res.toUpperCase() == "BAD2") {
                     el.style.color = "#F00000"; 
                     el.innerHTML = "Payment processing was not succesful, we apologize.<br/>Please check your information and try again."; 
