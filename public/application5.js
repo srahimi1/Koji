@@ -775,37 +775,72 @@ function selectUnderscore(el, letters) {
 function drawLine() {
     var width = canvas2.width;
     var ind = 0; 
-    var vpos = Math.floor(Math.random() * 3);
+    var vpos = Math.floor(Math.random() * 10);
     var combinedIndex;
-    if (numberOfLinesDrawnOnCanvas < Math.floor((width * 3) * .70)) {
-        ind = Math.floor(Math.random() * (width+1));
+    if (numberOfLinesDrawnOnCanvas < Math.floor(160*.7)) {
+        ind = ((width/16) * Math.floor(Math.random() * 16));
         combinedIndex = ind + "," + vpos;
         while (linesDrawnSoFar[combinedIndex]) {
-            ind = Math.floor(Math.random() * (width+1));
-            vpos = Math.floor(Math.random() * 3);
+            ind = ((width/16) * Math.floor(Math.random() * 16));
+            vpos = Math.floor(Math.random() * 10);
             combinedIndex = ind + "," + vpos;
         } // while (linesDrawnSoFar[combinedIndex])
     } else {
-        for (var i = 0; i < Math.floor(width); i++) {
-            var a = i + ",0";
-            var b = i + ",1";
-            var c = i + ",2";
-            if (!linesDrawnSoFar[a]) {combinedIndex = a; ind = i; vpos = 0; break;}
-            else if (!linesDrawnSoFar[b]) {combinedIndex = b; ind = i; vpos = 1;  break;}
-            else if (!linesDrawnSoFar[c]) {combinedIndex = c; ind = i; vpos = 2;  break;}
+        for (var i = 0; i < 16; i++) {
+            var a = (i * Math.floor(width/16)) + ",0";
+            var b = (i * Math.floor(width/16)) + ",1";
+            var c = (i * Math.floor(width/16)) + ",2";
+            var d = (i * Math.floor(width/16)) + ",3";
+            var e = (i * Math.floor(width/16)) + ",4";
+            var f = (i * Math.floor(width/16)) + ",5";
+            var g = (i * Math.floor(width/16)) + ",6";
+            var h = (i * Math.floor(width/16)) + ",7";
+            var j = (i * Math.floor(width/16)) + ",8";
+            var k = (i * Math.floor(width/16)) + ",9";
+            if (!linesDrawnSoFar[a]) {combinedIndex = a; ind = (i * Math.floor(width/16)); vpos = 0; break;}
+            else if (!linesDrawnSoFar[b]) {combinedIndex = b; ind = (i * Math.floor(width/16)); vpos = 1;  break;}
+            else if (!linesDrawnSoFar[c]) {combinedIndex = c; ind = (i * Math.floor(width/16)); vpos = 2;  break;}
+            else if (!linesDrawnSoFar[d]) {combinedIndex = d; ind = (i * Math.floor(width/16)); vpos = 3;  break;}
+            else if (!linesDrawnSoFar[e]) {combinedIndex = e; ind = (i * Math.floor(width/16)); vpos = 4;  break;}
+            else if (!linesDrawnSoFar[f]) {combinedIndex = f; ind = (i * Math.floor(width/16)); vpos = 5;  break;}
+            else if (!linesDrawnSoFar[g]) {combinedIndex = g; ind = (i * Math.floor(width/16)); vpos = 6;  break;}
+            else if (!linesDrawnSoFar[h]) {combinedIndex = h; ind = (i * Math.floor(width/16)); vpos = 7;  break;}
+            else if (!linesDrawnSoFar[j]) {combinedIndex = j; ind = (i * Math.floor(width/16)); vpos = 8;  break;}
+            else if (!linesDrawnSoFar[k]) {combinedIndex = k; ind = (i * Math.floor(width/16)); vpos = 9;  break;}
         } // end for (var i = 0; i < Math.floor(width); i++)                
     } // end if...else
     canvas2.style.display = "none";
-    var len = Math.floor(canvas2.height/3);
+    var len = Math.floor(canvas2.height/10);
     switch(vpos) {
         case 0:
-            ctx2.clearRect(ind,0,1,len);
+            ctx2.clearRect(ind,0,Math.floor(width/16),len);
             break;
         case 1:
-            ctx2.clearRect(ind,len,1,len);
+            ctx2.clearRect(ind,len,Math.floor(width/16),len);
             break;
         case 2:
-            ctx2.clearRect(ind,2*len,1,len);
+            ctx2.clearRect(ind,2*len,Math.floor(width/16),len);
+            break;
+        case 3:
+            ctx2.clearRect(ind,3*len,Math.floor(width/16),len);
+            break;
+        case 4:
+            ctx2.clearRect(ind,4*len,Math.floor(width/16),len);
+            break;
+        case 5:
+            ctx2.clearRect(ind,5*len,Math.floor(width/16),len);
+            break;
+        case 6:
+            ctx2.clearRect(ind,6*len,Math.floor(width/16),len);
+            break;
+        case 7:
+            ctx2.clearRect(ind,7*len,Math.floor(width/16),len);
+            break;
+        case 8:
+            ctx2.clearRect(ind,8*len,Math.floor(width/16),len);
+            break;
+        case 9:
+            ctx2.clearRect(ind,9*len,Math.floor(width/16),len);
             break;
     }
     canvas2.style.display = "block";
@@ -816,23 +851,45 @@ function drawLine() {
 
 
 function redrawLines() {
+    console.log("in redrawlines");
     canvas2.style.display = "none";
-    var vpos, ind, len = Math.floor(canvas2.height/3);
+    var vpos, ind, len = Math.floor(canvas2.height/10), width = canvas2.width;
     for (var index in linesDrawnSoFar) {
         if (linesDrawnSoFar.hasOwnProperty(index)) {
             vpos = parseInt(index.split(",")[1]);
             ind = parseInt(index.split(",")[0]);
             switch(vpos) {
-                case 0:
-                    ctx2.clearRect(ind,0,1,len);
-                    break;
-                case 1:
-                    ctx2.clearRect(ind,len,1,len);
-                    break;
-                case 2:
-                    ctx2.clearRect(ind,2*len,1,len);
-                    break;
-            } // end switch(vpos)
+            case 0:
+                ctx2.clearRect(ind,0,Math.floor(width/16),len);
+                break;
+            case 1:
+                ctx2.clearRect(ind,len,Math.floor(width/16),len);
+                break;
+            case 2:
+                ctx2.clearRect(ind,2*len,Math.floor(width/16),len);
+                break;
+            case 3:
+                ctx2.clearRect(ind,3*len,Math.floor(width/16),len);
+                break;
+            case 4:
+                ctx2.clearRect(ind,4*len,Math.floor(width/16),len);
+                break;
+            case 5:
+                ctx2.clearRect(ind,5*len,Math.floor(width/16),len);
+                break;
+            case 6:
+                ctx2.clearRect(ind,6*len,Math.floor(width/16),len);
+                break;
+            case 7:
+                ctx2.clearRect(ind,7*len,Math.floor(width/16),len);
+                break;
+            case 8:
+                ctx2.clearRect(ind,8*len,Math.floor(width/16),len);
+                break;
+            case 9:
+                ctx2.clearRect(ind,9*len,Math.floor(width/16),len);
+                break;
+            }// end switch(vpos)
         } // end if (linesDrawnSoFar.hasOwnProperty(index))
     } // end for (var index in linesDrawnSoFar)
     canvas2.style.display = "block";
@@ -1077,7 +1134,7 @@ function isGameLost() {
 
 function showLetters() {
     drawLine();
-    if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3)) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
+    if (numberOfLinesDrawnOnCanvas < 160) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
     else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='img/replayTransparent.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {gc.style.display = "none"; shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
     return true;
 } // end function showLetters()
