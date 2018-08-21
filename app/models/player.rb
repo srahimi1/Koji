@@ -46,10 +46,10 @@ class Player < ApplicationRecord
     	subscription = GooglePlaySubscription.find_by(player_id: player_id, status: 1)
     	result = 0
     	if (!subscription.blank?)
-	    	result = GooglePlaySubscription.revoke_google_play_subscription(subscription.id)
+	    	result = GooglePlaySubscription.cancel_google_play_subscription(subscription.id)
 	    	if (result == 1)
-	    		subscription.status = 3
-	    		subscription.status_description = "revoked"
+	    		subscription.status = 2
+	    		subscription.status_description = "cancelled"
 	    		subscription.save
 	    	end
 	    end

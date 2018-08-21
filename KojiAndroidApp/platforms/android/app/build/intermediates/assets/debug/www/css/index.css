@@ -339,11 +339,11 @@ input.signup-form-submit-button {
     -ms-transform: translateZ(0);
     -o-transform: translateZ(0);
     transform: translateZ(0);
-    -moz-transition: transform 6s linear;
-    -ms-transition: transform 6s linear;
-    -webkit-transition: transform 6s linear;
-    -o-transition: transform 6s linear;
-    transition: transform 6s linear;
+    -moz-transition: transform 5s linear;
+    -ms-transition: transform 5s linear;
+    -webkit-transition: transform 5s linear;
+    -o-transition: transform 5s linear;
+    transition: transform 5s linear;
     border-top: 2px solid #efddef;
     border-bottom: 2px solid #efddef;
 }

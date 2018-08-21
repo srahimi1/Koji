@@ -70,4 +70,18 @@ class GooglePlaySubscription < ApplicationRecord
 		return 1
 	end
 
+	def self.update_subscription_expiration_time(subs_id)
+		at = get_access_token_from_refresh_token
+		subs = GooglePlaySubscription.find(subs_id)
+		url = "https://www.googleapis.com/androidpublisher/v3/applications/" + subs.package_name + "/purchases/subscriptions/" + subs.subscription_id + "/tokens/" + subs.purchase_token + "?access_token=" + at
+		res = Net::HTTP.get(URI.parse(url))
+		if (!res.blank?)
+			subscription_response = JSON.parse(res)
+			subs.expiry_time_millis = subscription_response["expiryTimeMillis"]
+			subs.save
+		end
+		return true
+	end
+
+
 end

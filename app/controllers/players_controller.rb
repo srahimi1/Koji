@@ -102,17 +102,20 @@ class PlayersController < ApplicationController
 		elsif (!params["cellphone"].blank?)
 			@player = Player.find_by(cellphone: params["cellphone"].to_s)
 		end
-
-		if(!@player.blank? && (params[:reset].to_s == "0"))
-			if (params[:password] == @player.password)
-				@player.session_token = Player.create_session_token
-				@player.logged_in = true
-				@player.save
-				output = "OK:q:" + @player.session_token
+		if (!@player.blank? && is_subscription_not_expired(@player.id))
+			if(!@player.blank? && (params[:reset].to_s == "0"))
+				if (params[:password] == @player.password)
+					@player.session_token = Player.create_session_token
+					@player.logged_in = true
+					@player.save
+					output = "OK:q:" + @player.session_token
+				end
+			elsif (!@player.blank? && (params[:reset].to_s == "1"))
+				Player.send_password_reset_confirmation_code(@player.id, params["cellphone"], params["email"])
+				output = "RESET SENT"
 			end
-		elsif (!@player.blank? && (params[:reset].to_s == "1"))
-			Player.send_password_reset_confirmation_code(@player.id, params["cellphone"], params["email"])
-			output = "RESET SENT"
+		else
+			output = "EXPIRED"
 		end
 		render plain: output
 	end
@@ -175,6 +178,32 @@ class PlayersController < ApplicationController
 		end
 		render plain: output
 	end
+
+	def is_subscription_not_expired(player_id)
+		subs = nil
+		response = false
+		player = nil
+		if (!player_id.blank?)
+			subs = GooglePlaySubscription.find_by(player_id: player_id, status: 1)
+			player.find(player_id)
+		end
+
+		if(!subs.blank?)
+			if ((Time.now.to_f * 1000).to_i < subs.expiry_time_millis)
+				response = true
+			elsif (GooglePlaySubscription.update_subscription_expiration_time(subs.id) && ((Time.now.to_f * 1000).to_i < subs.reload.expiry_time_millis))
+				response = true
+			else
+				subs.status = 4
+				subs.status_description = "expired"
+				subs.save
+				DeletedPlayer.create(player_id: player.id, email: player.email, cellphone: player.cellphone) 
+				player.destroy
+			end
+		end
+		return response
+	end
+
 
 	def startup_message
 		render plain: "1:q:" + form_authenticity_token
