@@ -189,9 +189,9 @@ class PlayersController < ApplicationController
 		end
 
 		if(!subs.blank?)
-			if ((Time.now.to_f * 1000).to_i < subs.expiry_time_millis)
+			if ((Time.now.to_f * 1000).to_i < subs.expiry_time_millis.to_i)
 				response = true
-			elsif (GooglePlaySubscription.update_subscription_expiration_time(subs.id) && ((Time.now.to_f * 1000).to_i < subs.reload.expiry_time_millis))
+			elsif (GooglePlaySubscription.update_subscription_expiration_time(subs.id) && ((Time.now.to_f * 1000).to_i < subs.reload.expiry_time_millis.to_i))
 				response = true
 			else
 				subs.status = 4

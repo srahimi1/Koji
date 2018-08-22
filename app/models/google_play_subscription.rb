@@ -16,9 +16,9 @@ class GooglePlaySubscription < ApplicationRecord
 	def self.subscribe_with_google_play(token, receipt, email)
 		subscription = GooglePlaySubscription.find_by(email: email, status: 1)
 		res = -10
-		if (!subscription.blank? && ((Time.now.to_f * 1000).to_i < subscription.expiry_time_millis))
+		if (!subscription.blank? && ((Time.now.to_f * 1000).to_i < subscription.expiry_time_millis.to_i))
 			res = -2
-		elsif (!subscription.blank? && ((Time.now.to_f * 1000).to_i > subscription.expiry_time_millis))
+		elsif (!subscription.blank? && ((Time.now.to_f * 1000).to_i > subscription.expiry_time_millis.to_i))
 			subscription.status = 4
 			subscription.status_description = "expired"
 			subscription.save
