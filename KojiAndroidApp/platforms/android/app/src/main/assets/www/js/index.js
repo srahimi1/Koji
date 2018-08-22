@@ -1243,7 +1243,7 @@ function isGameLost() {
 function showLetters() {
     drawLine();
     if (numberOfLinesDrawnOnCanvas < 250) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
-    else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='img/replayTransparent.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {gc.style.display = "none"; shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
+    else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='img/replayTransparent_white.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {gc.style.display = "none"; shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
     return true;
 } // end function showLetters()
 
