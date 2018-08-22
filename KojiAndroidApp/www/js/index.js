@@ -16,11 +16,13 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-rootURL = "http://arsr-app1.herokuapp.com";
+rootURL = "http://kojigame.herokuapp.com/koji/v1/game/dataspace";
 csrfVar = "";
 purchaseStep = 0;
 kojiProduct = null;
+storeError = true;
 timerTime = 5;
+goalContainerExpanded = false;
 yesnoButtonEnabled = true;
 gameContentHTML = null;
 gameC = null;
@@ -120,11 +122,15 @@ app.initStore = function() {
     };
 
     store.when("sub1").approved(function(p) {
+        var button = document.getElementById("signupSubmit");
+        button.disabled = true;
         p.verify();
     });
 
     store.when("sub1").verified(function(p) {
         p.finish();
+        var button = document.getElementById("signupSubmit");
+        button.disabled = false;
     });
 
     store.when("sub1").unverified(function(p) {
@@ -145,11 +151,13 @@ app.initStore = function() {
     }); //store.when("sub1").updated(function(p)
 
     store.error(function(err) {
+        storeError = true;
         console.log(err.code + ": the error was " + err.message);
     }); //store.error(function(err)
 
 
     store.ready(function() {
+        storeError = false;
     }); // store.ready(function()
 
     store.refresh();
@@ -214,6 +222,7 @@ function removeButtonColorOnTouchEnd(element) {
 function expandGoalContainer() {
     timerPaused = true;
     remove_bars();
+    goalContainerExpanded = true;
     var body = document.getElementsByTagName("body")[0];
     gc.parentNode.removeChild(gc);
     gc.style.position = "absolute";
@@ -256,6 +265,7 @@ function clearLines() {
 
 function setupNewGame(demoInstructionsCode) {
     localStorage.removeItem("gameID");
+    goalContainerExpanded = false;
     yesnoButtonEnabled = true;
     timerTime = 5;
     gameC.removeAttribute("class");
@@ -1096,6 +1106,7 @@ function switchButtonsAndLetters(code) {
         case 1:
             document.getElementById("gameLettersContainer").style.display = "none";
             document.getElementById("extra").style.visibility = "hidden";
+            goalContainerExpanded = false;
             break;
         case 2:
             expandGoalContainer();
@@ -2069,7 +2080,8 @@ function showMenu(el) {
     if (!demoShowing) gameC.style.height = "0";
     numModalsOpen++;
     var id = el.id + "";
-    if (id == "signupDiv") {
+    if ((id == "signupDiv") && googlePlayStoreReady()) {
+        if (goalContainerExpanded) shrinkGoalContainer();
         document.getElementById("signupForm").reset();
         document.getElementById("signupSubmit").disabled = true;
         paymentRequestSent = false;
@@ -2081,8 +2093,10 @@ function showMenu(el) {
         document.getElementById("password1Input").nextSibling.style.visibility = "hidden";
         document.getElementById("password2Input").nextSibling.style.visibility = "hidden";
     } else if (id == "signinDiv") {
+        if (goalContainerExpanded) shrinkGoalContainer();
         document.getElementById("signinForm").reset();
     } else if (id == "contactusDiv") {
+        if (goalContainerExpanded) shrinkGoalContainer();
         document.getElementById("contactusForm").reset();
     }
     el.style.display = "";
@@ -2097,6 +2111,7 @@ function closeMenu(el) {
     if ((el.style.opacity == "1") || (!!el.currentStyle && (el.currentStyle.display != "none")) || (!!getComputedStyle(el) && (getComputedStyle(el).display != "none")) || (!!getComputedStyle(el,null) && (getComputedStyle(el,null).display != "none")) ) numModalsOpen--;
     el.style.opacity = "0";
     el.style.marginTop = "-2em";
+    if (goalContainerExpanded) expandGoalContainer();
     setTimeout(function() {el.style.display = "none"; if (numModalsOpen == 0) {setGameContentHeightWidth();}}, 800);
     return true;
 } // end function closeMenu(el)
@@ -2304,8 +2319,22 @@ function stripePopup() {
 
 
 
-// play-purchase-plugin and Google play payment functions
+// Google play payment functions and play-purchase-plugin
 
 function googlePopup() {
     store.order("sub1");
-}
+} // end function googlePopup()
+
+function googlePlayStoreReady() {
+    if (storeError) {
+        var el = document.getElementById("gameMessage");
+        el.style.color = "#6B6B6B";
+        el.innerHTML = "Please sign in to the Google Play app, then restart this app before signing up. Sorry about the inconvenience and thank you!";
+        showMenu(document.getElementById('gameMessageDiv'));
+        el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";
+        setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));},5000);
+        return false;
+    } else {
+        return true;
+    }
+} // end function googlePlayStoreReady()

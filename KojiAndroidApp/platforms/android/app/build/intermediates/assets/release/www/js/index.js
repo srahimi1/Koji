@@ -16,6 +16,66 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+rootURL = "http://kojigame.herokuapp.com/koji/v1/game/dataspace";
+csrfVar = "";
+purchaseStep = 0;
+kojiProduct = null;
+storeError = true;
+timerTime = 5;
+goalContainerExpanded = false;
+yesnoButtonEnabled = true;
+gameContentHTML = null;
+gameC = null;
+gameCHeight = 0;
+numModalsOpen = 0;
+demoShowing = false;
+timerPaused = false;
+correctLimit = 4;
+dateStart = null;
+timeAdd = null;
+guessTop = null;
+paymentRequestSent = false;
+formcheck = [];
+for (var i = 0; i < 4; i++) formcheck.push(false);
+letterBoardsEmpty = false;
+inputData = null;
+cycleTopDataAt = 0;
+cycleTopDataCounter = 0;
+gameOver = false;
+missedCorrect = 0;
+numXs = 0;
+points = 0;
+linesDrawnSoFar = {};
+numberOfLinesDrawnOnCanvas = 0;
+currentAnswerColor = 0;
+cycledThroughAnswerColors = false;
+numberCorrect = 0;
+divColors = {"div0" : "", "div1" :"", "answer" : ""};
+gameData = null;
+topData = null;
+selectedDiv = null;
+selectedUnderscore = null;
+selectedLetters = [];
+webWorker = null;
+startTime = null;
+lastTime = 0;
+intervalID = null;
+timeoutID = null;
+borderIntervalID = null;
+pointsIntervalID = null;
+showLettersTimeoutID = null;
+getNextColorsTimeoutID = null;
+previousMinute = 0;
+xhttp = new XMLHttpRequest();
+counterU = 0;
+correctLetters = [];
+canvas = null, ctx = null, canvas2 = null, ctx2 = null, gc = null, gcheight = 0, gsheight = 0;
+imageData = null;
+similarLettersLowerCase = {"a": "egqdDQGB", "b": "hdgopqPFLK", "c": "eouvhysSQEDO", "d": "bpqghPRBD", "e": "agqdEFKRP", "f": "ktjiFLKR", "g":"abdopqGQO", "h":"bdkrvHLRK", "i":"ljtILJT", "j":"iltTKRL", "k":"bdepxMWFE", "l": "ijtLPKH", "m": "nwuveWNRHE", "n": "muwvWRMK", "o":"bqpcdQBP", "p": "bdgceBRDE", "q": "pbdeBPDR", "r":"nuhHJLK", "s":"czgoCZGO", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuvzEMZ", "x": "kwmyz", "y": "zvukh", "z":"snum"};
+similarLettersUpperCase = {"A": "VYUHegqd", "B": "KEPRFXhdgopq", "C": "GOQDSseouvhy", "D": "CGOQbpqgh", "E": "KBPRFXMagqd", "F" : "KBEPRXktji", "G":"COQDabdopq", "H":"ITLJAbdkrv", "I":"HTLJljt", "J":"HITLilt", "K":"BEPRFXbdepx", "L":"HITJijt", "M":"NWUHEnwuv", "N": "MWUHEmuwv", "O": "CGQDbqpcd", "P": "KBERFXbdgce", "Q":"GCDOpbde", "R": "KBEPFXnuh", "S" : "ZCBEOzcbeo", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNEZmz", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
+allLetters = {"a": 1, "b": 1, "c": 1, "d": 1, "e": 1, "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z": 1, "A": 1, "B": 1, "C": 1, "D": 1, "E": 1, "F" : 1, "G": 1, "H": 1, "I": 1, "J": 1, "K": 1, "L": 1, "M": 1, "N": 1, "O": 1, "P": 1, "Q": 1, "R": 1, "S" : 1, "T": 1, "U": 1, "V" : 1, "W" : 1, "X" : 1, "Y": 1, "Z" : 1};
+
+
 var app = {
     // Application Constructor
     initialize: function() {
@@ -57,19 +117,20 @@ app.initStore = function() {
     });
 
     store.validator = function(product, callback) {
-        googlePlayBillingSubmit(product.transaction.purchaseToken, product.transaction, product, callback);
+        signupFormSubmitAndUseGooglePlayBilling(product.transaction.purchaseToken, product.transaction.receipt, product, callback);
         //checkBillingServer(product.transaction);
     };
 
     store.when("sub1").approved(function(p) {
+        var button = document.getElementById("signupSubmit");
+        button.disabled = true;
         p.verify();
     });
 
     store.when("sub1").verified(function(p) {
         p.finish();
-        p.set("state", store.FINISHED);
-        p.stateChanged();
-        alert("verified");
+        var button = document.getElementById("signupSubmit");
+        button.disabled = false;
     });
 
     store.when("sub1").unverified(function(p) {
@@ -77,9 +138,12 @@ app.initStore = function() {
     });
 
     store.when("sub1").updated(function(p) {
-        if (p.owned) {
+        if (p.valid && (p.state == store.APPROVED) && (purchaseStep == 0)) {
+            p.finish();
+        } else if (p.owned) {
             // set a variable that indicates player is subscribed or something to verify player is subscribed. what if the player fakes that value of the variable in the console so they can play? so must be another way other than setting a variable?
-            alert("you are subscribed11111");
+            kojiProduct = p;
+            purchaseStep = 0;
             // maybe do other thing
         } else {
             //alert("you are not subscribed");
@@ -87,97 +151,25 @@ app.initStore = function() {
     }); //store.when("sub1").updated(function(p)
 
     store.error(function(err) {
+        storeError = true;
         console.log(err.code + ": the error was " + err.message);
     }); //store.error(function(err)
 
 
     store.ready(function() {
-        alert("store ready");
+        storeError = false;
     }); // store.ready(function()
 
     store.refresh();
-} // end app.initStore
 
+} // end app.initStore
 
 app.initialize();
 
-function checkBillingServer(transaction) {
-    xhttpB = new XMLHttpRequest();
-    xhttpB.open("POST", rootURL+"/games");
-    xhttpB.setRequestHeader('X-CSRF-Token', csrfVar);
-    xhttpB.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    console.log(csrfVar);
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            inputData = JSON.parse(this.responseText);
-            localStorage.setItem("gameID", inputData.gameID);
-            topData = inputData["colors"];
-            cycleTopDataAt = 1;
-            gameData = topData[0];
-            finishSettingUpGame(demoInstructionsCode);
-            return true;
-        } // end if 
-    } // end onreadystatechange
-    xhttpB.send("session_token=" + sess);
-    return false;
-} // end checkBillingServer(transaction)
-
-
-
-rootURL = "http://arsr-app1.herokuapp.com";
-csrfVar = "";
-timerTime = 6;
-yesnoButtonEnabled = true;
-gameContentHTML = null;
-gameC = null;
-gameCHeight = 0;
-numModalsOpen = 0;
-demoShowing = false;
-timerPaused = false;
-correctLimit = 6;
-dateStart = null;
-timeAdd = null;
-guessTop = null;
-paymentRequestSent = false;
-formcheck = [];
-for (var i = 0; i < 4; i++) formcheck.push(false);
-letterBoardsEmpty = false;
-inputData = null;
-cycleTopDataAt = 0;
-cycleTopDataCounter = 0;
-gameOver = false;
-missedCorrect = 0;
-numXs = 0;
-points = 0;
-linesDrawnSoFar = {};
-numberOfLinesDrawnOnCanvas = 0;
-currentAnswerColor = 0;
-cycledThroughAnswerColors = false;
-numberCorrect = 0;
-divColors = {"div0" : "", "div1" :"", "answer" : ""};
-gameData = null;
-topData = null;
-selectedDiv = null;
-selectedUnderscore = null;
-selectedLetters = [];
-webWorker = null;
-startTime = null;
-lastTime = 0;
-intervalID = null;
-timeoutID = null;
-borderIntervalID = null;
-pointsIntervalID = null;
-showLettersTimeoutID = null;
-getNextColorsTimeoutID = null;
-previousMinute = 0;
-xhttp = new XMLHttpRequest();
-counterU = 0;
-correctLetters = [];
-canvas = null, ctx = null, canvas2 = null, ctx2 = null, gc = null, gcheight = 0, gsheight = 0;
-imageData = null;
-similarLettersLowerCase = {"a": "egqdDQGB", "b": "hdgopqPFLK", "c": "eouvhyQEDO", "d": "bpqghPRBD", "e": "agqdEFKRP", "f": "ktjiFLKR", "g":"abdopqGQO", "h":"bdkrvHLRK", "i":"ljtILJT", "j":"iltTKRL", "k":"bdepxMWFE", "l": "ijtLPKH", "m": "nwuveWNRHE", "n": "muwvWRMK", "o":"bqpcdQBP", "p": "bdgceBRDE", "q": "pbdeBPDR", "r":"nuhHJLK", "s":"czgoCZGO", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuvzEMZ", "x": "kwmyz", "y": "zvukh", "z":"snum"};
-similarLettersUpperCase = {"A": "VYUHegqd", "B": "KEPRFXhdgopq", "C": "GOQDeouvhy", "D": "CGOQbpqgh", "E": "KBPRFXMagqd", "F" : "KBEPRXktji", "G":"COQDabdopq", "H":"ITLJAbdkrv", "I":"HTLJljt", "J":"HITLilt", "K":"BEPRFXbdepx", "L":"HITJijt", "M":"NWUHEnwuv", "N": "MWUHEmuwv", "O": "CGQDbqpcd", "P": "KBERFXbdgce", "Q":"GCDOpbde", "R": "KBEPFXnuh", "S" : "ZCBEOzcbeo", "T": "HILJ", "U": "AVYH", "V" : "AYUN", "W" : "YMNEZmz", "X" : "BEKZS", "Y":"VUNH", "Z" : "SNMUXK"};
-allLetters = {"a": 1, "b": 1, "c": 1, "d": 1, "e": 1, "f": "ktji", "g":"abdopq", "h":"bdkrv", "i":"ljt", "j":"ilt", "k":"bdepx", "l": "ijt", "m": "nwuv", "n": "muwv", "o":"bqpcd", "p": "bdgce", "q": "pbde", "r":"nuh", "s":"czg", "t": "ijlfk", "u": "vnyhc", "v": "unyc", "w": "mnhuv", "x": "kwmyz", "y": "zvukh", "z": 1, "A": 1, "B": 1, "C": 1, "D": 1, "E": 1, "F" : 1, "G": 1, "H": 1, "I": 1, "J": 1, "K": 1, "L": 1, "M": 1, "N": 1, "O": 1, "P": 1, "Q": 1, "R": 1, "S" : 1, "T": 1, "U": 1, "V" : 1, "W" : 1, "X" : 1, "Y": 1, "Z" : 1};
+function startPurchase() {
+    purchaseStep = 1;
+    googlePopup();
+}
 
 function getTitleBarHeight() {
     if (document && document.getElementById('KOJITitle')) {
@@ -230,6 +222,7 @@ function removeButtonColorOnTouchEnd(element) {
 function expandGoalContainer() {
     timerPaused = true;
     remove_bars();
+    goalContainerExpanded = true;
     var body = document.getElementsByTagName("body")[0];
     gc.parentNode.removeChild(gc);
     gc.style.position = "absolute";
@@ -272,8 +265,9 @@ function clearLines() {
 
 function setupNewGame(demoInstructionsCode) {
     localStorage.removeItem("gameID");
+    goalContainerExpanded = false;
     yesnoButtonEnabled = true;
-    timerTime = 6;
+    timerTime = 5;
     gameC.removeAttribute("class");
     gameC.style.display = "none";
     gameC.innerHTML = gameContentHTML;
@@ -899,37 +893,72 @@ function selectUnderscore(el, letters) {
 function drawLine() {
     var width = canvas2.width;
     var ind = 0; 
-    var vpos = Math.floor(Math.random() * 3);
+    var vpos = Math.floor(Math.random() * 10);
     var combinedIndex;
-    if (numberOfLinesDrawnOnCanvas < Math.floor((width * 3) * .70)) {
-        ind = Math.floor(Math.random() * (width+1));
+    if (numberOfLinesDrawnOnCanvas < Math.floor(250*.7)) {
+        ind = ((width/25) * Math.floor(Math.random() * 25));
         combinedIndex = ind + "," + vpos;
         while (linesDrawnSoFar[combinedIndex]) {
-            ind = Math.floor(Math.random() * (width+1));
-            vpos = Math.floor(Math.random() * 3);
+            ind = ((width/25) * Math.floor(Math.random() * 25));
+            vpos = Math.floor(Math.random() * 10);
             combinedIndex = ind + "," + vpos;
         } // while (linesDrawnSoFar[combinedIndex])
     } else {
-        for (var i = 0; i < Math.floor(width); i++) {
-            var a = i + ",0";
-            var b = i + ",1";
-            var c = i + ",2";
-            if (!linesDrawnSoFar[a]) {combinedIndex = a; ind = i; vpos = 0; break;}
-            else if (!linesDrawnSoFar[b]) {combinedIndex = b; ind = i; vpos = 1;  break;}
-            else if (!linesDrawnSoFar[c]) {combinedIndex = c; ind = i; vpos = 2;  break;}
+        for (var i = 0; i < 25; i++) {
+            var a = (i * Math.floor(width/25)) + ",0";
+            var b = (i * Math.floor(width/25)) + ",1";
+            var c = (i * Math.floor(width/25)) + ",2";
+            var d = (i * Math.floor(width/25)) + ",3";
+            var e = (i * Math.floor(width/25)) + ",4";
+            var f = (i * Math.floor(width/25)) + ",5";
+            var g = (i * Math.floor(width/25)) + ",6";
+            var h = (i * Math.floor(width/25)) + ",7";
+            var j = (i * Math.floor(width/25)) + ",8";
+            var k = (i * Math.floor(width/25)) + ",9";
+            if (!linesDrawnSoFar[a]) {combinedIndex = a; ind = (i * Math.floor(width/25)); vpos = 0; break;}
+            else if (!linesDrawnSoFar[b]) {combinedIndex = b; ind = (i * Math.floor(width/25)); vpos = 1;  break;}
+            else if (!linesDrawnSoFar[c]) {combinedIndex = c; ind = (i * Math.floor(width/25)); vpos = 2;  break;}
+            else if (!linesDrawnSoFar[d]) {combinedIndex = d; ind = (i * Math.floor(width/25)); vpos = 3;  break;}
+            else if (!linesDrawnSoFar[e]) {combinedIndex = e; ind = (i * Math.floor(width/25)); vpos = 4;  break;}
+            else if (!linesDrawnSoFar[f]) {combinedIndex = f; ind = (i * Math.floor(width/25)); vpos = 5;  break;}
+            else if (!linesDrawnSoFar[g]) {combinedIndex = g; ind = (i * Math.floor(width/25)); vpos = 6;  break;}
+            else if (!linesDrawnSoFar[h]) {combinedIndex = h; ind = (i * Math.floor(width/25)); vpos = 7;  break;}
+            else if (!linesDrawnSoFar[j]) {combinedIndex = j; ind = (i * Math.floor(width/25)); vpos = 8;  break;}
+            else if (!linesDrawnSoFar[k]) {combinedIndex = k; ind = (i * Math.floor(width/25)); vpos = 9;  break;}
         } // end for (var i = 0; i < Math.floor(width); i++)                
     } // end if...else
     canvas2.style.display = "none";
-    var len = Math.floor(canvas2.height/3);
+    var len = Math.floor(canvas2.height/10);
     switch(vpos) {
         case 0:
-            ctx2.clearRect(ind,0,1,len);
+            ctx2.clearRect(ind,0,Math.floor(width/25),len);
             break;
         case 1:
-            ctx2.clearRect(ind,len,1,len);
+            ctx2.clearRect(ind,len,Math.floor(width/25),len);
             break;
         case 2:
-            ctx2.clearRect(ind,2*len,1,len);
+            ctx2.clearRect(ind,2*len,Math.floor(width/25),len);
+            break;
+        case 3:
+            ctx2.clearRect(ind,3*len,Math.floor(width/25),len);
+            break;
+        case 4:
+            ctx2.clearRect(ind,4*len,Math.floor(width/25),len);
+            break;
+        case 5:
+            ctx2.clearRect(ind,5*len,Math.floor(width/25),len);
+            break;
+        case 6:
+            ctx2.clearRect(ind,6*len,Math.floor(width/25),len);
+            break;
+        case 7:
+            ctx2.clearRect(ind,7*len,Math.floor(width/25),len);
+            break;
+        case 8:
+            ctx2.clearRect(ind,8*len,Math.floor(width/25),len);
+            break;
+        case 9:
+            ctx2.clearRect(ind,9*len,Math.floor(width/25),len);
             break;
     }
     canvas2.style.display = "block";
@@ -940,23 +969,45 @@ function drawLine() {
 
 
 function redrawLines() {
+    console.log("in redrawlines");
     canvas2.style.display = "none";
-    var vpos, ind, len = Math.floor(canvas2.height/3);
+    var vpos, ind, len = Math.floor(canvas2.height/10), width = canvas2.width;
     for (var index in linesDrawnSoFar) {
         if (linesDrawnSoFar.hasOwnProperty(index)) {
             vpos = parseInt(index.split(",")[1]);
             ind = parseInt(index.split(",")[0]);
             switch(vpos) {
-                case 0:
-                    ctx2.clearRect(ind,0,1,len);
-                    break;
-                case 1:
-                    ctx2.clearRect(ind,len,1,len);
-                    break;
-                case 2:
-                    ctx2.clearRect(ind,2*len,1,len);
-                    break;
-            } // end switch(vpos)
+            case 0:
+                ctx2.clearRect(ind,0,Math.floor(width/25),len);
+                break;
+            case 1:
+                ctx2.clearRect(ind,len,Math.floor(width/25),len);
+                break;
+            case 2:
+                ctx2.clearRect(ind,2*len,Math.floor(width/25),len);
+                break;
+            case 3:
+                ctx2.clearRect(ind,3*len,Math.floor(width/25),len);
+                break;
+            case 4:
+                ctx2.clearRect(ind,4*len,Math.floor(width/25),len);
+                break;
+            case 5:
+                ctx2.clearRect(ind,5*len,Math.floor(width/25),len);
+                break;
+            case 6:
+                ctx2.clearRect(ind,6*len,Math.floor(width/25),len);
+                break;
+            case 7:
+                ctx2.clearRect(ind,7*len,Math.floor(width/25),len);
+                break;
+            case 8:
+                ctx2.clearRect(ind,8*len,Math.floor(width/25),len);
+                break;
+            case 9:
+                ctx2.clearRect(ind,9*len,Math.floor(width/25),len);
+                break;
+            }// end switch(vpos)
         } // end if (linesDrawnSoFar.hasOwnProperty(index))
     } // end for (var index in linesDrawnSoFar)
     canvas2.style.display = "block";
@@ -1055,6 +1106,7 @@ function switchButtonsAndLetters(code) {
         case 1:
             document.getElementById("gameLettersContainer").style.display = "none";
             document.getElementById("extra").style.visibility = "hidden";
+            goalContainerExpanded = false;
             break;
         case 2:
             expandGoalContainer();
@@ -1201,8 +1253,8 @@ function isGameLost() {
 
 function showLetters() {
     drawLine();
-    if (numberOfLinesDrawnOnCanvas < Math.floor(canvas.width * 3)) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
-    else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='img/replayTransparent.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {gc.style.display = "none"; shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
+    if (numberOfLinesDrawnOnCanvas < 250) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
+    else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='img/replayTransparent_white.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {gc.style.display = "none"; shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
     return true;
 } // end function showLetters()
 
@@ -1493,7 +1545,7 @@ function updateInfo(sel) {
                 if (res.toUpperCase() == "OK") {
                     document.getElementById("changeLogin").style.height = "0";
                     document.getElementById("cancelMembership").style.height = "0";
-                    if (sel == 4) {localStorage.removeItem("session_token"); clearProfile();}
+                    if ((sel == 4) || (sel == 3)) {localStorage.removeItem("session_token"); clearProfile(); document.getElementById("newGameButton").innerHTML = "START DEMO GAME";}
                     else getProfileData();
                     var result = document.getElementById("profileUpdateResult");
                     result.innerHTML = "profile succesfully updated!";
@@ -1887,24 +1939,25 @@ function signupFormSubmit(stripeToken) {
     return false;
 } // end function signupFormSubmit()
 
-function googlePlayBillingSubmit(purchaseToken, transaction, product, callback) {
+function googlePlayBillingSubmit(purchaseToken, receipt, product, callback) {
     var button = document.getElementById("signupSubmit");
     button.disabled = true;
     var xhttptemp = new XMLHttpRequest();
         xhttptemp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             var res = this.responseText + "";
-            callback(true, product);
-            alert("product id is " + product.id);
+            var response = JSON.parse(res);
+            if ((!!response.paymentState) && (response.paymentState == 1) && !response.cancelReason && !response.userCancellationTimeMillis) 
+                {callback(true, response);}
         } // if (this.readyState == 4 && this.status == 200)
         }; // xhttptemp.onreadystatechange = function()
-    var data = "purchaseToken="+purchaseToken+"&transaction="+JSON.stringify(transaction);
+    var data = "purchaseToken="+purchaseToken+"&receipt="+JSON.stringify(receipt);
     xhttptemp.open("GET", rootURL+"/googleplaysubscriptions/subscribeWithGooglePlay?"+data, true);
     xhttptemp.send();
     return false;
 } // end function googlePlayBillingSubmit(purchaseToken, transaction, product, callback)
 
-function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, product, callback) {
+function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, receipt, product, callback) {
     var button = document.getElementById("signupSubmit");
     button.disabled = true;
     var cont = false;
@@ -1915,20 +1968,28 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, pro
         var displayname= encodeURIComponent(document.getElementById("displaynameInput").value);
         var password1 = encodeURIComponent(document.getElementById("password1Input").value);
         var password2 = encodeURIComponent(document.getElementById("password2Input").value);
-        var version = document.getElementById("gameVersion").value;
-        var transactionStringified = JSON.stringify(transaction);
+        var version = encodeURIComponent(document.getElementById("gameVersion").value);
+        var receiptA = encodeURIComponent(receipt);
         xhttp.abort();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
                 var res = this.responseText + "";
-                alert(res);
-                /*var el = document.getElementById("gameMessage");
+                var el = document.getElementById("gameMessage");
                 var res2 = res.split(":q:")[0];
                 if (res2.toUpperCase() == "OK") {
                     el.style.color = "#3ecf8e";
                     el.innerHTML = "Thank you for signing up to play Koji!<br/>Enjoy!"; 
                     localStorage.setItem("session_token",res.split("OK:q:")[1]);
                     closeMenu(document.getElementById('signupDiv'));
+                    document.getElementById("newGameButton").innerHTML = "START NEW GAME";
+                    callback(true, JSON.parse(receipt));
+                    
+                    /*if ((!!response.paymentState) && (response.paymentState == 1) && !response.cancelReason && !response.userCancellationTimeMillis) 
+                        {callback(true, response);}*/
+                } else if (res.toUpperCase() == "BAD3") { 
+                    el.style.color = "#F00000"; 
+                    el.innerHTML = "You already have an active subscription. Thank you for being a player! We appreciate you!"; 
+                    button.disabled = false;
                 } else if (res.toUpperCase() == "BAD2") {
                     el.style.color = "#F00000"; 
                     el.innerHTML = "Payment processing was not succesful, we apologize.<br/>Please check your information and try again."; 
@@ -1940,14 +2001,14 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, pro
                 } // if (res.toUpperCase() == "OK")
                 showMenu(document.getElementById('gameMessageDiv')); 
                 el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";
-                setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); showMenu(document.getElementById('menuDiv')); },3500); */              
+                setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); showMenu(document.getElementById('menuDiv')); },3500);               
                 return true;
             } // if (this.readyState == 4 && this.status == 200)
         }; // xhttptemp.onreadystatechange = function()
-        xhttp.open("POST", rootURL+"/players/signupAndSubscribeWithGooglePlay", true);
+        xhttp.open("POST", rootURL+"/players", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.setRequestHeader('X-CSRF-Token', csrfVar);
-        xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version+"&purchaseToken="+purchaseToken+"&transaction="+transactionStringified);
+        xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version+"&purchaseToken="+purchaseToken+"&receipt="+receiptA);
     } // end if (cont)
     return false;
 } // end function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, product, callback)
@@ -1969,6 +2030,7 @@ function signinFormSubmit(code) {
                     localStorage.setItem("session_token",res.split("OK:q:")[1]); 
                     el.style.color = "#3ecf8e"; 
                     el.innerHTML = "Sign in succesful.";
+                    document.getElementById("newGameButton").innerHTML = "START NEW GAME";
                     getProfileData();
                     closeMenu(document.getElementById('signinDiv'));
                 } else if (res.toUpperCase() == "RESET SENT") { 
@@ -1982,6 +2044,9 @@ function signinFormSubmit(code) {
                     profileOption(4); 
                     el.style.color = "#F00000"; 
                     el.innerHTML = "The login information was not found.<br/>Please check your information and try again."; 
+                } else if (res.toUpperCase() == "EXPIRED") { 
+                    el.style.color = "#3ecf8e"; 
+                    el.innerHTML = "Sorry, the subscription has expired. Please sign up again. Close the Koji app and restart it before signing up.";
                 }
                 showMenu(document.getElementById('gameMessageDiv')); 
                 el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";
@@ -2015,7 +2080,8 @@ function showMenu(el) {
     if (!demoShowing) gameC.style.height = "0";
     numModalsOpen++;
     var id = el.id + "";
-    if (id == "signupDiv") {
+    if ((id == "signupDiv") && googlePlayStoreReady()) {
+        if (goalContainerExpanded) shrinkGoalContainer();
         document.getElementById("signupForm").reset();
         document.getElementById("signupSubmit").disabled = true;
         paymentRequestSent = false;
@@ -2027,8 +2093,10 @@ function showMenu(el) {
         document.getElementById("password1Input").nextSibling.style.visibility = "hidden";
         document.getElementById("password2Input").nextSibling.style.visibility = "hidden";
     } else if (id == "signinDiv") {
+        if (goalContainerExpanded) shrinkGoalContainer();
         document.getElementById("signinForm").reset();
     } else if (id == "contactusDiv") {
+        if (goalContainerExpanded) shrinkGoalContainer();
         document.getElementById("contactusForm").reset();
     }
     el.style.display = "";
@@ -2043,6 +2111,7 @@ function closeMenu(el) {
     if ((el.style.opacity == "1") || (!!el.currentStyle && (el.currentStyle.display != "none")) || (!!getComputedStyle(el) && (getComputedStyle(el).display != "none")) || (!!getComputedStyle(el,null) && (getComputedStyle(el,null).display != "none")) ) numModalsOpen--;
     el.style.opacity = "0";
     el.style.marginTop = "-2em";
+    if (goalContainerExpanded) expandGoalContainer();
     setTimeout(function() {el.style.display = "none"; if (numModalsOpen == 0) {setGameContentHeightWidth();}}, 800);
     return true;
 } // end function closeMenu(el)
@@ -2250,8 +2319,22 @@ function stripePopup() {
 
 
 
-// play-purchase-plugin and Google play payment functions
+// Google play payment functions and play-purchase-plugin
 
 function googlePopup() {
     store.order("sub1");
-}
+} // end function googlePopup()
+
+function googlePlayStoreReady() {
+    if (storeError) {
+        var el = document.getElementById("gameMessage");
+        el.style.color = "#6B6B6B";
+        el.innerHTML = "Please sign in to the Google Play app, then restart this app before signing up. Sorry about the inconvenience and thank you!";
+        showMenu(document.getElementById('gameMessageDiv'));
+        el.parentNode.style.marginTop = -(el.offsetHeight/2) + "px";
+        setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); closeMenu(document.getElementById('signupDiv')); showMenu(document.getElementById('menuDiv'));},5000);
+        return false;
+    } else {
+        return true;
+    }
+} // end function googlePlayStoreReady()
