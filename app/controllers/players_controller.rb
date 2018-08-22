@@ -76,12 +76,12 @@ class PlayersController < ApplicationController
 			end
 		elsif (!player.blank? && player.logged_in && (params["code"].to_i == 3) && (params["cancel"].to_s.downcase == "cancel"))
 			result = Player.cancel_membership(player.id)
-			if (result == 1)
-				DeletedPlayer.create(player_id: player.id, email: player.email, cellphone: player.cellphone) 
-				player.destroy
-				destroyed = 1
+			#if (result == 1)
+			#	DeletedPlayer.create(player_id: player.id, email: player.email, cellphone: player.cellphone) 
+			#	player.destroy
+			#	destroyed = 1
 				output = "OK"
-			end
+			#end
 		elsif (!player.blank? && params["code"].to_i == 4)
 			player.session_token = ""
 			player.logged_in = false
@@ -185,7 +185,7 @@ class PlayersController < ApplicationController
 		player = nil
 		if (!player_id.blank?)
 			subs = GooglePlaySubscription.find_by(player_id: player_id, status: 1)
-			player.find(player_id)
+			player = Player.find(player_id)
 		end
 
 		if(!subs.blank?)

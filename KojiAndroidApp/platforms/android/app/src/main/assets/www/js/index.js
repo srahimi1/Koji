@@ -1965,6 +1965,7 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, receipt, product
                 var res = this.responseText + "";
                 var el = document.getElementById("gameMessage");
                 var res2 = res.split(":q:")[0];
+                alert(res);
                 if (res2.toUpperCase() == "OK") {
                     el.style.color = "#3ecf8e";
                     el.innerHTML = "Thank you for signing up to play Koji!<br/>Enjoy!"; 
