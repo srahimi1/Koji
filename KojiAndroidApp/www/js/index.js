@@ -1534,7 +1534,7 @@ function updateInfo(sel) {
                 if (res.toUpperCase() == "OK") {
                     document.getElementById("changeLogin").style.height = "0";
                     document.getElementById("cancelMembership").style.height = "0";
-                    if ((sel == 4) || (sel == 3)) {localStorage.removeItem("session_token"); clearProfile(); document.getElemenyById("newGameButton").innerHTML = "START DEMO GAME";}
+                    if ((sel == 4) || (sel == 3)) {localStorage.removeItem("session_token"); clearProfile(); document.getElementById("newGameButton").innerHTML = "START DEMO GAME";}
                     else getProfileData();
                     var result = document.getElementById("profileUpdateResult");
                     result.innerHTML = "profile succesfully updated!";
@@ -1965,13 +1965,12 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, receipt, product
                 var res = this.responseText + "";
                 var el = document.getElementById("gameMessage");
                 var res2 = res.split(":q:")[0];
-                alert(res);
                 if (res2.toUpperCase() == "OK") {
                     el.style.color = "#3ecf8e";
                     el.innerHTML = "Thank you for signing up to play Koji!<br/>Enjoy!"; 
                     localStorage.setItem("session_token",res.split("OK:q:")[1]);
                     closeMenu(document.getElementById('signupDiv'));
-                    document.getElemenyById("newGameButton").innerHTML = "START NEW GAME";
+                    document.getElementById("newGameButton").innerHTML = "START NEW GAME";
                     callback(true, JSON.parse(receipt));
                     
                     /*if ((!!response.paymentState) && (response.paymentState == 1) && !response.cancelReason && !response.userCancellationTimeMillis) 
@@ -2020,7 +2019,7 @@ function signinFormSubmit(code) {
                     localStorage.setItem("session_token",res.split("OK:q:")[1]); 
                     el.style.color = "#3ecf8e"; 
                     el.innerHTML = "Sign in succesful.";
-                    document.getElemenyById("newGameButton").innerHTML = "START NEW GAME";
+                    document.getElementById("newGameButton").innerHTML = "START NEW GAME";
                     getProfileData();
                     closeMenu(document.getElementById('signinDiv'));
                 } else if (res.toUpperCase() == "RESET SENT") { 
