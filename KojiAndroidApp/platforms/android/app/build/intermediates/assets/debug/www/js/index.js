@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-rootURL = "http://kojigame.herokuapp.com/koji/v1/game/dataspace";
+rootURL = "https://kojigame.herokuapp.com/koji/v1/game/dataspace";
 csrfVar = "";
 purchaseStep = 0;
 kojiProduct = null;
