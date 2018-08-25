@@ -152,12 +152,11 @@ app.initStore = function() {
 
     store.error(function(err) {
         storeError = true;
-        alert(err.code + ": the error was " + err.message);
+        console.log(err.code + ": the error was " + err.message);
     }); //store.error(function(err)
 
 
     store.ready(function() {
-        alert("store is ready sub1a");
         storeError = false;
     }); // store.ready(function()
 
