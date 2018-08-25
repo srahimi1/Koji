@@ -14,7 +14,7 @@ class GooglePlaySubscriptionsController < ApplicationController
 	end
 
 	def subscribe_with_google_play
-		render plain: GooglePlaySubscription.subscribe_with_google_play(params["purchaseToken"], params["receipt"], params["email"])
+		render plain: GooglePlaySubscription.subscribe_with_google_play(params["purchaseToken"], params["receipt"], params["email"], params["packageName"], params["subsID"])
 	end
 
 end

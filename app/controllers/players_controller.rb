@@ -19,7 +19,7 @@ class PlayersController < ApplicationController
 		subs = nil
 		if (cellValid && emailValid && (params["password1"].to_s == params["password2"].to_s) && (!params["email"].blank? || !params["cellphone"].blank?))
 			player = Player.new(email: @email, cellphone: @cell, display_name: params["display_name"], password: params["password1"], phone_country: "USA", game_version: params["game_version"], subscribed: 0, email_verified: 0, cellphone_verified: 0, session_token: "", logged_in: false)
-			subscription_result = GooglePlaySubscription.subscribe_with_google_play(params["purchaseToken"], params["receipt"], @email)
+			subscription_result = GooglePlaySubscription.subscribe_with_google_play(params["purchaseToken"], params["receipt"], @email, params["packageName"], params["subsID"])
 			if ((subscription_result >= 0) && player.save && !player.id.blank?)
 				subs = GooglePlaySubscription.find(subscription_result)
 				player.create_player_gaming_history(current_total: 0, current_high_score: 0, history: "")

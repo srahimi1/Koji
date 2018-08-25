@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.kojigame.koji" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>Koji</name>
+    <description>
+        A fun word puzzle and color matching game different than any game you have played.
+    </description>
+    <author email="watid2005@aim.com" href="">
+        First Flight Ingenuities
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+        <icon src="/res/icon/android/icon.png" />
+    </platform>
+    <platform name="ios">
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+    </platform>
+    <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
+    <plugin name="cc.fovea.cordova.purchase" spec="^7.1.3">
+        <variable name="BILLING_KEY" value="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvYFHpjw+O9s7swgmng2e5Yr+lzx6KZDx0zk9Ta0vMyrOjoJOgoVGOuEGRfEoGeqKbSMI7z2GvcLSbKX7ir/CMAkzUTdJM/opFUjPxOhsmf9CZGlbdu/HZBth+ydlsNG3LogyucHcpvU9F9rnkqbox+x5URiARSTQbK+ELgrZtZs5aCcrMnmBEw25djpS6NgnyZn/j9z006XG3B/uoE3vtFovJxdHrelTSan/9mjyXX+wbSdqBCYSZ8OscUiqhlX4brtU8+0S2LBTyb7/nGmheKFAUo248YB1RE7RenJ+REP4LrUNHe7foT+bCMxts0Oz24N7eDyIMiV2ZQS4q3MfdQIDAQAB" />
+    </plugin>
+    <engine name="android" spec="^7.0.0" />
+</widget>

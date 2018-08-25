@@ -111,8 +111,8 @@ app.initStore = function() {
     //store.validator = "https://api.fovea.cc:1982/check-purchase";
 
     store.register({
-        id: "sub1",
-        alias: "Koji Subscription - $2 recurring monthly fee",
+        id: "sub1a",
+        alias: "Koji Monthly Subscription",
         type: store.PAID_SUBSCRIPTION
     });
 
@@ -121,23 +121,23 @@ app.initStore = function() {
         //checkBillingServer(product.transaction);
     };
 
-    store.when("sub1").approved(function(p) {
+    store.when("sub1a").approved(function(p) {
         var button = document.getElementById("signupSubmit");
         button.disabled = true;
         p.verify();
     });
 
-    store.when("sub1").verified(function(p) {
+    store.when("sub1a").verified(function(p) {
         p.finish();
         var button = document.getElementById("signupSubmit");
         button.disabled = false;
     });
 
-    store.when("sub1").unverified(function(p) {
+    store.when("sub1a").unverified(function(p) {
         // do something
     });
 
-    store.when("sub1").updated(function(p) {
+    store.when("sub1a").updated(function(p) {
         if (p.valid && (p.state == store.APPROVED) && (purchaseStep == 0)) {
             p.finish();
         } else if (p.owned) {
@@ -148,15 +148,16 @@ app.initStore = function() {
         } else {
             //alert("you are not subscribed");
         }
-    }); //store.when("sub1").updated(function(p)
+    }); //store.when("sub1a").updated(function(p)
 
     store.error(function(err) {
         storeError = true;
-        console.log(err.code + ": the error was " + err.message);
+        alert(err.code + ": the error was " + err.message);
     }); //store.error(function(err)
 
 
     store.ready(function() {
+        alert("store is ready sub1a");
         storeError = false;
     }); // store.ready(function()
 
@@ -1169,7 +1170,7 @@ function showDemoInstructions() {
     setTimeout(function() {document.getElementById("demoInstructions7").style.opacity = 1;}, 17000);
     setTimeout(function() {drawLine(); drawLine();}, 19000);
     setTimeout(function() {document.getElementById("demoInstructions8").style.opacity = 1;}, 22000);
-    setTimeout(function() {numberCorrect = 6; selectUnderscore(document.getElementById("letterBox:0"), inputData.letters); switchButtonsAndLetters(2);}, 26000);
+    setTimeout(function() {numberCorrect = 4; selectUnderscore(document.getElementById("letterBox:0"), inputData.letters); switchButtonsAndLetters(2);}, 26000);
     setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 27000);
     setTimeout(function() {selectUnderscore(document.getElementById("letterBox:2"), inputData.letters); }, 28000);
     setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 29000);
@@ -1970,6 +1971,8 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, receipt, product
         var password2 = encodeURIComponent(document.getElementById("password2Input").value);
         var version = encodeURIComponent(document.getElementById("gameVersion").value);
         var receiptA = encodeURIComponent(receipt);
+        var packageName = encodeURIComponent("koji.koji.koji");
+        var subsID = encodeURIComponent("sub1a");
         xhttp.abort();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -2008,7 +2011,7 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, receipt, product
         xhttp.open("POST", rootURL+"/players", true);
         xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhttp.setRequestHeader('X-CSRF-Token', csrfVar);
-        xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version+"&purchaseToken="+purchaseToken+"&receipt="+receiptA);
+        xhttp.send("email="+email+"&cellphone="+cellphone+"&display_name="+displayname+"&password1="+password1+"&password2="+password2+"&game_version="+version+"&purchaseToken="+purchaseToken+"&receipt="+receiptA+"&packageName="+packageName+"&subsID="+subsID);
     } // end if (cont)
     return false;
 } // end function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, transaction, product, callback)
@@ -2322,7 +2325,7 @@ function stripePopup() {
 // Google play payment functions and play-purchase-plugin
 
 function googlePopup() {
-    store.order("sub1");
+    store.order("sub1a");
 } // end function googlePopup()
 
 function googlePlayStoreReady() {

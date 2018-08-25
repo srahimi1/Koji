@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Thu Aug 23 13:41:19 EDT 2018
+#Fri Aug 24 20:03:58 EDT 2018
 25.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-land-hdpi-v4\\screen.png
 25.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 22.set=ASSET
@@ -33,7 +33,7 @@ count=35
 7.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\resources.arsc
 7.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 15.set=ASSET
-27.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-port-mdpi-v4\\screen.png
+27.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-port-hdpi-v4\\screen.png
 27.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 1.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\assets\\debug\\www\\img\\tl4.png
 1.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\assets\\debug
@@ -53,7 +53,7 @@ count=35
 25.set=ANDROID_RESOURCE
 17.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\assets\\debug
 10.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\assets\\debug\\www\\img\\logo.png
-28.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-port-hdpi-v4\\screen.png
+28.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-port-mdpi-v4\\screen.png
 10.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\assets\\debug
 28.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 14.set=ASSET
@@ -71,7 +71,7 @@ count=35
 18.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\assets\\debug\\www\\js\\timer.js
 9.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 18.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\assets\\debug
-11.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\AndroidManifest.xml
+11.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\xml\\config.xml
 29.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\assets\\debug\\www\\img\\tl3.png
 11.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 29.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\assets\\debug
@@ -87,7 +87,7 @@ count=35
 18.set=ASSET
 19.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\drawable-land-mdpi-v4\\screen.png
 19.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
-12.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\res\\xml\\config.xml
+12.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_\\AndroidManifest.xml
 12.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\debug\\resources-debug.ap_
 4.set=ASSET
 34.set=DEX
