@@ -95,8 +95,8 @@
 
 <div id="demoAnimatedInstructionsDiv3" class="modal-div demo-animated-instructions-div" style="background: none;">
     <div class="demo-instructions-section-div" style="height: 15%; font-size: 1.5em;" id="demoInstructions0C"><div class="demo-instructions-under-div" style="opacity: 1;"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words">INSTRUCTIONS (...cont'd)</span></div></div>
-    <div class="demo-instructions-section-div" style="height: 33%;" id="demoInstructions7"><div class="demo-instructions-under-div"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words" style="margin-top: 10%;">4) Every time you choose the right answer, you'll see small pieces of hidden letters revealed.</span></div></div>
-    <div class="demo-instructions-section-div" style="height: 34%;" id="demoInstructions8"><div class="demo-instructions-under-div"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words" style="margin-top: 15%;">5) After 4 correct color combination answers, you get a chance to guess a letter.</span></div></div>
+    <div class="demo-instructions-section-div" style="height: 33%;" id="demoInstructions7"><div class="demo-instructions-under-div"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words" style="margin-top: 10%;">4) Every time you choose the right answer, you'll see small pieces of hidden letters revealed. These letters are twisted and rotated and are chosen randomly and do not necessarily make up a word.</span></div></div>
+    <div class="demo-instructions-section-div" style="height: 34%;" id="demoInstructions8"><div class="demo-instructions-under-div"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words" style="margin-top: 15%;">5) After 3 correct color combination answers, you get a chance to guess a letter.</span></div></div>
     <div class="demo-instructions-section-div" style="height: 18%;" id="demoInstructions9"><div class="demo-instructions-under-div" style="opacity: 0.7;"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words">6) Guess all the letters correctly, and you win the game!</span></div></div>
 </div><!-- end demoAnimatedInstructionsDiv3 -->
 
@@ -109,7 +109,7 @@
 
 <div id="demoAnimatedInstructionsDiv5" class="modal-div demo-animated-instructions-div" style="background: none;">
     <div class="demo-instructions-section-div" style="height: 15%; font-size: 1.5em;" id="demoInstructions0E"><div class="demo-instructions-under-div" style="opacity: 1;"></div><div class="demo-instructions-over-div"><span class="demo-instructions-words"></span></div></div>
-    <div class="demo-instructions-section-div" style="height: 85%;" id="demoInstructions13"><div class="demo-instructions-under-div" style="opacity: 1;"></div><div class="demo-instructions-over-div"><p><button onclick="demoShowing = false; setupNewGame(1);"><img src="img/replayTransparent.png" id="replayPNG" style="height: 1em; width: 1em; vertical-align: text-top; margin-right: 0.5em">Replay Instructions</button></p><p>-- or --</p><p><button onclick="demoShowing = false; closeMenu(document.getElementById('demoAnimatedInstructionsDiv5')); setupNewGame(0);">Start Demo Game</button></p></div></div>
+    <div class="demo-instructions-section-div" style="height: 85%;" id="demoInstructions13"><div class="demo-instructions-under-div" style="opacity: 1;"></div><div class="demo-instructions-over-div"><p><button style="font-size: 2em;" onclick="demoShowing = false; setupNewGame(1);"><img src="img/replayTransparent.png" id="replayPNG" style="height: 1em; width: 1em; vertical-align: text-top; margin-right: 0.5em">Replay Instructions</button></p><p>-- or --</p><p><button style="font-size: 2em;" onclick="demoShowing = false; closeMenu(document.getElementById('demoAnimatedInstructionsDiv5')); setupNewGame(0);">Start Demo Game</button></p></div></div>
 </div><!-- end demoAnimatedInstructionsDiv5 -->
 
 
@@ -211,7 +211,7 @@
         <li class="instruction-li">
             <p class="instruction-paragraph">If two colors, shown in the middle of the screen, will mix to produce the color shown directly above them, hit the bottom "Yes" button. If not, hit "No".</p></li>
         <li class="instruction-li">
-            <p class="instruction-paragraph">Every time you guess correctly, small segments of the top panel are removed to reveal parts of letters hidden underneath. After every 4th correct color mixing guess, you will get a chance to guess at one of the hidden letters. Correctly choose all the hidden letters (correctly chosen letters will have green borders) and you win!</p></li>
+            <p class="instruction-paragraph">Every time you guess correctly, small segments of the top panel are removed to reveal parts of letters hidden underneath. These letters are twisted and rotated and are chosen randomly, so they don't necessarily make up a word. After every 3rd correct color mixing guess, you will get a chance to guess at one of the hidden letters. Correctly choose all the hidden letters (correctly chosen letters will have green borders) and you win!</p></li>
         <li class="instruction-li"><p class="instruction-header-paragraph">Xs:</p>
             <p class="instruction-paragraph">For every wrong color mixing guess, you get an X. For every incorrect letter guess, you get an X. If time runs out before you answer a color mixing question, you get an X. Four Xs and game is over.</p></li>
         <li class="instruction-li"><p class="instruction-header-paragraph">Point values:</p>
