@@ -383,7 +383,7 @@ function finishSettingUpGame(demoInstructionsCode) {
     if (demoInstructionsCode == 1) { timerTime = 6000; doDemoInstructions();}
     else {
         showDefinition();
-        setTimeout(function() {closeMenu(document.getElementById("gameMessageDiv")); setupTimer();}, 5000);
+        setTimeout(function() {closeMenu(document.getElementById("definitionDiv")); setupTimer();}, 5000);
     }
     return false;
 } // end function finishSettingUpGame()
@@ -391,8 +391,8 @@ function finishSettingUpGame(demoInstructionsCode) {
 // color mixing part of game functions ...
 
 function showDefinition() {
-    document.getElementById("gameMessage").innerHTML = "<p style='color: gray; margin-bottom: 0px; margin-top:-10%;'>Definition of the hidden word:</p><p style='color: navy; margin-top: 5px;'>" + inputData["definition"] + "</p>";
-    showMenu(document.getElementById("gameMessageDiv"));
+    document.getElementById("definition").innerHTML = "<p style='color: gray; margin-bottom: 0px;'>Definition of the hidden word:</p><p style='color: navy; margin-top: 5px;'>" + inputData.definition + "</p>";
+    showMenu(document.getElementById("definitionDiv"));
 }
 
 function colorGoalDiv() {
@@ -1179,7 +1179,7 @@ function showDemoInstructions() {
     setTimeout(function() {closeMenu(document.getElementById('demoAnimatedInstructionsDiv2a'));}, 16000);
     setTimeout(function() {showDefinition();}, 17000);
     setTimeout(function() {gameC.style.visibility = "visible";}, 18000);
-    setTimeout(function() {closeMenu(document.getElementById("gameMessageDiv")); setupTimer();}, 23000);
+    setTimeout(function() {closeMenu(document.getElementById("definitionDiv")); setupTimer();}, 23000);
 
     setTimeout(function() {showMenu(document.getElementById('demoAnimatedInstructionsDiv2'));}, 24000);
     setTimeout(function() {document.getElementById("demoInstructions0B").style.height = ht1 + "px"; document.getElementById("demoInstructions0B").style.opacity = 1;}, 24500);
