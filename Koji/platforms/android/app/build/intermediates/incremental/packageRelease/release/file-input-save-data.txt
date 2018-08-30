@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Wed Aug 29 07:46:49 EDT 2018
+#Thu Aug 30 00:41:25 EDT 2018
 25.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\res\\drawable-port-xxxhdpi-v4\\screen.png
 25.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_
 22.set=ASSET
@@ -25,7 +25,7 @@ count=35
 7.set=ANDROID_RESOURCE
 20.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\assets\\release
 10.set=ASSET
-31.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\res\\drawable-land-xhdpi-v4\\screen.png
+31.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\resources.arsc
 15.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\assets\\release\\www\\cordova-js-src\\plugin\\android\\app.js
 31.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_
 15.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\assets\\release
@@ -42,7 +42,7 @@ count=35
 21.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\assets\\release\\www\\img\\replayTransparent.png
 21.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\assets\\release
 20.set=ASSET
-32.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\res\\drawable-port-mdpi-v4\\screen.png
+32.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\res\\drawable-land-xhdpi-v4\\screen.png
 16.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\assets\\release\\www\\cordova_plugins.js
 32.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_
 6.set=ANDROID_RESOURCE
@@ -64,7 +64,7 @@ count=35
 0.set=ASSET
 19.set=ASSET
 30.set=ASSET
-33.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\resources.arsc
+33.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_\\res\\drawable-port-mdpi-v4\\screen.png
 33.base=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\res\\release\\resources-release.ap_
 9.file=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\assets\\release\\www\\cordova-js-src\\exec.js
 5.set=ASSET

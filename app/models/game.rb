@@ -4,7 +4,10 @@ class Game < ApplicationRecord
 	def start_new_demo_game
 		output = {}
 		output["colors"] = [{"goalColor" => "#634478"},{"goalColor" => "#74553A"},{"goalColor" => "#A1AA64"},{"goalColor" => "#329844"},{"goalColor" => "#443298"},{"goalColor" => "#984432"}]
-		output["letters"] = ["s","N","w","D","i"].shuffle
+		letters = [["W","i","N","d"], "the force that is generated when air moves in an outdoor environment"]
+		#output["letters"] = ["s","N","w","D","i"].shuffle
+		output["letters"] = letters[0]
+		output["definition"] = letters[1]
 		output["numberOfX"] = 0
 		output["points"] = 0
 		return output
@@ -25,13 +28,83 @@ class Game < ApplicationRecord
 		end
 		output["colors"] = responses
 		letters = get_letters
-		output["letters"] = letters
+		#output["letters"] = letters
+		output["letters"] = letters[0]
+		output["definition"] = letters[1]
 		output["numberOfX"] = 0
 		output["points"] = 0
 		return output
 	end
 
 	def get_letters
+		word = get_word_from_dictionary
+		definition = get_definition_from_dictionary(word)
+		letters = randomize_case_of_word(word)
+		response = [letters,definition]
+		return response
+	end
+
+	def get_word_from_dictionary
+		lc = ["noun","verb","adjective"]
+		letters = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
+		letters_hash = {"A" => 1,"B" => 1,"C" => 1,"D" => 1,"E" => 1,"F" => 1,"G" => 1,"H" => 1,"I" => 1,"J" => 1,"K" => 1,"L" => 1,"M" => 1,"N" => 1,"O" => 1,"P" => 1,"Q" => 1,"R" => 1,"S" => 1,"T" => 1,"U" => 1,"V" => 1,"W" => 1,"X" => 1,"Y" => 1,"Z" => 1}
+		word = nil
+		repeat = true
+		while (repeat)
+			repeat = false
+			suffix = "word_length=>3<7&prefix=" + letters[rand(26)] + "&exact=false"
+			url = "https://od-api.oxforddictionaries.com:443/api/v1/wordlist/en/lexicalCategory=" + lc[rand(3)] + "?" + suffix
+			uri = URI.parse(url)
+			http = Net::HTTP.new(uri.host, uri.port)
+			http.use_ssl = true
+			req = Net::HTTP::Get.new(uri.request_uri)
+			req["Accept"] = "application/json"
+			req["app_id"] = "86a32e74"
+			req["app_key"] = "0eae49e477ad1545db83c60df16c9bdd"
+			res = http.request(req)
+			response = JSON.parse(res.body)
+			word = response["results"][rand(response["results"].length)]["word"]
+			word_letters = word.upcase.split("")
+			word_letters.length.times do |x| 
+				if (letters_hash[word_letters[x]].blank?) 
+					repeat = true
+					break;
+				end
+			end
+		end
+		return word
+		#subscription_response = JSON.parse(res)
+	end
+
+	def get_definition_from_dictionary(w)
+		url = "https://od-api.oxforddictionaries.com:443/api/v1/entries/en/" + w
+		uri = URI.parse(url)
+		http = Net::HTTP.new(uri.host, uri.port)
+		http.use_ssl = true
+		req = Net::HTTP::Get.new(uri.request_uri)
+		req["Accept"] = "application/json"
+		req["app_id"] = "86a32e74"
+		req["app_key"] = "0eae49e477ad1545db83c60df16c9bdd"
+		res = http.request(req)
+		response = JSON.parse(res.body)
+		return response["results"][rand(response["results"].length)]["lexicalEntries"][0]["entries"][0]["senses"][0]["definitions"][0]
+		
+	end
+
+	def randomize_case_of_word(w)
+		letters = w.split("")
+		letters_random_cased = []
+		letters.length.times do |x|
+			if (rand(2) == 0)
+				letters_random_cased.push(letters[x].downcase)
+			else
+				letters_random_cased.push(letters[x].upcase)
+			end
+		end
+		return letters_random_cased
+	end
+
+	def get_letters_old
 		letters_main = []
 		letters_main[0] = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"]
 		letters_main[1] = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
