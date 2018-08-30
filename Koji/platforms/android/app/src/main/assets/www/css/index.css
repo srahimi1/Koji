@@ -576,7 +576,7 @@ input.signup-form-submit-button {
 }
 
 .demo-instructions-words {
-    font-size: 1.6em;
+    font-size: 1.1em;
     display: inline-block;
     padding: 0.75em;
     -moz-transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93); 

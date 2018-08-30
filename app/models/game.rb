@@ -4,7 +4,8 @@ class Game < ApplicationRecord
 	def start_new_demo_game
 		output = {}
 		output["colors"] = [{"goalColor" => "#634478"},{"goalColor" => "#74553A"},{"goalColor" => "#A1AA64"},{"goalColor" => "#329844"},{"goalColor" => "#443298"},{"goalColor" => "#984432"}]
-		letters = [["W","i","N","d"], "the force that is generated when air moves in an outdoor environment"]
+		letters_top = [[["W","i","N","d"], "the force that is generated when air moves in an outdoor environment"],[["s","i","G","n"], "an indication of events that will occur in the future"], [["s","T","r","e","A","m"], "a narrow flow of water"]]
+		letters = letters_top[rand(letters_top.length)]
 		#output["letters"] = ["s","N","w","D","i"].shuffle
 		output["letters"] = letters[0]
 		output["definition"] = letters[1]
