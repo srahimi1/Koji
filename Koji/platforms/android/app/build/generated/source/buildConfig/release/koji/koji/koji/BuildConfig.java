@@ -8,6 +8,6 @@ public final class BuildConfig {
   public static final String APPLICATION_ID = "koji.koji.koji";
   public static final String BUILD_TYPE = "release";
   public static final String FLAVOR = "";
-  public static final int VERSION_CODE = 11032;
-  public static final String VERSION_NAME = "1.0.32";
+  public static final int VERSION_CODE = 11034;
+  public static final String VERSION_NAME = "1.0.34";
 }

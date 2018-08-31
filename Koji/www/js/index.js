@@ -578,6 +578,9 @@ function determineResultOfChoice(sendID, opt) {
             numberCorrect++;
             time = 1350;
             drawLine();
+            drawLine();
+            drawLine();
+            drawLine();
         }
         else if (opt == 1) {
             inner = document.getElementById("missedthisonesvg").innerHTML;
@@ -638,6 +641,9 @@ function determineResultOfChoice(sendID, opt) {
         inner.style.marginTop = Math.floor(inner.parentNode.offsetHeight/8) + "px"
         var svg = document.getElementById("plus1svg2");
         missedCorrect = 0;      
+        drawLine();
+        drawLine();
+        drawLine();
         drawLine();
     }
     
@@ -1191,7 +1197,7 @@ function showDemoInstructions() {
     setTimeout(function() {showMenu(document.getElementById('demoAnimatedInstructionsDiv3'));}, 43000);
     setTimeout(function() {document.getElementById("demoInstructions0C").style.height = ht1 + "px"; document.getElementById("demoInstructions0C").style.opacity = 1;}, 43500);
     setTimeout(function() {document.getElementById("demoInstructions7").style.opacity = 1;}, 44000);
-    setTimeout(function() {drawLine(); drawLine();}, 50000);
+    setTimeout(function() {drawLine(); drawLine(); drawLine(); drawLine();}, 50000);
     setTimeout(function() {document.getElementById("demoInstructions8").style.opacity = 1;}, 55000);
     setTimeout(function() {numberCorrect = 3; selectUnderscore(document.getElementById("letterBox:0"), inputData.letters); switchButtonsAndLetters(2);}, 60000);
     setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 61000);
