@@ -22,7 +22,7 @@ csrfVar = "";
 purchaseStep = 0;
 kojiProduct = null;
 storeError = true;
-timerTime = 5;
+timerTime = 6;
 goalContainerExpanded = false;
 yesnoButtonEnabled = true;
 gameContentHTML = null;
@@ -268,7 +268,7 @@ function setupNewGame(demoInstructionsCode) {
     localStorage.removeItem("gameID");
     goalContainerExpanded = false;
     yesnoButtonEnabled = true;
-    timerTime = 5;
+    timerTime = 6;
     gameC.removeAttribute("class");
     gameC.style.display = "none";
     gameC.innerHTML = gameContentHTML;
@@ -383,7 +383,7 @@ function finishSettingUpGame(demoInstructionsCode) {
     if (demoInstructionsCode == 1) { timerTime = 6000; doDemoInstructions();}
     else {
         showDefinition();
-        setTimeout(function() {closeMenu(document.getElementById("definitionDiv")); setupTimer();}, 5000);
+        setTimeout(function() {closeMenu(document.getElementById("definitionDiv")); setupTimer();}, 10000);
     }
     return false;
 } // end function finishSettingUpGame()
@@ -908,14 +908,14 @@ function selectUnderscore(el, letters) {
 function drawLine() {
     var width = canvas2.width;
     var ind = 0; 
-    var vpos = Math.floor(Math.random() * 8);
+    var vpos = Math.floor(Math.random() * 10);
     var combinedIndex;
-    if (numberOfLinesDrawnOnCanvas < Math.floor(160*.7)) {
+    if (numberOfLinesDrawnOnCanvas < Math.floor(200*.7)) {
         ind = ((width/20) * Math.floor(Math.random() * 20));
         combinedIndex = ind + "," + vpos;
         while (linesDrawnSoFar[combinedIndex]) {
             ind = ((width/20) * Math.floor(Math.random() * 20));
-            vpos = Math.floor(Math.random() * 8);
+            vpos = Math.floor(Math.random() * 10);
             combinedIndex = ind + "," + vpos;
         } // while (linesDrawnSoFar[combinedIndex])
     } else {
@@ -928,8 +928,8 @@ function drawLine() {
             var f = (i * Math.floor(width/20)) + ",5";
             var g = (i * Math.floor(width/20)) + ",6";
             var h = (i * Math.floor(width/20)) + ",7";
-            //var j = (i * Math.floor(width/20)) + ",8";
-            //var k = (i * Math.floor(width/20)) + ",9";
+            var j = (i * Math.floor(width/20)) + ",8";
+            var k = (i * Math.floor(width/20)) + ",9";
             if (!linesDrawnSoFar[a]) {combinedIndex = a; ind = (i * Math.floor(width/20)); vpos = 0; break;}
             else if (!linesDrawnSoFar[b]) {combinedIndex = b; ind = (i * Math.floor(width/20)); vpos = 1;  break;}
             else if (!linesDrawnSoFar[c]) {combinedIndex = c; ind = (i * Math.floor(width/20)); vpos = 2;  break;}
@@ -938,12 +938,12 @@ function drawLine() {
             else if (!linesDrawnSoFar[f]) {combinedIndex = f; ind = (i * Math.floor(width/20)); vpos = 5;  break;}
             else if (!linesDrawnSoFar[g]) {combinedIndex = g; ind = (i * Math.floor(width/20)); vpos = 6;  break;}
             else if (!linesDrawnSoFar[h]) {combinedIndex = h; ind = (i * Math.floor(width/20)); vpos = 7;  break;}
-            //else if (!linesDrawnSoFar[j]) {combinedIndex = j; ind = (i * Math.floor(width/20)); vpos = 8;  break;}
-            //else if (!linesDrawnSoFar[k]) {combinedIndex = k; ind = (i * Math.floor(width/20)); vpos = 9;  break;}
+            else if (!linesDrawnSoFar[j]) {combinedIndex = j; ind = (i * Math.floor(width/20)); vpos = 8;  break;}
+            else if (!linesDrawnSoFar[k]) {combinedIndex = k; ind = (i * Math.floor(width/20)); vpos = 9;  break;}
         } // end for (var i = 0; i < Math.floor(width); i++)                
     } // end if...else
     canvas2.style.display = "none";
-    var len = Math.floor((canvas2.height/8) * 100)/100;
+    var len = Math.floor((canvas2.height/10) * 100)/100;
     switch(vpos) {
         case 0:
             ctx2.clearRect(ind,0,Math.floor(width/20),len);
@@ -969,12 +969,12 @@ function drawLine() {
         case 7:
             ctx2.clearRect(ind,7*len,Math.floor(width/20),len);
             break;
-        /*case 8:
+        case 8:
             ctx2.clearRect(ind,8*len,Math.floor(width/20),len);
-            break;*/
-        /*case 9:
+            break;
+        case 9:
             ctx2.clearRect(ind,9*len,Math.floor(width/20),len);
-            break;*/
+            break;
     }
     canvas2.style.display = "block";
     linesDrawnSoFar[combinedIndex] = true;
@@ -986,7 +986,7 @@ function drawLine() {
 function redrawLines() {
     console.log("in redrawlines");
     canvas2.style.display = "none";
-    var vpos, ind, len = Math.floor((canvas2.height/8) * 100)/100, width = canvas2.width;
+    var vpos, ind, len = Math.floor((canvas2.height/10) * 100)/100, width = canvas2.width;
     for (var index in linesDrawnSoFar) {
         if (linesDrawnSoFar.hasOwnProperty(index)) {
             vpos = parseInt(index.split(",")[1]);
@@ -1016,12 +1016,12 @@ function redrawLines() {
             case 7:
                 ctx2.clearRect(ind,7*len,Math.floor(width/20),len);
                 break;
-            /*case 8:
+            case 8:
                 ctx2.clearRect(ind,8*len,Math.floor(width/20),len);
-                break;*/
-            /*case 9:
+                break;
+            case 9:
                 ctx2.clearRect(ind,9*len,Math.floor(width/20),len);
-                break;*/
+                break;
             }// end switch(vpos)
         } // end if (linesDrawnSoFar.hasOwnProperty(index))
     } // end for (var index in linesDrawnSoFar)
@@ -1283,7 +1283,7 @@ function isGameLost() {
 
 function showLetters() {
     drawLine();
-    if (numberOfLinesDrawnOnCanvas < 160) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
+    if (numberOfLinesDrawnOnCanvas < 200) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
     else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='img/replayTransparent_white.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {gc.style.display = "none"; shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
     return true;
 } // end function showLetters()
@@ -2135,7 +2135,7 @@ function showMenu(el) {
     el.classList.add("flex");
     el.classList.add("flex-col");
     setTimeout(function() {el.style.marginTop="0em"; el.style.opacity="1";}, 100);
-    if (id == "startupDiv") setTimeout(function() {document.getElementById('rainbowCover').style.marginLeft = "175%"}, 150);
+    //if (id == "startupDiv") setTimeout(function() {document.getElementById('rainbowCover').style.marginLeft = "175%"}, 150);
     return true;
 } // end function showMenu(el)
 
