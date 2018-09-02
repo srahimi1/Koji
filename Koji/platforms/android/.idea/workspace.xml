@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="834e9e2c-f0cd-42fd-8058-886d17811609" name="Default" comment="" />
+    <list default="true" id="94e55ecb-2485-4f15-9c2e-9a77bf563635" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,7 +24,11 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
               <caret line="1" column="100" lean-forward="false" selection-start-line="1" selection-start-column="100" selection-end-line="1" selection-end-column="100" />
-              <folding />
+              <folding>
+                <element signature="e#578#596#0" expanded="true" />
+                <element signature="e#735#758#0" expanded="true" />
+                <element signature="e#966#989#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -3005,7 +3009,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="x" value="92" />
     <option name="y" value="31" />
     <option name="width" value="1400" />
@@ -3042,10 +3046,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
-      <pane id="Scope" />
       <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -3214,16 +3218,16 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="834e9e2c-f0cd-42fd-8058-886d17811609" name="Default" comment="" />
-      <created>1535905995297</created>
+      <changelist id="94e55ecb-2485-4f15-9c2e-9a77bf563635" name="Default" comment="" />
+      <created>1535925600663</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1535905995297</updated>
+      <updated>1535925600663</updated>
     </task>
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="92" y="31" width="1400" height="1000" extended-state="1" />
+    <frame x="92" y="31" width="1400" height="1000" extended-state="0" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
@@ -3271,7 +3275,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
           <caret line="1" column="100" lean-forward="false" selection-start-line="1" selection-start-column="100" selection-end-line="1" selection-end-column="100" />
-          <folding />
+          <folding>
+            <element signature="e#578#596#0" expanded="true" />
+            <element signature="e#735#758#0" expanded="true" />
+            <element signature="e#966#989#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

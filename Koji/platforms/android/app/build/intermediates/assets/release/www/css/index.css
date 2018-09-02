@@ -788,7 +788,7 @@ input.signup-form-submit-button {
 .menu-div-item-description {
     margin: 0;
     text-align: left;
-    color: #a679d2;
+    color: slategray; /*#a679d2;*/
 }
 
 .instruction-top-li {

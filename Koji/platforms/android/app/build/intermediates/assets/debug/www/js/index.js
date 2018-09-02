@@ -112,8 +112,8 @@ app.initStore = function() {
     //store.validator = "https://api.fovea.cc:1982/check-purchase";
 
     store.register({
-        id: "sub1a",
-        alias: "Koji Monthly Subscription",
+        id: "sub2a",
+        alias: "Koji 99 cents monthly membership",
         type: store.PAID_SUBSCRIPTION
     });
 
@@ -122,23 +122,23 @@ app.initStore = function() {
         //checkBillingServer(product.transaction);
     };
 
-    store.when("sub1a").approved(function(p) {
+    store.when("sub2a").approved(function(p) {
         var button = document.getElementById("signupSubmit");
         button.disabled = true;
         p.verify();
     });
 
-    store.when("sub1a").verified(function(p) {
+    store.when("sub2a").verified(function(p) {
         p.finish();
         var button = document.getElementById("signupSubmit");
         button.disabled = false;
     });
 
-    store.when("sub1a").unverified(function(p) {
+    store.when("sub2a").unverified(function(p) {
         // do something
     });
 
-    store.when("sub1a").updated(function(p) {
+    store.when("sub2a").updated(function(p) {
         if (p.valid && (p.state == store.APPROVED) && (purchaseStep == 0)) {
             p.finish();
         } else if (p.owned) {
@@ -149,7 +149,7 @@ app.initStore = function() {
         } else {
             //alert("you are not subscribed");
         }
-    }); //store.when("sub1a").updated(function(p)
+    }); //store.when("sub2a").updated(function(p)
 
     store.error(function(err) {
         storeError = true;
@@ -2001,7 +2001,7 @@ function signupFormSubmitAndUseGooglePlayBilling(purchaseToken, receipt, product
         var version = encodeURIComponent(document.getElementById("gameVersion").value);
         var receiptA = encodeURIComponent(receipt);
         var packageName = encodeURIComponent("koji.koji.koji");
-        var subsID = encodeURIComponent("sub1a");
+        var subsID = encodeURIComponent("sub2a");
         xhttp.abort();
         xhttp.onreadystatechange = function() {
             if (this.readyState == 4 && this.status == 200) {
@@ -2354,7 +2354,7 @@ function stripePopup() {
 // Google play payment functions and play-purchase-plugin
 
 function googlePopup() {
-    store.order("sub1a");
+    store.order("sub2a");
 } // end function googlePopup()
 
 function googlePlayStoreReady() {
