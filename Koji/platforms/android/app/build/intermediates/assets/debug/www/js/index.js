@@ -478,13 +478,25 @@ function getColorsForHalfDivs() {
             color1[i] = answer[i] + factor;
             color2[i] = answer[i] - factor;
         } else if ((opt == 2) || (opt == 3) || (opt == 4)) {
-            if ( (opt == 2) || (opt == 3) )
-                color1[i] = answer[i] - 25;
-                color2[i] = answer[i] + 55;
-            else if ( (opt == 4) )
-                color1[i] = answer[i] + 55;
-                color2[i] = answer[i] - 25;
-
+            if ((i == 0) && ((opt == 2) || (opt == 3)) ) {
+                color1[i] = answer[i] - 40;
+                color2[i] = answer[i] + 10; 
+            } else if ((i == 0) && (opt == 4)) {
+                color1[i] = answer[i] + 10;
+                color2[i] = answer[i] - 40;
+            } else if ((i == 1) && ((opt == 2) || (opt == 3)) ) {
+                color1[i] = answer[i] - 15;
+                color2[i] = answer[i] + 40; 
+            } else if ((i == 1) && (opt == 4)) {
+                color1[i] = answer[i] + 40;
+                color2[i] = answer[i] - 15;
+            } else if ((i == 2) && ((opt == 2) || (opt == 3)) ) {
+                color1[i] = answer[i] - 35;
+                color2[i] = answer[i] + 10; 
+            } else if ((i == 2) && (opt == 4)) {
+                color1[i] = answer[i] + 10;
+                color2[i] = answer[i] - 35;
+            }
         
             if (color1[i] > 255) color1[i] = 255;
             else if (color1[i] < 0 ) color1[i] = 0;

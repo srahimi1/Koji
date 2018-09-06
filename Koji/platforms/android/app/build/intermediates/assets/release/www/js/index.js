@@ -468,12 +468,8 @@ function getColorsForHalfDivs() {
     for (var i = 0; i < 3; i++) {
         if (answer[i] < 40)
             factor = 0;
-        else if (answer[i] < 120)
-            factor = 30 + Math.floor(Math.random() * (answer[i]-30));
-        else if ((answer[i] >= 120) && (answer[i] <= 150))
-            factor = 30 + Math.floor(Math.random() * 51);
-        else if (answer[i] > 150)
-            factor = 30 + Math.floor(Math.random() * (210-answer[i]));
+        else
+            factor = 25;
         
         if (opt == 0) { 
             color1[i] = answer[i] - factor; 
@@ -482,39 +478,24 @@ function getColorsForHalfDivs() {
             color1[i] = answer[i] + factor;
             color2[i] = answer[i] - factor;
         } else if ((opt == 2) || (opt == 3) || (opt == 4)) {
-            var shift = 0;
-            if (factor < 30)
-                shift = 50; //0;
-            else if (factor < 70)
-                shift = 50; //25;
-            else 
-                shift = 50; //30;
-
-            if (opt2 == null) opt2 = Math.floor(Math.random() * 12);
-            if (opt2 == 0) {
-                color1[i] = answer[i] + (factor + shift);
-                color2[i] = answer[i] - (factor - shift);
-            } else if (opt2 == 1) {
-                color1[i] = answer[i] + (factor + shift);
-                color2[i] = answer[i] - (factor - shift);
-            } else if (opt2 == 2) {
-                color1[i] = answer[i] - (factor - shift);
-                color2[i] = answer[i] + (factor + shift);
-            } else if (opt2 == 3) {
-                color1[i] = answer[i] - (factor + shift);
-                color2[i] = answer[i] + (factor - shift);
-            } else if ((opt2 == 4) || (opt2 == 5)) {
-                color1[i] = answer[i] - (factor + shift);
-                color2[i] = answer[i] + factor;
-            } else if ((opt2 == 6) || (opt2 == 7)) {
-                color1[i] = answer[i] - factor;
-                color2[i] = answer[i] + (factor - shift);
-            } else if ((opt2 == 8) || (opt2 == 9)) {
-                color1[i] = answer[i] + (factor - shift);
-                color2[i] = answer[i] - factor;
-            } else if ((opt2 == 10) || (opt2 == 11)) {
-                color1[i] = answer[i] + factor;
-                color2[i] = answer[i] - (factor + shift);
+            if ((i == 0) && ((opt == 2) || (opt == 3)) ) {
+                color1[i] = answer[i] - 40;
+                color2[i] = answer[i] + 10; 
+            } else if ((i == 0) && (opt == 4)) {
+                color1[i] = answer[i] + 10;
+                color2[i] = answer[i] - 40;
+            } else if ((i == 1) && ((opt == 2) || (opt == 3)) ) {
+                color1[i] = answer[i] - 15;
+                color2[i] = answer[i] + 40; 
+            } else if ((i == 1) && (opt == 4)) {
+                color1[i] = answer[i] + 40;
+                color2[i] = answer[i] - 15;
+            } else if ((i == 2) && ((opt == 2) || (opt == 3)) ) {
+                color1[i] = answer[i] - 35;
+                color2[i] = answer[i] + 10; 
+            } else if ((i == 2) && (opt == 4)) {
+                color1[i] = answer[i] + 10;
+                color2[i] = answer[i] - 35;
             }
         
             if (color1[i] > 255) color1[i] = 255;
