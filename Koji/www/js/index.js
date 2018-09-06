@@ -236,7 +236,8 @@ function expandGoalContainer() {
     gc.style.marginTop = (0 - pandx.offsetHeight) + "px";
     gc.style.height = gameCHeight + "px";
     document.getElementById("letterChoicesCont").style.height = Math.floor(gameCHeight/5) + "px";
-    document.getElementById("gameLettersContainer").style.height = Math.floor(gameCHeight/5) + "px";
+    //document.getElementById("gameLettersContainer").style.height = Math.floor(gameCHeight/5) + "px";
+    document.getElementById("gameLettersContainer").style.height = (gameCHeight - (gcheight + Math.floor(gameCHeight/5) + document.getElementById("noguessButtonsDiv").offsetHeight+Math.floor(gameCHeight/10))) + "px";
     return false;
 } // end function expandGoalContainer()
 
@@ -276,7 +277,7 @@ function setupNewGame(demoInstructionsCode) {
     gameC.style.display = "";
     gc = document.getElementById("goalContainer");
     var a = document.getElementById("cantguessletteryetButton");
-    a.innerHTML = "Skip Letter Guess";
+    a.innerHTML = "Skip Guess";
     a.onclick = function() {selectLetter(-1);};
     document.getElementById("extra").style.visibility = "hidden";
     timerPaused = false;
@@ -467,12 +468,8 @@ function getColorsForHalfDivs() {
     for (var i = 0; i < 3; i++) {
         if (answer[i] < 40)
             factor = 0;
-        else if (answer[i] < 120)
-            factor = 30 + Math.floor(Math.random() * (answer[i]-30));
-        else if ((answer[i] >= 120) && (answer[i] <= 150))
-            factor = 30 + Math.floor(Math.random() * 51);
-        else if (answer[i] > 150)
-            factor = 30 + Math.floor(Math.random() * (210-answer[i]));
+        else
+            factor = 25;
         
         if (opt == 0) { 
             color1[i] = answer[i] - factor; 
@@ -481,40 +478,13 @@ function getColorsForHalfDivs() {
             color1[i] = answer[i] + factor;
             color2[i] = answer[i] - factor;
         } else if ((opt == 2) || (opt == 3) || (opt == 4)) {
-            var shift = 0;
-            if (factor < 30)
-                shift = 50; //0;
-            else if (factor < 70)
-                shift = 50; //25;
-            else 
-                shift = 50; //30;
+            if ( (opt == 2) || (opt == 3) )
+                color1[i] = answer[i] - 25;
+                color2[i] = answer[i] + 55;
+            else if ( (opt == 4) )
+                color1[i] = answer[i] + 55;
+                color2[i] = answer[i] - 25;
 
-            if (opt2 == null) opt2 = Math.floor(Math.random() * 12);
-            if (opt2 == 0) {
-                color1[i] = answer[i] + (factor + shift);
-                color2[i] = answer[i] - (factor - shift);
-            } else if (opt2 == 1) {
-                color1[i] = answer[i] + (factor + shift);
-                color2[i] = answer[i] - (factor - shift);
-            } else if (opt2 == 2) {
-                color1[i] = answer[i] - (factor - shift);
-                color2[i] = answer[i] + (factor + shift);
-            } else if (opt2 == 3) {
-                color1[i] = answer[i] - (factor + shift);
-                color2[i] = answer[i] + (factor - shift);
-            } else if ((opt2 == 4) || (opt2 == 5)) {
-                color1[i] = answer[i] - (factor + shift);
-                color2[i] = answer[i] + factor;
-            } else if ((opt2 == 6) || (opt2 == 7)) {
-                color1[i] = answer[i] - factor;
-                color2[i] = answer[i] + (factor - shift);
-            } else if ((opt2 == 8) || (opt2 == 9)) {
-                color1[i] = answer[i] + (factor - shift);
-                color2[i] = answer[i] - factor;
-            } else if ((opt2 == 10) || (opt2 == 11)) {
-                color1[i] = answer[i] + factor;
-                color2[i] = answer[i] - (factor + shift);
-            }
         
             if (color1[i] > 255) color1[i] = 255;
             else if (color1[i] < 0 ) color1[i] = 0;

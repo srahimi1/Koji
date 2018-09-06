@@ -236,7 +236,8 @@ function expandGoalContainer() {
     gc.style.marginTop = (0 - pandx.offsetHeight) + "px";
     gc.style.height = gameCHeight + "px";
     document.getElementById("letterChoicesCont").style.height = Math.floor(gameCHeight/5) + "px";
-    document.getElementById("gameLettersContainer").style.height = Math.floor(gameCHeight/5) + "px";
+    //document.getElementById("gameLettersContainer").style.height = Math.floor(gameCHeight/5) + "px";
+    document.getElementById("gameLettersContainer").style.height = (gameCHeight - (gcheight + Math.floor(gameCHeight/5) + document.getElementById("noguessButtonsDiv").offsetHeight+Math.floor(gameCHeight/10))) + "px";
     return false;
 } // end function expandGoalContainer()
 
@@ -276,7 +277,7 @@ function setupNewGame(demoInstructionsCode) {
     gameC.style.display = "";
     gc = document.getElementById("goalContainer");
     var a = document.getElementById("cantguessletteryetButton");
-    a.innerHTML = "Skip Letter Guess";
+    a.innerHTML = "Skip Guess";
     a.onclick = function() {selectLetter(-1);};
     document.getElementById("extra").style.visibility = "hidden";
     timerPaused = false;

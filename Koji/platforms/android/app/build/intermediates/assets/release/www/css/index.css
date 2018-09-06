@@ -240,11 +240,11 @@ input.signup-form-submit-button {
 
 .game-letters-container {
     position: relative;
-    width: 95%;
+    width: 90%;
     height: 20%;
     margin: 1em auto 0 auto;
     padding-top: 0.2em;
-    overflow-y: auto;
+    overflow-y: scroll;
     overflow-x: hidden;
     text-align: center;
     color: #fafffa;
