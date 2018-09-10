@@ -463,7 +463,7 @@ function getColorsForHalfDivs() {
     var color1 = [], color2 = [], answer = [];
     var temp = gameData.goalColor;
     for (var i = 1; i < 6; i+=2) answer.push( parseInt(temp[i]+""+temp[i+1],16) )
-    var opt = Math.floor(Math.random() * 5);
+    var opt = Math.floor(Math.random() * 11);
     var opt2 = null;
     for (var i = 0; i < 3; i++) {
         if (answer[i] < 40)
@@ -475,26 +475,35 @@ function getColorsForHalfDivs() {
             color1[i] = answer[i] - factor; 
             color2[i] = answer[i] + factor;
         } else if (opt == 1) {
-            color1[i] = answer[i] + factor;
-            color2[i] = answer[i] - factor;
-        } else if ((opt == 2) || (opt == 3) || (opt == 4)) {
-            if ((i == 0) && ((opt == 2) || (opt == 3)) ) {
-                color1[i] = answer[i] - 40;
-                color2[i] = answer[i] + 10; 
-            } else if ((i == 0) && (opt == 4)) {
-                color1[i] = answer[i] + 10;
-                color2[i] = answer[i] - 40;
-            } else if ((i == 1) && ((opt == 2) || (opt == 3)) ) {
-                color1[i] = answer[i] - 15;
+            color1[i] = answer[i] + factor + 20;
+            color2[i] = answer[i] - factor - 20;
+        } else if (opt == 2) {
+            color1[i] = answer[i] + factor + 40;
+            color2[i] = answer[i] - factor - 40;
+        } else if (opt == 3) {
+            color1[i] = answer[i] + factor - 20;
+            color2[i] = answer[i] - factor + 20;
+        } else if (opt == 4) {
+            color1[i] = answer[i] + factor - 40;
+            color2[i] = answer[i] - factor + 40;
+        } else if ((opt == 5) || (opt == 6) || (opt == 7) || (opt == 8) || (opt == 9) || (opt == 10)) {
+            if ((i == 0) && ((opt == 5) || (opt == 6) || (opt == 7)) ) {
+                color1[i] = answer[i] + 5;
                 color2[i] = answer[i] + 40; 
-            } else if ((i == 1) && (opt == 4)) {
+            } else if ((i == 0) && ((opt == 8) || (opt == 9) || (opt == 10)) ) {
+                color1[i] = answer[i] - 5;
+                color2[i] = answer[i] - 40;
+            } else if ((i == 1) && ((opt == 5) || (opt == 6) || (opt == 7)) ) {
+                color1[i] = answer[i] - 40;
+                color2[i] = answer[i] - 10; 
+            } else if ((i == 1) && ((opt == 8) || (opt == 9) || (opt == 10)) ) {
                 color1[i] = answer[i] + 40;
-                color2[i] = answer[i] - 15;
-            } else if ((i == 2) && ((opt == 2) || (opt == 3)) ) {
+                color2[i] = answer[i] + 10;
+            } else if ((i == 2) && ((opt == 5) || (opt == 6) || (opt == 7)) ) {
                 color1[i] = answer[i] - 35;
-                color2[i] = answer[i] + 10; 
-            } else if ((i == 2) && (opt == 4)) {
-                color1[i] = answer[i] + 10;
+                color2[i] = answer[i] - 35; 
+            } else if ((i == 2) && ((opt == 8) || (opt == 9) || (opt == 10)) ) {
+                color1[i] = answer[i] - 35;
                 color2[i] = answer[i] - 35;
             }
         
@@ -508,11 +517,11 @@ function getColorsForHalfDivs() {
     } // for (var i = 0; i < 3; i++)
     hex1 = getHexFromRGB(color1);
     hex2 = getHexFromRGB(color2);
-    if ((opt == 0) || (opt == 1)) {
+    if ((opt == 0) || (opt == 1) || (opt == 2) || (opt == 3) || (opt == 4)) {
         divColors["div0"] = hex1;
         divColors["div1"] = hex2;
         divColors["answer"] = gameData.goalColor;
-    } else if ((opt == 2) || (opt == 3) || (opt == 4)) {
+    } else if ((opt == 5) || (opt == 6) || (opt == 7) || (opt == 8) || (opt == 9) || (opt == 10)) {
         divColors["div0"] = hex1;
         divColors["div1"] = hex2;
         divColors["answer"] = createInBetweenColor(color1,color2);
@@ -694,7 +703,7 @@ function createCanvasWithLetters() {
     var height = Math.floor(canvas.height);
     var fontSz = Math.floor(width*(1/inputData.letters.length));
     if (fontSz < 16) fontSz = 16;
-    ctx.font = fontSz+"px Arial";
+    ctx.font = "800 "+fontSz+"px Playfair Display";
     ctx.textBaseline = "middle";
     ctx.textAlign = "center";
     ctx.fillStyle = gameData.goalColor;
