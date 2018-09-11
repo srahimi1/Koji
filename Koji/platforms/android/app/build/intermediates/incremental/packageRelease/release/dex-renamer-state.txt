@@ -1,4 +1,4 @@
-#Mon Sep 10 22:07:29 EDT 2018
+#Mon Sep 10 23:39:49 EDT 2018
 base.0=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\transforms\\dex\\release\\0
 renamed.0=classes.dex
 file.0=D\:\\sites\\app1\\Koji\\platforms\\android\\app\\build\\intermediates\\transforms\\dex\\release\\0\\classes.dex
