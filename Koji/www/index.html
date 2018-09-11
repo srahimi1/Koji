@@ -41,7 +41,7 @@
                     <div id="gameLettersDiv" class="game-letters-div"></div>
                 </div><!--end gameLettersContainer div -->
                 <div id="noguessButtonsDiv">
-                <button id="cantguessletteryetButton" onclick="selectLetter(-1)" class="yesno-button notyet-button cantguess">Skip Guess</button><button class="yesno-button notyet-button cantguess" onclick="showMenu(document.getElementById('definitionDiv')); setTimeout(function() {closeMenu(document.getElementById('definitionDiv'));},5000); return false;">Show Definition</button>
+                <button id="cantguessletteryetButton" onclick="selectLetter(-1)" class="yesno-button notyet-button cantguess">Skip Guess</button><button class="yesno-button notyet-button cantguess" onclick="showMenu(document.getElementById('definitionDiv')); return false;">Show Definition</button>
                 </div>
             </div><!--end extra div -->
         </div><!--end goalContainer div -->
@@ -80,7 +80,9 @@
 </div><!-- end gameMessageDiv -->
 
 <div id="definitionDiv" class="modal-div">
-    <div id="definition" style="text-align: center; width: 85%; height: 100%; margin: auto;"></div>
+    <div id="definitionHeader" class="definition-header">DEFINITION OF HIDDEN WORD</div>
+    <div id="definition" class="definition-body"></div>
+    <div id="definitionCloseDiv" class="definition-close-div"><button class="definition-button" onclick="closeMenu(document.getElementById('definitionDiv'));setupTimer();">Got It</button></div>
 </div><!-- end gameMessageDiv -->
 
 
@@ -163,7 +165,7 @@
                     <h3 class="menu-div-item"> Sign Up</h3>
                 </div>
                 <div style="margin: 0.2em 0 0 3.5em;">
-                    <p class="menu-div-item-description">Get access to more colors, more words, more fonts, upcoming new levels, and the upcoming super-exciting multiplayer version!</p>
+                    <p class="menu-div-item-description">Get access to more colors, more words, upcoming new levels, and the upcoming multiplayer version!</p>
                 </div>
             </div>
         </li>

@@ -384,7 +384,7 @@ function finishSettingUpGame(demoInstructionsCode) {
     if (demoInstructionsCode == 1) { timerTime = 6000; doDemoInstructions();}
     else {
         showDefinition();
-        setTimeout(function() {closeMenu(document.getElementById("definitionDiv")); setupTimer();}, 10000);
+        //setTimeout(function() {closeMenu(document.getElementById("definitionDiv")); setupTimer();}, 10000);
     }
     return false;
 } // end function finishSettingUpGame()
@@ -392,7 +392,7 @@ function finishSettingUpGame(demoInstructionsCode) {
 // color mixing part of game functions ...
 
 function showDefinition() {
-    document.getElementById("definition").innerHTML = "<p style='color: gray; margin-bottom: 0px;'>Definition of the hidden word:</p><p style='color: navy; margin-top: 5px;'>" + inputData.definition + "</p>";
+    document.getElementById("definition").innerHTML = "<p style='color: navy; margin-top: 5px;'>" + inputData.definition + "</p>";
     showMenu(document.getElementById("definitionDiv"));
 }
 
@@ -2126,6 +2126,9 @@ function showMenu(el) {
     el.classList.add("flex");
     el.classList.add("flex-col");
     setTimeout(function() {el.style.marginTop="0em"; el.style.opacity="1";}, 100);
+    if (id == "definitionDiv") {
+        document.getElementById("definition").style.height = (document.getElementById("definitionCloseDiv").getBoundingClientRect().top - document.getElementById("definitionHeader").getBoundingClientRect().bottom) + "px";
+    }
     //if (id == "startupDiv") setTimeout(function() {document.getElementById('rainbowCover').style.marginLeft = "175%"}, 150);
     return true;
 } // end function showMenu(el)

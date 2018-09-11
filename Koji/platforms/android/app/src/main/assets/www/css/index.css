@@ -481,7 +481,7 @@ input.signup-form-submit-button {
     min-width: 320px;
     height: 2.5em;
     min-height: 52px;
-    background-color: #3ecf8e;
+    background-color: #663399 /*3ecf8e*/;
 }
 
 .letter-choices-container {
@@ -602,8 +602,9 @@ input.signup-form-submit-button {
     width: 100%;
     height: 100%;
     margin-top: -2em;
-    top: 0%; 
-    left: 0%; 
+    top: 0; 
+    left: 0; 
+    padding: 0;
     background-color: #f0f0f0;
     opacity: 0;
     display: none;
@@ -707,6 +708,51 @@ input.signup-form-submit-button {
     z-index: 31;
 }
 
+
+.definition-header {
+    width: 100%;
+    height: 2em;
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 10px 0 5px 0;
+    background-color: #663399;
+    color: white;
+    text-align: center;
+}
+
+.definition-body {
+    text-align: center;
+    width: 85%;
+    height: 50%;
+    margin: 0 auto 0 auto;
+    padding-top: 20px;
+    font-size: 1.5em;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+.definition-close-div {
+    position: absolute;
+    width:100%;
+    height: 4em;
+    top: 100%;
+    margin-top: -9em;
+    padding-top: 1em;
+    text-align: center;
+}
+
+.definition-button {
+    height: auto;
+    font-size: 1.35em;
+    padding: 10px 15px 11px;
+    margin: auto;
+    width: 85%;
+    border-radius: 5px;
+    background-color: #663399;
+    color: white;
+}
+
+
 .menu-div {
     height: 100%;
 }
@@ -784,14 +830,14 @@ input.signup-form-submit-button {
     margin: 0;
     font-size: 1.5em;
     font-weight: 500;
-    color: #663399;
+    color: #220044; /*#663399;*/
     line-height: 1em;
 }
 
 .menu-div-item-description {
     margin: 0;
     text-align: left;
-    color: slategray; /*#a679d2;*/
+    color: #535353; /*#a679d2;*/
 }
 
 .instruction-top-li {
