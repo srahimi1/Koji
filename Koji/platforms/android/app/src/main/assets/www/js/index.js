@@ -17,7 +17,7 @@
  * under the License.
  */
 // "http://localhost:3000/koji/v1/game/dataspace"; 
-rootURL = "https://kojigame.herokuapp.com/koji/v1/game/dataspace"; 
+rootURL = "http://localhost:3000/koji/v1/game/dataspace"; //"https://kojigame.herokuapp.com/koji/v1/game/dataspace"; 
 csrfVar = "";
 purchaseStep = 0;
 kojiProduct = null;

@@ -191,21 +191,19 @@ function setGameContentHeightWidth() {
 
 function setCanvasParentHeight() {
     var c = document.getElementById("goalContainer");
-    var c2 = document.getElementById("guessContainer");
-    var ht = document.getElementById('gameContent').offsetHeight;
-    c.style.height =  Math.floor(ht*.35) + "px";
-    c2.style.height =  Math.floor(ht*.35) + "px";
+    var ht = document.getElementById('bottomhalfbottomrow').offsetHeight;
+    c.style.height =  Math.floor(ht) + "px";
 } // end function setCanvasParentHeight()
 
 function positionYesNoButtons() {
     var b = document.getElementById("buttonsDiv");
     var ht1 = document.getElementById("gameContent").offsetHeight;
     var ht2 = document.getElementById("pointsandxsContainer").offsetHeight;
-    var ht3 = document.getElementById("goalContainer").offsetHeight;
+    var ht3 = document.getElementById("tophalf").offsetHeight;
     var ht4 = document.getElementById("timerBar").offsetHeight;
-    var ht5 = document.getElementById("guessContainer").offsetHeight;
-    var ht6 = document.getElementById("instruction1").offsetHeight;
-    b.style.height = (ht1 - ht2 - ht3 - ht4 - ht5 - ht6) + "px";
+    var ht5 = document.getElementById("bottomhalf").offsetHeight;
+/*    var ht5 = document.getElementById("instruction1").offsetHeight;*/
+    b.style.height = (ht1 - ht2 - ht3 - ht4 - ht5) + "px";
 }
 
 function setButtonColorOnTouch(element) {
@@ -219,6 +217,54 @@ function removeButtonColorOnTouchEnd(element) {
         document.getElementById(element).classList.remove('touched');
     }
 } // end function removeButtonColorOnTouchEnd(element)
+
+function makeColorDivsSquare() {
+    var a, b, el; 
+    var elmain = document.getElementsByClassName("color-block");
+    for (var i = 0; i < elmain.length; i++) {
+        el = elmain[i];
+        a = el.offsetHeight;
+        b = el.offsetWidth;
+        if (b < a) {
+            el.style.webkitTransform = "scaleY("+b/a+")";
+        } else {
+            el.style.webkitTransform = "scaleX("+a/b+")"; 
+        } // end if...else
+    } // end for loop 
+} // end function makeColorDivsSquare()
+
+
+function alignConnectingLines() {
+    var a = null, el, dims, top1, mainparent, ht; 
+    var elmain = document.getElementsByClassName("connecting-line-left-right");
+    for (var i = 0; i < elmain.length; i++) {
+        el = elmain[i];
+        a = el.parentNode;
+        while (!a || !a.className || (a.className != "color-block")) { a = a.previousSibling; }
+        mainparent = a;
+        while (!mainparent || !mainparent.className || (mainparent.className != "major-half")) { mainparent = mainparent.parentNode; }
+        dims = a.getBoundingClientRect();
+        top1 = dims.top;
+        ht = dims.height;
+        el.style.marginTop = ( (top1 + Math.floor(ht/2)) - mainparent.getBoundingClientRect().top) + "px";
+    } // end for loop
+} // end function alignConnectingLines()
+
+function addPaddingToTopHalf() {
+    var a = document.getElementById("tophalf");
+    var wt1 = a.offsetWidth;
+    var b = document.getElementById("leftblock");
+    var wt2 = b.offsetWidth;
+    var c = document.getElementById("rightblock");
+    var wt3 = c.offsetWidth;
+    var padding = (wt1 - (wt2 + wt3))/4;
+    b.style.paddingLeft = padding + "px";
+    b.style.paddingRight = padding + "px";
+    c.style.paddingLeft = padding + "px";
+    c.style.paddingRight = padding + "px";
+} // end function addPaddingToTopHalf()
+
+
 
 function expandGoalContainer() {
     timerPaused = true;
@@ -283,7 +329,6 @@ function setupNewGame(demoInstructionsCode) {
     timerPaused = false;
     dateStart = null;
     timeAdd = null;
-    guessTop = document.getElementById("guess");
     letterBoardsEmpty = false;
     inputData = null;
     cycleTopDataAt = 0;
@@ -372,15 +417,17 @@ function createAndGetGameData(demoInstructionsCode) {
 function finishSettingUpGame(demoInstructionsCode) {
     setGameContentHeightWidth();
     setCanvasParentHeight();
-    createColorDivs();
+    //createColorDivs();
     createCanvasWithLetters();
     colorGoalDiv();
     positionYesNoButtons();
     gcheight = gc.offsetHeight;
-    gsheight = (document.getElementById("guessContainer").offsetHeight * .35) + "px";
     gc.style.height = document.getElementById("gameContent").offsetHeight;
     gc.setAttribute("class", "goal-container-post");
     gameC.style.visibility = "visible";
+    makeColorDivsSquare();
+    alignConnectingLines();
+    addPaddingToTopHalf();
     if (demoInstructionsCode == 1) { timerTime = 6000; doDemoInstructions();}
     else {
         showDefinition();

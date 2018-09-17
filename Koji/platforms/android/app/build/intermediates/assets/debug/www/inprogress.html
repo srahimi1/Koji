@@ -32,25 +32,65 @@
             </div>
         </div><!--end pointsandxsContainer div  -->
 
-        <div id="goalContainer" class="goal-container">
-            <canvas id="canvas1" class="canvas-1"></canvas>
-            <canvas id="canvas2" class="canvas-1"></canvas>
-            <div id="extra">
-                <div id="letterChoicesCont" class="letter-choices-container"></div>
-                <div id="gameLettersContainer" class="game-letters-container" style="display: none;">
-                    <div id="gameLettersDiv" class="game-letters-div"></div>
-                </div><!--end gameLettersContainer div -->
-                <div id="noguessButtonsDiv">
-                <button id="cantguessletteryetButton" onclick="selectLetter(-1)" class="yesno-button notyet-button cantguess">Skip Guess</button><button class="yesno-button notyet-button cantguess" onclick="showMenu(document.getElementById('definitionDiv')); return false;">Show Definition</button>
-                </div>
-            </div><!--end extra div -->
-        </div><!--end goalContainer div -->
-        <div id="timerBar" class="timer-bar"></div>
-        <div id="guessContainer" class="guess-container">   
-            <div id="guess" class="guess"></div>
-        </div><!--end guessContainer div -->
+        
 
-        <div id="instruction1" class="small-title buttons-instructions">Will mixing the colors in boxes 1 and 2 make the color shown above them?</div>
+        <div id="tophalf" class="major-half">
+            <div id="leftblock" class="top-half-half-block">
+                <div id="leftblocktoprow" class="row-within-half-block">
+                    <div id="leftblockblock1" class="color-block"></div>
+                    <div id="leftblockmiddleblock" class="middle-within-half-block">
+                        <div id="leftblockleftrightline" class="connecting-line-left-right"></div>
+                        <div id="leftblockupdownline" class="connecting-line-up-down"></div>
+                    </div>
+                    <div id="leftblockblock2" class="color-block"></div>        
+                </div><!--end leftblocktoprow div -->
+                <div id="leftblockbottomrow" class="row-within-half-block" style="padding: 5% 0;">
+                    <div id="leftblockblock3" class="color-block"></div>
+                </div><!--end leftblockbottomrow div -->
+            </div><!-- end leftblock div -->
+            
+            <div id="rightblock" class="top-half-half-block">
+                <div id="rightblocktoprow" class="row-within-half-block">
+                    <div id="rightblockblock1" class="color-block"></div>
+                    <div id="rightblockmiddleblock" class="middle-within-half-block">
+                        <div id="rightblockleftrightline" class="connecting-line-left-right"></div>
+                        <div id="rightblockupdownline" class="connecting-line-up-down"></div>
+                    </div>
+                    <div id="rightblockblock2" class="color-block"></div>        
+                </div><!--end rightblocktoprow div -->
+                <div id="rightblockbottomrow" class="row-within-half-block" style="padding: 5% 0;">
+                    <div id="rightblockblock3" class="color-block"></div>
+                </div><!--end rightblockbottomrow div -->
+            </div><!-- end rightblock div -->
+        </div><!-- end tophalf div -->
+
+        <div id="timerBar" class="timer-bar"></div>
+        
+        <div id="bottomhalf" class="major-half" style="height: 45%; padding-top: 20px;">
+           <div id="bottomhalftoprow" class="bottom-full-row" style="height: 35%;">
+                <div id="bottomhalfblock1" class="color-block"></div>
+                <div id="bottomhalfmiddleblock" class="middle-within-half-block">
+                    <div id="blomiddleline1" class="connecting-line-left-right"></div>
+                    <div id="middleline2" class="connecting-line-up-down"></div>
+                </div>
+                <div id="bottomhalfblock2" class="color-block"></div>        
+            </div><!--end bottomhalftoprow div -->
+            <div id="bottomhalfbottomrow" class="bottom-full-row" style="height: 65%;">
+                <div id="goalContainer" class="goal-container">
+                    <canvas id="canvas1" class="canvas-1"></canvas>
+                    <canvas id="canvas2" class="canvas-1"></canvas>
+                    <div id="extra">
+                        <div id="letterChoicesCont" class="letter-choices-container"></div>
+                        <div id="gameLettersContainer" class="game-letters-container" style="display: none;">
+                            <div id="gameLettersDiv" class="game-letters-div"></div>
+                        </div><!--end gameLettersContainer div -->
+                        <div id="noguessButtonsDiv">
+                        <button id="cantguessletteryetButton" onclick="selectLetter(-1)" class="yesno-button notyet-button cantguess">Skip Guess</button><button class="yesno-button notyet-button cantguess" onclick="showMenu(document.getElementById('definitionDiv')); return false;">Show Definition</button>
+                        </div>
+                    </div><!--end extra div -->
+                </div><!--end goalContainer div -->
+            </div><!--end bottomhalfbottomrow div -->
+        </div><!-- end bottomhalf div -->
 
         <div id="buttonsDiv" class="buttons-div">
             <div id="yesButton" class="yesno-button yes-button flex-center" onclick="showUnderneathDiv(0);" ontouchstart="setButtonColorOnTouch('yesButton')" ontouchend="removeButtonColorOnTouchEnd('yesButton')" disabled="disabled">Yes</div>
@@ -60,10 +100,10 @@
     <input type="hidden" id="gameVersion" name="gameVersion" value="1.0">
 </body>
 
-<!-- <script src="https://checkout.stripe.com/checkout.js"></script> -->
+<script src="https://checkout.stripe.com/checkout.js"></script>
 <script type="text/javascript" src="cordova.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
-
+<!-- <script type="text/javascript" src="js/index.js"></script> -->
+<script type="text/javascript" src="js/test.js"></script>
 
 
 

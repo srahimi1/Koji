@@ -129,6 +129,83 @@ input.signup-form-submit-button {
 
 /* game sections */
 
+.major-half {
+    position: relative;
+    text-align: center;
+    height: 30%;
+    width: 100%;
+    margin: 0 auto 0 auto;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.top-half-half-block {
+     position: relative;
+     display: inline-block;
+     height: 100%;
+     width: 40%;
+     text-align: center;
+     overflow: hidden;
+     white-space: nowrap;
+}
+
+.row-within-half-block {
+     position: relative;
+     height: 40%;
+     width: 100%;
+     margin: auto;
+     text-align: center;
+     white-space: nowrap;
+}
+
+.color-block {
+    position: relative;
+    display: inline-block;
+    height: 66%;
+    width: 33%;
+    background-color: blue;
+    -moz-transition: transform 1s;
+    -ms-transition: transform 1s;
+    -webkit-transition: transform 1s;
+    -o-transition: transform 1s;
+    transition: transform 1s;
+}
+
+
+.middle-within-half-block {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    width: 33%;
+    text-align: center;
+}
+
+
+.connecting-line-left-right {
+    position: relative;
+    height: 5px;
+    width: 200%;
+    background-color: black;
+    margin: 50% auto 0 -50%;
+    z-index: -1;
+}
+
+.connecting-line-up-down {
+    position: relative;
+    height: 75%;
+    width: 5px;
+    margin: 0 auto;
+    background-color: black;
+}
+
+
+.bottom-full-row {
+    position: relative;
+    width: 100%;
+    height: 50%;
+    margin: 0 auto;
+}
+
 .goal-container-pre {
     position: relative;
     width: 100%;
