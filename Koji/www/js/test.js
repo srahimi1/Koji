@@ -16,13 +16,12 @@
  * specific language governing permissions and limitations
  * under the License.
  */
-// "http://localhost:3000/koji/v1/game/dataspace"; 
 rootURL = "http://localhost:3000/koji/v1/game/dataspace"; //"https://kojigame.herokuapp.com/koji/v1/game/dataspace"; 
 csrfVar = "";
 purchaseStep = 0;
 kojiProduct = null;
 storeError = true;
-timerTime = 6;
+timerTime = 7;
 goalContainerExpanded = false;
 yesnoButtonEnabled = true;
 gameContentHTML = null;
@@ -30,31 +29,27 @@ gameC = null;
 gameCHeight = 0;
 numModalsOpen = 0;
 demoShowing = false;
-timerPaused = false;
+timerPaused = true;
 correctLimit = 3;
 dateStart = null;
 timeAdd = null;
-guessTop = null;
 paymentRequestSent = false;
 formcheck = [];
 for (var i = 0; i < 4; i++) formcheck.push(false);
 letterBoardsEmpty = false;
-inputData = null;
-cycleTopDataAt = 0;
-cycleTopDataCounter = 0;
 gameOver = false;
 missedCorrect = 0;
 numXs = 0;
 points = 0;
 linesDrawnSoFar = {};
 numberOfLinesDrawnOnCanvas = 0;
-currentAnswerColor = 0;
-cycledThroughAnswerColors = false;
 numberCorrect = 0;
-divColors = {"div0" : "", "div1" :"", "answer" : ""};
 gameData = null;
-topData = null;
-selectedDiv = null;
+colorsData = null;
+isCorrect = false;
+colorPointer = 0;
+cycledThroughColorsOnce = false;
+prevColor = null;
 selectedUnderscore = null;
 selectedLetters = [];
 webWorker = null;
@@ -68,7 +63,6 @@ showLettersTimeoutID = null;
 getNextColorsTimeoutID = null;
 previousMinute = 0;
 xhttp = new XMLHttpRequest();
-counterU = 0;
 correctLetters = [];
 canvas = null, ctx = null, canvas2 = null, ctx2 = null, gc = null, gcheight = 0, gsheight = 0;
 imageData = null;
@@ -167,10 +161,26 @@ app.initStore = function() {
 
 app.initialize();
 
-function startPurchase() {
-    purchaseStep = 1;
-    googlePopup();
-}
+
+
+
+// Touch functions
+
+function setButtonColorOnTouch(element) {
+    if (document && document.getElementById(element)){
+        document.getElementById(element).classList.add('touched');
+    }
+} // end function setButtonColorOnTouch(element)
+
+function removeButtonColorOnTouchEnd(element) {
+    if (document && document.getElementById(element)){
+        document.getElementById(element).classList.remove('touched');
+    }
+} // end function removeButtonColorOnTouchEnd(element)
+
+
+
+// Game and game content sizing and positioning functions
 
 function getTitleBarHeight() {
     if (document && document.getElementById('KOJITitle')) {
@@ -190,9 +200,7 @@ function setGameContentHeightWidth() {
 } // end function setGameContentHeightWidth()
 
 function setCanvasParentHeight() {
-    var c = document.getElementById("goalContainer");
-    var ht = document.getElementById('bottomhalfbottomrow').offsetHeight;
-    c.style.height =  Math.floor(ht) + "px";
+    document.getElementById("goalContainer").style.height =  (Math.floor(document.getElementById('bottomhalfbottomrow').offsetHeight) - 21) + "px";
 } // end function setCanvasParentHeight()
 
 function positionYesNoButtons() {
@@ -202,21 +210,8 @@ function positionYesNoButtons() {
     var ht3 = document.getElementById("tophalf").offsetHeight;
     var ht4 = document.getElementById("timerBar").offsetHeight;
     var ht5 = document.getElementById("bottomhalf").offsetHeight;
-/*    var ht5 = document.getElementById("instruction1").offsetHeight;*/
     b.style.height = (ht1 - ht2 - ht3 - ht4 - ht5) + "px";
-}
-
-function setButtonColorOnTouch(element) {
-    if (document && document.getElementById(element)){
-        document.getElementById(element).classList.add('touched');
-    }
-} // end function setButtonColorOnTouch(element)
-
-function removeButtonColorOnTouchEnd(element) {
-    if (document && document.getElementById(element)){
-        document.getElementById(element).classList.remove('touched');
-    }
-} // end function removeButtonColorOnTouchEnd(element)
+} // end function positionYesNoButtons()
 
 function makeColorDivsSquare() {
     var a, b, el; 
@@ -232,7 +227,6 @@ function makeColorDivsSquare() {
         } // end if...else
     } // end for loop 
 } // end function makeColorDivsSquare()
-
 
 function alignConnectingLines() {
     var a = null, el, dims, top1, mainparent, ht; 
@@ -266,56 +260,13 @@ function addPaddingToTopHalf() {
 
 
 
-function expandGoalContainer() {
-    timerPaused = true;
-    remove_bars();
-    goalContainerExpanded = true;
-    var body = document.getElementsByTagName("body")[0];
-    gc.parentNode.removeChild(gc);
-    gc.style.position = "absolute";
-    var pandx = document.getElementById("pointsandxsContainer");
-    var totalht = document.getElementById("KOJITitle").offsetHeight + pandx.offsetHeight;
-    gc.style.top = totalht + "px";
-    body.appendChild(gc);
-    canvas.style.height = gcheight + "px";
-    canvas2.style.height = gcheight + "px";
-    gc.style.marginTop = (0 - pandx.offsetHeight) + "px";
-    gc.style.height = gameCHeight + "px";
-    document.getElementById("letterChoicesCont").style.height = Math.floor(gameCHeight/5) + "px";
-    //document.getElementById("gameLettersContainer").style.height = Math.floor(gameCHeight/5) + "px";
-    document.getElementById("gameLettersContainer").style.height = (gameCHeight - (gcheight + Math.floor(gameCHeight/5) + document.getElementById("noguessButtonsDiv").offsetHeight+Math.floor(gameCHeight/10))) + "px";
-    return false;
-} // end function expandGoalContainer()
-
-function shrinkGoalContainer() {
-    if (gameOver) { gc.setAttribute("class", "goal-container-pre"); gc.style.display = "none"; gc.style.display = "block"; }
-    var body = document.getElementsByTagName("body")[0];
-    var go = document.getElementById("guessContainer");
-    if (!gameOver) setCanvasParentHeight();
-    gc.style.marginTop = "0px";
-    gc.parentNode.removeChild(gc);
-    gc.style.position = "relative";
-    gc.style.top = "0px";
-    go.parentNode.insertBefore(gc,go.previousSibling.previousSibling);
-    startTime = null;
-    timerPaused = false;
-    setupTimer();
-    return false;
-} // end function shrinkGoalContainer()
-
-function clearLines() {
-    linesDrawnSoFar = {};
-    numberOfLinesDrawnOnCanvas = 0;
-    numberCorrect = 0;
-    colorGoalDiv();
-    return false;
-}
+// Setting up and starting new game functions
 
 function setupNewGame(demoInstructionsCode) {
     localStorage.removeItem("gameID");
     goalContainerExpanded = false;
     yesnoButtonEnabled = true;
-    timerTime = 6;
+    timerTime = 7;
     gameC.removeAttribute("class");
     gameC.style.display = "none";
     gameC.innerHTML = gameContentHTML;
@@ -326,26 +277,23 @@ function setupNewGame(demoInstructionsCode) {
     a.innerHTML = "Skip Guess";
     a.onclick = function() {selectLetter(-1);};
     document.getElementById("extra").style.visibility = "hidden";
-    timerPaused = false;
+    timerPaused = true;
     dateStart = null;
     timeAdd = null;
     letterBoardsEmpty = false;
-    inputData = null;
-    cycleTopDataAt = 0;
-    cycleTopDataCounter = 0;
     gameOver = false;
     missedCorrect = 0;
     numXs = 0;
     points = 0;
     linesDrawnSoFar = {};
     numberOfLinesDrawnOnCanvas = 0; 
-    currentAnswerColor = 0;
-    cycledThroughAnswerColors = false;
     numberCorrect = 0;
-    divColors = {"div0" : "", "div1" :"", "answer" : ""};
     gameData = null;
-    topData = null;
-    selectedDiv = null;
+    colorsData = null;
+    isCorrect = false;
+    colorPointer = 0;
+    cycledThroughColorsOnce = false;
+    prevColor = null;
     selectedUnderscore = null;
     selectedLetters = [];
     if (!!webWorker) webWorker.terminate();
@@ -366,7 +314,6 @@ function setupNewGame(demoInstructionsCode) {
     getNextColorsTimeoutID = null;
     previousMinute = 0;
     xhttp.abort();
-    counterU = 0;
     correctLetters = [];
     if (!!ctx) ctx.clearRect(0,0,canvas.width,canvas.height);
     canvas = null;
@@ -398,14 +345,11 @@ function createAndGetGameData(demoInstructionsCode) {
     xhttp.open("POST", rootURL+"/games");
     xhttp.setRequestHeader('X-CSRF-Token', csrfVar);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    console.log(csrfVar);
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            inputData = JSON.parse(this.responseText);
-            localStorage.setItem("gameID", inputData.gameID);
-            topData = inputData["colors"];
-            cycleTopDataAt = 1;
-            gameData = topData[0];
+            gameData = JSON.parse(this.responseText);
+            localStorage.setItem("gameID", gameData.gameID);
+            colorsData = gameData["colors"];
             finishSettingUpGame(demoInstructionsCode);
             return true;
         } // end if 
@@ -417,9 +361,7 @@ function createAndGetGameData(demoInstructionsCode) {
 function finishSettingUpGame(demoInstructionsCode) {
     setGameContentHeightWidth();
     setCanvasParentHeight();
-    //createColorDivs();
     createCanvasWithLetters();
-    colorGoalDiv();
     positionYesNoButtons();
     gcheight = gc.offsetHeight;
     gc.style.height = document.getElementById("gameContent").offsetHeight;
@@ -428,6 +370,8 @@ function finishSettingUpGame(demoInstructionsCode) {
     makeColorDivsSquare();
     alignConnectingLines();
     addPaddingToTopHalf();
+    colorDivs();
+    chooseOutcome();
     if (demoInstructionsCode == 1) { timerTime = 6000; doDemoInstructions();}
     else {
         showDefinition();
@@ -436,255 +380,401 @@ function finishSettingUpGame(demoInstructionsCode) {
     return false;
 } // end function finishSettingUpGame()
 
+
+
+// Shrinking and expanding functions
+
+function shrinkColorDivs() {
+    var a, b, el; 
+    var elmain = document.getElementsByClassName("color-block");
+    for (var i = 0; i < elmain.length; i++) {
+        el = elmain[i];
+        a = el.offsetHeight;
+        b = el.offsetWidth;
+        el.style.webkitTransform = "scale(0)";
+    } // end for loop 
+} // end function shrinkColorDivs()
+
+function expandColorDivs() {
+    var a, b, el; 
+    var elmain = document.getElementsByClassName("color-block");
+    for (var i = 0; i < elmain.length; i++) {
+        el = elmain[i];
+        a = el.offsetHeight;
+        b = el.offsetWidth;
+        el.style.webkitTransform = "scale(1.2)";
+    } // end for loop 
+} // end function expandColorDivs()
+
+function expandGoalContainer() {
+    timerPaused = true;
+    remove_bars();
+    goalContainerExpanded = true;
+    var body = document.getElementsByTagName("body")[0];
+    gc.parentNode.removeChild(gc);
+    gc.style.position = "absolute";
+    var pandx = document.getElementById("pointsandxsContainer");
+    var totalht = document.getElementById("KOJITitle").offsetHeight + pandx.offsetHeight;
+    gc.style.top = totalht + "px";
+    body.appendChild(gc);
+    canvas.style.height = gcheight + "px";
+    canvas2.style.height = gcheight + "px";
+    gc.style.marginTop = (0 - pandx.offsetHeight) + "px";
+    gc.style.height = gameCHeight + "px";
+    document.getElementById("letterChoicesCont").style.height = Math.floor(gameCHeight/5) + "px";
+    document.getElementById("gameLettersContainer").style.height = (gameCHeight - (gcheight + Math.floor(gameCHeight/5) + document.getElementById("noguessButtonsDiv").offsetHeight+Math.floor(gameCHeight/10))) + "px";
+    return false;
+} // end function expandGoalContainer()
+
+function shrinkGoalContainer() {
+    if (gameOver) { gc.setAttribute("class", "goal-container-pre"); gc.style.display = "none"; gc.style.display = "block"; }
+    var body = document.getElementsByTagName("body")[0];
+    if (!gameOver) setCanvasParentHeight();
+    gc.style.marginTop = "48%";
+    setTimeout(function() {gc.style.position = "relative"; gc.style.top = "0"; gc.style.marginTop = "0"; gc.parentNode.removeChild(gc); document.getElementById("bottomhalfbottomrow").appendChild(gc);},600);
+    startTime = null;
+    timerPaused = false;
+    setupTimer();
+    return false;
+} // end function shrinkGoalContainer()
+
+
+
 // color mixing part of game functions ...
 
-function showDefinition() {
-    document.getElementById("definition").innerHTML = "<p style='color: navy; margin-top: 5px;'>" + inputData.definition + "</p>";
-    showMenu(document.getElementById("definitionDiv"));
-}
+function colorDivs() {
+    var box = Math.floor(Math.random() * 2) + 1;
+    var temp;
+    if (box == 1) {
+        temp = colorsData[colorPointer].pair[0];
+        colorsData[colorPointer].pair[0] = colorsData[colorPointer].pair[1];
+        colorsData[colorPointer].pair[1] = temp;
+    }
+    document.getElementById("block1block1").style.backgroundColor = getHexFromRGB(colorsData[colorPointer].pair[0]);
+    document.getElementById("block1block2").style.backgroundColor = getHexFromRGB(colorsData[colorPointer].pair[1]);
+    document.getElementById("block1block3").style.backgroundColor = createInBetweenColor(colorsData[colorPointer].pair[0],colorsData[colorPointer].pair[1]);
+    box = Math.floor(Math.random() * 2) + 1;
+    if (box == 1) {
+        temp = colorsData[colorPointer+1].pair[0];
+        colorsData[colorPointer+1].pair[0] = colorsData[colorPointer+1].pair[1];
+        colorsData[colorPointer+1].pair[1] = temp;
+    }
+    document.getElementById("block2block1").style.backgroundColor = getHexFromRGB(colorsData[colorPointer+1].pair[0]);
+    document.getElementById("block2block2").style.backgroundColor = getHexFromRGB(colorsData[colorPointer+1].pair[1]);
+    document.getElementById("block2block3").style.backgroundColor = createInBetweenColor(colorsData[colorPointer+1].pair[0],colorsData[colorPointer+1].pair[1]);
+} // end function colorDivs()
 
-function colorGoalDiv() {
-    test1A(1);
+function nextColors() {
+    if (!cycledThroughColorsOnce) {
+        colorPointer = ++colorPointer % (colorsData.length - 1);
+        if (colorPointer == 0) cycledThroughColorsOnce = true;
+    } else {
+        colorPointer = Math.floor(Math.random() * (colorsData.length - 1) );
+    }
+    shrinkColorDivs();
+    colorDivs();
+    chooseOutcome();
+    redrawLines();
+    setTimeout(function() {expandColorDivs();}, 600);
+    setTimeout(function() {makeColorDivsSquare();}, 1200);
+    setTimeout(function() {startTime = null; timerPaused = false; setupTimer();}, 2200);
+
     return true;
-} // end function colorGoalDiv()
+} // end function nextColors()
 
-function test1A(num) {
+function chooseOutcome() {
+    var outcome = Math.floor(Math.random() * 3);
+    if ((outcome == 0) || (outcome == 1))
+        {isCorrect = false; makeWrongOutcome();}
+    else if (outcome == 2)
+        {isCorrect = true; makeCorrectOutcome();}
+} // end function chooseOutcome()
+
+function checkGuess(guess) {
+    var code;
+    if (yesnoButtonEnabled) {
+        timerPaused = true;
+        remove_bars();
+        yesnoButtonEnabled = false;
+        if (isCorrect && (guess == 1)) {code = 1;}
+        else if (!isCorrect && (guess == 0)) {code = 1;}
+        else if (isCorrect && (guess == 0)) {code = 0;}
+        else if (!isCorrect && (guess == 1)) {code = 0;}
+        determineResultOfChoice(code);
+    }
+    return true;
+} // end function checkGuess(guess)
+
+function makeWrongOutcome() {
+    var selection = Math.floor(Math.random() * 24);
+    var box1, box2, result;
+    if (selection == 0) { // start of left main block colors as data
+        box1 = createInBetweenColor(colorsData[colorPointer].pair[0], [0,0,0]);
+        box2 = colorsData[colorPointer].pair[1];
+        result = createInBetweenColor(colorsData[colorPointer].pair[0], colorsData[colorPointer].pair[1]);
+    } else if (selection == 1) {
+        box1 = createInBetweenColor(colorsData[colorPointer].pair[0], [255,255,255]);
+        box2 = colorsData[colorPointer].pair[1];
+        result = createInBetweenColor(colorsData[colorPointer].pair[0], colorsData[colorPointer].pair[1]);
+    } else if (selection == 2) {
+        box1 = createInBetweenColor(colorsData[colorPointer].pair[0], [0,0,0]);
+        box2 = colorsData[colorPointer].pair[1];
+        result = createInBetweenColor(colorsData[colorPointer].pair[0], colorsData[colorPointer].pair[1]);
+        result = getRGBFromHex(result);
+        result = createInBetweenColor(result, [255,255,255]);
+    } else if (selection == 3) {
+        box1 = createInBetweenColor(colorsData[colorPointer].pair[0], [255,255,255]);
+        box2 = colorsData[colorPointer].pair[1];
+        result = createInBetweenColor(colorsData[colorPointer].pair[0], colorsData[colorPointer].pair[1]);
+        result = getRGBFromHex(result);
+        result = createInBetweenColor(result, [0,0,0]);
+    } else if (selection == 4) {
+        box1 = colorsData[colorPointer].pair[0];
+        box2 = createInBetweenColor(colorsData[colorPointer].pair[1], [0,0,0]);
+        result = createInBetweenColor(colorsData[colorPointer].pair[0], colorsData[colorPointer].pair[1]);
+    } else if (selection == 5) {
+        box1 = colorsData[colorPointer].pair[0];
+        box2 = createInBetweenColor(colorsData[colorPointer].pair[1], [255,255,255]);
+        result = createInBetweenColor(colorsData[colorPointer].pair[0], colorsData[colorPointer].pair[1]);
+    } else if (selection == 6) {
+        box1 = colorsData[colorPointer].pair[0];
+        box2 = createInBetweenColor(colorsData[colorPointer].pair[1], [0,0,0]);
+        result = createInBetweenColor(colorsData[colorPointer].pair[0], colorsData[colorPointer].pair[1]);
+        result = getRGBFromHex(result);
+        result = createInBetweenColor(result, [255,255,255]);
+    } else if (selection == 7) {
+        box1 = colorsData[colorPointer].pair[0];
+        box2 = createInBetweenColor(colorsData[colorPointer].pair[1], [255,255,255]);
+        result = createInBetweenColor(colorsData[colorPointer].pair[0], colorsData[colorPointer].pair[1]);
+        result = getRGBFromHex(result);
+        result = createInBetweenColor(result, [0,0,0]);
+    } else if (selection == 8) { // start of right main block colors as data
+        box1 = createInBetweenColor(colorsData[colorPointer+1].pair[0], [0,0,0]);
+        box2 = colorsData[colorPointer+1].pair[1];
+        result = createInBetweenColor(colorsData[colorPointer+1].pair[0], colorsData[colorPointer+1].pair[1]);
+    } else if (selection == 9) {
+        box1 = createInBetweenColor(colorsData[colorPointer+1].pair[0], [255,255,255]);
+        box2 = colorsData[colorPointer+1].pair[1];
+        result = createInBetweenColor(colorsData[colorPointer+1].pair[0], colorsData[colorPointer+1].pair[1]);
+    } else if (selection == 10) {
+        box1 = createInBetweenColor(colorsData[colorPointer+1].pair[0], [0,0,0]);
+        box2 = colorsData[colorPointer+1].pair[1];
+        result = createInBetweenColor(colorsData[colorPointer+1].pair[0], colorsData[colorPointer+1].pair[1]);
+        result = getRGBFromHex(result);
+        result = createInBetweenColor(result, [255,255,255]);
+    } else if (selection == 11) {
+        box1 = createInBetweenColor(colorsData[colorPointer+1].pair[0], [255,255,255]);
+        box2 = colorsData[colorPointer+1].pair[1];
+        result = createInBetweenColor(colorsData[colorPointer+1].pair[0], colorsData[colorPointer+1].pair[1]);
+        result = getRGBFromHex(result);
+        result = createInBetweenColor(result, [0,0,0]);
+    } else if (selection == 12) {
+        box1 = colorsData[colorPointer+1].pair[0];
+        box2 = createInBetweenColor(colorsData[colorPointer+1].pair[1], [0,0,0]);
+        result = createInBetweenColor(colorsData[colorPointer+1].pair[0], colorsData[colorPointer+1].pair[1]);
+    } else if (selection == 13) {
+        box1 = colorsData[colorPointer+1].pair[0];
+        box2 = createInBetweenColor(colorsData[colorPointer+1].pair[1], [255,255,255]);
+        result = createInBetweenColor(colorsData[colorPointer+1].pair[0], colorsData[colorPointer+1].pair[1]);
+    } else if (selection == 14) {
+        box1 = colorsData[colorPointer+1].pair[0];
+        box2 = createInBetweenColor(colorsData[colorPointer+1].pair[1], [0,0,0]);
+        result = createInBetweenColor(colorsData[colorPointer+1].pair[0], colorsData[colorPointer+1].pair[1]);
+        result = getRGBFromHex(result);
+        result = createInBetweenColor(result, [255,255,255]);
+    } else if (selection == 15) {
+        box1 = colorsData[colorPointer+1].pair[0];
+        box2 = createInBetweenColor(colorsData[colorPointer+1].pair[1], [255,255,255]);
+        result = createInBetweenColor(colorsData[colorPointer+1].pair[0], colorsData[colorPointer+1].pair[1]);
+        result = getRGBFromHex(result);
+        result = createInBetweenColor(result, [0,0,0]);
+    } else if (selection == 16) {
+        box1 = createInBetweenColor(colorsData[colorPointer].pair[0], [255,255,255]);
+        box2 = createInBetweenColor(colorsData[colorPointer].pair[1], [255,255,255]);
+        result = createInBetweenColor(colorsData[colorPointer].pair[0], colorsData[colorPointer].pair[1]);
+    } else if (selection == 17) {
+        box1 = createInBetweenColor(colorsData[colorPointer].pair[0], [0,0,0]);
+        box2 = createInBetweenColor(colorsData[colorPointer].pair[1], [0,0,0]);
+        result = createInBetweenColor(colorsData[colorPointer].pair[0], colorsData[colorPointer].pair[1]);
+    } else if (selection == 18) {
+        box1 = createInBetweenColor(colorsData[colorPointer].pair[0], [255,255,255]);
+        box2 = createInBetweenColor(colorsData[colorPointer].pair[1], [255,255,255]);
+        result = createInBetweenColor(colorsData[colorPointer].pair[0], colorsData[colorPointer].pair[1]);
+        result = getRGBFromHex(result);
+        result = createInBetweenColor(result, [0,0,0]);
+    } else if (selection == 19) {
+        box1 = createInBetweenColor(colorsData[colorPointer].pair[0], [0,0,0]);
+        box2 = createInBetweenColor(colorsData[colorPointer].pair[1], [0,0,0]);
+        result = createInBetweenColor(colorsData[colorPointer].pair[0], colorsData[colorPointer].pair[1]);
+        result = getRGBFromHex(result);
+        result = createInBetweenColor(result, [255,255,255]);
+    } else if (selection == 20) {
+        box1 = createInBetweenColor(colorsData[colorPointer+1].pair[0], [255,255,255]);
+        box2 = createInBetweenColor(colorsData[colorPointer+1].pair[1], [255,255,255]);
+        result = createInBetweenColor(colorsData[colorPointer+1].pair[0], colorsData[colorPointer+1].pair[1]);
+    } else if (selection == 21) {
+        box1 = createInBetweenColor(colorsData[colorPointer+1].pair[0], [0,0,0]);
+        box2 = createInBetweenColor(colorsData[colorPointer+1].pair[1], [0,0,0]);
+        result = createInBetweenColor(colorsData[colorPointer+1].pair[0], colorsData[colorPointer+1].pair[1]);
+    } else if (selection == 22) {
+        box1 = createInBetweenColor(colorsData[colorPointer+1].pair[0], [255,255,255]);
+        box2 = createInBetweenColor(colorsData[colorPointer+1].pair[1], [255,255,255]);
+        result = createInBetweenColor(colorsData[colorPointer+1].pair[0], colorsData[colorPointer+1].pair[1]);
+        result = getRGBFromHex(result);
+        result = createInBetweenColor(result, [0,0,0]);
+    } else if (selection == 23) {
+        box1 = createInBetweenColor(colorsData[colorPointer+1].pair[0], [0,0,0]);
+        box2 = createInBetweenColor(colorsData[colorPointer+1].pair[1], [0,0,0]);
+        result = createInBetweenColor(colorsData[colorPointer+1].pair[0], colorsData[colorPointer+1].pair[1]);
+        result = getRGBFromHex(result);
+        result = createInBetweenColor(result, [255,255,255]);
+    }
+    if (typeof(box1) != "string") box1 = getHexFromRGB(box1);
+    if (typeof(box2) != "string") box2 = getHexFromRGB(box2);
+    if (typeof(result) != "string") result = getHexFromRGB(result);
+    document.getElementById("bottomhalfblock1").style.backgroundColor = box1;
+    document.getElementById("bottomhalfblock2").style.backgroundColor = box2;
+    prevColor = result;
+    colorGoalDiv(result);
+} // end function makeWrongOutcome()
+
+function makeCorrectOutcome() {
+    var selection = Math.floor(Math.random() * 16);
+    var box1, box2, result, result1, result2;
+    if (selection == 0) { // start of left main block colors as data
+        box1 = createInBetweenColor(colorsData[colorPointer].pair[0], [0,0,0]);
+        box2 = colorsData[colorPointer].pair[1];
+        result = getRGBFromHex(box1);
+        result = createInBetweenColor(result, colorsData[colorPointer].pair[1]);
+    } else if (selection == 1) {
+        box1 = createInBetweenColor(colorsData[colorPointer].pair[0], [255,255,255]);
+        box2 = colorsData[colorPointer].pair[1];
+        result = getRGBFromHex(box1);
+        result = createInBetweenColor(result, colorsData[colorPointer].pair[1]);
+    } else if (selection == 2) {
+        box1 = colorsData[colorPointer].pair[0];
+        box2 = createInBetweenColor(colorsData[colorPointer].pair[1], [0,0,0]);
+        result = getRGBFromHex(box2);
+        result = createInBetweenColor(colorsData[colorPointer].pair[0], result);
+    } else if (selection == 3) {
+        box1 = colorsData[colorPointer].pair[0];
+        box2 = createInBetweenColor(colorsData[colorPointer].pair[1], [255,255,255]);
+        result = getRGBFromHex(box2);
+        result = createInBetweenColor(colorsData[colorPointer].pair[0], result);
+    } else if (selection == 4) { // start of left main block colors as data
+        box1 = createInBetweenColor(colorsData[colorPointer+1].pair[0], [0,0,0]);
+        box2 = colorsData[colorPointer+1].pair[1];
+        result = getRGBFromHex(box1);
+        result = createInBetweenColor(result, colorsData[colorPointer+1].pair[1]);
+    } else if (selection == 5) {
+        box1 = createInBetweenColor(colorsData[colorPointer+1].pair[0], [255,255,255]);
+        box2 = colorsData[colorPointer+1].pair[1];
+        result = getRGBFromHex(box1);
+        result = createInBetweenColor(result, colorsData[colorPointer+1].pair[1]);
+    } else if (selection == 6) {
+        box1 = colorsData[colorPointer+1].pair[0];
+        box2 = createInBetweenColor(colorsData[colorPointer+1].pair[1], [0,0,0]);
+        result = getRGBFromHex(box2);
+        result = createInBetweenColor(colorsData[colorPointer+1].pair[0], result);
+    } else if (selection == 7) {
+        box1 = colorsData[colorPointer+1].pair[0];
+        box2 = createInBetweenColor(colorsData[colorPointer+1].pair[1], [255,255,255]);
+        result = getRGBFromHex(box2);
+        result = createInBetweenColor(colorsData[colorPointer+1].pair[0], result);
+    } else if (selection == 8) { // start of left main block colors as data
+        box1 = createInBetweenColor(colorsData[colorPointer].pair[0], [0,0,0]);
+        box2 = createInBetweenColor(colorsData[colorPointer].pair[1], [0,0,0]);
+        result1 = getRGBFromHex(box1);
+        result2 = getRGBFromHex(box2);
+        result = createInBetweenColor(result1, result2);
+    } else if (selection == 9) {
+        box1 = createInBetweenColor(colorsData[colorPointer].pair[0], [255,255,255]);
+        box2 = createInBetweenColor(colorsData[colorPointer].pair[1], [255,255,255]);
+        result1 = getRGBFromHex(box1);
+        result2 = getRGBFromHex(box2);
+        result = createInBetweenColor(result1, result2);
+    } else if (selection == 10) {
+        box1 = createInBetweenColor(colorsData[colorPointer].pair[0], [0,0,0]);
+        box2 = createInBetweenColor(colorsData[colorPointer].pair[1], [255,255,255]);
+        result1 = getRGBFromHex(box1);
+        result2 = getRGBFromHex(box2);
+        result = createInBetweenColor(result1, result2);
+    } else if (selection == 11) {
+        box1 = createInBetweenColor(colorsData[colorPointer].pair[0], [255,255,255]);
+        box2 = createInBetweenColor(colorsData[colorPointer].pair[1], [0,0,0]);
+        result1 = getRGBFromHex(box1);
+        result2 = getRGBFromHex(box2);
+        result = createInBetweenColor(result1, result2);
+    } else if (selection == 12) { // start of left main block colors as data
+        box1 = createInBetweenColor(colorsData[colorPointer+1].pair[0], [0,0,0]);
+        box2 = createInBetweenColor(colorsData[colorPointer+1].pair[1], [0,0,0]);
+        result1 = getRGBFromHex(box1);
+        result2 = getRGBFromHex(box2);
+        result = createInBetweenColor(result1, result2);
+    } else if (selection == 13) {
+        box1 = createInBetweenColor(colorsData[colorPointer+1].pair[0], [255,255,255]);
+        box2 = createInBetweenColor(colorsData[colorPointer+1].pair[1], [255,255,255]);
+        result1 = getRGBFromHex(box1);
+        result2 = getRGBFromHex(box2);
+        result = createInBetweenColor(result1, result2);
+    } else if (selection == 14) {
+        box1 = createInBetweenColor(colorsData[colorPointer+1].pair[0], [0,0,0]);
+        box2 = createInBetweenColor(colorsData[colorPointer+1].pair[1], [255,255,255]);
+        result1 = getRGBFromHex(box1);
+        result2 = getRGBFromHex(box2);
+        result = createInBetweenColor(result1, result2);
+    } else if (selection == 15) {
+        box1 = createInBetweenColor(colorsData[colorPointer+1].pair[0], [255,255,255]);
+        box2 = createInBetweenColor(colorsData[colorPointer+1].pair[1], [0,0,0]);
+        result1 = getRGBFromHex(box1);
+        result2 = getRGBFromHex(box2);
+        result = createInBetweenColor(result1, result2);
+    }
+    if (typeof(box1) != "string") box1 = getHexFromRGB(box1);
+    if (typeof(box2) != "string") box2 = getHexFromRGB(box2);
+    if (typeof(result) != "string") result = getHexFromRGB(result);
+    document.getElementById("bottomhalfblock1").style.backgroundColor = box1;
+    document.getElementById("bottomhalfblock2").style.backgroundColor = box2;
+    prevColor = result;
+    colorGoalDiv(result);
+} // function makeCorrectOutcome()
+
+function colorGoalDiv(color) {
     canvas2 = document.getElementById("canvas2");
     ctx2 = canvas2.getContext('2d');
     canvas2.style.display = "none";
-    for (var i = 0; i < num; i++) {
-        ctx2.fillStyle = (i == 0) ? gameData.goalColor : "yellow";
-        ctx2.fillRect(i*(canvas2.width/num), 0, canvas2.width/num, canvas2.height);
-    }
+    ctx2.fillStyle = color;
+    ctx2.fillRect(0, 0, canvas2.width, canvas2.height);
     canvas2.style.display = "block";
     return true;
-} // end function test1A()
+} // end function colorGoalDiv()
 
-
-function cycleThroughTopData() {
-    var prev = gameData.goalColor;
-    gameData = topData[Math.floor(Math.random() * topData.length)];
-    cycleTopDataAt = 1;
-    cycleTopDataCounter = 0;
-    colorGoalDiv();
-    redrawLines();
-    createColorDivs();
-    changeColorOfSelectCanvasPixels(prev);
-    return true;
-} // function cycleThroughTopData()
-
-function createColorDivs() {
-    getColorsForHalfDivs();
-    var frag = document.createDocumentFragment();
-    for (var i = 0; i < 1; i++) {
-        var divTempA = document.createElement("div");
-        divTempA.setAttribute("class","guess-middle flex");
-        divTempA.id = "bkcolor:div"+i;
-        divTempA.style.backgroundColor = divColors["answer"];
-        for (var j = 0; j < 2; j++) {
-            var divTemp = createMixColorDivs();
-            divTemp.style.backgroundColor = divColors["div"+j];
-            divTemp.innerHTML = j+1;
-            divTempA.appendChild(divTemp);
-        } // end (var j = 0; j < 2; j++)
-        frag.appendChild(divTempA);
-    } // end for (var i = 0; i < 2; i++)
-    guess.style.display = "none";
-    while(!!guess.firstChild) guess.removeChild(guess.firstChild);
-    guess.appendChild(frag);
-    guess.style.display = "block";
-    return true;
-} // function createColorDivs()
-
-function getNextColors(par, did) {
-    cycleTopDataCounter++;
-    if (cycleTopDataCounter == cycleTopDataAt) cycleThroughTopData();
-    else if (!gameOver) {
-        createColorDivs();
-    } // if (!gameOver)
-    yesnoButtonEnabled = true;
-    return true;
-} // function getNextColors(par, did)
-
-function getColorsForHalfDivs() {
-    var color1 = [], color2 = [], answer = [];
-    var temp = gameData.goalColor;
-    for (var i = 1; i < 6; i+=2) answer.push( parseInt(temp[i]+""+temp[i+1],16) )
-    var opt = Math.floor(Math.random() * 11);
-    var opt2 = null;
-    for (var i = 0; i < 3; i++) {
-        if (answer[i] < 40)
-            factor = 0;
-        else
-            factor = 25;
-        
-        if (opt == 0) { 
-            color1[i] = answer[i] - factor; 
-            color2[i] = answer[i] + factor;
-        } else if (opt == 1) {
-            color1[i] = answer[i] + factor + 20;
-            color2[i] = answer[i] - factor - 20;
-        } else if (opt == 2) {
-            color1[i] = answer[i] + factor + 40;
-            color2[i] = answer[i] - factor - 40;
-        } else if (opt == 3) {
-            color1[i] = answer[i] + factor - 20;
-            color2[i] = answer[i] - factor + 20;
-        } else if (opt == 4) {
-            color1[i] = answer[i] + factor - 40;
-            color2[i] = answer[i] - factor + 40;
-        } else if ((opt == 5) || (opt == 6) || (opt == 7) || (opt == 8) || (opt == 9) || (opt == 10)) {
-            if ((i == 0) && ((opt == 5) || (opt == 6) || (opt == 7)) ) {
-                color1[i] = answer[i] + 5;
-                color2[i] = answer[i] + 40; 
-            } else if ((i == 0) && ((opt == 8) || (opt == 9) || (opt == 10)) ) {
-                color1[i] = answer[i] - 5;
-                color2[i] = answer[i] - 40;
-            } else if ((i == 1) && ((opt == 5) || (opt == 6) || (opt == 7)) ) {
-                color1[i] = answer[i] - 40;
-                color2[i] = answer[i] - 10; 
-            } else if ((i == 1) && ((opt == 8) || (opt == 9) || (opt == 10)) ) {
-                color1[i] = answer[i] + 40;
-                color2[i] = answer[i] + 10;
-            } else if ((i == 2) && ((opt == 5) || (opt == 6) || (opt == 7)) ) {
-                color1[i] = answer[i] - 35;
-                color2[i] = answer[i] - 35; 
-            } else if ((i == 2) && ((opt == 8) || (opt == 9) || (opt == 10)) ) {
-                color1[i] = answer[i] - 35;
-                color2[i] = answer[i] - 35;
-            }
-        
-            if (color1[i] > 255) color1[i] = 255;
-            else if (color1[i] < 0 ) color1[i] = 0;
-
-            if (color2[i] > 255) color2[i] = 255;
-            else if (color2[i] < 0 ) color2[i] = 0;
-        } // else if ((opt == 2) || (opt == 3) || (opt == 4))
-
-    } // for (var i = 0; i < 3; i++)
-    hex1 = getHexFromRGB(color1);
-    hex2 = getHexFromRGB(color2);
-    if ((opt == 0) || (opt == 1) || (opt == 2) || (opt == 3) || (opt == 4)) {
-        divColors["div0"] = hex1;
-        divColors["div1"] = hex2;
-        divColors["answer"] = gameData.goalColor;
-    } else if ((opt == 5) || (opt == 6) || (opt == 7) || (opt == 8) || (opt == 9) || (opt == 10)) {
-        divColors["div0"] = hex1;
-        divColors["div1"] = hex2;
-        divColors["answer"] = createInBetweenColor(color1,color2);
-    }
-    return true;
-} // function getColorsForHalfDivs()
-
-// this creates the mini-half divs that combine
-function createMixColorDivs() {
-    var divTemp = document.createElement('div');
-    divTemp.setAttribute("class","color-divs flex-center");
-    return divTemp;
-} // function createMixColorDivs()
-
-function showUnderneathDiv(opt) {
-    if (yesnoButtonEnabled) {
-        yesnoButtonEnabled = false;
-        var par = guessTop.firstChild;
-        var cn = par.childNodes;
-        cn[0].innerHTML = "";
-        cn[1].innerHTML = "";
-        cn[0].style.zIndex = "10";
-        cn[1].style.zIndex = "11";
-        cn[0].style.width = "100%";
-        cn[1].style.width = "100%";
-        cn[1].style.marginLeft = "-100%";
-        cn[0].style.opacity = "0";
-        cn[1].style.opacity = "0";
-        var sendID = par.id + "";
-        setTimeout(function() {determineResultOfChoice(sendID, opt);}, 200);
-    }
-    return true;
-} // end function showUnderneathDiv(opt)
-
-function determineResultOfChoice(sendID, opt) {
-    var points = 0, time = 0, code = null, inner = "", inner1 = null, inner2 = null;
-    if (divColors["answer"].toUpperCase() == gameData.goalColor.toUpperCase()) {
-        if (opt == 0) {
-            inner1 = document.getElementById("itmatchessvg");
-            inner2 = document.getElementById("plus5svg");
-            inner = inner1.innerHTML + "" + inner2.innerHTML;
-            code = 0;
-            missedCorrect = 0; 
-            points = 5;
-            numberCorrect++;
-            time = 1350;
-            drawLine();
-            drawLine();
-            drawLine();
-            drawLine();
-        }
-        else if (opt == 1) {
-            inner = document.getElementById("missedthisonesvg").innerHTML;
-            points = 0;
-            code = 1;
-            time = 600;
-            missedCorrect++; 
-        }
-        var main = document.getElementById(sendID);
-        main.style.display = "none";
-        main.innerHTML = inner;
-        main.style.display = "block";
-        if (!!inner1) {
-            inner1 = main.childNodes[1];
-            inner1.style.height = Math.floor(inner1.parentNode.offsetHeight/3.5) + "px"
-            inner1.style.width = Math.floor(inner1.parentNode.offsetWidth) + "px"
-            inner1.style.marginTop = Math.floor(inner1.parentNode.offsetHeight/8) + "px"
-        } else {
-            inner1 = main.childNodes[1];
-            inner1.style.height = Math.floor(inner1.parentNode.offsetHeight/1.8) + "px"
-            inner1.style.width = Math.floor(inner1.parentNode.offsetWidth/1.5) + "px"
-            inner1.style.marginTop = Math.floor(inner1.parentNode.offsetHeight/8) + "px"
-        }
-        var svg = null;
-        if (points == 5) {
-            svg = document.getElementById("plus5svg2");
-        }
-    } // if (bkDivColors[key].toUpperCase() == gameData.goalColor.toUpperCase()) 
-    else if (opt == 0) {
-        var inner = document.getElementById("nodoesntmatchsvg").innerHTML;
+function determineResultOfChoice(code) {
+    var points = 0, time = 0, inner = "", inner1 = null, inner2 = null;
+    if (code == 1) {
+        inner1 = document.getElementById("itmatchessvg");
+        inner2 = document.getElementById("plus5svg");
+        inner = inner1.innerHTML + "" + inner2.innerHTML;
+        missedCorrect = 0; 
+        points = 5;
+        numberCorrect++;
+        time = 1350;
+        drawLine();
+        drawLine();
+        drawLine();
+        drawLine();
+    } else if (code == 0) {
+        inner = document.getElementById("missedthisonesvg").innerHTML;
         points = 0;
-        code = 1;
         time = 600;
         missedCorrect++; 
-        var main = document.getElementById(sendID);
-        main.style.display = "none";
-        main.innerHTML = inner;
-        main.style.display = "block";
-        inner = main.childNodes[1];
-        inner.style.height = Math.floor(inner.parentNode.offsetHeight/1.8) + "px"
-        inner.style.width = Math.floor(inner.parentNode.offsetWidth/1.5) + "px"
-        inner.style.marginTop = Math.floor(inner.parentNode.offsetHeight/8) + "px"
-    } // else if (opt == 0)
-    else if (opt == 1) {
-        points = 1;
-        code = 2;
-        time = 1350;
-        numberCorrect++;
-        var inner1 = document.getElementById("goodcallsvg");
-        var inner2 = document.getElementById("plus1svg");
-        inner = inner1.innerHTML + "" + inner2.innerHTML;
-        var main = document.getElementById(sendID);
-        main.style.display = "none";
-        main.innerHTML = inner;
-        main.style.display = "block";
-        inner = main.childNodes[1];
-        inner.style.height = Math.floor(inner.parentNode.offsetHeight/4) + "px"
-        inner.style.marginTop = Math.floor(inner.parentNode.offsetHeight/8) + "px"
-        var svg = document.getElementById("plus1svg2");
-        missedCorrect = 0;      
-        drawLine();
-        drawLine();
-        drawLine();
-        drawLine();
-    }
-    
+    } // end if...else
+    var main = document.getElementById("displayPointsDiv");
+    var main1 = document.getElementById("displayPointsContent");
+    main.style.display = "none";
+    main1.innerHTML = inner;
+    main.style.display = "block";
+    main1.style.marginTop = -(main1.offsetHeight/2) + "px";
     if (missedCorrect == 1) {
         missedCorrect = 0;
         isGameLost();
@@ -692,15 +782,21 @@ function determineResultOfChoice(sendID, opt) {
     
     if ((points != 0) && (!gameOver)) {
         updatePoints(points, code);  
-        if ((code == 0) || (code == 2))
-            setTimeout(function() {animatePoints(points, code);},100);
+        animatePoints(points, code);
     }
-    var par = guessTop.firstChild;
-    var sendID = par.id + "";
+    yesnoButtonEnabled = true;
     if (numberCorrect != correctLimit)
-       getNextColorsTimeoutID = setTimeout(function() {startTime = null;timerPaused = false;setupTimer();getNextColors(par, sendID);},time);
+       getNextColorsTimeoutID = setTimeout(function() {main.style.display = "none"; nextColors();},time);
     return true;
 } // function determineResultOfChoice(sendID, opt)
+
+function clearLines() {
+    linesDrawnSoFar = {};
+    numberOfLinesDrawnOnCanvas = 0;
+    numberCorrect = 0;
+    colorGoalDiv(prevColor);
+    return false;
+} // end function clearLines()
 
 function createInBetweenColor(color1, color2) {
     var color1hex = "", color2hex = "";
@@ -730,6 +826,13 @@ function getHexFromRGB(rgb) {
 } // end function getHexFromRGB(rgb)
 
 
+function getRGBFromHex(hex) {
+    var answer = [];
+    for (var i = 1; i < 6; i+=2) answer.push( parseInt(hex[i]+""+hex[i+1],16) );
+    return answer;
+} // end function getRGBFromHex(hex)
+
+
 // canvas and letter guessing part of game functions ...
 
 function letterObj(letter, cs, font, size, rotation, correct) {
@@ -748,13 +851,13 @@ function createCanvasWithLetters() {
     ctx = canvas.getContext('2d');
     var width = Math.floor(canvas.width);
     var height = Math.floor(canvas.height);
-    var fontSz = Math.floor(width*(1/inputData.letters.length));
+    var fontSz = Math.floor(width*(1/gameData.letters.length));
     if (fontSz < 16) fontSz = 16;
     ctx.font = "800 "+fontSz+"px Playfair Display";
     ctx.textBaseline = "middle";
     ctx.textAlign = "center";
-    ctx.fillStyle = gameData.goalColor;
-    var letters = inputData.letters;
+    ctx.fillStyle = "slategray"; //gameData.goalColor;
+    var letters = gameData.letters;
     var tempfs = document.getElementById("goalContainer").offsetWidth / 23;
     for (var i = 0; i < letters.length; i++) {
         selectedLetters.push(null);
@@ -825,10 +928,7 @@ function popUpALetter(letter) {
                 var ind = selectedUnderscore.id.split(":")[1];
                 isChosenLetterCorrect(letter, ind);
                 selectedUnderscore = null;
-                var par = guessTop.firstChild;
-                var cn = par.childNodes;
-                var sendID = cn[0].id + "";
-                if (!gameOver) setTimeout(function() {switchButtonsAndLetters(1); getNextColors(par, sendID); shrinkGoalContainer();},2000);
+                if (!gameOver) setTimeout(function() {switchButtonsAndLetters(1); shrinkGoalContainer(); nextColors();},2000);
             } else {                    
                 values[1] += 0.05;
                 values = animateOriginalSmallOriginal(0, 100, values[1]);  
@@ -890,35 +990,6 @@ function putLettersOntoPanels(letters, fontSz) {
     gameLD.appendChild(frag);
     gameLD.style.display = "block";
 } // function putLettersOntoPanels(letters) 
-
-function changeColorOfSelectCanvasPixels(hexC) {
-    var hexColor = hexC;
-    var prevR = parseInt(hexColor[1]+""+hexColor[2], 16);
-    var prevG = parseInt(hexColor[3]+""+hexColor[4], 16);
-    var prevB = parseInt(hexColor[5]+""+hexColor[6], 16);
-
-    hexColor = gameData.goalColor;
-
-    var newR = parseInt(hexColor[1]+""+hexColor[2], 16);
-    var newG = parseInt(hexColor[3]+""+hexColor[4], 16);
-    var newB = parseInt(hexColor[5]+""+hexColor[6], 16);
-
-    imageData = ctx2.getImageData(0,0,canvas2.width,canvas2.height);
-    var pixArr = imageData.data;
-    var len = pixArr.length;
-
-    for (var i = 0; i < len; i = i + 4) {
-        var r = pixArr[i];
-        var g = pixArr[i+1];
-        var b = pixArr[i+2];
-        var a = pixArr[i+3];
-
-        if (((r+5 >= prevR) && (r-5 <= prevR))  && ((g+5 >= prevG) && (g-5 <= prevG)) && ((b+5 >= prevB) && (b-5 <= prevB))) { pixArr[i] = newR; pixArr[i+1] = newG; pixArr[i+2] = newB;}
-    }// for (var i = 0; i < len; i = i + 4)
-    canvas2.style.display = "none";
-    ctx2.putImageData(imageData, 0, 0);
-    canvas2.style.display = "block";
-} // end function changeColorOfSelectCanvasPixels(hexColor)
 
 function selectUnderscore(el, letters) {
     if (!gameOver && (numberCorrect == correctLimit) ) {
@@ -1020,9 +1091,7 @@ function drawLine() {
     return true;
 } // end function drawLine()
 
-
 function redrawLines() {
-    console.log("in redrawlines");
     canvas2.style.display = "none";
     var vpos, ind, len = Math.floor((canvas2.height/10) * 100)/100, width = canvas2.width;
     for (var index in linesDrawnSoFar) {
@@ -1065,7 +1134,6 @@ function redrawLines() {
     } // end for (var index in linesDrawnSoFar)
     canvas2.style.display = "block";
 } // end function redrawLines()
-
 
 function showLetterChoices(ind,len) {
     for (var i = 0; i < len; i++) document.getElementById("letterChoices"+i).style.display = "none";
@@ -1142,17 +1210,19 @@ function selectLetter(letter){
             selectedLetters[ind] = letter;
             letter.onclick = null;
         } else if (letter == -1){
-            selectUnderscore(selectedUnderscore, inputData.letters);
-            var par = guessTop.firstChild;
-            var cn = par.childNodes;
-            var sendID = cn[0].id + "";
+            selectUnderscore(selectedUnderscore, gameData.letters);
             switchButtonsAndLetters(1);
-            getNextColors(par, sendID);
             shrinkGoalContainer();
+            nextColors();
         } // if (letter != -1)
     } // if (!gameOver && (numberCorrect == correctLimit) ) {
     return true;
 } // end function selectLetter(letter)
+
+function showDefinition() {
+    document.getElementById("definition").innerHTML = "<p style='color: navy; margin-top: 5px;'>" + gameData.definition + "</p>";
+    showMenu(document.getElementById("definitionDiv"));
+} // end function showDefinition()
 
 function switchButtonsAndLetters(code) {
     switch(code) {
@@ -1168,7 +1238,7 @@ function switchButtonsAndLetters(code) {
             document.getElementById("extra").style.visibility = "visible";
             break;
     }// end switch(code)
-}
+} // end function switchButtonsAndLetters(code)
 
 function doDemoInstructions() {
     resetDemoInstructions();
@@ -1237,10 +1307,10 @@ function showDemoInstructions() {
     setTimeout(function() {document.getElementById("demoInstructions7").style.opacity = 1;}, 44000);
     setTimeout(function() {drawLine(); drawLine(); drawLine(); drawLine();}, 50000);
     setTimeout(function() {document.getElementById("demoInstructions8").style.opacity = 1;}, 55000);
-    setTimeout(function() {numberCorrect = 3; selectUnderscore(document.getElementById("letterBox:0"), inputData.letters); switchButtonsAndLetters(2);}, 60000);
-    setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 61000);
-    setTimeout(function() {selectUnderscore(document.getElementById("letterBox:2"), inputData.letters); }, 62000);
-    setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), inputData.letters); }, 63000);
+    setTimeout(function() {numberCorrect = 3; selectUnderscore(document.getElementById("letterBox:0"), gameData.letters); switchButtonsAndLetters(2);}, 60000);
+    setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), gameData.letters); }, 61000);
+    setTimeout(function() {selectUnderscore(document.getElementById("letterBox:2"), gameData.letters); }, 62000);
+    setTimeout(function() {selectUnderscore(document.getElementById("letterBox:1"), gameData.letters); }, 63000);
     setTimeout(function() {selectLetter(document.getElementById("letterChoices1").firstChild);}, 64000);
     setTimeout(function() {document.getElementById("demoInstructions9").style.opacity = 1;}, 68000);
     setTimeout(function() {closeMenu(document.getElementById("demoAnimatedInstructionsDiv3"));}, 77000);
@@ -1258,6 +1328,8 @@ function showDemoInstructions() {
     setTimeout(function() {document.getElementById("demoInstructions0E").style.height = ht1 + "px"; document.getElementById("demoInstructions0E").style.opacity = 1;}, 95000);
     setTimeout(function() {document.getElementById("demoInstructions13").style.opacity = 1;}, 95000);
 }
+
+
 
 // end of game functions ...
 
@@ -1310,6 +1382,7 @@ function isGameLost() {
             var el = document.getElementById("gameMessage"); 
             el.style.color = "red"; 
             el.innerHTML = "<p style='margin: 0 auto 5px auto; font-size: 2.5em;'>Game Over</p><p style='font-size: 1em; margin-top: 0;'>(...wait for answer)</p>"; 
+            document.getElementById('displayPointsDiv').style.display = "none";
             showMenu(document.getElementById('gameMessageDiv')); 
             el.parentNode.style.marginTop = -(el.parentNode.offsetHeight/2) + "px";
             setTimeout(function() {closeMenu(document.getElementById('gameMessageDiv')); document.getElementById("cantguessletteryetButton").style.visibility = "hidden"; switchButtonsAndLetters(2); showLetters();},2000);  
@@ -1322,12 +1395,12 @@ function isGameLost() {
 function showLetters() {
     drawLine();
     if (numberOfLinesDrawnOnCanvas < 200) showLettersTimeoutID = setTimeout(function() {showLetters()}, 10);
-    else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='img/replayTransparent_white.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {gc.style.display = "none"; shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
+    else {var a = document.getElementById("cantguessletteryetButton"); a.innerHTML = "<img src='img/replayTransparent_white.png' style='height: 1.4em; width: 1.4em; vertical-align: sub;'> PLAY AGAIN"; a.onclick = function() {switchButtonsAndLetters(1); shrinkGoalContainer(); setupNewGame(0);};  a.style.visibility = "visible";}
     return true;
 } // end function showLetters()
 
 function isLetterBoardsEmpty() {
-    var letlen = inputData.letters.length;
+    var letlen = gameData.letters.length;
     var empty = 0;
     for (var i = 0; i < letlen; i++) {
         var test = document.getElementById("letterChoices"+i);
@@ -1422,6 +1495,7 @@ function updateGameDataOnServer(won) {
 } // function updateGameDataOnServer(won)
 
 
+
 // animation functions ...
 
 function letterBorderAnimation(letter, code) {
@@ -1455,34 +1529,31 @@ function animatePoints(add, code) {
     var time;
     var values = [0,0];
     var el2 = null;
-    if (code == 0) {
+    if (code == 1) {
         if (numberCorrect == correctLimit) 
             clearTimeout(getNextColorsTimeoutID);
-        time=17;
+        time = 22;
     }
-    else if (code == 1) 
+    else if (code == 0) 
         time=500;
     else if (code == 2) 
-        time=17;
-    else if (code == 3) 
-        time=500;
-    if (code == 0) el2 = document.getElementById("plus5svg2");
+        time=22;
+    if (code == 1) el2 = document.getElementById("plus5svg2");
     else if (code == 2) el2 = document.getElementById("plus1svg2");
     var ht = el2.getBoundingClientRect().height;
-    var mp = document.getElementById("guess").offsetWidth/2;
     pointsIntervalID = setInterval(
         function() {
             if (values[1] == -1) {
                 clearInterval(pointsIntervalID);
                 if (numberCorrect == correctLimit) {
                     clearTimeout(getNextColorsTimeoutID);
-                    setTimeout(function() {redoXs(); selectUnderscore(document.getElementById("letterBox:0"), inputData.letters); switchButtonsAndLetters(2);},500);
+                    setTimeout(function() {document.getElementById("displayPointsDiv").style.display = "none"; redoXs(); selectUnderscore(document.getElementById("letterBox:0"), gameData.letters); switchButtonsAndLetters(2);},500);
                 }
-            }
-            else {
+                return true;
+            } else {
                 values[1] += 0.05;
-                if ((code == 0) || (code == 2)) {
-                    if (code == 0) values = animateSmallLargeMedium(1, 2, values[1], 9, null);  
+                if ((code == 1) || (code == 2)) {
+                    if (code == 1) values = animateSmallLargeMedium(1, 2, values[1], 9, null);  
                     else if (code == 2) values = animateSmallLargeMedium(1, 2, values[1], 3, null);
                     el2.style.webkitTransform = "scale("+values[0]+")";
                     el2.style.msTransform = "scale("+values[0]+")";
@@ -1495,7 +1566,7 @@ function animatePoints(add, code) {
                 }
 
             }
-        },time);
+        }, time);
     return true;
 } // end function animatePoints(add, code)
 
@@ -1515,6 +1586,7 @@ function animateOriginalSmallOriginal(origVal, endVal, step) {
     if (sinVal < (3 * Math.PI/2)) return [currVal, step];
     else if (sinVal >= (3 * Math.PI/2)) return [endVal, -1]; // || (currVal >= endVal)
 } // end animateEase(origVal, endVal, step)
+
 
 
 // Profile and account info get and update functions ...
@@ -2206,7 +2278,6 @@ function animateMenu(para, code) {
 } // end function animateMenu(para, code)
 
 function checkForStartupMessage() {
-    console.log("in checkforstartupmessage");
     var version = document.getElementById("gameVersion").value;
     var route = "/message?version="+version;
     var newRoute = rootURL+route;
@@ -2218,8 +2289,6 @@ function checkForStartupMessage() {
                 var messageArr = message.split(":q:");
                 if (messageArr[0] == "1") {
                     csrfVar = messageArr[1];
-                    console.log("in checkForStartupMessage");
-                    console.log(csrfVar);
                     localStorage.setItem("csrfToken",csrfVar);
                 } else {
                     var el = document.getElementById('startupMessageSpan');
@@ -2273,6 +2342,8 @@ function showBeginningModal() {
     el.style.top = (0 - Math.floor(par.offsetWidth/8)) + "px";
     showMenu(document.getElementById('startupDiv'));
 } // end function showBeginningModal()
+
+
 
 // timer functions ...
 
@@ -2411,3 +2482,8 @@ function googlePlayStoreReady() {
         return true;
     }
 } // end function googlePlayStoreReady()
+
+function startPurchase() {
+    purchaseStep = 1;
+    googlePopup();
+}

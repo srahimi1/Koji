@@ -37,36 +37,36 @@
         <div id="tophalf" class="major-half">
             <div id="leftblock" class="top-half-half-block">
                 <div id="leftblocktoprow" class="row-within-half-block">
-                    <div id="leftblockblock1" class="color-block"></div>
+                    <div id="block1block1" class="color-block"></div>
                     <div id="leftblockmiddleblock" class="middle-within-half-block">
                         <div id="leftblockleftrightline" class="connecting-line-left-right"></div>
                         <div id="leftblockupdownline" class="connecting-line-up-down"></div>
                     </div>
-                    <div id="leftblockblock2" class="color-block"></div>        
+                    <div id="block1block2" class="color-block"></div>        
                 </div><!--end leftblocktoprow div -->
                 <div id="leftblockbottomrow" class="row-within-half-block" style="padding: 5% 0;">
-                    <div id="leftblockblock3" class="color-block"></div>
+                    <div id="block1block3" class="color-block"></div>
                 </div><!--end leftblockbottomrow div -->
             </div><!-- end leftblock div -->
             
             <div id="rightblock" class="top-half-half-block">
                 <div id="rightblocktoprow" class="row-within-half-block">
-                    <div id="rightblockblock1" class="color-block"></div>
+                    <div id="block2block1" class="color-block"></div>
                     <div id="rightblockmiddleblock" class="middle-within-half-block">
                         <div id="rightblockleftrightline" class="connecting-line-left-right"></div>
                         <div id="rightblockupdownline" class="connecting-line-up-down"></div>
                     </div>
-                    <div id="rightblockblock2" class="color-block"></div>        
+                    <div id="block2block2" class="color-block"></div>        
                 </div><!--end rightblocktoprow div -->
                 <div id="rightblockbottomrow" class="row-within-half-block" style="padding: 5% 0;">
-                    <div id="rightblockblock3" class="color-block"></div>
+                    <div id="block2block3" class="color-block"></div>
                 </div><!--end rightblockbottomrow div -->
             </div><!-- end rightblock div -->
         </div><!-- end tophalf div -->
 
         <div id="timerBar" class="timer-bar"></div>
         
-        <div id="bottomhalf" class="major-half" style="height: 45%; padding-top: 20px;">
+        <div id="bottomhalf" class="major-half" style="height: 50%; padding-top: 5px; overflow-x: hidden;">
            <div id="bottomhalftoprow" class="bottom-full-row" style="height: 35%;">
                 <div id="bottomhalfblock1" class="color-block"></div>
                 <div id="bottomhalfmiddleblock" class="middle-within-half-block">
@@ -75,7 +75,7 @@
                 </div>
                 <div id="bottomhalfblock2" class="color-block"></div>        
             </div><!--end bottomhalftoprow div -->
-            <div id="bottomhalfbottomrow" class="bottom-full-row" style="height: 65%;">
+            <div id="bottomhalfbottomrow" class="bottom-full-row" style="height: 65%; margin-top: 20px;">
                 <div id="goalContainer" class="goal-container">
                     <canvas id="canvas1" class="canvas-1"></canvas>
                     <canvas id="canvas2" class="canvas-1"></canvas>
@@ -93,10 +93,14 @@
         </div><!-- end bottomhalf div -->
 
         <div id="buttonsDiv" class="buttons-div">
-            <div id="yesButton" class="yesno-button yes-button flex-center" onclick="showUnderneathDiv(0);" ontouchstart="setButtonColorOnTouch('yesButton')" ontouchend="removeButtonColorOnTouchEnd('yesButton')" disabled="disabled">Yes</div>
-            <div id="noButton" class="yesno-button no-button flex-center" onclick="showUnderneathDiv(1);" ontouchstart="setButtonColorOnTouch('noButton')" ontouchend="removeButtonColorOnTouchEnd('noButton')" disabled="disabled">No</div>
+            <div id="yesButton" class="yesno-button yes-button flex-center" onclick="checkGuess(1);" ontouchstart="setButtonColorOnTouch('yesButton')" ontouchend="removeButtonColorOnTouchEnd('yesButton')" disabled="disabled">Yes</div>
+            <div id="noButton" class="yesno-button no-button flex-center" onclick="checkGuess(0);" ontouchstart="setButtonColorOnTouch('noButton')" ontouchend="removeButtonColorOnTouchEnd('noButton')" disabled="disabled">No</div>
         </div><!--end buttons-div div -->
     </div><!--end gameContent div -->
+    
+
+    <div id="displayPointsDiv" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 1000; display: none;"><div style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; background-color: dimgray; opacity: 0.85;"></div><div id="displayPointsContent" style="position: absolute; width: 100%; top: 50%;"></div></div>
+
     <input type="hidden" id="gameVersion" name="gameVersion" value="1.0">
 </body>
 
@@ -122,7 +126,7 @@
 <div id="definitionDiv" class="modal-div">
     <div id="definitionHeader" class="definition-header">DEFINITION OF HIDDEN WORD</div>
     <div id="definition" class="definition-body"></div>
-    <div id="definitionCloseDiv" class="definition-close-div"><button class="definition-button" onclick="closeMenu(document.getElementById('definitionDiv'));setupTimer();">Got It</button></div>
+    <div id="definitionCloseDiv" class="definition-close-div"><button class="definition-button" onclick="closeMenu(document.getElementById('definitionDiv'));timerPaused = false; setupTimer();">Got It</button></div>
 </div><!-- end gameMessageDiv -->
 
 
@@ -481,7 +485,7 @@
 
 
 <div id="itmatchessvg" style="display:none">
-<svg style="display: block;" version="1.1" viewBox="0 0 128 28" xmlns="http://www.w3.org/2000/svg">
+<svg style="display: block; width: 75%; margin: auto;" version="1.1" viewBox="0 0 128 28" xmlns="http://www.w3.org/2000/svg">
 <g transform="translate(-10.662 -270.46)">
 <g transform="matrix(.92527 0 0 1.0808 .52917 0)" fill="none" stroke="#f0f0f0" stroke-width="3.7042" aria-label="It Matches!">
 <path d="m15.877 271.98q0 0.11635-0.05818 0.20361-0.05817 0.0873-0.20361 0.14544-0.14544 0.0436-0.39268 0.0727-0.2327 0.0436-0.59629 0.0436-0.34905 0-0.59629-0.0436-0.24724-0.0291-0.39268-0.0727-0.14544-0.0582-0.20361-0.14544-0.05817-0.0873-0.05817-0.20361v-18.063q0-0.11635 0.05817-0.20361 0.07272-0.0873 0.21816-0.13089 0.15998-0.0582 0.39268-0.0873 0.24724-0.0436 0.58175-0.0436 0.36359 0 0.59629 0.0436 0.24724 0.0291 0.39268 0.0873 0.14544 0.0436 0.20361 0.13089 0.05818 0.0873 0.05818 0.20361z"/>

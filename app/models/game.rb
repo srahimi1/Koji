@@ -3,7 +3,7 @@ class Game < ApplicationRecord
 
 	def start_new_demo_game
 		output = {}
-		output["colors"] = [{"goalColor" => "#634478"},{"goalColor" => "#74553A"},{"goalColor" => "#A1AA64"},{"goalColor" => "#329844"},{"goalColor" => "#443298"},{"goalColor" => "#984432"}]
+		output["colors"] = [{"pair" => [[177,100,60],[60,130,100]]},{"pair" => [[100,177,60],[100,124,100]]},{"pair" => [[177,100,177],[20,100,20]]},{"pair" => [[100,190,220],[100,100,20]]}]
 		letters_top = [[["W","i","N","d"], "The force that is generated when air moves in an outdoor environment."],[["s","i","G","n"], "An indication of events that will occur in the future."], [["s","T","r","e","A","m"], "A narrow flow of water."]]
 		letters = letters_top[rand(letters_top.length)]
 		#output["letters"] = ["s","N","w","D","i"].shuffle
@@ -14,17 +14,13 @@ class Game < ApplicationRecord
 		return output
 	end
 
-	def start_new_game
-		@game_levels = { a1: {num_colors:3, shades_per_color:3, time_per_letter_segment: 240, min_letters_per_word: 3, max_letters_per_word: 9}, a2:{num_colors:5, shades_per_color:3, time_per_letter_segment: 210, min_letters_per_word: 5, max_letters_per_word: 10}}
-		@level = @game_levels[:a1]		
+	def start_new_game		
 		output = {}
 		responses = []
-		8.times do	
+		16.times do	
 			response = {}
-			goal_color = get_random_colors(1, 1, nil)
-			goal_color_rgb = goal_color[0]
-			goal_color_hex = goal_color[1] 
-			response["goalColor"] = goal_color_hex[0]
+			color_pair = get_color_pair
+			response["pair"] = color_pair
 			responses.push(response)
 		end
 		output["colors"] = responses
@@ -36,6 +32,21 @@ class Game < ApplicationRecord
 		output["points"] = 0
 		return output
 	end
+
+	def get_color_pair
+		shuffled_indexes = [1,2,3].shuffle
+		color1 = [0,0,0]
+		color2 = [0,0,0]
+		color1[shuffled_indexes[0]] = rand(80) + 175
+		color1[shuffled_indexes[1]] = rand(125) + 130
+		color1[shuffled_indexes[2]] = rand(255)
+		color2[0] = rand(125)
+		color2[1] = rand(125)
+		color2[2] = rand(125)
+		return [color1,color2]
+	end
+
+
 
 	def get_letters
 		word = get_word_from_dictionary

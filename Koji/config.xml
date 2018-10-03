@@ -23,9 +23,9 @@
         <allow-intent href="itms:*" />
         <allow-intent href="itms-apps:*" />
     </platform>
-    <engine name="android" spec="^7.0.0" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="cc.fovea.cordova.purchase" spec="^7.1.3">
         <variable name="BILLING_KEY" value="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA4uj+X1EOCZcvAngPrBy9pswq+x/64eiHyvzcfF5p+cBRaHuMM/OfxGjEJiD8UPuSRjPEV8VPhzvKoG0B948lElUkKxFP56S0srpE2a7Ci9XjpQRnf/pTpVLGrTxU5SrFGO/C6q3j4JlvFd7GZoecdSm/CPR67P33x1TXOtclar6Z5OFTEdQETqMGE/jGfnFsSZajr7XwAt6rPvfZjDHXsI4t4I1LXEPL2YiTtRE2k94Hp0+AV9Q6CfiWvkIvaWKTEO8MyT8oYy9fcl/6vZIfTTBC68NZElplKBeWDGqV4Wn/kFYHuhVk2kPQpNwvlTTvwjlRKqu7PIwfxLmTiJhibwIDAQAB" />
     </plugin>
+    <engine name="android" spec="^7.0.0" />
 </widget>
