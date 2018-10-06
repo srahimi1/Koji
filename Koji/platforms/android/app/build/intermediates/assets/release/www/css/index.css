@@ -129,9 +129,89 @@ input.signup-form-submit-button {
 
 /* game sections */
 
+.major-half {
+    position: relative;
+    text-align: center;
+    height: 30%;
+    width: 100%;
+    margin: 0 auto 0 auto;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.top-half-half-block {
+     position: relative;
+     display: inline-block;
+     height: 100%;
+     width: 40%;
+     text-align: center;
+     overflow: hidden;
+     white-space: nowrap;
+}
+
+.row-within-half-block {
+     position: relative;
+     height: 40%;
+     width: 100%;
+     margin: auto;
+     text-align: center;
+     white-space: nowrap;
+}
+
+.color-block {
+    position: relative;
+    display: inline-block;
+    height: 66%;
+    width: 33%;
+    background-color: blue;
+    -moz-transition: transform 1s;
+    -ms-transition: transform 1s;
+    -webkit-transition: transform 1s;
+    -o-transition: transform 1s;
+    transition: transform 1s;
+    box-shadow: 2px 2px 4px dimgray;
+    border-radius: 7px;
+}
+
+
+.middle-within-half-block {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    width: 33%;
+    text-align: center;
+}
+
+
+.connecting-line-left-right {
+    position: relative;
+    height: 5px;
+    width: 200%;
+    background-color: black;
+    margin: 50% auto 0 -50%;
+    z-index: -1;
+}
+
+.connecting-line-up-down {
+    position: relative;
+    height: 75%;
+    width: 5px;
+    margin: 0 auto;
+    background-color: black;
+}
+
+
+.bottom-full-row {
+    position: relative;
+    width: 100%;
+    height: 50%;
+    margin: 0 auto;
+}
+
 .goal-container-pre {
     position: relative;
     width: 100%;
+    height: 100%;
     padding: 0;
     margin: 0 auto;
     background-color: white;
@@ -143,6 +223,7 @@ input.signup-form-submit-button {
 .goal-container-post {
     position: relative;
     width: 100%;
+    height: 100%;
     padding: 0;
     margin: 0 auto;
     background-color: white;
@@ -579,13 +660,10 @@ input.signup-form-submit-button {
 }
 
 .demo-instructions-words {
-    font-size: 1.1em;
+    width: 80%;
+    font-size: 1.5em;
     display: inline-block;
-    padding: 0.75em;
-    -moz-transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93); 
-    -webkit-transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93); 
-    -o-transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93); 
-    transition: all 0.4s cubic-bezier(.68,-0.55,.56,2.93);
+    padding: 0.50em;
 }
 
 .rainbow-cover {
