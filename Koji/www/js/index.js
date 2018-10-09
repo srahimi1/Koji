@@ -917,6 +917,7 @@ function popUpALetter(letter) {
     var width = letter.offsetWidth;
     var height = letter.offsetHeight;
     var moved = 0;
+    document.getElementById("shrinkgrow").play();
     borderIntervalID = setInterval(
         function() {
             if (values[1] == -1) {
@@ -959,7 +960,7 @@ function popUpALetter(letter) {
                     moved = 2;
                 } // if (((100 - values[0]) < 10) && (moved == 0)) 
             }
-        },17);
+        },22);
     return true;
 } // function popUpALetter(letter)
 
@@ -1333,8 +1334,7 @@ function showDemoInstructions() {
     setTimeout(function() {document.getElementById("demoInstructions12").style.opacity = 1;}, 89000);
     setTimeout(function() {closeMenu(document.getElementById("demoAnimatedInstructionsDiv4"));}, 94000);
     
-    setTimeout(function() {showMenu(document.getElementById("demoAnimatedInstructionsDiv5")); document.getElementById("demoInstructions0E").style.height = ht1 + "px";}, 95000);
-    setTimeout(function() {document.getElementById("demoInstructions0E").style.opacity = 1;}, 95000);
+    setTimeout(function() {showMenu(document.getElementById("demoAnimatedInstructionsDiv5"));}, 95000);
     setTimeout(function() {document.getElementById("demoInstructions13").style.opacity = 1;}, 95000);
 }
 
@@ -1541,13 +1541,13 @@ function animatePoints(add, code) {
     if (code == 1) {
         if (numberCorrect == correctLimit) 
             clearTimeout(getNextColorsTimeoutID);
-        time = 22;
+        time = 37;
     }
     else if (code == 0) 
         time=500;
     if (code == 1) el2 = document.getElementById("plus5svg2");
     var ht = el2.getBoundingClientRect().height;
-    document.getElementById("expandcontract").play();
+    document.getElementById("growshrink").play();
     pointsIntervalID = setInterval(
         function() {
             if (values[1] == -1) {

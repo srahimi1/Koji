@@ -562,7 +562,7 @@ input.signup-form-submit-button {
     min-width: 320px;
     height: 2.5em;
     min-height: 52px;
-    background-color: #663399 /*3ecf8e*/;
+    background-color: black;
 }
 
 .letter-choices-container {
@@ -661,7 +661,7 @@ input.signup-form-submit-button {
 
 .demo-instructions-words {
     width: 80%;
-    font-size: 1.5em;
+    font-size: 1em;
     display: inline-block;
     padding: 0.50em;
 }
@@ -718,7 +718,7 @@ input.signup-form-submit-button {
     margin: 0.2em 0;
     font-size: 2em;
     text-align: center;
-    color: #7a00cc;
+    color: black;
 }
 
 
@@ -792,7 +792,7 @@ input.signup-form-submit-button {
     font-size: 1em;
     font-weight: bold;
     padding: 1em 0 1em 0;
-    background-color: #663399;
+    background-color: black;
     color: white;
     text-align: center;
 }
@@ -825,7 +825,7 @@ input.signup-form-submit-button {
     margin: auto;
     width: 85%;
     border-radius: 5px;
-    background-color: #663399;
+    background-color: black;
     color: white;
 }
 
@@ -947,6 +947,7 @@ input.signup-form-submit-button {
 
 .instruction-paragraph {
     color: gray;
+    font-size: 0.8em;
 }
 
 .signup-form-div {

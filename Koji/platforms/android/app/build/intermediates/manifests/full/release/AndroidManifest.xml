@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="koji.koji.koji"
     android:hardwareAccelerated="true"
-    android:versionCode="11101"
-    android:versionName="1.0.101" >
+    android:versionCode="20000"
+    android:versionName="2.0.0" >
 
     <uses-sdk
         android:minSdkVersion="16"
