@@ -1,3 +1,3 @@
-# App1 - color matching game
+# Koji - color matching game
 
-Project description file : ProjectNotes.pdf
+A color matching game developed as a hybrid app using JavaScript and Cordova.
